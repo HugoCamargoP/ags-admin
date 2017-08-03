@@ -131,17 +131,19 @@ html {
 				<div class="graphs">
 					<div class="sign-in-form">
 						<div class="centerText">
-                            <img class="img-loginlogo" style="" src="${ContextPath}/r/img/logo_yeti.png" alt="" />
+                            <img class="img-loginlogo" style="" src="${ContextPath}/r/img/logos/lnegro.png" alt="" />
                             <!-- p><span>100 -</span> Store <span>Management</span> Suite</p -->
-							<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION.message }">
-								<div class="alert alert-danger textcenter">
-									${SPRING_SECURITY_LAST_EXCEPTION.message}
-								</div>
-							</c:if>
 						</div>
+						<div class="clearfix"></div>
+						<br />
 						<div class="signin">
 							<form action="" method="post" name="formlogin" id="formlogin" ng-model="formlogin">
 								<center>
+									<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION.message }">
+										<div class="alert alert-danger textcenter">
+											${SPRING_SECURITY_LAST_EXCEPTION.message}
+										</div>
+									</c:if>
 									<%--
 									<c:if test="${not empty requestScope.error }">
 										<div class="alert alert-danger textcenter">

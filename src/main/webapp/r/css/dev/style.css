@@ -4749,8 +4749,8 @@ span.badge1 {
 /*-- //typo --*/
 /*-- sign-in --*/
 .sign-in-up{
-	/*background:#f9f9f9 !important;*/
-	min-height: 830px;
+	/*background:#f9f9f9 !important;
+	min-height: 830px;*/
 }
 .sign-in-form{
 	margin:2em auto 4em;
