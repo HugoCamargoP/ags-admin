@@ -28,8 +28,7 @@
                             <!-- p><span>100 -</span> Store <span>Management</span> Suite</p -->
 						</div>
 						<div class="signin">
-							<form action="" method="post" name="formlogin" id="formlogin" ng-model="formlogin"
-							onsubmit="return false;" ng-submit="logginRest();">
+							<form action="" method="post" name="formlogin" id="formlogin" ng-model="formlogin">
 								<center>
 									<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION.message }">
 										<div class="alert alert-danger textcenter">
@@ -57,6 +56,9 @@
 										</div>
 										<div class="clearfix"> </div>
 									</div>
+									
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+									
 									<!-- <input type="submit" value="Ingresar"> -->
 		                            <button type="submit">Ingresar</button>
 		                    	</center>
