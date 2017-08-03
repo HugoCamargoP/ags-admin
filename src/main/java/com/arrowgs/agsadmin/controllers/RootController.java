@@ -10,10 +10,9 @@ import com.arrowgs.agsadmin.controllers.cons.Constants.Views;
 @RequestMapping(Views.Root)
 public class RootController {
 
-	@RequestMapping(path={//Mappings.Login,
+	@RequestMapping(path={Mappings.Logout,
 	                      Mappings.adminLogin,
 	                      Mappings.adminHome,
-	                      Mappings.adminLogin,
 	                      Mappings.adminMain,
 	                      Mappings.adminCreateU,
 	                      Mappings.adminUsers,
