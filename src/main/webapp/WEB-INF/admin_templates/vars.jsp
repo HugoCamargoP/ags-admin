@@ -12,7 +12,7 @@
 <c:url var="linkAdminHome" value="/home" scope="application"/>
 <c:url var="linkAdminUser" value="/users" scope="application"/>
 <c:url var="linkAdminLogin" value="/login" scope="application"/>
-<c:url var="linkAdminLogout" value="/user/logout" scope="application"/>
+<c:url var="linkAdminLogout" value="/logout" scope="application"/>
 
 <%-- Admin --%>
 <c:url var="linkAdminCreateU" value="/createU" scope="application"/>
