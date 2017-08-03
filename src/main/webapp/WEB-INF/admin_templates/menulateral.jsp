@@ -35,7 +35,14 @@
 									<li><a href="${ linkEmpty }">Historial</a> </li>
 								</ul>
 							</li>   
-							<li><a href="${linkAdminLogout}"><i class="fa fa-power-off"></i> <span>Salir</span></a></li>
+							<li>
+								<a href="">
+									<form action="${linkLogout}" method="POST" onclick="$(this).closest('form').submit()">
+										<i class="fa fa-power-off"></i><span>Salir</span>
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+									</form>
+								</a>
+							</li>
 						</ul>
 					<!--sidebar nav end-->
 				</div>
