@@ -28,7 +28,7 @@
                             <!-- p><span>100 -</span> Store <span>Management</span> Suite</p -->
 						</div>
 						<div class="signin">
-							<form action="#" name="formlogin" id="formlogin" ng-model="formlogin"
+							<form action="" method="post" name="formlogin" id="formlogin" ng-model="formlogin"
 							onsubmit="return false;" ng-submit="logginRest();">
 								<center>
 									<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION.message }">
@@ -69,4 +69,4 @@
 </div>
 
 
-<script type="text/javascript" src="${ContextPath}/r/admin/js${DeployContext}/user_admin.js" charset="utf-8"></script>
+<script type="text/javascript" src="${ContextPath}/r/js${DeployContext}/user_admin.js" charset="utf-8"></script>
