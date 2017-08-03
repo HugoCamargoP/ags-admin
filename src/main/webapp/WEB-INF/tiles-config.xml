@@ -32,7 +32,7 @@
 	</definition>	
 	
 	<!-- Page home -->
-	<definition name="home" extends="admin_mainTemplate2">
+	<definition name="home" extends="admin_mainTemplate">
 		<put-attribute name="content"  value="/WEB-INF/admin_content/home.jsp" />
 		<!-- put-attribute name="content"  value="/WEB-INF/admin_content/createC.jsp" / -->
 	</definition>
@@ -75,8 +75,6 @@
 	<definition name="modifyU" extends="admin_mainTemplate">
 		<put-attribute name="content"  value="/WEB-INF/admin_content/modifyUser.jsp" />
 	</definition>
-	
-	
 	
 	<!-- Page  base -->
 	<definition name="base" extends="admin_mainTemplate">

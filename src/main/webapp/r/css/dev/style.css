@@ -95,7 +95,7 @@ html, body{
   	font-family: 'Cabin', sans-serif;
     font-size: 100%;
   	overflow-x: hidden;
-	background: #f9f9f9;
+	/*background: #f9f9f9;*/
 }
 body a{
 	transition:0.5s all;
@@ -4749,7 +4749,7 @@ span.badge1 {
 /*-- //typo --*/
 /*-- sign-in --*/
 .sign-in-up{
-	background:#f9f9f9 !important;
+	/*background:#f9f9f9 !important;*/
 	min-height: 830px;
 }
 .sign-in-form{
@@ -4757,7 +4757,7 @@ span.badge1 {
 	width:35%;
 }
 .sign-in-wrapper{
-	background:#f9f9f9;
+	/*background:#f9f9f9;*/
 }
 .new_people{
 	padding:3em 0 0;
