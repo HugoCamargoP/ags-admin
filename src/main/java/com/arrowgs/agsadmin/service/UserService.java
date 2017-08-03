@@ -25,6 +25,7 @@ public interface UserService {
 	User getUserByEmail(String email);	
 	String getEncodedPassByEmail(String email);
 	void updateUser(User user);
+	void updateUserRol(User user);
 	
 	
 	
