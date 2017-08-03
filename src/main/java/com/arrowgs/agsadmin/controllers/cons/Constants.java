@@ -16,5 +16,6 @@ public interface Constants {
 		
 		//User
 		static final String UsersFilter		  = ServiceContext + "/users/filter";
+		static final String User		  	  = ServiceContext + "/user";
 	}
 }
