@@ -11,70 +11,76 @@
 		*		extends your own tiles from this template and override any attribute you want.			 *
 		**************************************************************************************************
 	-->
-	<definition name="mainTemplate" template="/WEB-INF/templates/mainTemplate.jsp">
-		<put-attribute name="menulateral"   value="/WEB-INF/templates/menulateral.jsp" />
-		<put-attribute name="content"  value="/WEB-INF/content/blank.jsp" />
-		<put-attribute name="header"   value="/WEB-INF/templates/header.jsp" />
-		<put-attribute name="footer"   value="/WEB-INF/templates/footer.jsp" />
-		<put-attribute name="js"   value="/WEB-INF/templates/includefooter.jsp" />
+	<definition name="admin_mainTemplate" template="/WEB-INF/admin_templates/mainTemplate.jsp">
+		<put-attribute name="menulateral"   value="/WEB-INF/admin_templates/menulateral.jsp" />
+		<put-attribute name="content"  value="/WEB-INF/admin_content/blank.jsp" />
+		<put-attribute name="header"   value="/WEB-INF/admin_templates/header.jsp" />
+		<put-attribute name="footer"   value="/WEB-INF/admin_templates/footer.jsp" />
+		<put-attribute name="js"   value="/WEB-INF/admin_templates/includefooter.jsp" />
 	</definition>
-	<definition name="mainTemplate2" template="/WEB-INF/templates/mainTemplate2.jsp">
-		<put-attribute name="content"  value="/WEB-INF/content/blank.jsp" />
-		<put-attribute name="header"   value="/WEB-INF/content/blank.jsp" />
-		<put-attribute name="footer"   value="/WEB-INF/content/blank.jsp" />
-		<put-attribute name="menulateral"   value="/WEB-INF/content/blank.jsp" />
+	<definition name="admin_mainTemplate2" template="/WEB-INF/admin_templates/mainTemplate2.jsp">
+		<put-attribute name="content"  value="/WEB-INF/admin_content/blank.jsp" />
+		<put-attribute name="header"   value="/WEB-INF/admin_content/blank.jsp" />
+		<put-attribute name="footer"   value="/WEB-INF/admin_content/blank.jsp" />
+		<put-attribute name="menulateral"   value="/WEB-INF/admin_content/blank.jsp" />
 	</definition>
-		
+	
 	<!-- Page home -->
-	<definition name="home" extends="mainTemplate2">
-		<put-attribute name="content"  value="/WEB-INF/content/home.jsp" />
-		<!-- put-attribute name="content"  value="/WEB-INF/content/createC.jsp" / -->
+	<definition name="users" extends="admin_mainTemplate2">
+		<put-attribute name="content"  value="/WEB-INF/admin_content/home.jsp" />
+		<!-- put-attribute name="content"  value="/WEB-INF/admin_content/createC.jsp" / -->
+	</definition>	
+	
+	<!-- Page home -->
+	<definition name="home" extends="admin_mainTemplate2">
+		<put-attribute name="content"  value="/WEB-INF/admin_content/home.jsp" />
+		<!-- put-attribute name="content"  value="/WEB-INF/admin_content/createC.jsp" / -->
 	</definition>
 	
 	<!-- Page login -->
-	<definition name="login" extends="mainTemplate2">
-		<put-attribute name="content"  value="/WEB-INF/content/login.jsp" />
+	<definition name="login" extends="admin_mainTemplate2">
+		<put-attribute name="content"  value="/WEB-INF/admin_content/login.jsp" />
 	</definition>
 	
 	<!-- Page logout -->
-	<definition name="logout" extends="mainTemplate2">
-		<put-attribute name="content"  value="/WEB-INF/content/logout.jsp" />
+	<definition name="logout" extends="admin_mainTemplate2">
+		<put-attribute name="content"  value="/WEB-INF/admin_content/logout.jsp" />
 	</definition>
 	
 	<!-- Page Main logueado -->
-	<definition name="main" extends="mainTemplate">
-		<!--put-attribute name="content"  value="/WEB-INF/content/main.jsp" /-->
-		<put-attribute name="content"  value="/WEB-INF/content/createC.jsp" />
+	<definition name="main" extends="admin_mainTemplate">
+		<!--put-attribute name="content"  value="/WEB-INF/admin_content/main.jsp" /-->
+		<put-attribute name="content"  value="/WEB-INF/admin_content/createC.jsp" />
 	</definition>
 	
 	<!-- Colonos -->
 	<!-- Page Crea colonos -->
-	<definition name="createC" extends="mainTemplate">
-		<put-attribute name="content"  value="/WEB-INF/content/createC.jsp" />
+	<definition name="createC" extends="admin_mainTemplate">
+		<put-attribute name="content"  value=i"/WEB-INF/admin_content/createC.jsp" />
 	</definition>
 	
 	<!-- Page  Modifica colonos -->
-	<definition name="modifyC" extends="mainTemplate">
-		<put-attribute name="content"  value="/WEB-INF/content/modifyC.jsp" />
+	<definition name="modifyC" extends="admin_mainTemplate">
+		<put-attribute name="content"  value="/WEB-INF/admin_content/modifyC.jsp" />
 	</definition>
 	
 	
 	<!-- Usuarios -->
 	<!-- Page  Usuario admin crea -->
-	<definition name="createU" extends="mainTemplate">
-		<put-attribute name="content"  value="/WEB-INF/content/createUser.jsp" />
+	<definition name="createU" extends="admin_mainTemplate">
+		<put-attribute name="content"  value="/WEB-INF/admin_content/createUser.jsp" />
 	</definition>
 	
 	<!-- Page Usuario admin modifica -->
-	<definition name="modifyU" extends="mainTemplate">
-		<put-attribute name="content"  value="/WEB-INF/content/modifyUser.jsp" />
+	<definition name="modifyU" extends="admin_mainTemplate">
+		<put-attribute name="content"  value="/WEB-INF/admin_content/modifyUser.jsp" />
 	</definition>
 	
 	
 	
 	<!-- Page  base -->
-	<definition name="base" extends="mainTemplate">
-		<put-attribute name="content"  value="/WEB-INF/content/base.jsp" />
+	<definition name="base" extends="admin_mainTemplate">
+		<put-attribute name="content"  value="/WEB-INF/admin_content/base.jsp" />
 	</definition>
 	
 </tiles-definitions>
