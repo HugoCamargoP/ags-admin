@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans 
+    xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.arrowgs"/>
+
+    <mvc:annotation-driven />
+    
+    <mvc:resources location="/r/" mapping="/r/**">
+        <mvc:resource-chain resource-cache="true" />
+	</mvc:resources>
+        
+    <!--  Tiles Setup -->
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer" >
+		<property name="definitions" value="/WEB-INF/tiles-config.xml" />
+	</bean>
+
+	<!-- Set the View Resolver to Tiles		 -->  
+
+	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver" >
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	</bean> 
+
+	<!-- Resources -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource" >
+		<property name="basename" value="classpath:messages" />
+	</bean>
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+				<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+					<property name="paramName" value="language" />
+				</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="cookieName" value="lang" />
+	</bean>
+
+</beans>

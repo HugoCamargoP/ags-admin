@@ -1,0 +1,16 @@
+# automatic end-of-line normalization
+* text=auto
+
+# source files
+*.css    text
+*.java   text diff=java
+*.js     text
+*.jsp    text
+
+# compiled object files
+*.class binary
+*.jar   binary
+*.war   binary
+
+# misc
+*.zip binary

@@ -1,0 +1,12 @@
+# ignore these files
+/.classpath
+/.project
+/.springBeans
+# ignore these directories (and its contents)
+/.settings/
+/.settings/*
+/target/classes/*
+/target/m2e-wtp/*
+/target/test-classes/*
+/target/
+/target/*
