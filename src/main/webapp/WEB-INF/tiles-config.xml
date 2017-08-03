@@ -56,7 +56,7 @@
 	<!-- Colonos -->
 	<!-- Page Crea colonos -->
 	<definition name="createC" extends="admin_mainTemplate">
-		<put-attribute name="content"  value=i"/WEB-INF/admin_content/createC.jsp" />
+		<put-attribute name="content"  value="/WEB-INF/admin_content/createC.jsp" />
 	</definition>
 	
 	<!-- Page  Modifica colonos -->

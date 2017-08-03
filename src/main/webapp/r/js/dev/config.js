@@ -1,3 +1,3 @@
 // app and version name
-var appname = "ward";
+var appname = "yeti";
 var version = "1.0.0";
