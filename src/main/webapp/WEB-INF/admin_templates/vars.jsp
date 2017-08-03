@@ -9,14 +9,14 @@
 
 <%-- Global Links --%>
 <c:url var="linkCopyright" value="http://www.arrow-gs.com/" scope="application"/>
-<c:url var="linkAdminHome" value="/admin/home" scope="application"/>
-<c:url var="linkAdminUser" value="/admin/users" scope="application"/>
-<c:url var="linkAdminLogin" value="/admin/login" scope="application"/>
+<c:url var="linkAdminHome" value="/home" scope="application"/>
+<c:url var="linkAdminUser" value="/users" scope="application"/>
+<c:url var="linkAdminLogin" value="/login" scope="application"/>
 <c:url var="linkAdminLogout" value="/user/logout" scope="application"/>
 
 <%-- Admin --%>
-<c:url var="linkAdminCreateU" value="/admin/createU" scope="application"/>
-<c:url var="linkAdminModifyU" value="/admin/modifyU" scope="application"/>
+<c:url var="linkAdminCreateU" value="/createU" scope="application"/>
+<c:url var="linkAdminModifyU" value="/modifyU" scope="application"/>
 
 
 <c:url var="linkAdmin" value="/" scope="application"/>
