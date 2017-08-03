@@ -8,7 +8,6 @@
 <html>
     <head>
     	<tiles:insertTemplate template="/WEB-INF/admin_templates/vars.jsp" />
-    	<tiles:insertTemplate template="/WEB-INF/templates/vars.jsp" />
     	
         <title><s:message code="app.title" /></title>
 
