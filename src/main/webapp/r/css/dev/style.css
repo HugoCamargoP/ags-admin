@@ -4811,7 +4811,7 @@ span.badge1 {
 .signin {
     padding: 2em;
 	position:relative;
-	background: #fff;
+	/*background: #fff;*/
 }
 .signin:after {
     content: '';

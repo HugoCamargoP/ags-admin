@@ -19,7 +19,7 @@
         <tiles:insertTemplate template="/WEB-INF/admin_templates/includefooter.jsp" />
 	</head>
 	<body ng-app="${ appname }App" class="">
-		<div style="float:rigth; position:absoute;" id="mensajes">
+		<div style="" class="mensajes" id="mensajes">
 			<%--div class="alert alert2 alert-success text-center">
 				hola
 			</div --%>

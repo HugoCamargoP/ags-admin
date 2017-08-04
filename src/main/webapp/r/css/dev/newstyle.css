@@ -1,33 +1,68 @@
-/* Example sass stylesheet */
-body {
-  padding-left: 11em;
-  font-family: Georgia, "Times New Roman", Times, serif;
-  color: purple;
-  background-color: #CDF;
+/* Style general */
+.btnboot {
+  border-radius: 1px;
 }
 
-ul.navbar {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+.btn-black {
+  color: white;
+  background-color: black;
+  border-color: black;
+}
+
+.center {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.center* {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.white-opacity {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.displayCenter {
   position: absolute;
-  top: 2em;
-  left: 1em;
-  width: 9em;
-}
-ul.navbar li {
-  background: white;
-  margin: 0.5em 0;
-  padding: 0.3em;
-  border-right: 1em solid black;
-}
-ul.navbar a {
-  text-decoration: none;
-}
-ul.navbar a:hover {
-  text-decoration: underline;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
-h1 {
-  font-family: Helvetica, Geneva, Arial, SunSans-Regular, sans-serif;
+.img-loginlogo {
+  margin-top: 15%;
 }
+
+.formulario {
+  margin: 1em;
+  margin: 10% 0;
+}
+
+.input-group {
+  margin-bottom: 1em;
+}
+
+.marginem {
+  margin: 1em 0;
+}
+
+/*+++mensajes+++*/
+.mensajes {
+  margin-top: 50px;
+  right: 10px;
+  position: fixed;
+  z-index: 10000;
+}
+
+.alert2 {
+  margin-top: 20px;
+  opacity: 0;
+  max-width: 300px;
+}
+
+.alert {
+  opacity: 1;
+}
+
+/*+++*/

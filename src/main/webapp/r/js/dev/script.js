@@ -3,7 +3,7 @@ var mensajesglobal = 0;
 function msjerror(error)
 	{
 	  	mensajesglobal++;
-	  	$("#mensajes").append('<div id="mensaje'+mensajesglobal+'" class="alert alert2 alert-danger text-center">'+error+'</div>');
+	  	$("#mensajes").append('<div id="mensaje'+mensajesglobal+'" class="alert alert2 alert-danger text-center"><b>'+error+'</b></div>');
 	  	setTimeout(function() {
 	  	       eliminaThis();
 	  	    },2000);
@@ -40,6 +40,7 @@ function addremoveclass(clase,target)
 		{
 			$("."+target).addClass(clase)
 		}
+		console.log($("."+target));
 	}
 /**/
 

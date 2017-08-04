@@ -1,3 +1,5 @@
+<link type="text/css" rel="stylesheet" href="${ContextPath}/r/css${DeployContext}/style.css"/>
+
 <div class="" style="">
 	<!-- header-starts -->
 		<div class="header-section">
@@ -199,10 +201,10 @@
 	<!-- //header-ends -->
 </div>
 
-<center>
-	<div style="float:rigth; position:absoute;" id="mensajes">
-		<%--div class="alert alert2 alert-success text-center">
+<%--center>
+	<div style="" class="mensajes" id="mensajes">
+		<div class="alert alert2 alert-success text-center">
 			hola
-		</div --%>
+		</div>
 	</div>
-</center>
+</center--%>
