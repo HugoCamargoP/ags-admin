@@ -291,5 +291,16 @@ public class ProductServiceImplementation implements ProductService {
 		
 	}
 
+	@Override
+	public void updateSizeDescription(SizeDescription sizeDescription) {
+		try{
+			productDao.updateSizeDescription(sizeDescription);
+		}catch(Exception e){
+			logger.error("ProductService : updateSizeDescription : "+ e.toString());
+			throw e;
+		}
+		
+	}
+
 
 }

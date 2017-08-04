@@ -263,4 +263,16 @@ public class ProductApi {
 		return ControllerHelper.mapResponse(status, null);
 	}
 	
+	@RequestMapping(path = ApiMappings.ProductSizesDescription, method = RequestMethod.PUT)
+	public Map<String,? extends Object> updateSizeDescription(@RequestBody SizeDescription sizeDescription){
+		ResponseStatus status;
+		try{
+			productService.updateSizeDescription(sizeDescription);
+			status = ResponseStatus.OK;
+		}catch(Exception e){
+			status = ResponseStatus.ExternalError;
+		}
+		return ControllerHelper.mapResponse(status, null);
+	}
+	
 }

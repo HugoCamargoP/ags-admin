@@ -42,5 +42,6 @@ public interface ProductService {
 	
 	//Size Description
 	void createSizeDescription(SizeDescription sizeDescription);
+	void updateSizeDescription(SizeDescription sizeDescription);
 	public List<SizeDescription> getSizeDescription();
 }

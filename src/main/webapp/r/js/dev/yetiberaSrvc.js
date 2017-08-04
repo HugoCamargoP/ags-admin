@@ -139,13 +139,39 @@ function YetiberaService(http, url)
 		})
 	}
 	
-	//Trae una lista con las dos tallas recomendadas (dos objetos SizeDescription), siendo la de la posición 0 la recomendada
-	 //Y la de la 1 la talla que le quedaría ajustada. Si la posición 0 contiene la información de la talla no habrá segunda talla recomendada
-	  //Es posible que la lista llegue vacía
-	//Parametros necesitados: FitBaseEntity (mandar el objeto tal cual llegue del webservice "fitbase")
-	this.recomendedSize = function(fitbase){
-		return http.post(url+'/product/recomended_size',fitbase)
+
+	//Regresa una lista con las tallas y su id (e.g., id:1 name:S)
+		//Parámetros necesitados: Ninguno
+	this.getProductSizes = function(){
+		return http({
+			'method':'GET',
+			'url':url + '/product_sizes'
+		})
 	}
+	
+	//Regresa una lista de objetos SizeDescription, los cuales contienen las diferentes medidas que corresponden a una talla
+		//Parámetros necesitados: Ninguno
+	this.getProductSizes = function(){
+		return http({
+			'method':'GET',
+			'url':url + '/product_sizes/description'
+		})
+	}
+	
+	//Crea una medida_descripcion nueva en la base de datos, junto con una talla nueva (no se puede crear una sin depender de una talla)
+		//Parámetros necesitados: Objeto SizeDescription junto con el extraData (Que será el nombre de la talla)
+	this.createSizeDescription = function(sizeDescription){
+		return http.post(url+'/product_sizes/description',sizeDescription)
+	}
+	
+	
+	//Actualiza  una medida_descripción de la base de datos
+		//Parámetros necesitados: Objeto SizeDescription
+		//NOTA: No se podrá actualizar una medida_descripcion a una talla que ya posea una.
+	this.updateSizeDescription = function(sizeDescription){
+		return http.put(url+'/product_sizes/description',sizeDescription)
+	}
+	
 	
 }
 
