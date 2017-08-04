@@ -30,6 +30,14 @@ public interface Constants {
 		
 		//User
 		static final String UsersFilter		  = ServiceContext + "/users/filter";
-		static final String User		  	  = ServiceContext + "/user";
+		static final String UsersRol	  	  = ServiceContext + "/users/rol";
+		
+		//Products
+		static final String Product			  		= ServiceContext + "/product";
+		static final String ProductDetail	  		= ServiceContext + "/product_detail";	
+		static final String ProductByFilter	  		= ServiceContext + "/product_filter";
+		static final String ProductCountFilter		= ServiceContext + "/product_filter/count";
+		static final String ProductSizes	  		=	ServiceContext + "/product_sizes";
+		static final String ProductSizesDescription = ServiceContext + ProductSizes +"/description/";
 	}
 }

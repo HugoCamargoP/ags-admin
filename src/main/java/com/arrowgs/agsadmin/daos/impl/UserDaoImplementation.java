@@ -74,7 +74,7 @@ public class UserDaoImplementation implements UserDao{
 
 	@Override
 	public List<User> getUserByFilter(String email, Integer way) {
-		String sql = "SELECT * FROM usuarios WHERE email";
+		String sql = "SELECT u.email, u.rol, u.nombre, null, u.id FROM usuarios u WHERE email";
 		if(way.intValue()==1){
 			sql = sql + " = :email";
 		}else{
