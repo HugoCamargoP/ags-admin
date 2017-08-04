@@ -520,6 +520,35 @@ public class ProductDaoImplementation implements ProductDao {
 		}
 		
 	}
+
+	@Override
+	public void updateSizeDescription(SizeDescription sizeDescription) {
+		
+		String sql = "UPDATE medidas_descripcion SET pecho_alto = :pecho_alto, pecho_bajo = :pecho_bajo, abdomen = :abdomen, cadera = :cadera, hombros = :hombros, espalda = :espalda, hombro_solo = :hombro_solo, siza = :siza, manga = :manga, puno = :puno, cuello = :cuello, largo_frente = :largo_frente, largo_espalda = :largo_espalda, id_talla = :id_talla WHERE id_medidas_descripcion = :id_medidas";
+		
+		Map<String,Object> paramMap = new HashMap<>();
+		
+		paramMap.put("pecho_alto", sizeDescription.getPechoAlto());
+		paramMap.put("pecho_bajo", sizeDescription.getPechoBajo());
+		paramMap.put("abdomen", sizeDescription.getAbdomen());
+		paramMap.put("cadera", sizeDescription.getCadera());
+		paramMap.put("hombros", sizeDescription.getHombros());
+		paramMap.put("espalda", sizeDescription.getEspalda());
+		paramMap.put("hombro_solo", sizeDescription.getHombroSolo());
+		paramMap.put("siza", sizeDescription.getSiza());
+		paramMap.put("manga", sizeDescription.getManga());
+		paramMap.put("puno", sizeDescription.getPuno());
+		paramMap.put("cuello", sizeDescription.getCuello());
+		paramMap.put("largo_frente", sizeDescription.getLargoFrente());
+		paramMap.put("largo_espalda", sizeDescription.getLargoEspalda());
+		paramMap.put("id_talla", sizeDescription.getIdTalla());
+		paramMap.put("id_medidas", sizeDescription.getId());
+		
+		jdbcTemplate.update(sql, paramMap);
+		
+	}
+	
+	
 	
 
 }

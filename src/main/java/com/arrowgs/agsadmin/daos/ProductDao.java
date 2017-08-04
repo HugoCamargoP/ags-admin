@@ -51,5 +51,6 @@ public interface ProductDao {
 	//SizeDescription
 	List<SizeDescription> getSizeDescription();
 	void createSizeDescription(SizeDescription sizeDescription);
+	void updateSizeDescription(SizeDescription sizeDescription);
 	
 }
