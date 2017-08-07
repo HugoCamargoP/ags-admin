@@ -1,18 +1,18 @@
 /* Style general */
 
-$white-opacity : rgba(255,255,255,.5);
+$background-login-opacity : rgba(255,255,255,.5);
 $white : rgb(255,255,255);
 $black-opacity : rgba(0,0,0,.5);
 $black : rgb(0,0,0);
 $grey :  rgb(120,120,120);
-$greyhover : rgb(58,58,58);
+$opc-menu-hover : rgb(58,58,58);
 $btnhover : rgb(120, 120 ,120);
-$marginem : 1em;
+$margin1em : 1em;
 $radio : 1px;
-$greyhover : rgb(48,48,48);
+$opc-menu-hover : rgb(48,48,48);
 
 .left-side-collapsed .custom-nav li.nav-hover ul {
-    background: $greyhover;
+    background: $opc-menu-hover;
 }
 
 .left-side-collapsed .custom-nav li a span::after {
@@ -31,13 +31,13 @@ $greyhover : rgb(48,48,48);
 }
 
 .custom-nav > li > a:hover, .custom-nav > li > a:active, .custom-nav > li.nav-active > a {
-    background-color: $white-opacity;
+    background-color: $background-login-opacity;
     color: $white;
 }
 
 .custom-nav .sub-menu-list > li > a:hover, .custom-nav .sub-menu-list > li > a:active, .custom-nav .sub-menu-list > li > a:focus {
     color: $white;
-    background: $greyhover;
+    background: $opc-menu-hover;
 }
 
 .sticky-left-side {
@@ -82,7 +82,7 @@ $greyhover : rgb(48,48,48);
 
 .white-opacity
 	{
-		background-color:$white-opacity;
+		background-color:$background-login-opacity;
 	}
 	
 .displayCenter
@@ -100,18 +100,19 @@ $greyhover : rgb(48,48,48);
 
 .formulario
 	{
-		margin: $marginem;	
+		margin: $margin1em;	
 		margin:10% 0;	
 	}
 	
 .input-group
 	{
-		margin-bottom: $marginem;		
+		margin-bottom: $margin1em;
+		width:100%;		
 	}
 
 .marginem
 	{
-		margin:$marginem 0;		
+		margin:$margin1em 0;		
 	}
 	
 
