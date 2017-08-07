@@ -12,6 +12,7 @@
 <script type="text/javascript" src="${ContextPath}/r/js/jquery.flot.min.js"></script>
 <script type="text/javascript" src="${ContextPath}/r/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${ContextPath}/r/js/select2.min.js"></script>
+<%--<script type="text/javascript" src="${ContextPath}/r/js/jquery.dataTables.min.js"></script> --%>
 
 <script type="text/javascript" src="${ContextPath}/r/js${DeployContext}/app.js" charset="utf-8"></script>
 <script type="text/javascript" src="${ContextPath}/r/js${DeployContext}/Srvc.js" charset="utf-8"></script>

@@ -11,6 +11,16 @@ $margin1em : 1em;
 $radio : 1px;
 $opc-menu-hover : rgb(48,48,48);
 
+
+.ttitulo {
+    color:$white !important;
+    background-color: $btnhover !important;
+}
+
+.ttitulo *{
+    color:$white !important;
+}
+
 .left-side-collapsed .custom-nav li.nav-hover ul {
     background: $opc-menu-hover;
 }
@@ -35,7 +45,7 @@ $opc-menu-hover : rgb(48,48,48);
     color: $white;
 }
 
-.custom-nav .sub-menu-list > li > a:hover, .custom-nav .sub-menu-list > li > a:active, .custom-nav .sub-menu-list > li > a:focus {
+.custom-nav .sub-menu-list > li > a:hover, .custom-nav .sub-menu-list > li > a:active, .custom-nav .sub-menu-list > li > a:focus  {
     color: $white;
     background: $opc-menu-hover;
 }

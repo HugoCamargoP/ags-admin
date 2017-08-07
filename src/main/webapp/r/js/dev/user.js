@@ -9,15 +9,77 @@ function($scope, Service)
 	$scope.consulta = {};
 	$scope.email = '';
 	$scope.filter = '';
+	cheksboxes = [];
+	usuarios1 = [];
+	$scope.check = [];
 /*Declarcaion de variables**/
+	
+	$scope.statuscheck = function(a)
+	{
+		console.log($scope.check[a]);
+		if(cheksboxes.indexOf(a) == -1)
+		{
+			cheksboxes.push(a);
+		}
+	}
+	
+	$scope.cambiaSelected = function()
+	{
+		if(cheksboxes.length > 0)
+		{
+			for ( var c in cheksboxes) {
+				 $scope.usuarios[cheksboxes[c]].type = $scope.per; 
+				 usuarios1.push($scope.usuarios[cheksboxes[c]]);
+			}
+			Service.userUpdateRol(usuarios1).then(function successCallback(response){
+				if(response.data.data.length > 0 )
+				{
+					if(response.data.status == 'OK')
+					{
+						$scope.getUserByFilter();
+					}
+				}
+				else
+				{
+					msjerror(response.data.status);
+				}
+			},
+			function errorCallback(){
+				msjerror(response.data.status);
+			})
+		}
+	}
+	
 	
 	$scope.getUserByFilter = function ()
 	{
+		$scope.cheksboxes = {};
 		$scope.filter = document.getElementById('filter').value;
 		Service.getUserByFilter($scope.email,$scope.filter).then(function successCallback(response){
 			if(response.data.data.length > 0 )
 			{
 				$scope.usuarios = response.data.data;
+			}
+			else
+			{
+				msjerror(response.data.status);
+			}
+		},
+		function errorCallback(){
+			msjerror(response.data.status);
+		})
+	}
+	
+	$scope.userUpdateRol = function ()
+	{
+		Service.userUpdateRol($scope.usuarios).then(function successCallback(response){
+			if(response.data.data.length > 0 )
+			{
+				if(response.data.status == 'OK')
+				{
+					msjexito('Cambio realiazdo');
+					$scope.usuarios = response.data.data;
+				}
 			}
 			else
 			{

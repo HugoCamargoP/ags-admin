@@ -19,6 +19,11 @@
 		<tiles:insertAttribute name="js" />
 	</head>
 	<body ng-app="${ appname }App" class="left-side-collapsed">
+		<div style="" class="mensajes" id="mensajes">
+			<%--div class="alert alert2 alert-success text-center">
+				hola
+			</div --%>
+		</div>
 		<tiles:insertAttribute name="menulateral" />
 		<div class="main-content">
 			<tiles:insertAttribute name="header" />

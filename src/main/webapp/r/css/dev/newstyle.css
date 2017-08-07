@@ -1,4 +1,13 @@
 /* Style general */
+.ttitulo {
+  color: white !important;
+  background-color: #787878 !important;
+}
+
+.ttitulo * {
+  color: white !important;
+}
+
 .left-side-collapsed .custom-nav li.nav-hover ul {
   background: #303030;
 }
