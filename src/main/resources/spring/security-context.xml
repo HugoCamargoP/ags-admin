@@ -32,7 +32,6 @@
 		<security:intercept-url pattern="/login" access="permitAll" />
 		
 	 	<security:intercept-url pattern="/**" access="hasRole('ADMIN')" /> 
-<!-- 		<security:intercept-url pattern="/**" access="permitAll" />  -->
 
 		<security:form-login 
 			login-page="/login" 
