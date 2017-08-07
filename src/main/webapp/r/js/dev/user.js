@@ -17,10 +17,15 @@ function($scope, Service)
 	$scope.statuscheck = function(a)
 	{
 		console.log($scope.check[a]);
-		if(cheksboxes.indexOf(a) == -1)
+		if(cheksboxes.indexOf(a) == -1 && $scope.check[a])
 		{
 			cheksboxes.push(a);
 		}
+		else if(cheksboxes.indexOf(a) != -1 && !$scope.check[a])
+		{
+			cheksboxes.splice(a, 1);
+		}
+		console.log(cheksboxes);
 	}
 	
 	$scope.cambiaSelected = function()
@@ -59,6 +64,9 @@ function($scope, Service)
 			if(response.data.data.length > 0 )
 			{
 				$scope.usuarios = response.data.data;
+				cheksboxes = [];
+				usuarios1 = [];
+				$scope.check = [];
 			}
 			else
 			{
