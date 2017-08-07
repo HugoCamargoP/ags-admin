@@ -11,6 +11,10 @@ public class Product {
 	private List<ProductDetail> productDetails;
 	private List<SkuProduct> skuProduct;
 	
+	//Filter Data
+	private String	sku;
+	private Integer	talla; 
+	
 	/*******Getter and Setter Sku*******/
 	public Integer getId(){
 		return this.id;
@@ -45,6 +49,25 @@ public class Product {
 
 	public void setSkuProduct(List<SkuProduct> skuProduct) {
 		this.skuProduct = skuProduct;
+	}
+
+	
+	/*******Getter and Setter sku*******/
+	public String getSku() {
+		return sku;
+	}
+
+	public void setSku(String sku) {
+		this.sku = sku;
+	}
+
+	/*******Getter and Setter talla*******/
+	public Integer getTalla() {
+		return talla;
+	}
+
+	public void setTalla(Integer talla) {
+		this.talla = talla;
 	}
 
 	
