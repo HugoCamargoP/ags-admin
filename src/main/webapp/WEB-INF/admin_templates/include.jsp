@@ -4,4 +4,5 @@
 <link type='text/css' rel="stylesheet" href="${ContextPath}/r/css/icon-font.min.css" />
 <link type='text/css' rel="stylesheet" href="${ContextPath}/r/css/animate.css" media="all"/>
 <link type='text/css' rel="stylesheet" href="${ContextPath}/r/css/graph.css"/>
+<link type="text/css" rel="stylesheet" href="${ContextPath}/r/css${DeployContext}/style.css"/>
 <link type="text/css" rel="stylesheet" href="${ContextPath}/r/css${DeployContext}/newstyle.css"/>

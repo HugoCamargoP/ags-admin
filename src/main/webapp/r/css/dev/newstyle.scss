@@ -4,12 +4,62 @@ $white-opacity : rgba(255,255,255,.5);
 $white : rgb(255,255,255);
 $black-opacity : rgba(0,0,0,.5);
 $black : rgb(0,0,0);
+$grey :  rgb(120,120,120);
+$greyhover : rgb(58,58,58);
+$btnhover : rgb(120, 120 ,120);
 $marginem : 1em;
 $radio : 1px;
+$greyhover : rgb(48,48,48);
+
+.left-side-collapsed .custom-nav li.nav-hover ul {
+    background: $greyhover;
+}
+
+.left-side-collapsed .custom-nav li a span::after {
+    border-right-color: $grey;
+}
+
+.left-side-collapsed .custom-nav li.nav-hover a span {
+    color: $white;
+}
+.left-side-collapsed .custom-nav li a span {
+    background: $grey;
+}
+
+.left-side-collapsed .custom-nav > li.nav-hover > a, .left-side-collapsed .custom-nav > li.nav-hover.active > a {
+    color: $white;
+}
+
+.custom-nav > li > a:hover, .custom-nav > li > a:active, .custom-nav > li.nav-active > a {
+    background-color: $white-opacity;
+    color: $white;
+}
+
+.custom-nav .sub-menu-list > li > a:hover, .custom-nav .sub-menu-list > li > a:active, .custom-nav .sub-menu-list > li > a:focus {
+    color: $white;
+    background: $greyhover;
+}
+
+.sticky-left-side {
+    background: $black;
+}
+
+.sticky-header .logo {
+    background: $black;
+    border-bottom: 1px solid $black;
+}
 
 .btnboot
 {
 	border-radius: $radio;
+}
+
+.btn-black.active, .btn-black.focus, .btn-black:active, .btn-black:focus, .btn-black:hover, .open > .dropdown-toggle.btn-black {
+
+    color:$white;
+    background-color: $btnhover;
+    border-color: $btnhover;
+
 }
 
 .btn-black {

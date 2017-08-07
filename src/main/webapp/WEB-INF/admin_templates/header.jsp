@@ -1,5 +1,3 @@
-<link type="text/css" rel="stylesheet" href="${ContextPath}/r/css${DeployContext}/style.css"/>
-
 <div class="" style="">
 	<!-- header-starts -->
 		<div class="header-section">

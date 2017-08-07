@@ -4,7 +4,6 @@
     <c:if test="${not empty sessionScope.userSession.type}">
 	    <script> 
 	    	var type = ${sessionScope.userSession.type};
-	    	console.log(type);
 	    	if(type == 0)
 	    	{
 	    		window.location = "${linkAdminCreateU}";
@@ -12,7 +11,6 @@
 	    	}
 	    	else
 	    	{
-	    		//window.location = "${linkHome}";
 	    		console.log("${linkAdminHome}");
 	    	}
 	    </script>
@@ -97,9 +95,7 @@ html {
   color: #FFF;
 }
 </style>
-<%-- Error: <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />--%>
 
-<!-- Inspired by https://codepen.io/transportedman/pen/NPWRGq -->
 
 <div class="carousel slide carousel-fade" data-ride="carousel">
     <!-- Wrapper for slides -->
@@ -127,7 +123,7 @@ html {
 
 <div class="container center">
 
-	<div class="white-opacity displayCenter col-xs-12 col-sm-8 col-md-8 col-lg-4">
+	<div id="menulgueador" style="display:none;" class="white-opacity displayCenter col-xs-12 col-sm-8 col-md-8 col-lg-4">
 		<div class="col-xs-12 col-sm-6">
                  <img class="img-loginlogo" style="" src="${ContextPath}/r/img/logos/lnegro.png" alt="" />
 		</div>
@@ -144,15 +140,15 @@ html {
 				  </div>
 				
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-				<button class="btn btn-black btn-primary btnboot" type="submit">Ingresar</button>   
+				<button class="btn btn-black btnboot" type="submit">Ingresar</button>   
 			</form>	 
 		</div>	
 	</div>
 </div>
 
-
-
-<script type="text/javascript" src="${ContextPath}/r/js${DeployContext}/user_admin.js" charset="utf-8"></script>
 <script>
-	$('.carousel').carousel();
+	$(document).ready(function (){
+		$('.carousel').carousel();
+		$("#menulgueador").slideDown( "slow" );
+	})
 </script>

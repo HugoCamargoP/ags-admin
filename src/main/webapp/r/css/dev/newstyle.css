@@ -1,6 +1,55 @@
 /* Style general */
+.left-side-collapsed .custom-nav li.nav-hover ul {
+  background: #9f9f9f;
+}
+
+.left-side-collapsed .custom-nav li.nav-hover ul {
+  background: #303030;
+}
+
+.left-side-collapsed .custom-nav li a span::after {
+  border-right-color: #787878;
+}
+
+.left-side-collapsed .custom-nav li.nav-hover a span {
+  color: white;
+}
+
+.left-side-collapsed .custom-nav li a span {
+  background: #787878;
+}
+
+.left-side-collapsed .custom-nav > li.nav-hover > a, .left-side-collapsed .custom-nav > li.nav-hover.active > a {
+  color: white;
+}
+
+.custom-nav > li > a:hover, .custom-nav > li > a:active, .custom-nav > li.nav-active > a {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: white;
+}
+
+.custom-nav .sub-menu-list > li > a:hover, .custom-nav .sub-menu-list > li > a:active, .custom-nav .sub-menu-list > li > a:focus {
+  color: white;
+  background: #303030;
+}
+
+.sticky-left-side {
+  background: black;
+}
+
+.sticky-header .logo {
+  background: black;
+  border-bottom: 1px solid black;
+}
+
 .btnboot {
   border-radius: 1px;
+}
+
+.btn-black.active, .btn-black.focus, .btn-black:active, .btn-black:focus, .btn-black:hover, .open > .dropdown-toggle.btn-black {
+  color: white;
+  background-color: #787878;
+  border-color: #787878;
 }
 
 .btn-black {
