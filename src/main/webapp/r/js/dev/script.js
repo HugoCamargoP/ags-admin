@@ -57,6 +57,9 @@ function muestra(ob)
 }
 
 $(document).ready(function () {
+	
+	$(".js-example-basic-single").select2();
+	
 		// Graph Data ##############################################
 		var graphData = [{
 				// Returning Visits

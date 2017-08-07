@@ -13,6 +13,7 @@ function($scope, Service)
 	
 	$scope.getUserByFilter = function ()
 	{
+		$scope.filter = document.getElementById('filter').value;
 		Service.getUserByFilter($scope.email,$scope.filter).then(function successCallback(response){
 			if(response.data.data.length > 0 )
 			{
