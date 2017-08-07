@@ -332,6 +332,13 @@ public class ProductDaoImplementation implements ProductDao {
 		return jdbcTemplate.query(sql, paramMap, new ProductDetailRowExtractor());
 	}
 	
+	@Override
+	public ProductDetail getLastProductDetail() {
+		String sql = "SELECT * FROM producto_detalles ORDER BY id DESC LIMIT 1";	
+		return jdbcTemplate.query(sql, new ProductDetailRowExtractor());
+	}
+	
+	
 	
 	@Override
 	public void addProductDetail(ProductDetail productDetail) {
@@ -564,8 +571,6 @@ public class ProductDaoImplementation implements ProductDao {
 		jdbcTemplate.update(sql, paramMap);
 		
 	}
-	
-	
 	
 
 }

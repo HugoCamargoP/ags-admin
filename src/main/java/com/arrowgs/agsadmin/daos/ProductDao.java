@@ -36,6 +36,7 @@ public interface ProductDao {
 	//ProductDetail
 	List<ProductDetail> getAllProductDetails();
 	List<ProductDetail> getProductDetails(Integer idProduct);
+	ProductDetail getLastProductDetail();
 	ProductDetail oneProductDetail(Integer idProduct);
 	void addProductDetail(ProductDetail productDetail);
 	void modifyProductDetail(ProductDetail productDetail);

@@ -1,8 +1,13 @@
 package com.arrowgs.agsadmin.api;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,7 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.arrowgs.agsadmin.service.ProductService;
 import com.arrowgs.agsadmin.controllers.cons.Constants.ApiMappings;
@@ -21,6 +28,7 @@ import com.arrowgs.agsadmin.entities.SizeDescription;
 import com.arrowgs.agsadmin.helpers.ClassHelper;
 import com.arrowgs.agsadmin.helpers.ControllerHelper;
 import com.arrowgs.agsadmin.helpers.ControllerHelper.ResponseStatus;
+import com.arrowgs.agsadmin.helpers.ImagePropertiesHelper;
 import com.arrowgs.agsadmin.helpers.PathHelper;;
 
 @CrossOrigin
@@ -95,10 +103,26 @@ public class ProductApi {
 	}
 	
 	@RequestMapping(path = ApiMappings.ProductDetail, method = RequestMethod.POST)
-	public Map<String,? extends Object> addProductDetail(@RequestBody ProductDetail productDetail){
+	public Map<String,? extends Object> addProductDetail(@RequestParam("file") MultipartFile imageFile, @RequestParam("product") Integer product){
 		ResponseStatus status;
 		try{
-			productService.addProductDetail(productDetail);
+			ProductDetail last = productService.getLastProductDetail();
+			Integer image;
+			if(last==null){
+				image = 1;
+			}
+			else{
+				image = last.getId().intValue() + 1;
+			}
+			String path = ImagePropertiesHelper.resource();
+			path = path+"\\"+image;
+			BufferedImage src = ImageIO.read(new ByteArrayInputStream(imageFile.getBytes()));
+			File finalFile = new File(path);
+			ImageIO.write(src, imageFile.getContentType(), finalFile);
+			ProductDetail result = new ProductDetail();
+			result.setProduct(product);
+			result.setUrl(path);
+			productService.addProductDetail(result);
 			status = ResponseStatus.OK;
 		}catch(Exception e){
 			status = ResponseStatus.ExternalError;

@@ -31,6 +31,7 @@ public interface ProductService {
 	List<ProductDetail> getProductDetails(Integer idProduct);
 	List<ProductDetail> getAllProductDetail();
 	ProductDetail oneProductDetail(Integer idProduct);
+	ProductDetail getLastProductDetail();
 	void addProductDetail(ProductDetail productDetail);
 	void removeProductDetail(Integer idProductDetail);
 	void modifyProductDetail(ProductDetail productDetail);

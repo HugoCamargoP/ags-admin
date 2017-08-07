@@ -140,6 +140,17 @@ public class ProductServiceImplementation implements ProductService {
 			throw e;
 		}
 	}
+	
+	@Override
+	public ProductDetail getLastProductDetail() {
+		try{
+			return productDao.getLastProductDetail();
+		}catch(Exception e){
+			logger.error("ProductService : getLastProductDetail : "+ e.toString());
+			throw e;
+		}
+	}
+
 
 	@Override
 	public void addProductDetail(ProductDetail productDetail) {
@@ -301,6 +312,7 @@ public class ProductServiceImplementation implements ProductService {
 		}
 		
 	}
+
 
 
 }
