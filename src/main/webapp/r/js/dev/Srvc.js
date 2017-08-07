@@ -1,5 +1,11 @@
+/**
+ * @constructor
+ * @param http
+ * @param url
+ * @returns
+ */
 function Service(http, url) 
-{	
+{
 	/************ORDERS**************/
 	
 	//Trae la orden que corresponda al usuario y estado en que se encuentre (wishlist,shopping car, etc)
@@ -158,6 +164,28 @@ function Service(http, url)
 		return http.post(url +'/measure',measure)
 	}
 	
+	//Regresa una lista de usuarios basados en el filtro deseado y el correo base
+		//Parámetros necesarios: email (String), filter (Integer)
+		//Filter: 1=exactamente, 2= contiene, 3=comienza con, 4= termina con
+	this.getUserByFilter = function(email,filter){
+		return http({
+			'method':'GET',
+			'url': url + '/users/filter?email='+email+'&filter='+filter
+		})
+	}
+	
+	/*  Measure FitBase  */
+	
+	//Regresa todos los datos correspondientes a la estatura y peso del usuario
+		//Parámetros necesarios: weight, height cantidades respectivas y anglo es un boolean que indica
+		//si es medida anglosajona o no
+	this.fitbaseGetMeasure = function(weight,height,anglo){
+		return http({
+			'method':'GET',
+			'url':'http://189.211.186.79:8081/fitbase/api/measures?weight='+ weight +'&height='+ weight +'&anglo=' + anglo
+		})		
+	}
+	
 	/**************Address*************/
 	
 	//Obtiene todas las direcciones
@@ -229,7 +257,7 @@ function Service(http, url)
 	
 
 	/*  
-	 * ESTADOS Y MUNICIPIOS 
+	 * FIN ESTADOS Y MUNICIPIOS 
 	 */
 	
 	/**************Product*************/
@@ -321,8 +349,40 @@ function Service(http, url)
 			'url': url + '/product_detail/' + id
 		})
 	}
+	
+	//Trae una lista con las dos tallas recomendadas (dos objetos SizeDescription), siendo la de la posición 0 la recomendada
+	 //Y la de la 1 la talla que le quedaría ajustada. Si la posición 0 contiene la información de la talla no habrá segunda talla recomendada
+	  //Es posible que la lista llegue vacía
+	//Parametros necesitados: FitBaseEntity (mandar el objeto tal cual llegue del webservice "fitbase")
+	this.recomendedSize = function(fitbase){
+		return http.post(url+'/product/recomended_size',fitbase)
+	}
+	
 }
 
+/*
+ * Angular code
+ */
+/*
+angular.module('YetiApp')
+
+.provider('yetiService', [
+
+function()
+{
+	var
+	url;
+	
+	this.setUrl = function(url) {
+		this.url = url;
+	}
+	
+	this.$get = ['$http', function yetiServiceFactory($http) {
+		return new YetiberaService($http, this.url);
+	}]
+	
+}])
+*/
 /*
  * Angular code
  */
@@ -344,6 +404,3 @@ function()
 	}]
 	
 }])
-
-
-

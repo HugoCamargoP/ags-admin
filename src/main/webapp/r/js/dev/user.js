@@ -7,7 +7,26 @@ function($scope, Service)
 {	
 /*Declarcaion de variables**/
 	$scope.consulta = {};
+	$scope.email = '';
+	$scope.filter = '';
 /*Declarcaion de variables**/
+	
+	$scope.getUserByFilter = function ()
+	{
+		Service.getUserByFilter($scope.email,$scope.filter).then(function successCallback(response){
+			if(response.data.data.length > 0 )
+			{
+				$scope.usuarios = response.data.data;
+			}
+			else
+			{
+				msjerror(response.data.status);
+			}
+		},
+		function errorCallback(){
+			msjerror(response.data.status);
+		})
+	}
 	
 	$scope.getPreserveByPrivateNeighborhood = function ()
 	{

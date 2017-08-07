@@ -26,8 +26,8 @@
 	</definition>
 	
 	<!-- Page home -->
-	<definition name="users" extends="admin_mainTemplate2">
-		<put-attribute name="content"  value="/WEB-INF/admin_content/home.jsp" />
+	<definition name="users" extends="admin_mainTemplate">
+		<put-attribute name="content"  value="/WEB-INF/admin_content/users.jsp" />
 		<!-- put-attribute name="content"  value="/WEB-INF/admin_content/createC.jsp" / -->
 	</definition>	
 	
