@@ -26,7 +26,7 @@ public interface Constants {
 	}
 	
 	static interface ApiMappings{
-		static final String ServiceContext		= "/api";
+		static final String ServiceContext		= "/rest";
 		
 		//User
 		static final String UsersFilter		  = ServiceContext + "/users/filter";
@@ -38,6 +38,6 @@ public interface Constants {
 		static final String ProductByFilter	  		= ServiceContext + "/product_filter";
 		static final String ProductCountFilter		= ServiceContext + "/product_filter/count";
 		static final String ProductSizes	  		= ServiceContext + "/product_sizes";
-		static final String ProductSizesDescription = ServiceContext + ProductSizes +"/description/";
+		static final String ProductSizesDescription = ProductSizes 	 + "/description";
 	}
 }
