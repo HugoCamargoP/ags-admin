@@ -1,4 +1,10 @@
 /* Style general */
+.select2-container {
+  min-width: 100% !important;
+  width: auto !important;
+  height: 34px;
+}
+
 .ttitulo {
   color: white !important;
   background-color: #787878 !important;
@@ -51,7 +57,7 @@
   border-radius: 1px;
 }
 
-.btn-black.active, .btn-black.focus, .btn-black:active, .btn-black:focus, .btn-black:hover, .open > .dropdown-toggle.btn-black {
+.btn-black.active, .btn-black.focus, .btn-black:active, .btn-black:focus, .btn-black:hover, .open > .dropdown-toggle.btn-blackvvv {
   color: white;
   background-color: #787878;
   border-color: #787878;

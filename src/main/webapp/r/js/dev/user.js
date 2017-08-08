@@ -16,24 +16,24 @@ function($scope, Service)
 	
 	$scope.statuscheck = function(a)
 	{
-		console.log($scope.check[a]);
 		if(cheksboxes.indexOf(a) == -1 && $scope.check[a])
 		{
 			cheksboxes.push(a);
 		}
 		else if(cheksboxes.indexOf(a) != -1 && !$scope.check[a])
 		{
-			cheksboxes.splice(a, 1);
+			cheksboxes.splice(cheksboxes.indexOf(a), 1);
 		}
-		console.log(cheksboxes);
 	}
 	
-	$scope.cambiaSelected = function()
+	$scope.cambiaSelected = function(a)
 	{
 		if(cheksboxes.length > 0)
 		{
-			for ( var c in cheksboxes) {
-				 $scope.usuarios[cheksboxes[c]].type = $scope.per; 
+			for ( var c in cheksboxes) { 
+				 console.log($scope.usuarios[cheksboxes[c]].type);
+				 $scope.usuarios[cheksboxes[c]].type = a; 
+				 console.log($scope.usuarios[cheksboxes[c]].type);
 				 usuarios1.push($scope.usuarios[cheksboxes[c]]);
 			}
 			Service.userUpdateRol(usuarios1).then(function successCallback(response){
@@ -42,16 +42,21 @@ function($scope, Service)
 					if(response.data.status == 'OK')
 					{
 						$scope.getUserByFilter();
+						msjexito('Cambios realiazdos');
 					}
 				}
 				else
 				{
-					msjerror(response.data.status);
+					msjerror('Sin resultados');
 				}
 			},
 			function errorCallback(){
-				msjerror(response.data.status);
+				msjerror('Sin resultados');
 			})
+		}
+		else
+		{
+			msjerror('Selecciona un usuario');
 		}
 	}
 	
@@ -67,14 +72,15 @@ function($scope, Service)
 				cheksboxes = [];
 				usuarios1 = [];
 				$scope.check = [];
+				msjexito('Datos cargados');
 			}
 			else
 			{
-				msjerror(response.data.status);
+				msjerror('Sin resultados');
 			}
 		},
 		function errorCallback(){
-			msjerror(response.data.status);
+			msjerror('Sin resultados');
 		})
 	}
 	

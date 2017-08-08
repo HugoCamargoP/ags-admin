@@ -20,7 +20,7 @@ function eliminaThis()
 function msjexito(exito)
 	{
 	  	mensajesglobal++;
-	  	$("#mensajes").append('<div id="mensaje'+mensajesglobal+'" class="alert alert2 alert-success text-center">'+exito+'</div>');
+	  	$("#mensajes").append('<div id="mensaje'+mensajesglobal+'" class="alert alert2 alert-success text-center"><b>'+exito+'</b></div>');
 	  	setTimeout(function() {
 	  	       eliminaThis();
 	  	    },2000);

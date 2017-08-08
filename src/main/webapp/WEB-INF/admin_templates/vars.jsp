@@ -17,6 +17,8 @@
 <%-- Admin --%>
 <c:url var="linkAdminCreateU" value="/createU" scope="application"/>
 <c:url var="linkAdminModifyU" value="/modifyU" scope="application"/>
+<c:url var="linkAdminReports" value="/reports" scope="application"/>
+<c:url var="linkAdminItems" value="/items" scope="application"/>
 
 
 <c:url var="linkAdmin" value="/" scope="application"/>

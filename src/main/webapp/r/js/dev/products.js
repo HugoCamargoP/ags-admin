@@ -1,12 +1,13 @@
-angular.module('YetiApp')
-.controller('YetiProducts',['$scope', 'yetiService',
+angular.module(appname+'App')
 
-function($scope, yetiService)
+.controller(appname+'Prod',['$scope', appname+'Service',
+
+function($scope, Service)
 {	
 /*Address*/
 	$scope.getCountries = function ()
 	{
-		yetiService.getCountries().then(
+		Service.getCountries().then(
 				function successCallback(response){
 					$scope.paises = response.data.data;
 				},
@@ -18,7 +19,7 @@ function($scope, yetiService)
 
 	$scope.getStates = function ()
 	{
-		yetiService.getStates().then(
+		Service.getStates().then(
 				function successCallback(response){
 					$scope.states = response.data.data;
 				},
@@ -35,7 +36,7 @@ function($scope, yetiService)
 			//console.log($scope.states[b].nomEnt);
 			if($scope.states[b].nomEnt == a)
 			{
-				yetiService.getCities($scope.states[b].cveEnt).then(
+				Service.getCities($scope.states[b].cveEnt).then(
 						function successCallback(response){
 							$scope.cities = response.data.data;
 						},
@@ -56,7 +57,7 @@ function($scope, yetiService)
 		if($scope.formaddress.$valid)
 		{
 			$scope.address.user = $scope.usuario;
-			yetiService.newAddress($scope.address).then(
+			Service.newAddress($scope.address).then(
 					function successCallback(response){
 						$scope.address = {};
 						$scope.resumen = true;
@@ -129,7 +130,7 @@ $scope.pago = function ()
 	}
 	$scope.removeOrder = function (a)
 	{
-		yetiService.removeOrder(a).then(
+		Service.removeOrder(a).then(
 				function successCallback(response){
 					$scope.getOrder($scope.usuario,2);	
 				},
@@ -140,7 +141,7 @@ $scope.pago = function ()
 	$scope.removeOrder1 = function (a)
 	{
 		console.log(a);
-		yetiService.removeOrder(a).then(
+		Service.removeOrder(a).then(
 				function successCallback(response){
 					$scope.getOrder($scope.usuario,1);
 					refnevo();
@@ -154,12 +155,12 @@ $scope.pago = function ()
 	{
 		$scope.order = {};
 		$scope.orderDetail = {};
-			yetiService.getOrder($scope.usuario,2).then(
+			Service.getOrder($scope.usuario,2).then(
 					function successCallback(response)
 					{
 						if(response.data.status != 'ExternalError' && response.data.data != null)
 						{
-							yetiService.fromWishListToShoppingCar(a).then(
+							Service.fromWishListToShoppingCar(a).then(
 									function successCallback(response){
 										refnevo();
 										updateCarWish($scope.usuario);
@@ -172,12 +173,12 @@ $scope.pago = function ()
 						{
 							$scope.order.user = $scope.usuario;
 							$scope.order.state = 2;
-							yetiService.addNewOrder($scope.order).then(
+							Service.addNewOrder($scope.order).then(
 									function successCallback(response)
 									{
 										if(response.data.data != null && response.data.status == 'OK')
 										{
-											yetiService.fromWishListToShoppingCar(a).then(
+											Service.fromWishListToShoppingCar(a).then(
 													function successCallback(response){
 														refnevo();
 														updateCarWish($scope.usuario);
@@ -201,7 +202,7 @@ $scope.pago = function ()
 
 	$scope.cuantosProd = function(user,status)
 	{
-		yetiService.getOrder(user,status).then(
+		Service.getOrder(user,status).then(
 				function successCallback(response){
 					if(status == 2)
 					{
@@ -234,7 +235,7 @@ $scope.pago = function ()
 	$scope.getOrder = function(user,status)
 		{	
 			$scope.usuario = user;
-			yetiService.getOrder(user,status).then(
+			Service.getOrder(user,status).then(
 					function successCallback(response){
 						if(response.data.data == null || response.data.data.orderDetail.length < 1)
 						{
@@ -259,7 +260,7 @@ $scope.pago = function ()
 	{
 		if(b > 1)
 		{
-			yetiService.decrementAmountAtOrderDetail(a).then(
+			Service.decrementAmountAtOrderDetail(a).then(
 					function successCallback(){
 						$scope.getOrder($scope.usuario,2);
 					},
@@ -270,7 +271,7 @@ $scope.pago = function ()
 	
 	$scope.incrementAmountAtOrderDetail = function(a)
 	{
-		yetiService.incrementAmountAtOrderDetail(a).then(
+		Service.incrementAmountAtOrderDetail(a).then(
 				function successCallback(){
 					$scope.getOrder($scope.usuario,2);
 				},
@@ -315,21 +316,36 @@ $scope.pago = function ()
 	}
 	
 	$scope.product = {};
-	$scope.prodpage = productosporpagina;
-	$scope.getAllProducts = function ()
+	//$scope.prodpage = productosporpagina;
+
+	$scope.prodpage = 10000;
+	$scope.getProductsCountByFilter = function ()
 	{
-		yetiService.getProductsCountByFilter($scope.product,$scope.prodpage).then(
+		Service.getProductsCountByFilter($scope.product,$scope.prodpage).then(
 				function successCallback(response){
 					$scope.ultimo = response.data.data.pages;
 					$scope.paginacion();
 					if(response.data.data.total > 0 )
 					{
-						yetiService.getProductsByFilter($scope.product,$scope.currentpage,$scope.prodpage).then(
+						Service.getProductsByFilter($scope.product,$scope.currentpage,$scope.prodpage).then(
 								function successCallback(response){
 									$scope.productos = response.data.data;
 								}, 
 								function errorCallback(response){	
 								});
+					}
+				}, 
+				function errorCallback(response){	
+				});
+	}
+	
+	$scope.getAllProducts = function()
+	{
+		Service.getAllProducts().then(
+				function successCallback(response){
+					if(response.data.data.length > 0 )
+					{
+							$scope.productos = response.data.data;
 					}
 				}, 
 				function errorCallback(response){	
@@ -351,7 +367,7 @@ $scope.pago = function ()
 
 	$scope.removeOneOrderDetail = function (a)
 		{
-			yetiService.removeOneOrderDetail(a).then(
+			Service.removeOneOrderDetail(a).then(
 					function successCallback(){
 							$scope.getOrder($scope.usuario,2);
 							updateCarWish($scope.usuario);
@@ -362,7 +378,7 @@ $scope.pago = function ()
 	
 	$scope.removeOneOrderDetail1 = function (a)
 	{
-		yetiService.removeOneOrderDetail(a).then(
+		Service.removeOneOrderDetail(a).then(
 				function successCallback(){
 						$scope.getOrder($scope.usuario,1);
 						updateCarWish($scope.usuario);
@@ -377,7 +393,7 @@ $scope.pago = function ()
 		$scope.orderDetail = {};
 		if(us != "")
 		{
-			yetiService.getOrder(us,sta).then(
+			Service.getOrder(us,sta).then(
 					function successCallback(response)
 					{
 						if(response.data.status != 'ExternalError' && response.data.data != null)
@@ -387,7 +403,7 @@ $scope.pago = function ()
 							$scope.orderDetail.idProductSku	= sku;
 							$scope.orderDetail.amount		= 1;
 							
-							yetiService.addProduct($scope.orderDetail).then(
+							Service.addProduct($scope.orderDetail).then(
 								function successCallback(response)
 								{	
 									window.location = url;
@@ -400,7 +416,7 @@ $scope.pago = function ()
 						{
 							$scope.order.user = us;
 							$scope.order.state = sta;
-							yetiService.addNewOrder($scope.order).then(
+							Service.addNewOrder($scope.order).then(
 									function successCallback(response)
 									{
 										if(response.data.data != null && response.data.status == 'OK')
@@ -410,7 +426,7 @@ $scope.pago = function ()
 											$scope.orderDetail.idProductSku	= sku;
 											$scope.orderDetail.amount		= 1;
 											
-											yetiService.addProduct($scope.orderDetail).then(
+											Service.addProduct($scope.orderDetail).then(
 												function successCallback(response)
 												{	
 													window.location = url;
@@ -440,7 +456,7 @@ $scope.pago = function ()
 		//console.log(sku);
 		if(us != "")
 		{
-			yetiService.getOrder(us,sta).then(
+			Service.getOrder(us,sta).then(
 					function successCallback(response)
 					{
 						if(response.data.status != 'ExternalError' && response.data.data != null)
@@ -450,7 +466,7 @@ $scope.pago = function ()
 							$scope.orderDetail.idProductSku	= sku;
 							$scope.orderDetail.amount		= 1;
 							
-							yetiService.addProduct($scope.orderDetail).then(
+							Service.addProduct($scope.orderDetail).then(
 								function successCallback(response)
 								{	
 									msjexito('agregado');
@@ -465,7 +481,7 @@ $scope.pago = function ()
 						{
 							$scope.order.user = us;
 							$scope.order.state = sta;
-							yetiService.addNewOrder($scope.order).then(
+							Service.addNewOrder($scope.order).then(
 									function successCallback(response)
 									{
 										if(response.data.data != null && response.data.status == 'OK')
@@ -475,7 +491,7 @@ $scope.pago = function ()
 											$scope.orderDetail.idProductSku	= sku;
 											$scope.orderDetail.amount		= 1;
 											
-											yetiService.addProduct($scope.orderDetail).then(
+											Service.addProduct($scope.orderDetail).then(
 												function successCallback(response)
 												{	
 													refnevo();

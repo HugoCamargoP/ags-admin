@@ -1,3 +1,5 @@
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 	<!-- left side start-->
 			<div class="left-side sticky-left-side sticky-header">
@@ -24,11 +26,11 @@
 									<li><a href="${ linkEmpty }">Pagos</a></li>
 								</ul>
 	                        </li> 
-	                        <li class=""><a href="${linkAdminUser}"><i class="fa fa-user"></i> <span>Usuarios</span></a>
+	                        <li class=""><a href="${linkAdminUser}"><i class="fa fa-user"></i> <span><s:message code="admin.users"/></span></a>
 							</li>    
-	                        <li class=""><a href="#"><i class="fa fa-barcode"></i> <span>Articulos</span></a>
+	                        <li class=""><a href="${ linkAdminItems }"><i class="fa fa-barcode"></i> <span><s:message code="admin.items"/></span></a>
 							</li>  
-	                        <li class=""><a href="#"><i class="fa fa-file-pdf-o"></i> <span>Reportes</span></a>
+	                        <li class=""><a href="${ linkAdminReports }"><i class="fa fa-file-pdf-o"></i> <span><s:message code="admin.report"/></span></a>
 							</li>  
 	                        <li class="menu-list"><a href="#"><i class="fa fa-truck"></i> <span>Pedidos</span></a>
 								<ul class="sub-menu-list">

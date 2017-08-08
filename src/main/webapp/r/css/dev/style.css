@@ -3538,24 +3538,26 @@ div.checker input {
   color:#b8c9f1;
 }
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-  font-size: 0.85em;
-  color:#000;
+ /* font-size: 0.85em;
+  color:#000;*/
 } 
 .mailbox-content table tbody tr:hover {
   background: #EFF0F4;
 }
 .table td, .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-  padding:15px !important;
+ /* padding:15px !important; */
 }
 .table > thead > tr > th {
   border-bottom:1px solid #ACACAC !important;
 }
+/*
 .badge-success, .bg-green, .bootstrap-switch-success, .btn-success {
 	border: none;
     background:#27cce4;
     padding: 9.5px 12px;
 	outline:none;
 }
+*/
 .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open .dropdown-toggle.btn-success {
   color: #fff;
   background-color:#b8c9f1;
@@ -4715,7 +4717,7 @@ li.nbs-flexisel-item {
 }
 .collapsed span{
 	display: inline-block;
-    left: -1em;
+    /*left: -1em;*/
 }
 .collapsed i{
 	display:none;
@@ -6256,6 +6258,15 @@ div#char {
 	}
 }
 @media (max-width:768px){
+	#page-wrapper {
+    padding-top: 0em !important;
+	}
+	.footer {
+    position: inherit;
+	}
+	.header-section {
+    position: inherit;
+	}
 	.user-panel-top li a {
 		padding: 10px 10px 0;
 	}
@@ -7565,7 +7576,7 @@ h1.blank, h3.blank1 {
 }
 .table td, .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
     padding: 5px !important;
-    display: block;
+   /*display: block;*/
 }
 .main-content1 {
     min-height: 1480px !important;

@@ -25,7 +25,7 @@
 		<put-attribute name="menulateral"   value="/WEB-INF/admin_content/blank.jsp" />
 	</definition>
 	
-	<!-- Page home -->
+	<!-- Page Users -->
 	<definition name="users" extends="admin_mainTemplate">
 		<put-attribute name="content"  value="/WEB-INF/admin_content/users.jsp" />
 		<!-- put-attribute name="content"  value="/WEB-INF/admin_content/createC.jsp" / -->
@@ -49,8 +49,9 @@
 	
 	<!-- Page Main logueado -->
 	<definition name="main" extends="admin_mainTemplate">
-		<!--put-attribute name="content"  value="/WEB-INF/admin_content/main.jsp" /-->
-		<put-attribute name="content"  value="/WEB-INF/admin_content/createC.jsp" />
+		<put-attribute name="content"  value="/WEB-INF/admin_content/home.jsp" />
+		<!--<put-attribute name="content"  value="/WEB-INF/admin_content/main.jsp" />
+		 <put-attribute name="content"  value="/WEB-INF/admin_content/createC.jsp" /> -->
 	</definition>
 	
 	<!-- Colonos -->
@@ -76,9 +77,20 @@
 		<put-attribute name="content"  value="/WEB-INF/admin_content/modifyUser.jsp" />
 	</definition>
 	
+	<!-- Page  Productos -->
+	<definition name="items" extends="admin_mainTemplate">
+		<put-attribute name="content"  value="/WEB-INF/admin_content/items.jsp" />
+	</definition>
+	
+	<!-- Page  reportes -->
+	<definition name="reports" extends="admin_mainTemplate">
+		<put-attribute name="content"  value="/WEB-INF/admin_content/reports.jsp" />
+	</definition>
+	
 	<!-- Page  base -->
 	<definition name="base" extends="admin_mainTemplate">
 		<put-attribute name="content"  value="/WEB-INF/admin_content/base.jsp" />
 	</definition>
+	
 	
 </tiles-definitions>

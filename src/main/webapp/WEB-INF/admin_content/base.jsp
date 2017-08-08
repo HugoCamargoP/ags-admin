@@ -3,7 +3,7 @@
 
 <div id="page-wrapper" ng-controller="${ appname }" ng-init="">
 	<div class="graphs">
-		<h3 class="blank1"></h3>
+		<h3 class="blank1 center"></h3>
 			<div class="tab-content">
 				<div class="jumbotron">
 				</div>

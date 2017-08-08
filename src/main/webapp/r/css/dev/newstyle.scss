@@ -11,6 +11,11 @@ $margin1em : 1em;
 $radio : 1px;
 $opc-menu-hover : rgb(48,48,48);
 
+.select2-container {
+	min-width: 100% !important;
+	width: auto !important;
+	height: 34px;
+}
 
 .ttitulo {
     color:$white !important;
@@ -64,7 +69,7 @@ $opc-menu-hover : rgb(48,48,48);
 	border-radius: $radio;
 }
 
-.btn-black.active, .btn-black.focus, .btn-black:active, .btn-black:focus, .btn-black:hover, .open > .dropdown-toggle.btn-black {
+.btn-black.active, .btn-black.focus, .btn-black:active, .btn-black:focus, .btn-black:hover, .open > .dropdown-toggle.btn-blackvvv {
 
     color:$white;
     background-color: $btnhover;
