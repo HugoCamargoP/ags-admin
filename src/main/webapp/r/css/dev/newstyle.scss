@@ -11,6 +11,16 @@ $margin1em : 1em;
 $radio : 1px;
 $opc-menu-hover : rgb(48,48,48);
 
+.click
+{
+	cursor:pointer;
+}
+
+.pull-left
+{
+	text-align: initial;
+}
+
 .select2-container {
 	min-width: 100% !important;
 	width: auto !important;
@@ -77,7 +87,25 @@ $opc-menu-hover : rgb(48,48,48);
 
 }
 
+.form-control-min
+{
+	min-width:70px;
+}
+
+.width100
+{
+	min-width: 100%;
+	width: auto;
+}
+
 .btn-black {
+    color: $white;
+    background-color: $black;
+    border-color: $black;
+    cursor:pointer;
+}
+
+.tabletitulos {
     color: $white;
     background-color: $black;
     border-color: $black;

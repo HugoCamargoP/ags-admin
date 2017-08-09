@@ -3965,7 +3965,7 @@ label.round {
   line-height:1.5em;
 }
 .list-inline {
-  margin:1em 0 0 0;
+  /*margin:1em 0 0 0;*/
 }
 .text-muted {
   color: #999999;
@@ -6712,7 +6712,7 @@ span.label.label-default{
   line-height: 2em;
 }
 button.btn.btn-lg, button.btn{
-  margin-bottom:3px;
+  /*margin-bottom:3px;*/
 }
 .modal-dialog {
   width: 370px !important;
@@ -6750,7 +6750,7 @@ button.btn.btn-lg, button.btn{
   padding: 10px;
 }
 button.btn.btn-success {
-  padding:9px 12px;
+/*padding:9px 12px;*/
 }
 .xs h3, .widget_head {
   font-size: 1.5em;

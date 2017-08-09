@@ -351,6 +351,21 @@ $scope.pago = function ()
 				function errorCallback(response){	
 				});
 	}
+	
+	$scope.getProductSizes = function()
+	{
+		Service.getProductSizes().then(
+				function successCallback(response){
+					if(response.data.data.length > 0 )
+					{
+							$scope.sizes = response.data.data;
+					}
+				}, 
+				function errorCallback(response){	
+				});
+	}
+	
+	
 
 	$scope.skuSize = {};
 	$scope.price = {};

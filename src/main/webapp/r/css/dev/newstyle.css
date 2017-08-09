@@ -1,4 +1,12 @@
 /* Style general */
+.click {
+  cursor: pointer;
+}
+
+.pull-left {
+  text-align: initial;
+}
+
 .select2-container {
   min-width: 100% !important;
   width: auto !important;
@@ -63,7 +71,23 @@
   border-color: #787878;
 }
 
+.form-control-min {
+  min-width: 70px;
+}
+
+.width100 {
+  min-width: 100%;
+  width: auto;
+}
+
 .btn-black {
+  color: white;
+  background-color: black;
+  border-color: black;
+  cursor: pointer;
+}
+
+.tabletitulos {
   color: white;
   background-color: black;
   border-color: black;
