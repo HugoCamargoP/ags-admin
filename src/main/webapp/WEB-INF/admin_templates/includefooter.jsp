@@ -3,7 +3,8 @@
 <script type="text/javascript" src="${ContextPath}/r/js/jquery.js" charset="utf-8"></script>
 <script type="text/javascript" src="${ContextPath}/r/js/wow.min.js"></script>
 <script type="text/javascript" src="${ContextPath}/r/js/Chart.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<%--script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script --%>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <%--<script type="text/javascript" src="${ContextPath}/r/js/bootstrap.min.js" charset="utf-8"></script>--%>
 <script type="text/javascript" src="${ContextPath}/r/js${DeployContext}/script.js" charset="utf-8"></script>
 <script type="text/javascript" src="${ContextPath}/r/js/jquery.nicescroll.js"></script>

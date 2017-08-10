@@ -318,6 +318,65 @@ $scope.pago = function ()
 	$scope.product = {};
 	//$scope.prodpage = productosporpagina;
 
+	$scope.hascoverflow = function(b,x)
+	{
+		cover(b,x);
+	}
+	
+	$scope.modalessss = function(a,b,c)
+	{
+		
+		$scope.productos[b].datamodales;
+		//console.log(a);
+		console.log(c);
+		for(var hay in a)
+		{
+			console.log(a[hay].id);
+			$scope.productos[b].datamodales = '';
+			
+			$scope.productos[b].datamodales = '<div class="imagen hidden">'+
+				'<div ng-if="modalestotal[p.id] > 0">'+
+					'<a href="#img{{p.id}}{{p.productDetails[modalestotal[p.id]].id}}" ng-if="modales[p.id] == 0" >'+
+						'&#60;'+
+					'</a>'+
+					'<a href="#img{{p.id}}{{p.productDetails[modales[p.id]-1].id}}" ng-if="modales[p.id] > 0" >'+
+						'#img{{p.id}}{{p.productDetails[modales[p.id]-1].id}}&#60;</a>'+
+				'</div>'+
+				
+				//'<img src'="{{a.url}}">'+
+				
+				'<div ng-if="p.productDetails.length > 0">'+
+					'<a href="#img{{p.id}}{{a.id}}">></a>'+
+				'</div>'+
+			'</div>'+
+			'<a class="cerrar" href="#img">X</a>'+
+			'<div ng-init="modales[p.id] [modales[p.id] +1] =  modales[p.id] +1 ;"></div>';
+			
+		}
+		/*
+		<h3>
+		Product {{p.id}}
+		</h3>
+		<div class="imagen hidden">
+			<div ng-if="modalestotal[p.id] > 0">
+				<a href="#img{{p.id}}{{p.productDetails[modalestotal[p.id]].id}}" ng-if="modales[p.id] == 0" >
+					&#60;
+				</a>
+				<a href="#img{{p.id}}{{p.productDetails[modales[p.id]-1].id}}" ng-if="modales[p.id] > 0" >
+					#img{{p.id}}{{p.productDetails[modales[p.id]-1].id}}&#60;</a>
+			</div>
+			
+			<img src="{{a.url}}">
+			
+			<div ng-if="p.productDetails.length > 0">
+				<a href="#img{{p.id}}{{a.id}}">></a>
+			</div>
+		</div>
+		<a class="cerrar" href="#img">X</a>
+		<div ng-init="modales[p.id] [modales[p.id] +1] =  modales[p.id] +1 ;"></div>
+		*/
+	}
+	
 	$scope.prodpage = 10000;
 	$scope.getProductsCountByFilter = function ()
 	{

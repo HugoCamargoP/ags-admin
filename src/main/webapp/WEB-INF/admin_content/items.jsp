@@ -1,7 +1,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div id="page-wrapper" ng-controller="${ appname }Prod" ng-init="getAllProducts();getProductSizes();overs= {};newsize = {};eachitem = {};">
+<div id="page-wrapper" ng-controller="${ appname }Prod" ng-init="getAllProducts();getProductSizes();overs= {};newsize = {};eachitem = {}; coveraux = {};">
 	<div class="graphs">
 		<h3 class="blank1 center"><s:message code="admin.report"/></h3>
 			<div class="tab-content">
@@ -120,46 +120,147 @@
 							 		<td><input class="form-control form-control-min" type="text" /></td>
 							 		<td><input class="form-control form-control-min" type="text" /></td>
 					 			</tr>
-					 			<tr>
-					 				<td ng-class="{show: overs[p.id] || newsize[p.id]}" class="hidden-xs" style="display:none;color:rgba(255,255,255,0);">
-					 					<span class="fa fa-user" aria-hidden="true"></span>
-					 				</td>
-					 				<td colspan="4">
-										<div>
-											<div  class="coverflow">
-												<img src="http://placehold.it/350x350" />
-												<img src="http://placehold.it/350x350/E8117F/FFFFFF" />
-												<img src="http://placehold.it/350x350" />
-												<img src="http://placehold.it/350x350/E8117F/FFFFFF" />
-												<img src="http://placehold.it/350x350" />
-											</div>
-										</div>
-										<div id="coverflow-slider"></div>
-					 				</td>
-					 				
-					 			</tr>
 					 		</table>
 					 	</div>
+		 				<ul class="galeriaq list-inline">
+							<li class="col-xs-6 col-sm-4 col-md-3 col-lg-2" ng-repeat="a in p.productDetails">
+								<a href="#img{{p.id}}{{a.id}}">
+									<img class="img-responsive img-thumbnail" src="{{a.url}}">
+								</a>
+							</li>
+						</ul>
+						{{p.datamodales}}
+						<div class="modal" id="" ng-init="modalessss(p.productDetails,$index,p.id);">
+							
+							<%-- 
+							<h3>
+							Product {{p.id}}
+							</h3>
+							<div class="imagen hidden">
+								<div ng-if="modalestotal[p.id] > 0">
+									<a href="#img{{p.id}}{{p.productDetails[modalestotal[p.id]].id}}" ng-if="modales[p.id] == 0" >
+										&#60;
+									</a>
+									<a href="#img{{p.id}}{{p.productDetails[modales[p.id]-1].id}}" ng-if="modales[p.id] > 0" >
+										#img{{p.id}}{{p.productDetails[modales[p.id]-1].id}}&#60;</a>
+								</div>
+								
+								<img src="{{a.url}}">
+								
+								<div ng-if="p.productDetails.length > 0">
+									<a href="#img{{p.id}}{{a.id}}">></a>
+								</div>
+							</div>
+							<a class="cerrar" href="#img">X</a>
+							<div ng-init="modales[p.id] [modales[p.id] +1] =  modales[p.id] +1 ;"></div>
+							--%>
+						</div>
 					 </div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	
-<div>
-	<div  class="coverflow">
-		<img src="http://placehold.it/350x350" />
-		<img src="http://placehold.it/350x350/E8117F/FFFFFF" />
-		<img src="http://placehold.it/350x350" />
-		<img src="http://placehold.it/350x350/E8117F/FFFFFF" />
-		<img src="http://placehold.it/350x350" />
-	</div>
-</div>
 
 <div id="coverflow-slider"></div>
 
+
+
 <style>
+/*Estilos de la galeria*/
+
+.galeria {
+	width: 90%;
+	margin: auto;
+	list-style: none;
+	padding: 20px;
+	box-sizing: border-box;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+.galeria li {
+	margin: 5px;
+}
+
+.galeria img {
+/*
+	width: 150px;
+	height: 100px;
+*/
+}
+
+/*Estilos del modal*/
+
+.modal {
+	display: none;
+}
+
+.modal:target {
+	
+	display: block;
+	position: fixed;
+	background: rgba(0,0,0,0.8);
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.modal h3 {
+	color: #fff;
+	font-size: 30px;
+	text-align: center;
+	margin: 15px 0;
+}
+
+.imagen {
+	/*
+	width: 100%;
+	height: 50%;
+	*/
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.imagen a {
+	color: #fff;
+	font-size: 40px;
+	text-decoration: none;
+	margin: 0 10px;
+}
+
+.imagen a:nth-child(2) {
+	margin: 0;
+	height: 100%;
+	flex-shrink: 2;
+}
+
+.imagen img {
+	width: 500px;
+	height: 100%;
+	max-width: 100%;
+	border: 7px solid #fff;
+	box-sizing: border-box;
+}
+
+.cerrar {
+	display: block;
+	background: #fff;
+	width: 25px;
+	height: 25px;
+	margin: 15px auto;
+	text-align: center;
+	text-decoration: none;
+	font-size: 25px;
+	color: #000;
+	padding: 5px;
+	border-radius: 50%;
+	line-height: 25px;
+}
+
 	.ui-coverflow-wrapper{
 	    height:400px;
 	    margin-top: 100px;
@@ -168,15 +269,18 @@
 	    border:0px;
 	}
 </style>
-
+<link type='text/css' rel="stylesheet" href="${ContextPath}/r/css/jquery.flipster.min.css" /> 
+<script type="text/javascript" src="${ContextPath}/r/js/jquery.flipster.min.js"></script>
+<!--
 <link type='text/css' rel="stylesheet" href="${ContextPath}/r/css/coverflow.css" /> 
 <script type="text/javascript" src="${ContextPath}/r/js/coverflow.standalone.min.js"></script>
+<link type='text/css' rel="stylesheet" href="https://cdn.rawgit.com/coverflowjs/coverflow/master/dist/coverflow.css" />
+<script type="text/javascript" src="https://cdn.rawgit.com/coverflowjs/coverflow/master/dist/coverflow.min.js" charset="utf*-8"></script> 
+--> 
 <script type="text/javascript" src="${ContextPath}/r/js${DeployContext}/products.js" charset="utf-8"></script>
-<!--<link type='text/css' rel="stylesheet" href="https://cdn.rawgit.com/coverflowjs/coverflow/master/dist/coverflow.css" />
-<script type="text/javascript" src="https://cdn.rawgit.com/coverflowjs/coverflow/master/dist/coverflow.min.js" charset="utf*-8"></script> --> 
 <script>
 $(function() {
-
+	/*
     $('.coverflow').coverflow({
         active: 2,
         select: function(event, ui){
@@ -190,9 +294,22 @@ $(function() {
         }
         
         $('.coverflow').coverflow('next');
-        
-        
     });
-    
+    */
+    $('.coverflow').flipster();
 });
+
+function cover(a,x)
+{
+	console.log(a);
+	for ( var f in x) 
+	{
+		contenido = '<li data-flip-title="Red" ng-repeat="c in p.productDetails">'+
+	    '<img class="img-responsive" src="'+x[f].url+'" />'+
+		'</li>';
+		$(a).append(contenido);
+	}
+	$('.coverflow').flipster();
+}
+
 </script>
