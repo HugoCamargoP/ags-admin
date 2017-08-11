@@ -1,5 +1,54 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%--
+	<h1>Galería de imágenes con efecto lightbox solo con CSS</h1>
+	
+	<ul class="galeria">
+		<li><a href="#img1"><img src="http://www.paisajesimagenes.com/wp-content/uploads/Descripci%C3%B3n-de-paisajes..jpg"></a></li>
+		<li><a href="#img2"><img src="http://neo-deco.es/wp-content/uploads/2013/01/Paisaje-de-monta%C3%B1a.jpg"></a></li>
+		<li><a href="#img3"><img src="http://www.forodefotos.com/attachments/naturaleza/16230d1294773821-fotos-de-paisajes-fotos-de-paisajes-nevado.jpg"></a></li>
+		<li><a href="#img4"><img src="http://altavistaonline.info/wp-content/uploads/2015/07/paisaje-oto-al-10834.jpg"></a></li>
+	</ul>
+
+		<h3>Paisaje 1</h3>
+		<div class="imagen">
+			<a href="#img4">&#60;</a>
+			<a href="#img2"><img src="http://www.paisajesimagenes.com/wp-content/uploads/Descripci%C3%B3n-de-paisajes..jpg"></a>
+			<a href="#img2">></a>
+		</div>
+		<a class="cerrar" href="">X</a>
+	</div>
+	
+	<div class="modal" id="img2">
+		<h3>Paisaje 2</h3>
+		<div class="imagen">
+			<a href="#img1">&#60;</a>
+			<a href="#img3"><img src="http://neo-deco.es/wp-content/uploads/2013/01/Paisaje-de-monta%C3%B1a.jpg"></a>
+			<a href="#img3">></a>
+		</div>
+		<a class="cerrar" href="">X</a>
+	</div>
+	
+	<div class="modal" id="img3">
+		<h3>Paisaje 3</h3>
+		<div class="imagen">
+			<a href="#img2">&#60;</a>
+			<a href="#img4"><img src="http://www.forodefotos.com/attachments/naturaleza/16230d1294773821-fotos-de-paisajes-fotos-de-paisajes-nevado.jpg"></a>
+			<a href="#img4">></a>
+		</div>
+		<a class="cerrar" href="">X</a>
+	</div>
+	
+	<div class="modal" id="img4">
+		<h3>Paisaje 4</h3>
+		<div class="imagen">
+			<a href="#img3">&#60;</a>
+			<a href="#img1"><img src="http://altavistaonline.info/wp-content/uploads/2015/07/paisaje-oto-al-10834.jpg"></a>
+			<a href="#img1">></a>
+		</div>
+		<a class="cerrar" href="">X</a>
+	</div>
+	 --%>
 
 <div id="page-wrapper" ng-controller="${ appname }Prod" ng-init="getAllProducts();getProductSizes();overs= {};newsize = {};eachitem = {}; coveraux = {};">
 	<div class="graphs">
@@ -122,17 +171,26 @@
 					 			</tr>
 					 		</table>
 					 	</div>
-		 				<ul class="galeriaq list-inline">
+		 				<ul class="galeriaq list-inline" ng-init="modalessss(p.productDetails,$index,p.id);">
 							<li class="col-xs-6 col-sm-4 col-md-3 col-lg-2" ng-repeat="a in p.productDetails">
-								<a href="#img{{p.id}}{{a.id}}">
-									<img class="img-responsive img-thumbnail" src="{{a.url}}">
-								</a>
+								<img ng-click="modalesimg1('img'+p.id+''+a.id);" class="click img-responsive img-thumbnail" src="{{a.url}}">
 							</li>
 						</ul>
-						{{p.datamodales}}
-						<div class="modal" id="" ng-init="modalessss(p.productDetails,$index,p.id);">
+						
+						<div ng-repeat="h in p.datamodales"  ng-bind-html="h">
+							<!--<span ng-bind-html="h"></span>{{h}}-->
+						</div> 
+						<%--
+						<div class="modal">
+						</div>
+						<div ng-repeat="h in p.datamodales"  ng-bind-html="h">
+								<!--<span ng-bind-html="h"></span>{{h}}-->
+						</div> 
+						 
+						
+						<span ng-bind-html="infoText"></span>--%>
+							<%-- <div class="modal" id="">
 							
-							<%-- 
 							<h3>
 							Product {{p.id}}
 							</h3>
@@ -196,7 +254,7 @@
 	display: none;
 }
 
-.modal:target {
+.modal:target , .modal-actives {
 	
 	display: block;
 	position: fixed;

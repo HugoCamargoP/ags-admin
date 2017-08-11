@@ -1,5 +1,6 @@
 <script type="text/javascript" src="${ContextPath}/r/js${DeployContext}/config.js" charset="utf-8"></script>
 <script type="text/javascript" src="${ContextPath}/r/js/angular.min.js" charset="utf-8"></script>
+<script data-require="angular-sanitize@*" data-semver="1.4.3" src="https://code.angularjs.org/1.4.3/angular-sanitize.js"></script>    
 <script type="text/javascript" src="${ContextPath}/r/js/jquery.js" charset="utf-8"></script>
 <script type="text/javascript" src="${ContextPath}/r/js/wow.min.js"></script>
 <script type="text/javascript" src="${ContextPath}/r/js/Chart.js"></script>

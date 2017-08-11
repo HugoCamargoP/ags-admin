@@ -3,3 +3,10 @@ angular.module( appname+'App',[])
 	//ServiceProvider.setUrl('/'+appname+'/api');
 	ServiceProvider.setUrl('/ags-admin/rest');
 }])
+
+
+var app = angular.module( appname+'App', ['ngSanitize']);
+app.config([appname+'ServiceProvider', function(ServiceProvider){
+	//ServiceProvider.setUrl('/'+appname+'/api');
+	ServiceProvider.setUrl('/ags-admin/rest');
+}])

@@ -1,8 +1,9 @@
-angular.module(appname+'App')
+//angular.module(appname+'App')
+//var app = angular.module(appname+'App', [ 'ngSanitize']);
 
-.controller(appname+'Prod',['$scope', appname+'Service',
+app.controller(appname+'Prod',['$scope','$sce', appname+'Service',
 
-function($scope, Service)
+function($scope,$sce, Service)
 {	
 /*Address*/
 	$scope.getCountries = function ()
@@ -323,58 +324,56 @@ $scope.pago = function ()
 		cover(b,x);
 	}
 	
+	$scope.infoText='aqui deberia estar lo que hay abajo';
 	$scope.modalessss = function(a,b,c)
 	{
-		
-		$scope.productos[b].datamodales;
-		//console.log(a);
-		console.log(c);
-		for(var hay in a)
+		$scope.productos[b].datamodales = {};
+		//var auxauxaux = [];
+		if(a.length > 0)
 		{
-			console.log(a[hay].id);
-			$scope.productos[b].datamodales = '';
-			
-			$scope.productos[b].datamodales = '<div class="imagen hidden">'+
-				'<div ng-if="modalestotal[p.id] > 0">'+
-					'<a href="#img{{p.id}}{{p.productDetails[modalestotal[p.id]].id}}" ng-if="modales[p.id] == 0" >'+
-						'&#60;'+
-					'</a>'+
-					'<a href="#img{{p.id}}{{p.productDetails[modales[p.id]-1].id}}" ng-if="modales[p.id] > 0" >'+
-						'#img{{p.id}}{{p.productDetails[modales[p.id]-1].id}}&#60;</a>'+
-				'</div>'+
-				
-				//'<img src'="{{a.url}}">'+
-				
-				'<div ng-if="p.productDetails.length > 0">'+
-					'<a href="#img{{p.id}}{{a.id}}">></a>'+
-				'</div>'+
-			'</div>'+
-			'<a class="cerrar" href="#img">X</a>'+
-			'<div ng-init="modales[p.id] [modales[p.id] +1] =  modales[p.id] +1 ;"></div>';
-			
+			var total = a.length -1 ;
+			for(var hay in a)
+			{
+				hay = parseInt(hay);
+				auxaux = "";
+				infoText= '';
+				auxaux = auxaux + '<div class="modal img'+b+''+$scope.productos[b].productDetails[total].id+'" id="img'+b+''+$scope.productos[b].productDetails[total].id+'">'+
+				'<h3>Producto '+(b+1)+'</h3>'+
+				'<div class="imagen">';
+					//regresar
+					if(hay == 0)
+					{
+						auxaux = auxaux + '<a href="#img'+b+''+$scope.productos[b].productDetails[total].id+'">&#60;</a>';
+					}
+					else if(hay > 0 && hay <= total)
+					{
+						auxaux = auxaux + '<a href="#img'+b+''+$scope.productos[b].productDetails[hay-1].id+'">&#60;</a>';
+					}
+					
+					//img
+					auxaux = auxaux + '<img src="'+$scope.productos[b].productDetails[hay].url+'">';
+					
+					//adelante
+					if(hay == total)
+					{
+						auxaux = auxaux + '<a href="#img'+b+''+$scope.productos[b].productDetails[0].id+'">></a>'
+					}
+					else if(hay >= 0 && hay < total)
+					{
+						auxaux = auxaux + '<a href="#img'+b+''+$scope.productos[b].productDetails[hay+1].id+'">></a>'
+					}
+				auxaux = auxaux + '</div></div>';
+				$scope.infoText = $scope.infoText + $sce.trustAsHtml(auxaux);
+				infoText = $sce.trustAsHtml(auxaux);
+				auxauxaux.push(infoText+auxaux);
+			}
+			$scope.productos[b].datamodales = auxauxaux;
 		}
-		/*
-		<h3>
-		Product {{p.id}}
-		</h3>
-		<div class="imagen hidden">
-			<div ng-if="modalestotal[p.id] > 0">
-				<a href="#img{{p.id}}{{p.productDetails[modalestotal[p.id]].id}}" ng-if="modales[p.id] == 0" >
-					&#60;
-				</a>
-				<a href="#img{{p.id}}{{p.productDetails[modales[p.id]-1].id}}" ng-if="modales[p.id] > 0" >
-					#img{{p.id}}{{p.productDetails[modales[p.id]-1].id}}&#60;</a>
-			</div>
-			
-			<img src="{{a.url}}">
-			
-			<div ng-if="p.productDetails.length > 0">
-				<a href="#img{{p.id}}{{a.id}}">></a>
-			</div>
-		</div>
-		<a class="cerrar" href="#img">X</a>
-		<div ng-init="modales[p.id] [modales[p.id] +1] =  modales[p.id] +1 ;"></div>
-		*/
+	}
+	
+	$scope.modalesimg1 = function(a)
+	{
+		modalesimg(a);
 	}
 	
 	$scope.prodpage = 10000;

@@ -1,4 +1,5 @@
 /*++Notificaciones++*/
+var auxauxaux = [];
 var mensajesglobal = 0;
 function msjerror(error)
 	{
@@ -29,6 +30,11 @@ function msjexito(exito)
 
 /*++++*/
 
+function modalesimg(a)
+{
+	addremoveclass('modal-actives',a);
+}
+
 /*poner y quitar clases*/
 function addremoveclass(clase,target)
 	{
@@ -40,7 +46,7 @@ function addremoveclass(clase,target)
 		{
 			$("."+target).addClass(clase)
 		}
-		console.log($("."+target));
+		//console.log($("."+target));
 	}
 /**/
 
