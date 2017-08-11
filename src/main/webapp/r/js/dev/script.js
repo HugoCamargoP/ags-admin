@@ -30,9 +30,9 @@ function msjexito(exito)
 
 /*++++*/
 
-function modalesimg(a)
+function modalesimg(a,b,c,d)
 {
-	addremoveclass('modal-actives',a);
+	console.log(a+'     '+b+'          '+c+'       '+d);
 }
 
 /*poner y quitar clases*/

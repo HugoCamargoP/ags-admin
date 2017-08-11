@@ -327,6 +327,8 @@ $scope.pago = function ()
 	$scope.infoText='aqui deberia estar lo que hay abajo';
 	$scope.modalessss = function(a,b,c)
 	{
+		modalesimg(a,b,c,$scope.productos);
+		/*
 		$scope.productos[b].datamodales = {};
 		//var auxauxaux = [];
 		if(a.length > 0)
@@ -369,6 +371,7 @@ $scope.pago = function ()
 			}
 			$scope.productos[b].datamodales = auxauxaux;
 		}
+		*/
 	}
 	
 	$scope.modalesimg1 = function(a)
