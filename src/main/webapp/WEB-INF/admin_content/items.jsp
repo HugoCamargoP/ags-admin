@@ -50,9 +50,9 @@
 					 					<span class="fa fa-plus" aria-hidden="true"></span>
 					 				</td>
 					 				<td><b>SKU</b></td>
-					 				<td><b><s:message code="size" /></b></td>
-					 				<td><b><s:message code="price" /></b></td>
-					 				<td><b><s:message code="stock" /></b></td>
+					 				<td><b><s:message code="admin.size" /></b></td>
+					 				<td><b><s:message code="admin.price" /></b></td>
+					 				<td><b><s:message code="admin.stock" /></b></td>
 					 			</tr>
 					 			<tr ng-repeat="a in p.skuProduct">
 							 		<td ng-show="overs[p.id] || newsize[p.id]" class="hidden-xs">
@@ -120,7 +120,7 @@
 					 		</table>
 					 	</div>
 					 	<div class="marginem">
-					 		<a href="{{a.url}}" target="_blank" class="btn btn-black"><s:message code="addPicture" /><i class="fa fa-plus"></i></a>
+					 		<a href="{{a.url}}" target="_blank" class="btn btn-black"><s:message code="admin.addPicture" /> <i class="fa fa-plus"></i></a>
 					 	</div>
 					 	<div class="container-img-muestras">
 			 				<ul class="galeriaq list-inline" > <%-- ng-init="modalessss(p.productDetails,$index,p.id);">--%>
@@ -153,25 +153,25 @@
       <div class="modal-body">
 		<form action="" id="formsnewsize" name="formsnewsize" onsubmit="return false" ng-submit="newsize[p.id] = false;" >
 			  <div class="form-group col-xs-12">
-			    <label for="pwd"><i class="fa fa-barcode"></i><b> <s:message code="admin.filter"/>:</b></label> 
+			    <label for="pwd"><i class="fa fa-barcode"></i><b>SKU:</b></label> 
 			    <input ng-required="true" class="form-control form-control-min" type="text" />
 			  </div>
 			  
 			  <div class="col-xs-12">
 				  <div class="form-group col-xs-12 col-sm-4">
-				    <label for="pwd"><i class="fa fa-object-group"></i><b> <s:message code="admin.filter"/>:</b></label> 
+				    <label for="pwd"><i class="fa fa-object-group"></i><b> <s:message code="admin.size"/>:</b></label> 
 				    <select name="" id="" class="form-control form-control-min" ng-required="true">
 		 				<option value="{{a.id}}"  ng-repeat="a in sizes">{{a.name}}</option>
 		 			</select>
 				  </div>
 				  
 				  <div class="form-group col-xs-12 col-sm-4">
-				    <label for="pwd"><i class="fa fa-usd"></i><b> <s:message code="admin.filter"/>:</b></label> 
+				    <label for="pwd"><i class="fa fa-usd"></i><b> <s:message code="admin.price"/>:</b></label> 
 				    <input  ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/"  ng-required="true" class="form-control form-control-min" type="text" />
 				  </div>
 				  
 				  <div class="form-group col-xs-12 col-sm-4">
-				    <label for="pwd"><i class="fa fa-filter"></i><b> <s:message code="admin.filter"/>:</b></label>
+				    <label for="pwd"><i class="fa fa-filter"></i><b> <s:message code="admin.stock"/>:</b></label>
 		 			<input type="number"  ng-required="true" class="form-control form-control-min" type="text" />
 				  </div>
 			  
