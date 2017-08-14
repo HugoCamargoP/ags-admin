@@ -178,7 +178,7 @@
 			 				<ul class="galeriaq list-inline" > <%-- ng-init="modalessss(p.productDetails,$index,p.id);">--%>
 								<li class="col-xs-6 col-sm-4 col-md-3 col-lg-2 center" ng-repeat="a in p.productDetails">
 									<div class="img-info">
-										<button class="btn btn-black btn-delete hidden-xs" ng-click="deleteimg('img'+p.id+''+a.id);" ><i class="fa fa-times"></i></button>
+										<button class="btn btn-black btn-delete hidden-xs" ng-click="deleteimg(p.productDetails,$index,p.id);" ><i class="fa fa-times"></i></button>
 										<a href="{{a.url}}" target="_blank" class="btn btn-edit btn-black"><i class="fa fa-eye"></i></a>
 										<button class="btn btn-black btn-edit hidden"><i class="fa fa-pencil"></i></button>
 									</div>

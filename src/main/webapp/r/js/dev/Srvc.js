@@ -4,7 +4,7 @@
  * @param url
  * @returns
  */
-function Service(http, url)
+function Service(http, url) 
 {
     /************ORDERS**************/
    
@@ -358,6 +358,38 @@ function Service(http, url)
         return http.post(url+'/product/recomended_size',fitbase)
     }
    
+	//Regresa una lista con las tallas y su id (e.g., id:1 name:S)
+		//Parámetros necesitados: Ninguno
+	this.getProductSizes = function(){
+		return http({
+			'method':'GET',
+			'url':url + '/product_sizes'
+		})
+	}
+	
+		//Regresa una lista de objetos SizeDescription, los cuales contienen las diferentes medidas que corresponden a una talla
+		//Parámetros necesitados: Ninguno
+	this.getProductSizeDescription = function(){
+		return http({
+			'method':'GET',
+			'url':url + '/product_sizes/description'
+		})
+	}
+	
+	//Crea una medida_descripcion nueva en la base de datos, junto con una talla nueva (no se puede crear una sin depender de una talla)
+		//Parámetros necesitados: Objeto SizeDescription junto con el extraData (Que será el nombre de la talla)
+	this.createSizeDescription = function(sizeDescription){
+		return http.post(url+'/product_sizes/description',sizeDescription)
+	}
+
+
+	//Actualiza  una medida_descripción de la base de datos
+		//Parámetros necesitados: Objeto SizeDescription
+		//NOTA: No se podrá actualizar una medida_descripcion a una talla que ya posea una.
+	this.updateSizeDescription = function(sizeDescription){
+		return http.put(url+'/product_sizes/description',sizeDescription)
+	}
+	
 }
 
 /*
