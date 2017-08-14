@@ -369,7 +369,7 @@ function Service(http, url)
 	
 		//Regresa una lista de objetos SizeDescription, los cuales contienen las diferentes medidas que corresponden a una talla
 		//Parámetros necesitados: Ninguno
-	this.getProductSizes = function(){
+	this.getProductSizeDescription = function(){
 		return http({
 			'method':'GET',
 			'url':url + '/product_sizes/description'
