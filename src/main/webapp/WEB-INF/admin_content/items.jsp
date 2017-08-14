@@ -151,7 +151,7 @@
         <h4 class="modal-title"><s:message code="admin.tittleNewSKU"/></h4>
       </div>
       <div class="modal-body">
-		<form action="" id="formsnewsize" name="formsnewsize" onsubmit="return false" ng-submit="newsize[p.id] = false;" >
+		<form action="" id="formsnewsize" name="formsnewsize" ng-model="formsnewsize" onsubmit="return false" ng-submit="createSkuProduct();">
 			  <div class="form-group col-xs-12">
 			    <label for="pwd"><i class="fa fa-barcode"></i><b>SKU:</b></label> 
 			    <input ng-required="true" class="form-control form-control-min" type="text" />
@@ -175,7 +175,7 @@
 		 			<input type="number"  ng-required="true" class="form-control form-control-min" type="text" />
 				  </div>
 			  
-			  	<button class="btn btn-black" type="submit">Save <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+			  	<button class="btn btn-black" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 			  </div>
 		</form>
 		<div class="clearfix"></div>

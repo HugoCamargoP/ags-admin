@@ -336,7 +336,7 @@ $scope.pago = function ()
 			function errorCallback(){
 			})
 	}
-	
+
 	$scope.updateProduct = function(a)
 	{
 		Service.updateProduct($scope.productos[a]).then(
@@ -352,6 +352,27 @@ $scope.pago = function ()
 			},
 			function errorCallback(){
 			})
+	}
+	
+	$scope.createSkuProduct = function(a)
+	{
+		
+		console.log($scope.formsnewsize.$valid);
+		/*
+		Service.createSkuProduct($scope.productos[a]).then(
+			function successCallback(response){
+				if(response.data.status == 'OK')
+				{
+					msjexito('Exito');
+				}
+				else
+				{
+					msjerror('Error');
+				}
+			},
+			function errorCallback(){
+			})
+		*/
 	}
 	
 	$scope.hascoverflow = function(b,x)
