@@ -39,5 +39,8 @@ public interface Constants {
 		static final String ProductCountFilter		= ServiceContext + "/product_filter/count";
 		static final String ProductSizes	  		= ServiceContext + "/product_sizes";
 		static final String ProductSizesDescription = ProductSizes 	 + "/description";
+		
+		//Report
+		static final String ReportSchema			= ServiceContext + "/reports";
 	}
 }

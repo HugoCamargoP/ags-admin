@@ -337,7 +337,7 @@ function Service(http, url)
 	
 	//Actualiza un detalle de producto
 		//Parámetros necesitados: ProductDetail productDetail
-	this.updateProduct = function(productDetail){
+	this.updateProductDetail = function(productDetail){
 		return http.put(url + '/product_detail',productDetail)
 	}
 	
