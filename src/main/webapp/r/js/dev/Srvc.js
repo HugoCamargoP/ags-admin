@@ -335,10 +335,10 @@ function Service(http, url)
 		})
 	}
 	
-	//Actualiza un detalle de producto
-		//Parámetros necesitados: ProductDetail productDetail
-	this.updateProductDetail = function(productDetail){
-		return http.put(url + '/product_detail',productDetail)
+	//Agrega una imagen relacionada con el producto
+		//Parámetros necesitados: MultipartFile image, Integer product
+	this.addProductDetail = function(image,product){
+		return http.post(url + '/product_detail',image,product)
 	}
 	
 	//Elimina el detalle de producto con el id correspondiente
