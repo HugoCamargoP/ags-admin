@@ -38,6 +38,7 @@ public class ProductDaoImplementation implements ProductDao {
 	
 	private SimpleJdbcInsert productoInsertActor;
 	private SimpleJdbcInsert productDetailInsertActor;
+	private SimpleJdbcInsert skuProductInsertActor;
 	private SimpleJdbcInsert sizeInsertActor;
 	private SimpleJdbcInsert sizeDescriptionInsertActor;
 	
@@ -222,6 +223,10 @@ public class ProductDaoImplementation implements ProductDao {
 		
 		productDetailInsertActor = new SimpleJdbcInsert(dataSource)
 				.withTableName(ProducDetailTable)
+				.usingGeneratedKeyColumns("id");
+		
+		skuProductInsertActor = new SimpleJdbcInsert(dataSource)
+				.withTableName(SkuProductTable)
 				.usingGeneratedKeyColumns("id");
 		
 		sizeInsertActor = new SimpleJdbcInsert(dataSource)
@@ -465,6 +470,20 @@ public class ProductDaoImplementation implements ProductDao {
 		String sql = "SELECT p.*, t.talla, pr.descripcion FROM productos_sku p LEFT JOIN tallas t ON p.talla = t.id JOIN productos pr ON pr.id = p.producto WHERE sku = :sku ORDER BY p.talla";
 		SqlParameterSource paramMap = new MapSqlParameterSource("sku",sku);
 		return jdbcTemplate.query(sql, paramMap, new SkuProductRowExtractor(true));
+	}
+	
+	@Override
+	public void createSkuProduct(SkuProduct skuProduct) {
+		
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("producto",skuProduct.getProduct());
+		paramMap.put("sku", skuProduct.getSku());
+		paramMap.put("talla", skuProduct.getSize());
+		paramMap.put("precio", skuProduct.getPrice());
+		paramMap.put("almacen", skuProduct.getStock());
+		
+		skuProductInsertActor.execute(paramMap);
+		
 	}
 
 	@Override

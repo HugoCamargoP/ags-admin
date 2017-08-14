@@ -27,7 +27,8 @@ public interface ProductDao {
 	Integer getCountProductsByFilter(Product product);
 	
 	//SkuProduct
-	List<SkuProduct> getSkuProductsByProduct(Integer idProduct);	
+	List<SkuProduct> getSkuProductsByProduct(Integer idProduct);
+	void createSkuProduct(SkuProduct skuProduct);
 	SkuProduct getSkuProductBySku(String sku);
 	SkuProduct getSkuProductById(Integer idSkuProduct);
 	void modifyListSkuProduct(List<SkuProduct> skuProducts);

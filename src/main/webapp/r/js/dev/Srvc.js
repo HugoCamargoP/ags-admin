@@ -279,6 +279,12 @@ function Service(http, url)
             'url': url + '/product/' + sku
         })
     }
+    
+    //Crea un nuevo SkuProduct
+    	//Parámetros necesitados: SkuProduct skuProduct
+    this.createSkuProduct = function(skuProduct){
+    	return http.post(url + '/product_sku', skuProduct)
+    }
    
     //Trae las ordenes que correspondan a los campos no nulos del objeto product
         //Parámetros necesarios: Product product, Integer page, Integer inPage (inPage = cuantos por página)

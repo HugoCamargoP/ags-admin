@@ -25,6 +25,7 @@ import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.entities.ProductDetail;
 import com.arrowgs.agsadmin.entities.SizeDescription;
+import com.arrowgs.agsadmin.entities.SkuProduct;
 import com.arrowgs.agsadmin.helpers.ClassHelper;
 import com.arrowgs.agsadmin.helpers.ControllerHelper;
 import com.arrowgs.agsadmin.helpers.ControllerHelper.ResponseStatus;
@@ -50,6 +51,18 @@ public class ProductApi {
 			status = ResponseStatus.ExternalError;
 		}
 		return ControllerHelper.mapResponse(status, products);
+	}
+	
+	@RequestMapping(path = ApiMappings.ProductSku, method = RequestMethod.POST)
+	public Map<String,? extends Object> createSkuProduct(@RequestBody SkuProduct skuProduct){
+		ResponseStatus status;		
+		try{
+			productService.createSkuProduct(skuProduct);
+			status = ResponseStatus.OK;
+		}catch(Exception e){
+			status = ResponseStatus.ExternalError;
+		}
+		return ControllerHelper.mapResponse(status, null);
 	}
 	
 	@RequestMapping(path = ApiMappings.Product+"/{idProduct}", method = RequestMethod.GET)

@@ -22,6 +22,7 @@ public interface ProductService {
 	
 	//SkuProduct
 	List<SkuProduct> getSkuProductsByProduct(Integer idProduct);
+	void createSkuProduct(SkuProduct skuProduct);
 	SkuProduct getSkuProductBySku(String sku);
 	SkuProduct getSkuProductById(Integer idSkuProduct);
 	void updateSkuProducts(SkuProduct skuProduct);

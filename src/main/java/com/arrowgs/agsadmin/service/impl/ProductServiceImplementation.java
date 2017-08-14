@@ -223,6 +223,17 @@ public class ProductServiceImplementation implements ProductService {
 			throw e;
 		}
 	}
+	
+	@Override
+	public void createSkuProduct(SkuProduct skuProduct) {
+		try{
+			productDao.createSkuProduct(skuProduct);
+		}catch(Exception e){
+			logger.error("ProductService : createSkuProduct : "+ e.toString());
+			throw e;
+		}
+		
+	}
 
 	@Override
 	public void updateSkuProducts(SkuProduct skuProduct) {		
