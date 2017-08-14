@@ -322,16 +322,19 @@ $scope.pago = function ()
 	$scope.deleteimg = function(a, b , c)
 	{
 		console.log(a+' '+b+' '+c);
+		console.log($scope.productos[a].productDetails[b]);
+		//delete $scope.productos[a].productDetails[b];
+		 $scope.productos[a].productDetails.splice(b, 1);
+		 $scope.updateProduct($scope.productos[a]);
 	}
 	
-	$scope.updateProduct = function()
+	$scope.updateProduct = function(a)
 	{
 		Service.updateProduct(a).then(
-				function successCallback(){
-					$scope.getOrder($scope.usuario,2);
-				},
-				function errorCallback(){
-				})
+			function successCallback(){
+			},
+			function errorCallback(){
+			})
 	}
 	
 	$scope.hascoverflow = function(b,x)
