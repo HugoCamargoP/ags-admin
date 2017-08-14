@@ -318,7 +318,22 @@ $scope.pago = function ()
 	
 	$scope.product = {};
 	//$scope.prodpage = productosporpagina;
-
+	
+	$scope.deleteimg = function(a, b , c)
+	{
+		console.log(a+' '+b+' '+c);
+	}
+	
+	$scope.updateProduct = function()
+	{
+		Service.updateProduct(a).then(
+				function successCallback(){
+					$scope.getOrder($scope.usuario,2);
+				},
+				function errorCallback(){
+				})
+	}
+	
 	$scope.hascoverflow = function(b,x)
 	{
 		cover(b,x);

@@ -52,7 +52,7 @@
 
 <div id="page-wrapper" ng-controller="${ appname }Prod" ng-init="getAllProducts();getProductSizes();overs= {};newsize = {};eachitem = {}; coveraux = {};">
 	<div class="graphs">
-		<h3 class="blank1 center"><s:message code="admin.report"/></h3>
+		<h3 class="blank1 center"><s:message code="admin.items"/></h3>
 			<div class="tab-content">
 				<div class="jumbotron">
 					 <div ng-repeat="p in productos" class="container marginem" ng-mouseover="overs[p.id] = true;" ng-mouseleave="overs[p.id] = false;" >
@@ -171,15 +171,26 @@
 					 			</tr>
 					 		</table>
 					 	</div>
-		 				<ul class="galeriaq list-inline" ng-init="modalessss(p.productDetails,$index,p.id);">
-							<li class="col-xs-6 col-sm-4 col-md-3 col-lg-2" ng-repeat="a in p.productDetails">
-								<img ng-click="modalesimg1('img'+p.id+''+a.id);" class="click img-responsive img-thumbnail" src="{{a.url}}">
-							</li>
-						</ul>
-						
+					 	<div class="marginem">
+					 		<a href="{{a.url}}" target="_blank" class="btn btn-black">Add picture <i class="fa fa-plus"></i></a>
+					 	</div>
+					 	<div class="container-img-muestras">
+			 				<ul class="galeriaq list-inline" > <%-- ng-init="modalessss(p.productDetails,$index,p.id);">--%>
+								<li class="col-xs-6 col-sm-4 col-md-3 col-lg-2 center" ng-repeat="a in p.productDetails">
+									<div class="img-info">
+										<button class="btn btn-black btn-delete hidden-xs" ng-click="deleteimg('img'+p.id+''+a.id);" ><i class="fa fa-times"></i></button>
+										<a href="{{a.url}}" target="_blank" class="btn btn-edit btn-black"><i class="fa fa-eye"></i></a>
+										<button class="btn btn-black btn-edit hidden"><i class="fa fa-pencil"></i></button>
+									</div>
+									<img class="click img-responsive img-thumbnail" src="{{a.url}}">
+								</li>
+							</ul>
+						</div>
+						<%--
 						<div ng-repeat="h in p.datamodales"  ng-bind-html="h">
 							<!--<span ng-bind-html="h"></span>{{h}}-->
 						</div> 
+						--%>
 						<%--
 						<div class="modal">
 						</div>

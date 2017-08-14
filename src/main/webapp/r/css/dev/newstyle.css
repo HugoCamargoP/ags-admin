@@ -1,4 +1,34 @@
 /* Style general */
+.img-info:hover {
+  opacity: 1;
+}
+
+.img-info {
+  position: absolute;
+  min-width: 100%;
+  width: auto;
+  min-height: 100%;
+  height: auto;
+  opacity: 0;
+}
+
+.container-img-muestras {
+  max-height: 230px;
+  overflow-y: auto;
+  height: auto;
+  overflow-x: hidden;
+}
+
+.btn-delete {
+  position: absolute;
+  right: 5px;
+}
+
+.btn-edit {
+  position: absolute;
+  left: 0px;
+}
+
 .click {
   cursor: pointer;
 }
