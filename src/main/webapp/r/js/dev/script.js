@@ -30,11 +30,6 @@ function msjexito(exito)
 
 /*++++*/
 
-function modalesimg(a,b,c,d)
-{
-	console.log(a+'     '+b+'          '+c+'       '+d);
-}
-
 /*poner y quitar clases*/
 function addremoveclass(clase,target)
 	{

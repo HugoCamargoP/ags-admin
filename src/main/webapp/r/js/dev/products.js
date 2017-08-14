@@ -321,17 +321,34 @@ $scope.pago = function ()
 	
 	$scope.deleteimg = function(a, b , c)
 	{
-		console.log(a+' '+b+' '+c);
-		console.log($scope.productos[a].productDetails[b]);
-		//delete $scope.productos[a].productDetails[b];
-		 $scope.productos[a].productDetails.splice(b, 1);
-		 $scope.updateProduct($scope.productos[a]);
+		 Service.removeProductDetail(c).then(
+			function successCallback(response){
+				if(response.data.status == 'OK')
+				{
+					msjexito('Eliminado');
+					$scope.productos[a].productDetails.splice(b, 1);	
+				}
+				else
+				{
+					msjerror('Error');
+				}
+			},
+			function errorCallback(){
+			})
 	}
 	
 	$scope.updateProduct = function(a)
 	{
-		Service.updateProduct(a).then(
-			function successCallback(){
+		Service.updateProduct($scope.productos[a]).then(
+			function successCallback(response){
+				if(response.data.status == 'OK')
+				{
+					msjexito('Exito');
+				}
+				else
+				{
+					msjerror('Error');
+				}
 			},
 			function errorCallback(){
 			})
@@ -340,61 +357,6 @@ $scope.pago = function ()
 	$scope.hascoverflow = function(b,x)
 	{
 		cover(b,x);
-	}
-	
-	$scope.infoText='aqui deberia estar lo que hay abajo';
-	$scope.modalessss = function(a,b,c)
-	{
-		modalesimg(a,b,c,$scope.productos);
-		/*
-		$scope.productos[b].datamodales = {};
-		//var auxauxaux = [];
-		if(a.length > 0)
-		{
-			var total = a.length -1 ;
-			for(var hay in a)
-			{
-				hay = parseInt(hay);
-				auxaux = "";
-				infoText= '';
-				auxaux = auxaux + '<div class="modal img'+b+''+$scope.productos[b].productDetails[total].id+'" id="img'+b+''+$scope.productos[b].productDetails[total].id+'">'+
-				'<h3>Producto '+(b+1)+'</h3>'+
-				'<div class="imagen">';
-					//regresar
-					if(hay == 0)
-					{
-						auxaux = auxaux + '<a href="#img'+b+''+$scope.productos[b].productDetails[total].id+'">&#60;</a>';
-					}
-					else if(hay > 0 && hay <= total)
-					{
-						auxaux = auxaux + '<a href="#img'+b+''+$scope.productos[b].productDetails[hay-1].id+'">&#60;</a>';
-					}
-					
-					//img
-					auxaux = auxaux + '<img src="'+$scope.productos[b].productDetails[hay].url+'">';
-					
-					//adelante
-					if(hay == total)
-					{
-						auxaux = auxaux + '<a href="#img'+b+''+$scope.productos[b].productDetails[0].id+'">></a>'
-					}
-					else if(hay >= 0 && hay < total)
-					{
-						auxaux = auxaux + '<a href="#img'+b+''+$scope.productos[b].productDetails[hay+1].id+'">></a>'
-					}
-				auxaux = auxaux + '</div></div>';
-				$scope.infoText = $scope.infoText + $sce.trustAsHtml(auxaux);
-				infoText = $sce.trustAsHtml(auxaux);
-				auxauxaux.push(infoText+auxaux);
-			}
-			$scope.productos[b].datamodales = auxauxaux;
-		}
-		*/
-	}
-	
-	$scope.modalesimg1 = function(a)
-	{
-		modalesimg(a);
 	}
 	
 	$scope.prodpage = 10000;
