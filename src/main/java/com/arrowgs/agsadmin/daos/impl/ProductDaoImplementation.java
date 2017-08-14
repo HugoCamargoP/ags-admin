@@ -250,10 +250,21 @@ public class ProductDaoImplementation implements ProductDao {
 
 	@Override
 	public void modifyProduct(Product product) {
-		String sql = "UPDATE productos set descripcion = :descripcion , precio = :precio";
-		Map<String,Object> paramMap = new HashMap<>();
-		paramMap.put("descripcion", product.getDescription());		
-		jdbcTemplate.update(sql, paramMap);
+		TransactionStatus transactionStatus =
+				transactionManager.getTransaction(new DefaultTransactionDefinition());
+		try{				
+			String sql = "UPDATE productos set descripcion = :descripcion WHERE id = :id";			
+			Map<String,Object> paramMap = new HashMap<>();
+			paramMap.put("descripcion", product.getDescription());
+			paramMap.put("id", product.getId());			
+			jdbcTemplate.update(sql, paramMap);
+			modifyListSkuProduct(product.getSkuProduct());
+	
+			transactionManager.commit(transactionStatus);
+		}catch(Exception e){
+			transactionManager.rollback(transactionStatus);
+			throw e;
+		}
 	}
 	
 	@Override
