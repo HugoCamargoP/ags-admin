@@ -23,5 +23,9 @@
 	
 	<!-- Import Spring Mail configuration file -->
 	<import resource="mail-context.xml" />
+	
+	<!-- Import Spring Report configuration file -->
+	<import resource="reports-config.xml" />
+	
 
 </beans>

@@ -134,7 +134,7 @@ public class UserDaoImplementation implements UserDao{
 
 	@Override
 	public void modifyUserRol(User user) {
-		String sql = "UPDATE usuarios SET rol = :rol WHERE id = :id";
+		String sql = "UPDATE usuarios SET rol = :rol WHERE id = :id AND id<>9";
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("rol", user.getType());
 		paramMap.put("id", user.getId());
