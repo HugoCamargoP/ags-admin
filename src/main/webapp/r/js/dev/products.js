@@ -356,13 +356,16 @@ $scope.pago = function ()
 	
 	$scope.createSkuProduct = function(a)
 	{
-		
-		console.log($scope.formsnewsize.$valid);
-		/*
-		Service.createSkuProduct($scope.productos[a]).then(
+		if($scope.formsnewsize.$valid)
+		{
+			Service.createSkuProduct($scope.newformssize).then(
 			function successCallback(response){
 				if(response.data.status == 'OK')
 				{
+					var aux = $scope.newformssize.product;
+					$scope.newformssize = {}
+					$scope.newformssize.product = aux;
+					$scope.getAllProducts();
 					msjexito('Exito');
 				}
 				else
@@ -372,7 +375,35 @@ $scope.pago = function ()
 			},
 			function errorCallback(){
 			})
-		*/
+		}
+	}
+	
+	$scope.addProductDetail = function()
+	{  
+		
+		formdata = new FormData();
+		var imagensilla = $("#img").files;
+		imagensilla = document.getElementById('img').files[0];
+		formdata.append('file1', imagensilla);
+		//console.log($scope.newformssizeimg.id+'  id');
+		$scope.newformssizeimg.f = formdata;
+		if($scope.formsnewsizeimg.$valid)
+		{
+			Service.addProductDetail($scope.newformssizeimg).then(
+			function successCallback(response){
+				if(response.data.status == 'OK')
+				{
+					$scope.getAllProducts();
+					msjexito('Exito');
+				}
+				else
+				{
+					msjerror('Error');
+				}
+			},
+			function errorCallback(){
+			})
+		}
 	}
 	
 	$scope.hascoverflow = function(b,x)

@@ -1,7 +1,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div id="page-wrapper" ng-controller="${ appname }Prod" ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize = {};eachitem = {}; coveraux = {};">
+<div id="page-wrapper" ng-controller="${ appname }Prod" ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize = {};eachitem = {}; coveraux = {}; newformssize = {}; newformssizeimg = {};">
 	<div class="graphs">
 		<h3 class="blank1 center"><s:message code="admin.items"/></h3>
 			<div class="tab-content">
@@ -43,10 +43,10 @@
 					 				</td>
 					 			</tr>
 					 			<tr class="tabletitulos">
-					 				<td ng-hide="newsize[p.id]" data-toggle="modal" data-target="#newYetibera" ng-class="{show: overs[p.id]}" ng-click="newsize[p.id] = true;" class="btn-black hidden-xs" style="display:none;">
+					 				<td ng-hide="newsize[p.id]" data-toggle="modal" data-target="#newYetibera" ng-class="{show: overs[p.id]}" ng-click="newsize[p.id] = true; newformssize.product = p.id;" class="btn-black hidden-xs" style="display:none;">
 					 					<span class="fa fa-plus" aria-hidden="true"></span>
 					 				</td>
-					 				<td ng-show="newsize[p.id]" data-toggle="modal" data-target="#newYetibera" ng-class="{show:  overs[p.id] || newsize[p.id]}" ng-click="newsize[p.id] = false;" class="btn-black hidden-xs" style="display:none;">
+					 				<td ng-show="newsize[p.id]" data-toggle="modal" data-target="#newYetibera" ng-class="{show:  overs[p.id] || newsize[p.id]}" ng-click="newsize[p.id] = false; newformssize.product = p.id;" class="btn-black hidden-xs" style="display:none;">
 					 					<span class="fa fa-plus" aria-hidden="true"></span>
 					 				</td>
 					 				<td><b>SKU</b></td>
@@ -120,14 +120,14 @@
 					 		</table>
 					 	</div>
 					 	<div class="marginem">
-					 		<a href="{{a.url}}" target="_blank" class="btn btn-black"><s:message code="admin.addPicture" /> <i class="fa fa-plus"></i></a>
+					 		<a href="#newYetiberaImg" data-toggle="modal" target="_blank" ng-click="newformssizeimg.id = p.id;" class="btn btn-black"><s:message code="admin.addPicture" /> <i class="fa fa-plus"></i></a>
 					 	</div>
 					 	<div class="container-img-muestras">
 			 				<ul class="galeriaq list-inline" > <%-- ng-init="modalessss(p.productDetails,$index,p.id);">--%>
 								<li class="col-xs-6 col-sm-4 col-md-3 col-lg-2 center" ng-repeat="a in p.productDetails">
 									<div class="img-info">
 										<button class="btn btn-black btn-delete hidden-xs" ng-click="deleteimg(p.indexado,$index,a.id);" ><i class="fa fa-times"></i></button>
-										<a href="{{a.url}}" target="_blank" class="btn btn-edit btn-black"><i class="fa fa-eye"></i></a>
+										<a href="#" target="_blank" class="btn btn-edit btn-black"><i class="fa fa-eye"></i></a>
 										<button class="btn btn-black btn-edit hidden"><i class="fa fa-pencil"></i></button>
 									</div>
 									<img class="click img-responsive img-thumbnail" src="{{a.url}}">
@@ -140,55 +140,84 @@
 		</div>
 		
 		
-<!-- Modal -->
-<div id="newYetibera" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><s:message code="admin.tittleNewSKU"/></h4>
-      </div>
-      <div class="modal-body">
-		<form action="" id="formsnewsize" name="formsnewsize" ng-model="formsnewsize" onsubmit="return false" ng-submit="createSkuProduct();">
-			  <div class="form-group col-xs-12">
-			    <label for="pwd"><i class="fa fa-barcode"></i><b>SKU:</b></label> 
-			    <input ng-required="true" class="form-control form-control-min" type="text" />
-			  </div>
-			  
-			  <div class="col-xs-12">
-				  <div class="form-group col-xs-12 col-sm-4">
-				    <label for="pwd"><i class="fa fa-object-group"></i><b> <s:message code="admin.size"/>:</b></label> 
-				    <select name="" id="" class="form-control form-control-min" ng-required="true">
-		 				<option value="{{a.id}}"  ng-repeat="a in sizes">{{a.name}}</option>
-		 			</select>
+	<!-- Modal -->
+	<div id="newYetibera" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title"><s:message code="admin.tittleNewSKU"/></h4>
+	      </div>
+	      <div class="modal-body">
+			<form action="" id="formsnewsize" name="formsnewsize" ng-model="formsnewsize" onsubmit="return false" ng-submit="createSkuProduct();">
+				  <div class="form-group col-xs-12">
+				    <label for="pwd"><i class="fa fa-barcode"></i><b>SKU:</b></label> 
+				    <input ng-required="true" ng-model="newformssize.sku" class="form-control form-control-min" type="text" />
 				  </div>
 				  
-				  <div class="form-group col-xs-12 col-sm-4">
-				    <label for="pwd"><i class="fa fa-usd"></i><b> <s:message code="admin.price"/>:</b></label> 
-				    <input  ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/"  ng-required="true" class="form-control form-control-min" type="text" />
-				  </div>
+				  <div class="col-xs-12">
+					  <div class="form-group col-xs-12 col-sm-4">
+					    <label for="pwd"><i class="fa fa-object-group"></i><b> <s:message code="admin.size"/>:</b></label> 
+					    <select name="" id="" ng-model="newformssize.size" class="form-control form-control-min" ng-required="true">
+			 				<option value="{{a.id}}"  ng-repeat="a in sizes">{{a.name}}</option>
+			 			</select>
+					  </div>
+					  
+					  <div class="form-group col-xs-12 col-sm-4">
+					    <label for="pwd"><i class="fa fa-usd"></i><b> <s:message code="admin.price"/>:</b></label> 
+					    <input  ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/"  ng-model="newformssize.price"  ng-required="true" class="form-control form-control-min" type="text" />
+					  </div>
+					  
+					  <div class="form-group col-xs-12 col-sm-4">
+					    <label for="pwd"><i class="fa fa-filter"></i><b> <s:message code="admin.stock"/>:</b></label>
+			 			<input type="number"  ng-required="true" ng-model="newformssize.stock" class="form-control form-control-min" type="text" />
+					  </div>
 				  
-				  <div class="form-group col-xs-12 col-sm-4">
-				    <label for="pwd"><i class="fa fa-filter"></i><b> <s:message code="admin.stock"/>:</b></label>
-		 			<input type="number"  ng-required="true" class="form-control form-control-min" type="text" />
+				  	<button class="btn btn-black" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 				  </div>
-			  
-			  	<button class="btn btn-black" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
-			  </div>
-		</form>
-		<div class="clearfix"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>		
+			</form>
+			<div class="clearfix"></div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>	
+	
+			
+	<!-- Modal -->
+	<div id="newYetiberaImg" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title"><s:message code="admin.tittleNewIMG"/></h4>
+	      </div>
+	      <div class="modal-body">
+			<form action="" enctype="multipart/form-data"  id="formsnewsizeimg" name="formsnewsizeimg" ng-model="formsnewsizeimg" onsubmit="return false" ng-submit="addProductDetail();">
+				  <div class="form-group col-xs-12">
+				    <label for="pwd"><i class="fa fa-file-image-o"></i><b><s:message code="admin.Imagen" /></b></label> 
+				    <input id="img" class="form-control form-control-min" type="file" />
+				  </div>
+				  <buton class="btn btn-black" ng-click="addProductDetail();" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+			</form>
+			<div class="clearfix"></div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>		
 		
-	</div>
+</div>
 
 
 
