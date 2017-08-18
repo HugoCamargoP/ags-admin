@@ -406,8 +406,11 @@ $scope.pago = function ()
 			{
 				formdata = new FormData(document.getElementById('formsnewsizeimg'));
 				var imagensilla = document.getElementById('img').files[0];
-				formdata.append('file', imagensilla);
+				formdata.append('file', document.getElementById('img').files[0]);
 				$scope.newformssizeimg.f = formdata;
+				
+				//subirarchivo(formdata, $scope.newformssizeimg.id);
+				
 				Service.addProductDetail(formdata , $scope.newformssizeimg.id).then(
 				function successCallback(response){
 					if(response.data.status == 'OK')
@@ -423,10 +426,11 @@ $scope.pago = function ()
 				},
 				function errorCallback(){
 				})
+				
 			}
 			else
 			{
-				msjerror('Subir imagenes');
+				msjerror('Subir solo imagenes');
 				document.getElementById("img").value='';
 				return false;
 			}
