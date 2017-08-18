@@ -344,7 +344,10 @@ function Service(http, url)
     //Agrega una imagen relacionada con el producto
         //Parámetros necesitados: MultipartFile image, Integer product
     this.addProductDetail = function(file,product){
-        return http.post(url + '/product_detail'+'/'+product,file)
+        return http.post(url + '/product_detail'+'/'+product,file,{
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
     }
    
     //Elimina el detalle de producto con el id correspondiente

@@ -382,30 +382,48 @@ $scope.pago = function ()
 	
 	$scope.addProductDetail = function()
 	{  
-		
-		formdata = new FormData();
-		var imagensilla = $("#img").files;
-		imagensilla = document.getElementById('img').files[0];
-		formdata.append('file', imagensilla);
-		//formdata.append('id', $scope.newformssizeimg.id );
-		//console.log($scope.newformssizeimg.id+'  id');
-		$scope.newformssizeimg.f = formdata;
-		if($scope.formsnewsizeimg.$valid)
+		console.log($('#img').val());
+		if(!document.getElementById("img").value.length==0)
 		{
-			Service.addProductDetail(formdata , $scope.newformssizeimg.id).then(
-			function successCallback(response){
-				if(response.data.status == 'OK')
+			if (/.(gif|jpeg|jpg|png)$/i.test(document.getElementById("img").value))
+			{
+				formdata = new FormData(document.getElementById('formsnewsizeimg'));
+				var imagensilla = document.getElementById('img').files[0];
+				formdata.append('file', imagensilla);
+				//console.log(formdata);
+				//var data = "file=" + encodeURIComponent(imagensilla);
+				formdata.append('id', $scope.newformssizeimg.id );
+				//console.log($scope.newformssizeimg.id+'  id');
+				$scope.newformssizeimg.f = formdata;
+				//if($scope.formsnewsizeimg.$valid)
 				{
-					$scope.getAllProducts();
-					msjexito('Exito');
+					Service.addProductDetail(formdata , $scope.newformssizeimg.id).then(
+					function successCallback(response){
+						if(response.data.status == 'OK')
+						{
+							$scope.getAllProducts();
+							document.getElementById("img").value='';
+							msjexito('Exito');
+						}
+						else
+						{
+							msjerror('Error');
+						}
+					},
+					function errorCallback(){
+					})
 				}
-				else
-				{
-					msjerror('Error');
-				}
-			},
-			function errorCallback(){
-			})
+			}
+			else
+			{
+				msjerror('Subir imagenes');
+				document.getElementById("img").value='';
+				return false;
+			}
+		}
+		else
+		{
+			msjerror('Selecciona una imagen');
 		}
 	}
 	

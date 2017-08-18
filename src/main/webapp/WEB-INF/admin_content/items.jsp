@@ -72,7 +72,10 @@
 					 					</div>
 					 				</td>
 							 		<td>
-					 					<div class="click hidden-xs" ng-hide="eachitem[a.id].sizeText" ng-dblclick="eachitem[a.id].sizeText = a.sizeText;">{{a.sizeText}}</div>
+					 					<div class="click hidden-xs" ng-hide="eachitem[a.id].sizeText" ng-dblclick="eachitem[a.id].sizeText = a.sizeText;">
+					 						{{a.sizeText}}
+					 						<div ng-repeat="m in sizes | filter:{ id:a.id}:true" style="padding: 5px;">{{m.name}}</div>
+					 					</div>
 					 					<div class="visible-xs">{{a.sizeText}}</div>
 					 					<div ng-show="eachitem[a.id].sizeText">
 					 					<form action="" id="forms[a.id].skuproduct" name="forms[a.id].skuproduct" onsubmit="return false" ng-submit="updateProduct(p.indexado);eachitem[a.id].sizeText = false;" >
@@ -203,7 +206,7 @@
 			<form action="" enctype="multipart/form-data"  id="formsnewsizeimg" name="formsnewsizeimg" ng-model="formsnewsizeimg" onsubmit="return false" ng-submit="addProductDetail();">
 				  <div class="form-group col-xs-12">
 				    <label for="pwd"><i class="fa fa-file-image-o"></i><b><s:message code="admin.Imagen" /></b></label> 
-				    <input id="img" class="form-control form-control-min" type="file" />
+				    <input id="img" ng-model="imagenp" ng-required="true" class="form-control form-control-min" type="file" />
 				  </div>
 				  <buton class="btn btn-black" ng-click="addProductDetail();" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 			</form>
