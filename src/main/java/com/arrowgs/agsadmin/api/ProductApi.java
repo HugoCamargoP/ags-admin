@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.arrowgs.agsadmin.controllers.cons.Constants.ApiMappings;
 import com.arrowgs.agsadmin.entities.IdNameTable;
@@ -117,8 +118,8 @@ public class ProductApi {
 		return ControllerHelper.mapResponse(status, null);
 	}
 	
-	@RequestMapping(path = ApiMappings.ProductDetail+"/{product}", headers = "content-type=multipart/*", method = RequestMethod.POST)
-	public Map<String,? extends Object> addProductDetail(@RequestPart("file") MultipartFile imageFile, @PathVariable Integer product, HttpServletRequest request){
+	@RequestMapping(path = ApiMappings.ProductDetail+"/{product}", method = RequestMethod.POST)
+	public Map<String,? extends Object> addProductDetail(@RequestPart("file") CommonsMultipartFile imageFile, @PathVariable Integer product, HttpServletRequest request){
 		ResponseStatus status;
 		try{
 			ProductDetail last = productService.getLastProductDetail();
