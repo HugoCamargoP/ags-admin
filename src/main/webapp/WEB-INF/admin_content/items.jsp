@@ -62,7 +62,7 @@
 					 					<div class="click hidden-xs" ng-hide="eachitem[a.id].sku" ng-dblclick="eachitem[a.id].sku = a.sku;">{{a.sku}}</div>
 					 					<div class="visible-xs">{{a.sku}}</div>
 					 					<div ng-show="eachitem[a.id].sku">
-					 					<form action="" id="forms[a.id].sku" name="forms[a.id].sku" onsubmit="return false" ng-submit="updateProduct(productos[$index].indexado);eachitem[a.id].sku = false;" >
+					 					<form action="" id="forms[a.id].sku" name="forms[a.id].sku" onsubmit="return false" ng-submit="updateProduct(p.indexado);eachitem[a.id].sku = false;" >
 					 						<ul class="list-inline">
 					 							<li><input ng-required="true" class="form-control form-control-min" type="text" ng-model="productos[p.indexado].skuProduct[$index].sku"/></li>
 					 							<li><button class="btn btn-success" type="submit" ><span class="fa fa-floppy-o" aria-hidden="true"></span></button></li>
@@ -75,7 +75,7 @@
 					 					<div class="click hidden-xs" ng-hide="eachitem[a.id].sizeText" ng-dblclick="eachitem[a.id].sizeText = a.sizeText;">{{a.sizeText}}</div>
 					 					<div class="visible-xs">{{a.sizeText}}</div>
 					 					<div ng-show="eachitem[a.id].sizeText">
-					 					<form action="" id="forms[a.id].skuproduct" name="forms[a.id].skuproduct" onsubmit="return false" ng-submit="updateProduct(productos[$index].indexado);eachitem[a.id].sizeText = false;" >
+					 					<form action="" id="forms[a.id].skuproduct" name="forms[a.id].skuproduct" onsubmit="return false" ng-submit="updateProduct(p.indexado);eachitem[a.id].sizeText = false;" >
 					 						<ul class="list-inline">
 					 							<li>
 					 								<select class="form-control form-control-min" name="" id=""
@@ -94,7 +94,7 @@
 					 					<div class="click hidden-xs" ng-hide="eachitem[a.id].price" ng-dblclick="eachitem[a.id].price = a.price;">{{a.price}}</div>
 					 					<div class="visible-xs">{{a.price}}</div>
 					 					<div ng-show="eachitem[a.id].price">
-					 					<form action="" id="forms[a.id].price" name="forms[a.id].price" onsubmit="return false" ng-submit="updateProduct(productos[$index].indexado,a.id);eachitem[a.id].price = false;" >
+					 					<form action="" id="forms[a.id].price" name="forms[a.id].price" onsubmit="return false" ng-submit="updateProduct(p.indexado,a.id);eachitem[a.id].price = false;" >
 					 						<ul class="list-inline">
 					 							<li><input ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/" class="form-control form-control-min" type="text" ng-model="productos[p.indexado].skuProduct[$index].price"/></li>
 					 							<li><button class="btn btn-success" type="submit"><span class="fa fa-floppy-o" aria-hidden="true"></span></button></li>
@@ -107,7 +107,7 @@
 					 					<div class="click hidden-xs" ng-hide="eachitem[a.id].stock" ng-dblclick="eachitem[a.id].stock = a.stock;">{{a.stock}}</div>
 					 					<div class="visible-xs">{{a.stock}}</div>
 					 					<div ng-show="eachitem[a.id].stock">
-					 					<form action="" id="forms[a.id].stock" name="forms[a.id].stock" onsubmit="return false" ng-submit="updateProduct(productos[$index].indexado);eachitem[a.id].stock = false;" >
+					 					<form action="" id="forms[a.id].stock" name="forms[a.id].stock" onsubmit="return false" ng-submit="updateProduct(p.indexado);eachitem[a.id].stock = false;" >
 					 						<ul class="list-inline">
 					 							<li><input type="number" class="form-control form-control-min" type="text" ng-model="productos[p.indexado].skuProduct[$index].stock"/></li>
 					 							<li><button class="btn btn-success" type="submit"><span class="fa fa-floppy-o" aria-hidden="true"></span></button></li>

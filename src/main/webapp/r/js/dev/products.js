@@ -339,6 +339,8 @@ $scope.pago = function ()
 
 	$scope.updateProduct = function(a)
 	{
+		//console.log(a);
+		//console.log($scope.productos[a]);
 		Service.updateProduct($scope.productos[a]).then(
 			function successCallback(response){
 				if(response.data.status == 'OK')
