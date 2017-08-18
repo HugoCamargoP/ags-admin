@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -114,8 +116,8 @@ public class ProductApi {
 		return ControllerHelper.mapResponse(status, null);
 	}
 	
-	@RequestMapping(path = ApiMappings.ProductDetail+"/{product}", method = RequestMethod.POST)
-	public Map<String,? extends Object> addProductDetail(@RequestBody MultipartFile imageFile, @PathVariable Integer product){
+	@RequestMapping(path = ApiMappings.ProductDetail+"/{product}", headers = "content-type=multipart/*", method = RequestMethod.POST)
+	public Map<String,? extends Object> addProductDetail(@RequestPart("file") MultipartFile imageFile, @PathVariable Integer product, HttpServletRequest request){
 		ResponseStatus status;
 		try{
 			ProductDetail last = productService.getLastProductDetail();

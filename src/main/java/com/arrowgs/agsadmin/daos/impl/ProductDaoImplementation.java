@@ -488,13 +488,14 @@ public class ProductDaoImplementation implements ProductDao {
 
 	@Override
 	public void updateSkuProducts(SkuProduct skuProduct) {
-		String sql = "UPDATE productos_sku SET talla = :talla, precio = :precio, almacen = :almacen WHERE sku = :sku";
+		String sql = "UPDATE productos_sku SET talla = :talla, precio = :precio, almacen = :almacen, sku = :sku WHERE id = :id";
 		
 		Map<String,Object> paramMap= new HashMap<>();
 		paramMap.put("talla", skuProduct.getSize());
 		paramMap.put("precio", skuProduct.getSize());
 		paramMap.put("almacen", skuProduct.getStock());
 		paramMap.put("sku", skuProduct.getSku());
+		paramMap.put("id", skuProduct.getId());
 		
 		jdbcTemplate.update(sql, paramMap);
 	}
