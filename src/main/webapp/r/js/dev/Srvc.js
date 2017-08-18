@@ -343,10 +343,21 @@ function Service(http, url)
    
     //Agrega una imagen relacionada con el producto
         //Parámetros necesitados: MultipartFile image, Integer product
-    this.addProductDetail = function(file,product){
-        return http.post(url + '/product_detail'+'/'+product,file,{
-            headers: {'Content-Type': 'multipart/form-data'}
-        })
+    this.addProductDetail = function(myFile,product){
+//        return http.post(url + '/product_detail'+'/'+product,file,{
+//            headers: {'Content-Type': 'multipart/form-data'}
+//        })
+    	
+    	return http({
+    		'method': 'POST',
+    		'url': url +'/product_detail/'+product,
+    		data:{
+    			file: myFile
+    		},
+    		headers:{
+    			'Content-Type': 'multipart/form-data'
+    		}
+    	})
     }
    
     //Elimina el detalle de producto con el id correspondiente
