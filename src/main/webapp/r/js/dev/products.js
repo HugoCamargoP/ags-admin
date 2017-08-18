@@ -34,7 +34,6 @@ function($scope,$sce, Service)
 	{
 		for (var b in $scope.states) 
 		{
-			//console.log($scope.states[b].nomEnt);
 			if($scope.states[b].nomEnt == a)
 			{
 				Service.getCities($scope.states[b].cveEnt).then(
@@ -76,8 +75,6 @@ function($scope,$sce, Service)
 $scope.pago = function ()
 {
 	todoalazador= $scope.carProduct.total;
-	console.log('hola en el pago paypal');
-	console.log(todoalazador);
 	 /*paypal.Button.render({
 
         env: 'sandbox', // sandbox | production
@@ -141,7 +138,6 @@ $scope.pago = function ()
 
 	$scope.removeOrder1 = function (a)
 	{
-		console.log(a);
 		Service.removeOrder(a).then(
 				function successCallback(response){
 					$scope.getOrder($scope.usuario,1);
@@ -339,12 +335,11 @@ $scope.pago = function ()
 
 	$scope.updateProduct = function(a)
 	{
-		//console.log(a);
-		//console.log($scope.productos[a]);
 		Service.updateProduct($scope.productos[a]).then(
 			function successCallback(response){
 				if(response.data.status == 'OK')
 				{
+					$scope.getAllProducts();
 					msjexito('Exito');
 				}
 				else
@@ -381,9 +376,30 @@ $scope.pago = function ()
 		}
 	}
 	
+	$scope.uploadFile = function(files) {
+	    var fd = new FormData();
+	    //Take the first selected file
+	    fd.append("file", files[0]);
+	    
+	    Service.addProductDetail(fd , $scope.newformssizeimg.id).then(
+				function successCallback(response){
+					if(response.data.status == 'OK')
+					{
+						$scope.getAllProducts();
+						document.getElementById("img").value='';
+						msjexito('Exito');
+					}
+					else
+					{
+						msjerror('Error');
+					}
+				},
+				function errorCallback(){
+				})
+	}
+	
 	$scope.addProductDetail = function()
 	{  
-		console.log($('#img').val());
 		if(!document.getElementById("img").value.length==0)
 		{
 			if (/.(gif|jpeg|jpg|png)$/i.test(document.getElementById("img").value))
@@ -391,29 +407,22 @@ $scope.pago = function ()
 				formdata = new FormData(document.getElementById('formsnewsizeimg'));
 				var imagensilla = document.getElementById('img').files[0];
 				formdata.append('file', imagensilla);
-				//console.log(formdata);
-				//var data = "file=" + encodeURIComponent(imagensilla);
-				//formdata.append('id', $scope.newformssizeimg.id );
-				//console.log($scope.newformssizeimg.id+'  id');
 				$scope.newformssizeimg.f = formdata;
-				//if($scope.formsnewsizeimg.$valid)
-				{
-					Service.addProductDetail(formdata , $scope.newformssizeimg.id).then(
-					function successCallback(response){
-						if(response.data.status == 'OK')
-						{
-							$scope.getAllProducts();
-							document.getElementById("img").value='';
-							msjexito('Exito');
-						}
-						else
-						{
-							msjerror('Error');
-						}
-					},
-					function errorCallback(){
-					})
-				}
+				Service.addProductDetail(formdata , $scope.newformssizeimg.id).then(
+				function successCallback(response){
+					if(response.data.status == 'OK')
+					{
+						$scope.getAllProducts();
+						document.getElementById("img").value='';
+						msjexito('Exito');
+					}
+					else
+					{
+						msjerror('Error');
+					}
+				},
+				function errorCallback(){
+				})
 			}
 			else
 			{
@@ -461,7 +470,6 @@ $scope.pago = function ()
 					if(response.data.data.length > 0 )
 					{
 							$scope.productos = response.data.data;
-							console.log($scope.productos);
 					}
 				}, 
 				function errorCallback(response){	
@@ -584,7 +592,6 @@ $scope.pago = function ()
 	{
 		$scope.order = {};
 		$scope.orderDetail = {};
-		//console.log(sku);
 		if(us != "")
 		{
 			Service.getOrder(us,sta).then(
