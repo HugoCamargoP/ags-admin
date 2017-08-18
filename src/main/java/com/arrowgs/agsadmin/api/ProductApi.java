@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -119,7 +120,7 @@ public class ProductApi {
 	}
 	
 	@RequestMapping(path = ApiMappings.ProductDetail+"/{product}", method = RequestMethod.POST)
-	public Map<String,? extends Object> addProductDetail(@RequestPart("file") CommonsMultipartFile imageFile, @PathVariable Integer product, HttpServletRequest request){
+	public Map<String,? extends Object> addProductDetail(@RequestParam CommonsMultipartFile imageFile, @PathVariable Integer product, HttpServletRequest request){
 		ResponseStatus status;
 		try{
 			ProductDetail last = productService.getLastProductDetail();

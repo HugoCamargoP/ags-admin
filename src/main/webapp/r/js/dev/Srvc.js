@@ -348,17 +348,23 @@ function Service(http, url)
 //            headers: {'Content-Type': 'multipart/form-data'}
 //        })
 
-    	return http({
-    		'method': 'POST',
-    		'url': url +'/product_detail/'+product,
-    		data: myFile,
-    		headers:{
-    			'Content-Type': 'multipart/form-data'
-    		},
-    	    transformRequest: function(data, headersGetterFunction) {
-    	        return data; // do nothing! FormData is very good!
-    	    }
-    	})
+//    	return http({
+//    		'method': 'POST',
+//    		'url': url +'/product_detail/'+product,
+//    		data: myFile,
+//    		headers:{
+//    			'Content-Type': 'multipart/form-data'
+//    		},
+//    	    transformRequest: function(data, headersGetterFunction) {
+//    	        return data; // do nothing! FormData is very good!
+//    	    }
+//    	})
+    	var fd = new FormData();
+    	fd.append('file',myFile);
+    	return http.post(url + '/product_detail'+'/'+product,fd,{
+    		transformRequest: angular.identity,
+    		headers: {'Content-Type': undefined}
+    	});
     }
    
     //Elimina el detalle de producto con el id correspondiente
