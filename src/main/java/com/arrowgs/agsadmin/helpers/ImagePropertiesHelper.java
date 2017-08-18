@@ -15,13 +15,14 @@ public class ImagePropertiesHelper {
 	
 	
 	static public String  resource(){
-		Properties image = new Properties();
 		String location = null;
-		InputStream is = ImagePropertiesHelper.class.getResourceAsStream(IMAGE_PROPERTIES);
+		InputStream is = ImagePropertiesHelper.class.getClassLoader().getResourceAsStream(IMAGE_PROPERTIES);
 		try {
-			image.load(is);
+			
 			if(is!=null){
-				location = image.getProperty("img.locationAux");
+				Properties image = new Properties();
+				location = image.getProperty("img.location");
+				image.load(is);
 			}
 		} catch (IOException e) {
 			logger.error("public void  resource(): " + e.toString());

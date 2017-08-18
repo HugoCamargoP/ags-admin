@@ -343,8 +343,8 @@ function Service(http, url)
    
     //Agrega una imagen relacionada con el producto
         //Parámetros necesitados: MultipartFile image, Integer product
-    this.addProductDetail = function(image,product){
-        return http.post(url + '/product_detail',image,product)
+    this.addProductDetail = function(file,product){
+        return http.post(url + '/product_detail'+'/'+product,file)
     }
    
     //Elimina el detalle de producto con el id correspondiente
@@ -373,7 +373,7 @@ function Service(http, url)
 		})
 	}
 	
-		//Regresa una lista de objetos SizeDescription, los cuales contienen las diferentes medidas que corresponden a una talla
+	//Regresa una lista de objetos SizeDescription, los cuales contienen las diferentes medidas que corresponden a una talla
 		//Parámetros necesitados: Ninguno
 	this.getProductSizeDescription = function(){
 		return http({

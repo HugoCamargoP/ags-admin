@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.arrowgs.agsadmin.service.ProductService;
 import com.arrowgs.agsadmin.controllers.cons.Constants.ApiMappings;
 import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.Product;
@@ -30,7 +28,8 @@ import com.arrowgs.agsadmin.helpers.ClassHelper;
 import com.arrowgs.agsadmin.helpers.ControllerHelper;
 import com.arrowgs.agsadmin.helpers.ControllerHelper.ResponseStatus;
 import com.arrowgs.agsadmin.helpers.ImagePropertiesHelper;
-import com.arrowgs.agsadmin.helpers.PathHelper;;
+import com.arrowgs.agsadmin.helpers.PathHelper;
+import com.arrowgs.agsadmin.service.ProductService;;
 
 @CrossOrigin
 @RestController
@@ -115,8 +114,8 @@ public class ProductApi {
 		return ControllerHelper.mapResponse(status, null);
 	}
 	
-	@RequestMapping(path = ApiMappings.ProductDetail, method = RequestMethod.POST)
-	public Map<String,? extends Object> addProductDetail(@RequestParam("file") MultipartFile imageFile, @RequestParam("product") Integer product){
+	@RequestMapping(path = ApiMappings.ProductDetail+"/{product}", method = RequestMethod.POST)
+	public Map<String,? extends Object> addProductDetail(@RequestBody MultipartFile imageFile, @PathVariable Integer product){
 		ResponseStatus status;
 		try{
 			ProductDetail last = productService.getLastProductDetail();
