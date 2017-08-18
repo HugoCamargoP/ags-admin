@@ -202,13 +202,13 @@
 	        <h4 class="modal-title"><s:message code="admin.tittleNewIMG"/></h4>
 	      </div>
 	      <div class="modal-body">
-			<form action="" enctype="multipart/form-data"  id="formsnewsizeimg" name="formsnewsizeimg" ng-model="formsnewsizeimg" onsubmit="return false">
+			<form action="" enctype="multipart/form-data"  id="formsnewsizeimg" name="formsnewsizeimg" ng-model="formsnewsizeimg" onsubmit="return false" ng-submit="addProductDetail();">
 				  <div class="form-group col-xs-12">
 				    <label for="pwd"><i class="fa fa-file-image-o"></i><b><s:message code="admin.Imagen" /></b></label> 
-				    <%--<input id="img" file-model="imagenp" ng-required="true" class="form-control form-control-min" type="file" />--%>
-				    <input type="file" name="file" class="form-control form-control-min" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+				    <input id="img" file-model="imagenp" ng-required="true" class="form-control form-control-min" type="file" />
+				    <%--<input type="file" name="file" class="form-control form-control-min" onchange="angular.element(this).scope().uploadFile(this.files)"/> --%>
 				  </div>
-				  <buton class="btn btn-black" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+				  <buton class="btn btn-black" ng-click="addProductDetail();" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 			</form>
 			<div class="clearfix"></div>
 	      </div>
