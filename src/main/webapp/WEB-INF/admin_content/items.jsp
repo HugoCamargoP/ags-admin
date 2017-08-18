@@ -74,7 +74,6 @@
 							 		<td>
 					 					<div class="click hidden-xs" ng-hide="eachitem[a.id].sizeText" ng-dblclick="eachitem[a.id].sizeText = a.sizeText;">
 					 						{{a.sizeText}}
-					 						<div ng-repeat="m in sizes | filter:{ id:a.id}:true" style="padding: 5px;">{{m.name}}</div>
 					 					</div>
 					 					<div class="visible-xs">{{a.sizeText}}</div>
 					 					<div ng-show="eachitem[a.id].sizeText">

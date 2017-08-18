@@ -368,6 +368,7 @@ $scope.pago = function ()
 					$scope.newformssize = {}
 					$scope.newformssize.product = aux;
 					$scope.getAllProducts();
+					$scope.productos = response.data.data;
 					msjexito('Exito');
 				}
 				else
@@ -392,7 +393,7 @@ $scope.pago = function ()
 				formdata.append('file', imagensilla);
 				//console.log(formdata);
 				//var data = "file=" + encodeURIComponent(imagensilla);
-				formdata.append('id', $scope.newformssizeimg.id );
+				//formdata.append('id', $scope.newformssizeimg.id );
 				//console.log($scope.newformssizeimg.id+'  id');
 				$scope.newformssizeimg.f = formdata;
 				//if($scope.formsnewsizeimg.$valid)
