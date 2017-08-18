@@ -387,12 +387,12 @@ $scope.pago = function ()
 		var imagensilla = $("#img").files;
 		imagensilla = document.getElementById('img').files[0];
 		formdata.append('file', imagensilla);
-		formdata.append('id', $scope.newformssizeimg.id );
+		//formdata.append('id', $scope.newformssizeimg.id );
 		//console.log($scope.newformssizeimg.id+'  id');
 		$scope.newformssizeimg.f = formdata;
 		if($scope.formsnewsizeimg.$valid)
 		{
-			Service.addProductDetail(formdata).then(
+			Service.addProductDetail(formdata , $scope.newformssizeimg.id).then(
 			function successCallback(response){
 				if(response.data.status == 'OK')
 				{
