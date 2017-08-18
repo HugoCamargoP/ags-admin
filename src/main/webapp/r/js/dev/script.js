@@ -30,6 +30,21 @@ function msjexito(exito)
 
 /*++++*/
 
+
+function subirarchivo(data, id)
+{
+  $.ajax({
+      url: 'http://localhost:8080/ags-admin/rest/product_detail/'+id,
+      data: data,
+      processData: false,
+      contentType: 'multipart/form-data',
+      type: 'POST',
+      success: function ( data ) {
+          alert( data );
+      }
+  });
+}
+
 /*poner y quitar clases*/
 function addremoveclass(clase,target)
 	{
@@ -208,6 +223,7 @@ $(document).ready(function () {
 	      return false;
 	   });
 
+	   
 	   function visibleSubMenuClose() {
 	      jQuery('.menu-list').each(function() {
 	         var t = jQuery(this);

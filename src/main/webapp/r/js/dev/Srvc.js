@@ -351,9 +351,7 @@ function Service(http, url)
     	return http({
     		'method': 'POST',
     		'url': url +'/product_detail/'+product,
-    		data:{
-    			file: myFile
-    		},
+    		data: myFile,
     		headers:{
     			'Content-Type': 'multipart/form-data'
     		}
