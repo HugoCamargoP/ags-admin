@@ -345,8 +345,7 @@ function Service(http, url)
         //Parámetros necesitados: MultipartFile image, Integer product
     this.addProductDetail = function(file,product){
         return http.post(url + '/product_detail'+'/'+product,file,{
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
+            headers: {'Content-Type': 'multipart/form-data'}
         })
     }
    

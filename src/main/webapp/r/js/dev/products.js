@@ -364,10 +364,10 @@ $scope.pago = function ()
 			function successCallback(response){
 				if(response.data.status == 'OK')
 				{
+					$scope.getAllProducts();
 					var aux = $scope.newformssize.product;
 					$scope.newformssize = {}
 					$scope.newformssize.product = aux;
-					$scope.getAllProducts();
 					$scope.productos = response.data.data;
 					msjexito('Exito');
 				}
@@ -461,6 +461,7 @@ $scope.pago = function ()
 					if(response.data.data.length > 0 )
 					{
 							$scope.productos = response.data.data;
+							console.log($scope.productos);
 					}
 				}, 
 				function errorCallback(response){	
