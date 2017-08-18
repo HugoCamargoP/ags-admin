@@ -97,6 +97,7 @@ public class ProductApi {
 		ResponseStatus status;
 		try{
 			productService.modifyProduct(product);
+			product = productService.getProductById(product.getId());
 			status = ResponseStatus.OK;
 		}catch(Exception e){
 			status = ResponseStatus.ExternalError;
