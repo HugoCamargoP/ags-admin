@@ -1,11 +1,10 @@
-
-
 /*++Notificaciones++*/
+var auxauxaux = [];
 var mensajesglobal = 0;
 function msjerror(error)
 	{
 	  	mensajesglobal++;
-	  	$("#mensajes").append('<div id="mensaje'+mensajesglobal+'" class="alert alert2 alert-danger text-center">'+error+'</div>');
+	  	$("#mensajes").append('<div id="mensaje'+mensajesglobal+'" class="alert alert2 alert-danger text-center"><b>'+error+'</b></div>');
 	  	setTimeout(function() {
 	  	       eliminaThis();
 	  	    },2000);
@@ -22,7 +21,7 @@ function eliminaThis()
 function msjexito(exito)
 	{
 	  	mensajesglobal++;
-	  	$("#mensajes").append('<div id="mensaje'+mensajesglobal+'" class="alert alert2 alert-success text-center">'+exito+'</div>');
+	  	$("#mensajes").append('<div id="mensaje'+mensajesglobal+'" class="alert alert2 alert-success text-center"><b>'+exito+'</b></div>');
 	  	setTimeout(function() {
 	  	       eliminaThis();
 	  	    },2000);
@@ -30,6 +29,21 @@ function msjexito(exito)
 		
 
 /*++++*/
+
+
+function subirarchivo(data, id)
+{
+  $.ajax({
+      url: 'http://localhost:8080/ags-admin/rest/product_detail/'+id,
+      data: data,
+      processData: false,
+      contentType: 'multipart/form-data',
+      type: 'POST',
+      success: function ( data ) {
+          alert( data );
+      }
+  });
+}
 
 /*poner y quitar clases*/
 function addremoveclass(clase,target)
@@ -42,6 +56,7 @@ function addremoveclass(clase,target)
 		{
 			$("."+target).addClass(clase)
 		}
+		//console.log($("."+target));
 	}
 /**/
 
@@ -58,6 +73,9 @@ function muestra(ob)
 }
 
 $(document).ready(function () {
+	
+	$(".js-example-basic-single").select2();
+	
 		// Graph Data ##############################################
 		var graphData = [{
 				// Returning Visits
@@ -205,6 +223,7 @@ $(document).ready(function () {
 	      return false;
 	   });
 
+	   
 	   function visibleSubMenuClose() {
 	      jQuery('.menu-list').each(function() {
 	         var t = jQuery(this);

@@ -7,7 +7,103 @@ function($scope, Service)
 {	
 /*Declarcaion de variables**/
 	$scope.consulta = {};
+	$scope.email = '';
+	$scope.filter = '';
+	cheksboxes = [];
+	usuarios1 = [];
+	$scope.check = [];
 /*Declarcaion de variables**/
+	
+	$scope.statuscheck = function(a)
+	{
+		if(cheksboxes.indexOf(a) == -1 && $scope.check[a])
+		{
+			cheksboxes.push(a);
+		}
+		else if(cheksboxes.indexOf(a) != -1 && !$scope.check[a])
+		{
+			cheksboxes.splice(cheksboxes.indexOf(a), 1);
+		}
+	}
+	
+	$scope.cambiaSelected = function(a)
+	{
+		if(cheksboxes.length > 0)
+		{
+			for ( var c in cheksboxes) { 
+				 console.log($scope.usuarios[cheksboxes[c]].type);
+				 $scope.usuarios[cheksboxes[c]].type = a; 
+				 console.log($scope.usuarios[cheksboxes[c]].type);
+				 usuarios1.push($scope.usuarios[cheksboxes[c]]);
+			}
+			Service.userUpdateRol(usuarios1).then(function successCallback(response){
+				if(response.data.data.length > 0 )
+				{
+					if(response.data.status == 'OK')
+					{
+						$scope.getUserByFilter();
+						msjexito('Cambios realiazdos');
+					}
+				}
+				else
+				{
+					msjerror('Sin resultados');
+				}
+			},
+			function errorCallback(){
+				msjerror('Sin resultados');
+			})
+		}
+		else
+		{
+			msjerror('Selecciona un usuario');
+		}
+	}
+	
+	
+	$scope.getUserByFilter = function ()
+	{
+		$scope.cheksboxes = {};
+		$scope.filter = document.getElementById('filter').value;
+		Service.getUserByFilter($scope.email,$scope.filter).then(function successCallback(response){
+			if(response.data.data.length > 0 )
+			{
+				$scope.usuarios = response.data.data;
+				cheksboxes = [];
+				usuarios1 = [];
+				$scope.check = [];
+				msjexito('Datos cargados');
+			}
+			else
+			{
+				msjerror('Sin resultados');
+			}
+		},
+		function errorCallback(){
+			msjerror('Sin resultados');
+		})
+	}
+	
+	$scope.userUpdateRol = function ()
+	{
+		Service.userUpdateRol($scope.usuarios).then(function successCallback(response){
+			if(response.data.data.length > 0 )
+			{
+				if(response.data.status == 'OK')
+				{
+					msjexito('Cambio realiazdo');
+					$scope.usuarios = response.data.data;
+				}
+			}
+			else
+			{
+				msjerror(response.data.status);
+			}
+		},
+		function errorCallback(){
+			msjerror(response.data.status);
+		})
+	}
 	
 	$scope.getPreserveByPrivateNeighborhood = function ()
 	{

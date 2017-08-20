@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+	<util:list id="reports" value-type="com.arrowgs.agsadmin.entities.Report">
+
+		<bean class="com.arrowgs.agsadmin.entities.Report">
+			<property name="id" value="1" />
+			<property name="name" value="Ventas" />
+			<property name="parameters">
+				<util:list value-type="com.arrowgs.agsadmin.entities.Report.Parameter">
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="fecha" />
+						<property name="type" value="3" />
+					</bean>
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="otro" />
+						<property name="type" value="1" />
+					</bean>
+				</util:list>
+			</property>
+		</bean>
+		
+		<bean class="com.arrowgs.agsadmin.entities.Report">
+			<property name="id" value="2" />
+			<property name="name" value="Clientes" />
+			<property name="parameters">
+				<util:list value-type="com.arrowgs.agsadmin.entities.Report.Parameter">
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="nombre" />
+						<property name="type" value="1" />
+					</bean>
+				</util:list>
+			</property>
+		</bean>
+
+
+	</util:list>
+
+</beans>

@@ -2,9 +2,37 @@ angular.module(appname+'App')
 
 .controller(appname+'userAdmin',['$scope', appname+'Service',
 
-	
 function($scope, Service)
 {	
+	
+	$scope.logginRest = function()
+	{
+		if($scope.formlogin.$valid)
+		{
+			Service.logginRest($scope.user).then(function successCallback(response)
+			{
+				if(response.data.status == 0)
+				{
+					msjexito(response.data.data);
+					window.location.reload();
+				}
+				else
+				{
+					msjerror(response.data.data);
+				}
+			},
+			function errorCallback(){
+				
+			})
+		}
+		else
+		{
+			msjerror('Por favor llenar todos los campos');
+		}
+	}
+		
+
+	
 /*Declarcaion de variables**/
 	$scope.consulta = {};
 	$scope.strbusqueda = "";
@@ -25,7 +53,7 @@ function($scope, Service)
 	
 	$scope.getUserByString = function ()
 	{
-		$scope.consulta.consulta = $scope.strbusqueda;
+		$scope.consulta.consulta = $scope.strbusqueda1 +"|"+ $scope.strbusqueda2 ;
 		$scope.consulta.limite 	 = 3;
 		Service.getUserByString($scope.consulta).then(function successCallback(response){
 			$scope.resultadoconsulta = response.data.data; 
