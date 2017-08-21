@@ -353,6 +353,7 @@ $scope.pago = function ()
 	
 	$scope.createSkuProduct = function(a)
 	{
+		console.log($scope.formsnewsize);
 		if($scope.formsnewsize.$valid)
 		{
 			Service.createSkuProduct($scope.newformssize).then(
@@ -373,6 +374,10 @@ $scope.pago = function ()
 			},
 			function errorCallback(){
 			})
+		}
+		else
+		{
+			msjerror('Error');
 		}
 	}
 	

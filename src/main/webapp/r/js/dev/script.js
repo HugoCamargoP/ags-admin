@@ -100,13 +100,12 @@ function addproductosku()
 				  			'<input type="number"  ng-required="true" ng-model="newformssize.stock" class="form-control form-control-min" type="text" />'+
 						 '</td>'+
 				  	'</tr>';
-		console.log(tallasperronas);
 		$('.extra').append(metelo);
 		limitetalla++;
 	}
 	else
 	{
-		msjerror('Solo 4 tallas');
+		msjerror('Solo '+tallasperronas.length+' tallas');
 	}
 }
 
