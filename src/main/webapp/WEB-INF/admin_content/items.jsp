@@ -1,7 +1,8 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div id="page-wrapper" ng-controller="${ appname }Prod" ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize = {};eachitem = {}; coveraux = {}; newformssize = {}; newformssizeimg = {};searchprodruct = {}">
+<div id="page-wrapper" ng-controller="${ appname }Prod" 
+ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize = {};eachitem = {}; coveraux = {}; newformssize = {}; newformssizeimg = {};searchprodruct = {}; addpro ={};">
 	
 	<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	
@@ -9,38 +10,48 @@
 		<h3 class="blank1 center"><s:message code="admin.items"/></h3>
 			<div class="tab-content">
 				<div class="jumbotron">
+				<ul class="nav nav-tabs">
+				  <li class="active"><a data-toggle="tab" href="#home"><span class="fa fa-search" aria-hidden="true"></span>&nbsp;<s:message code="admin.search"/></a></li>
+				  <li><a href="#newProducto" data-toggle="modal" ><span class="fa fa-plus" aria-hidden="true"></span>&nbsp;<s:message code="admin.addproduct"/></a></li>
+				</ul>
 				
-				<div class="center">
-					<form action="" onsubmit="return false" ng-submit="getProductsByFilter();"  id="form-users" name="form-users" ng-model="formu" class="">
-					  <ul class="list-inline">
-					  	<li>
-						  	<div class="form-group">
-							    <label for="email"><i class="fa fa-barcode"></i>&nbsp;<b> SKU:</b></label>
-						   	 	<input type="text" style="width:100%;" class="form-control" value="" name="" id="" ng-model="searchprodruct.sku"/>
-							</div>
-					  	</li>
-					  	<li>
-						  	<div class="form-group">
-							    <label for="email"><i class="fa fa-file-text"></i>&nbsp;<b> <s:message code="admin.details" />:</b></label>
-						   	 	<input type="text" style="width:100%;" class="form-control" value="" name="" id="" ng-model="searchprodruct.description"/>
-							</div>
-					  	</li>
-					  	<li>
-						  <div class="form-group">
-						    <label for="pwd"><i class="fa fa-object-group"></i><b> <s:message code="admin.size"/>:</b></label> 
-							<select class="form-control form-control-min" name="" id="" ng-model="searchprodruct.size">
-								<option value="{{a.id}}"  ng-repeat="a in sizes">{{a.name}}</option>
-							</select>
+				<div class="tab-content">
+				  <div id="home" class="tab-pane fade in active">
+				    <div class="center">
+						<form action="" onsubmit="return false" ng-submit="addProduct();"  id="form-users" name="form-users" ng-model="formu" class="">
+						  <ul class="list-inline">
+						  	<li>
+							  	<div class="form-group">
+								    <label for="email"><i class="fa fa-barcode"></i>&nbsp;<b> SKU:</b></label>
+							   	 	<input type="text" style="width:100%;" class="form-control" value="" name="" id="" ng-model="searchprodruct.sku"/>
+								</div>
+						  	</li>
+						  	<li>
+							  	<div class="form-group">
+								    <label for="email"><i class="fa fa-file-text"></i>&nbsp;<b> <s:message code="admin.details" />:</b></label>
+							   	 	<input type="text" style="width:100%;" class="form-control" value="" name="" id="" ng-model="searchprodruct.description"/>
+								</div>
+						  	</li>
+						  	<li>
+							  <div class="form-group">
+							    <label for="pwd"><i class="fa fa-object-group"></i><b> <s:message code="admin.size"/>:</b></label> 
+								<select class="form-control form-control-min" name="" id="" ng-model="searchprodruct.size">
+									<option value="{{a.id}}"  ng-repeat="a in sizes">{{a.name}}</option>
+									<option value=""></option>
+								</select>
+							  </div>
+						  	</li>
+						  </ul>
+						  <div class="clearfix visible-xs"></div> 
+						  <br class="visible-xs"/>
+						  <div class="center">
+						  	<button type="submit" class="btn-black btn"><span class="fa fa-search" aria-hidden="true"></span>&nbsp;<s:message code="admin.search"/></button>
 						  </div>
-					  	</li>
-					  </ul>
-					  <div class="clearfix visible-xs"></div> 
-					  <br class="visible-xs"/>
-					  <div class="center">
-					  	<button type="submit" class="btn-black btn"><span class="fa fa-search" aria-hidden="true"></span>&nbsp;<s:message code="admin.search"/></button>
-					  </div>
-					</form>
+						</form>
+					</div>
+				  </div>
 				</div>
+				<div class="clearfix"></div>
 				
 					 <div ng-repeat="p in productos" class="container marginem" ng-mouseover="overs[p.id] = true;" ng-mouseleave="overs[p.id] = false;" >
 					 	<legend><s:message code="admin.product" /> {{p.id}}</legend>
@@ -213,6 +224,67 @@
 			 			<input type="number"  ng-required="true" ng-model="newformssize.stock" class="form-control form-control-min" type="text" />
 					  </div>
 				  
+				  	<button class="btn btn-black" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+				  </div>
+			</form>
+			<div class="clearfix"></div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>	
+	
+	
+	<!-- Modal -->
+	<div id="newProducto" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title"><s:message code="admin.tittleNewSKU"/></h4>
+	      </div>
+	      <div class="modal-body">
+			<form action="" id="formsnewsize" name="formsnewsize" ng-model="formsnewsize" onsubmit="return false" ng-submit="createSkuProduct();">
+			
+				  <div class="form-group col-xs-12">
+				    <label for="pwd"><i class="fa fa-file-text"></i><b>&nbsp;<s:message code="admin.details" />:</b></label> 
+				    <input ng-required="true" ng-model="addpro.description" class="form-control form-control-min" type="text" />
+				  </div>
+				  
+				  <div class="col-xs-12">
+				  	<a href=""><s:message code="admin.tittleNewSKU" /></a>
+				  </div>
+				  <div class="extra">
+					  <div class="col-xs-12">
+						  <div class="form-group col-xs-12 col-sm-3">
+						    <label for="pwd"><i class="fa fa-barcode"></i><b>SKU:</b></label> 
+						    <input ng-required="true" ng-model="newformssize.sku" class="form-control form-control-min" type="text" />
+						  </div>
+					  
+						  <div class="form-group col-xs-12 col-sm-3">
+						    <label for="pwd"><i class="fa fa-object-group"></i><b> <s:message code="admin.size"/>:</b></label> 
+						    <select name="" id="" ng-model="newformssize.size" class="form-control form-control-min" ng-required="true">
+				 				<option value="{{a.id}}"  ng-repeat="a in sizes">{{a.name}}</option>
+				 			</select>
+						  </div>
+						  
+						  <div class="form-group col-xs-12 col-sm-3">
+						    <label for="pwd"><i class="fa fa-usd"></i><b> <s:message code="admin.price"/>:</b></label> 
+						    <input  ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/"  ng-model="newformssize.price"  ng-required="true" class="form-control form-control-min" type="text" />
+						  </div>
+						  
+						  <div class="form-group col-xs-12 col-sm-3">
+						    <label for="pwd"><i class="fa fa-filter"></i><b> <s:message code="admin.stock"/>:</b></label>
+				 			<input type="number"  ng-required="true" ng-model="newformssize.stock" class="form-control form-control-min" type="text" />
+						  </div>
+					  </div>
+				  </div>
+				  <div>
 				  	<button class="btn btn-black" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 				  </div>
 			</form>

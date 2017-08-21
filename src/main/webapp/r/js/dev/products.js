@@ -480,12 +480,25 @@ $scope.pago = function ()
 				});
 	}
 	
+	$scope.addProduct = function()
+	{
+		Service.addProduct($scope.addpro).then(
+				function successCallback(response){
+					if(response.data.data.length > 0 || response.data.status == "OK")
+					{
+							$scope.productos = response.data.data;
+					}
+				}, 
+				function errorCallback(response){	
+				});
+	}	
+	
 	$scope.getProductsByFilter = function()
 	{
 		var b = 1, c = 10000;
 		Service.getProductsByFilter($scope.searchprodruct,b,c).then(
 				function successCallback(response){
-					if(response.data.data.length > 0 )
+					if(response.data.data.length > 0 || response.data.status == "OK")
 					{
 							$scope.productos = response.data.data;
 					}
