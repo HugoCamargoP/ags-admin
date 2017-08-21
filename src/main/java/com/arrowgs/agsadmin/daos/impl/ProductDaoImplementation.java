@@ -250,7 +250,7 @@ public class ProductDaoImplementation implements ProductDao {
 	public Product getProductById(Integer id) {
 		String query = "select * from productos where id = :id and activo = :enable";
 		MapSqlParameterSource productMap = new MapSqlParameterSource("id",id);
-		productMap.addValue("activo", Enable);
+		productMap.addValue("enable", Enable);
 		return jdbcTemplate.query(query, productMap, new ProductRowExtractor());
 	}
 
@@ -445,7 +445,7 @@ public class ProductDaoImplementation implements ProductDao {
 		 else{
 			 sql.append(" WHERE p.activo = :enable");
 		 }
-		 paramMap.put("activo",Enable);
+		 paramMap.put("enable",Enable);
 		 sql.append(" LIMIT :page , :inPage");
 		 paramMap.put("page", page);
 		 paramMap.put("inPage", inPage);
@@ -488,7 +488,7 @@ public class ProductDaoImplementation implements ProductDao {
 		 else{
 			 sql.append(" WHERE p.activo = :enable");
 		 }
-		 paramMap.put("activo",Enable); 		
+		 paramMap.put("enable",Enable); 		
 		
 		List<Integer> counting = jdbcTemplate.query(sql.toString(), paramMap, new RowMapper<Integer>(){
 
