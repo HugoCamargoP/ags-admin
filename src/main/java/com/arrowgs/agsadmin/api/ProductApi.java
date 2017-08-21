@@ -66,6 +66,18 @@ public class ProductApi {
 		return ControllerHelper.mapResponse(status, null);
 	}
 	
+	@RequestMapping(path = ApiMappings.ProductSku+"/{idSkuProduct}", method = RequestMethod.DELETE)
+	public Map<String,? extends Object> deleteSkuProduct(@PathVariable Integer idSkuProduct){
+		ResponseStatus status;		
+		try{
+			productService.removeSkuProductById(idSkuProduct);
+			status = ResponseStatus.OK;
+		}catch(Exception e){
+			status = ResponseStatus.ExternalError;
+		}
+		return ControllerHelper.mapResponse(status, null);
+	}
+	
 	@RequestMapping(path = ApiMappings.Product+"/{idProduct}", method = RequestMethod.GET)
 	public Map<String,? extends Object> getProducts(@PathVariable Integer idProduct){
 		ResponseStatus status;

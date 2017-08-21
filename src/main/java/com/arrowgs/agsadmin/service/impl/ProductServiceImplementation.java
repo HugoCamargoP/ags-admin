@@ -1,5 +1,6 @@
 package com.arrowgs.agsadmin.service.impl;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 
@@ -125,10 +126,42 @@ public class ProductServiceImplementation implements ProductService {
 			throw e;
 		}
 	}
+	
+
+	@Override
+	public void removeSkuProductByProduct(Integer idProduct) {
+		try{
+			productDao.removeSkuProductByProduct(idProduct);
+		}catch(Exception e){
+			logger.error("ProductService : removeSkuProductByProduct : "+ e.toString());
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public void removeSkuProductById(Integer idSkuProduct) {
+		try{
+			productDao.removeSkuProductById(idSkuProduct);
+		}catch(Exception e){
+			logger.error("ProductService : removeSkuProductById : "+ e.toString());
+			throw e;	
+		}
+		
+	}
 
 	@Override
 	public void removeProductById(Integer id) {
 		try{
+			List<ProductDetail> productDetails = productDao.getProductDetails(id);
+			Iterator<ProductDetail> iterator = productDetails.iterator();
+			while(iterator.hasNext()){
+				ProductDetail actual = iterator.next();
+				File file = new File(actual.getUrl());
+				if(file.exists()){
+					file.delete();
+				}
+			}
 			productDao.removeProductById(id); 
 		}catch(Exception e){
 			logger.error("ProductService : removeProductById : "+ e.toString());
@@ -183,6 +216,11 @@ public class ProductServiceImplementation implements ProductService {
 	@Override
 	public void removeProductDetail(Integer idProductDetail) {		
 		try{
+			ProductDetail productDetail = productDao.getProductDetail(idProductDetail);
+			File image = new File(productDetail.getUrl());
+			if(image.exists()){
+				image.delete();
+			}
 			productDao.removeProductDetail(idProductDetail);
 		}catch(Exception e){
 			logger.error("ProductService : removeProductDetail : "+ e.toString());
@@ -340,7 +378,6 @@ public class ProductServiceImplementation implements ProductService {
 		}
 		
 	}
-
 
 
 }

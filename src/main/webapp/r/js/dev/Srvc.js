@@ -314,12 +314,22 @@ function Service(http, url)
         return http.put(url + '/product',product)
     }
    
-    //Elimina el producto con el sku correspondiente junto con sus detalles
-        //Parámetros necesitados: Integer sku   
-    this.removeProduct = function(sku){
+    //Elimina el producto con el sku correspondiente junto con sus detalles y sku's
+        //Parámetros necesitados: Integer idProduct  (id del producto)
+    this.removeProduct = function(idProduct){
         return http({
             'method': 'DELETE',
-            'url': url + '/product/' + sku
+            'url': url + '/product/' + idProduct
+        })
+    }
+    
+    
+    //Elimina el producto con el sku correspondiente junto con sus detalles y sku's
+    	//Parámetros necesitados: Integer idProduct  (id del producto)    
+    this.removeSkuProduct = function(idSkuProduct){
+        return http({
+            'method': 'DELETE',
+            'url': url + '/product_sku/' + idSkuProduct
         })
     }
    

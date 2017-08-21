@@ -87,8 +87,8 @@ public class ProductDaoImplementation implements ProductDao {
 			sku.setPrice(rs.getDouble(5));
 			sku.setStock(rs.getInt(6));
 			if(expandible){
-				sku.setSizeText(rs.getString(7));
-				sku.setProductDescr(rs.getString(8));
+				sku.setSizeText(rs.getString(8));
+				sku.setProductDescr(rs.getString(9));
 			}
 			return sku;
 		}
@@ -241,15 +241,16 @@ public class ProductDaoImplementation implements ProductDao {
 	
 	@Override
 	public List<Product> getProducts() {		
-		String query = "select * from productos";
-		
-		return jdbcTemplate.query(query,new ProductRowMapper());
+		String query = "select * from productos where activo = :enable";
+		SqlParameterSource paramMap = new MapSqlParameterSource("enable",Enable);
+		return jdbcTemplate.query(query,paramMap,new ProductRowMapper());
 	}
 
 	@Override
 	public Product getProductById(Integer id) {
-		String query = "select * from productos where id = :id";
-		SqlParameterSource productMap = new MapSqlParameterSource("id",id);
+		String query = "select * from productos where id = :id and activo = :enable";
+		MapSqlParameterSource productMap = new MapSqlParameterSource("id",id);
+		productMap.addValue("activo", Enable);
 		return jdbcTemplate.query(query, productMap, new ProductRowExtractor());
 	}
 
@@ -304,8 +305,11 @@ public class ProductDaoImplementation implements ProductDao {
 			removeProductDetailByProduct(id);
 			//Aqui el delete del productsku
 			
-			String sql = "DELETE FROM productos where sku = :id";
-			SqlParameterSource paramMap = new MapSqlParameterSource("id",id);
+			removeSkuProductByProduct(id);
+			
+			String sql = "UPDATE productos SET activo = :enable WHERE id = :id";
+			MapSqlParameterSource paramMap = new MapSqlParameterSource("enable",Disable);
+			paramMap.addValue("id", id);
 			jdbcTemplate.update(sql, paramMap);
 			
 			transactionManager.commit(transactionStatus);
@@ -324,7 +328,7 @@ public class ProductDaoImplementation implements ProductDao {
 					
 			Map<String,Object> producto = new HashMap<String,Object>();		
 			producto.put("descripcion", product.getDescription());				
-			
+			producto.put("activo", Enable);
 			Number idProduct = productoInsertActor.executeAndReturnKey(producto);
 			Iterator<SkuProduct> iterator = product.getSkuProduct().iterator();
 			while(iterator.hasNext()){
@@ -436,7 +440,12 @@ public class ProductDaoImplementation implements ProductDao {
 		 if(where){
 			 sql.append(" WHERE");
 			 sql.append(aux);
+			 sql.append(" AND p.activo = :enable");			 
 		 }
+		 else{
+			 sql.append(" WHERE p.activo = :enable");
+		 }
+		 paramMap.put("activo",Enable);
 		 sql.append(" LIMIT :page , :inPage");
 		 paramMap.put("page", page);
 		 paramMap.put("inPage", inPage);
@@ -447,18 +456,39 @@ public class ProductDaoImplementation implements ProductDao {
 	public Integer getCountProductsByFilter(Product product) {
 		
 		 boolean where = false;
-		 StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM productos");
+		 StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM productos p LEFT JOIN productos_sku ps ON ps.producto = p.id");
 		 StringBuilder aux = new StringBuilder("");
 		 Map<String,Object> paramMap = new HashMap<>();		 
 		 if(product.getDescription()!=null && ! product.getDescription().equals("")){			 
-			 aux.append(" descripcion like :descripcion");
+			 aux.append(" p.descripcion like :descripcion");
 			 paramMap.put("descripcion", product.getDescription());
+			 where = true;
+		 }
+		 if(product.getSku()!=null && ! product.getSku().equals("")){
+			 if(where){
+				 aux.append(" and");
+			 }
+			 aux.append(" ps.sku like :sku");
+			 paramMap.put("sku", product.getSku());
+			 where = true;
+		 }
+		 if(product.getTalla()!=null && product.getTalla().intValue()>0){
+			 if(where){
+				 aux.append(" and");
+			 }
+			 aux.append(" ps.talla = :talla");
+			 paramMap.put("talla", product.getTalla());
 			 where = true;
 		 }
 		 if(where){
 			 sql.append(" WHERE");
 			 sql.append(aux);
-		 }		 		
+			 sql.append(" AND p.activo = :enable");			 
+		 }
+		 else{
+			 sql.append(" WHERE p.activo = :enable");
+		 }
+		 paramMap.put("activo",Enable); 		
 		
 		List<Integer> counting = jdbcTemplate.query(sql.toString(), paramMap, new RowMapper<Integer>(){
 
@@ -475,32 +505,36 @@ public class ProductDaoImplementation implements ProductDao {
 	/* SkuProduct */
 	@Override
 	public List<SkuProduct> getSkuProductsByProduct(Integer idProduct) {
-		String sql = "SELECT p.*, t.talla, pr.descripcion FROM productos_sku p LEFT JOIN tallas t ON p.talla = t.id JOIN productos pr ON pr.id = p.producto WHERE producto = :idProduct ORDER BY p.talla";
-		SqlParameterSource paramMap = new MapSqlParameterSource("idProduct",idProduct);
+		String sql = "SELECT p.*, t.talla, pr.descripcion FROM productos_sku p LEFT JOIN tallas t ON p.talla = t.id JOIN productos pr ON pr.id = p.producto WHERE producto = :idProduct AND p.activo = :enable ORDER BY p.talla";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource("idProduct",idProduct);
+		paramMap.addValue("enable", Enable);
 		return jdbcTemplate.query(sql, paramMap, new SkuProductRowMapper(true));
 	}
 
 	@Override
 	public SkuProduct getSkuProductBySku(String sku) {
-		String sql = "SELECT p.*, t.talla, pr.descripcion FROM productos_sku p LEFT JOIN tallas t ON p.talla = t.id JOIN productos pr ON pr.id = p.producto WHERE sku LIKE :sku ORDER BY p.talla";
-		SqlParameterSource paramMap = new MapSqlParameterSource("sku",sku);
+		String sql = "SELECT p.*, t.talla, pr.descripcion FROM productos_sku p LEFT JOIN tallas t ON p.talla = t.id JOIN productos pr ON pr.id = p.producto WHERE sku LIKE :sku AND p.activo = :enable ORDER BY p.talla";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource("sku",sku);
+		paramMap.addValue("enable", Enable);
 		return jdbcTemplate.query(sql, paramMap, new SkuProductRowExtractor(true));
 	}
 	
 	@Override
 	public List<SkuProduct> getSkuProductBySku(Integer idProduct, String sku) {
-		String sql = "SELECT p.*, t.talla, pr.descripcion FROM productos_sku p LEFT JOIN tallas t ON p.talla = t.id JOIN productos pr ON pr.id = p.producto WHERE sku LIKE :sku AND p.producto = :idProduct ORDER BY p.talla";
+		String sql = "SELECT p.*, t.talla, pr.descripcion FROM productos_sku p LEFT JOIN tallas t ON p.talla = t.id JOIN productos pr ON pr.id = p.producto WHERE sku LIKE :sku AND p.producto = :idProduct AND p.activo = :enable ORDER BY p.talla";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource("sku",sku);
 		paramMap.addValue("idProduct", idProduct);
+		paramMap.addValue("enable", Enable);
 		return jdbcTemplate.query(sql, paramMap, new SkuProductRowMapper(true));
 	}
 	
 	@Override
 	public List<SkuProduct> getSkuProductBySku(Integer idProduct, String sku, Integer size) {
-		String sql = "SELECT p.*, t.talla, pr.descripcion FROM productos_sku p LEFT JOIN tallas t ON p.talla = t.id JOIN productos pr ON pr.id = p.producto WHERE sku LIKE :sku AND p.producto = :idProduct AND p.talla = size ORDER BY p.talla";
+		String sql = "SELECT p.*, t.talla, pr.descripcion FROM productos_sku p LEFT JOIN tallas t ON p.talla = t.id JOIN productos pr ON pr.id = p.producto WHERE sku LIKE :sku AND p.producto = :idProduct AND p.talla = size AND p.activo = :enable ORDER BY p.talla";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource("sku",sku);
 		paramMap.addValue("idProduct", idProduct);
 		paramMap.addValue("size", size);
+		paramMap.addValue("enable", Enable);
 		return jdbcTemplate.query(sql, paramMap, new SkuProductRowMapper(true));
 	}
 	
@@ -513,6 +547,7 @@ public class ProductDaoImplementation implements ProductDao {
 		paramMap.put("talla", skuProduct.getSize());
 		paramMap.put("precio", skuProduct.getPrice());
 		paramMap.put("almacen", skuProduct.getStock());
+		paramMap.put("activo", Enable);
 		
 		skuProductInsertActor.execute(paramMap);
 		
@@ -534,19 +569,42 @@ public class ProductDaoImplementation implements ProductDao {
 
 	@Override
 	public SkuProduct getSkuProductById(Integer idSkuProduct) {
-		String sql = "SELECT p.*, t.talla, pr.descripcion FROM productos_sku p LEFT JOIN tallas t ON p.talla = t.id JOIN productos pr ON pr.id = p.producto WHERE p.id = :id ORDER BY p.talla";
-		SqlParameterSource paramMap = new MapSqlParameterSource("id",idSkuProduct);
+		String sql = "SELECT p.*, t.talla, pr.descripcion FROM productos_sku p LEFT JOIN tallas t ON p.talla = t.id JOIN productos pr ON pr.id = p.producto WHERE p.id = :id AND p.activo = :enable ORDER BY p.talla";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource("id",idSkuProduct);
+		paramMap.addValue("enable", Enable);
 		return jdbcTemplate.query(sql, paramMap, new SkuProductRowExtractor(true));
 		
 	}
 	
 	@Override
 	public List<SkuProduct> getSkuProductByProductAndSize(Integer idProduct, Integer size) {
-		String sql = "SELECT p.*, t.talla, pr.descripcion FROM productos_sku p LEFT JOIN tallas t ON p.talla = t.id JOIN productos pr ON pr.id = p.producto WHERE p.talla = :size AND p.producto = :idProduct ORDER BY p.talla";
+		String sql = "SELECT p.*, t.talla, pr.descripcion FROM productos_sku p LEFT JOIN tallas t ON p.talla = t.id JOIN productos pr ON pr.id = p.producto WHERE p.talla = :size AND p.producto = :idProduct AND p.activo = :enable ORDER BY p.talla";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource("size",size);
 		paramMap.addValue("idProduct", idProduct);
+		paramMap.addValue("enable", Enable);
 		return jdbcTemplate.query(sql, paramMap, new SkuProductRowMapper(true));
 	}
+	
+
+	@Override
+	public void removeSkuProductByProduct(Integer idProduct) {
+		String sql = "UPDATE productos_sku SET activo = :enable WHERE producto = :id";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource("enable",Disable);
+		paramMap.addValue("id", idProduct);
+		
+		jdbcTemplate.update(sql, paramMap);
+		
+	}
+	
+	public void removeSkuProductById(Integer idSkuProduct) {
+		String sql = "UPDATE productos_sku SET activo = :enable WHERE id = :id";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource("enable",Disable);
+		paramMap.addValue("id", idSkuProduct);
+		
+		jdbcTemplate.update(sql, paramMap);
+		
+	}
+
 
 	@Override
 	public List<IdNameTable> getSizes() {
@@ -641,6 +699,13 @@ public class ProductDaoImplementation implements ProductDao {
 		
 		jdbcTemplate.update(sql, paramMap);
 		
+	}
+
+	@Override
+	public ProductDetail getProductDetail(Integer idProductDetail) {
+		String sql = "SELECT * FROM producto_detalles WHERE id = :id";
+		SqlParameterSource paramMap = new MapSqlParameterSource("id",idProductDetail);		
+		return jdbcTemplate.query(sql, paramMap, new ProductDetailRowExtractor());
 	}
 
 

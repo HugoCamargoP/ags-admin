@@ -27,6 +27,8 @@ public interface ProductService {
 	SkuProduct getSkuProductById(Integer idSkuProduct);
 	void updateSkuProducts(SkuProduct skuProduct);
 	void modifySkuProductList(List<SkuProduct> skuProducts);
+	void removeSkuProductByProduct(Integer idProduct);
+	void removeSkuProductById(Integer idSkuProduct);
 	
 	//ProductDetail
 	List<ProductDetail> getProductDetails(Integer idProduct);
