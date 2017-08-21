@@ -344,41 +344,7 @@ function Service(http, url)
     //Agrega una imagen relacionada con el producto
         //Parámetros necesitados: MultipartFile image, Integer product
     this.addProductDetail = function(myFile,product){
-//        return http.post(url + '/product_detail'+'/'+product,file,{
-//            headers: {'Content-Type': 'multipart/form-data'}
-//        })
-
-<<<<<<< HEAD
-//    	return http({
-//    		'method': 'POST',
-//    		'url': url +'/product_detail/'+product,
-//    		data: myFile,
-//    		headers:{
-//    			'Content-Type': 'multipart/form-data'
-//    		},
-//    	    transformRequest: function(data, headersGetterFunction) {
-//    	        return data; // do nothing! FormData is very good!
-//    	    }
-//    	})
-    	var fd = new FormData();
-    	fd.append('file',myFile);
-    	return http.post(url + '/product_detail'+'/'+product,fd,{
-    		transformRequest: angular.identity,
-    		headers: {'Content-Type': undefined}
-    	});
-=======
     	return http.post(url +'/product_detail/'+product , myFile, { headers: {'Content-Type': undefined} });
-    	/*
-    	return http({
-    		'method': 'POST',
-    		'url': url +'/product_detail/'+product,
-    		myFile,
-    		headers:{
-    			'Content-Type': undefined
-    		}
-    	})
-    	*/
->>>>>>> a04e778efcb74604d2cae6808b63ba79cdca55de
     }
    
     //Elimina el detalle de producto con el id correspondiente

@@ -318,10 +318,25 @@ public class ProductDaoImplementation implements ProductDao {
 
 	@Override
 	public void addProduct(Product product) {
-		Map<String,Object> producto = new HashMap<String,Object>();		
-		producto.put("descripcion", product.getDescription());		
-		
-		productoInsertActor.execute(producto);	
+		TransactionStatus transactionStatus =
+				transactionManager.getTransaction(new DefaultTransactionDefinition());
+		try{
+					
+			Map<String,Object> producto = new HashMap<String,Object>();		
+			producto.put("descripcion", product.getDescription());				
+			
+			Number idProduct = productoInsertActor.executeAndReturnKey(producto);
+			Iterator<SkuProduct> iterator = product.getSkuProduct().iterator();
+			while(iterator.hasNext()){
+				SkuProduct actual = iterator.next();
+				actual.setProduct(idProduct.intValue());
+				createSkuProduct(actual);
+			}
+						
+			transactionManager.commit(transactionStatus);
+		}catch(Exception e){
+			transactionManager.rollback(transactionStatus);
+		}
 	}
 
 

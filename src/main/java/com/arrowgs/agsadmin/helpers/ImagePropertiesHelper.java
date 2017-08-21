@@ -21,8 +21,9 @@ public class ImagePropertiesHelper {
 			
 			if(is!=null){
 				Properties image = new Properties();
-				location = image.getProperty("img.location");
 				image.load(is);
+				location = image.getProperty("img.location");
+
 			}
 		} catch (IOException e) {
 			logger.error("public void  resource(): " + e.toString());

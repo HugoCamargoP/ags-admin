@@ -120,7 +120,7 @@ public class ProductApi {
 	}
 	
 	@RequestMapping(path = ApiMappings.ProductDetail+"/{product}", method = RequestMethod.POST)
-	public Map<String,? extends Object> addProductDetail(@RequestParam CommonsMultipartFile imageFile, @PathVariable Integer product, HttpServletRequest request){
+	public Map<String,? extends Object> addProductDetail(@RequestPart("file") MultipartFile imageFile, @PathVariable Integer product, HttpServletRequest request){
 		ResponseStatus status;
 		try{
 			ProductDetail last = productService.getLastProductDetail();
@@ -133,9 +133,11 @@ public class ProductApi {
 			}
 			String path = ImagePropertiesHelper.resource();
 			path = path+"\\"+image;
+			String content = imageFile.getContentType();
+			content = content.substring(content.length()-4);
 			BufferedImage src = ImageIO.read(new ByteArrayInputStream(imageFile.getBytes()));
 			File finalFile = new File(path);
-			ImageIO.write(src, imageFile.getContentType(), finalFile);
+			ImageIO.write(src, content, finalFile);
 			ProductDetail result = new ProductDetail();
 			result.setProduct(product);
 			result.setUrl(path);
