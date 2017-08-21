@@ -514,6 +514,7 @@ $scope.pago = function ()
 					if(response.data.data.length > 0 )
 					{
 							$scope.sizes = response.data.data;
+							tallasperronas = response.data.data;
 					}
 				}, 
 				function errorCallback(response){	

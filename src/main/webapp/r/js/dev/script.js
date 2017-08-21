@@ -1,4 +1,5 @@
 /*++Notificaciones++*/
+var tallasperronas = {};
 var auxauxaux = [];
 var mensajesglobal = 0;
 function msjerror(error)
@@ -50,6 +51,65 @@ function subirarchivo(d, id)
       }
   });
 }
+
+var limitetalla = 1;
+function addproductosku()
+{
+	if(parseInt(limitetalla) < 4)
+	{
+		var metelo = '<div class="col-xs-12">'+
+		  '<div class="form-group col-xs-12 col-sm-3">'+
+		    '<label for="pwd"><i class="fa fa-barcode"></i><b>SKU:</b></label>'+ 
+		    '<input ng-required="true" ng-model="newformssize.sku" class="form-control form-control-min" type="text" />'+
+		  '</div>'+
+		  '<div class="form-group col-xs-12 col-sm-3">'+
+		    '<label for="pwd"><i class="fa fa-object-group"></i><b> <s:message code="admin.size"/>:</b></label>'+ 
+		    '<select name="" id="" ng-model="newformssize.size" class="form-control form-control-min" ng-required="true">';
+			for ( var a in tallasperronas) {
+
+			    metelo = metelo + '<option value="'+tallasperronas[a].id+'">'+tallasperronas[a].name+'</option>';
+			}
+		    metelo = metelo + '</select>'+
+		  '</div>'+
+		  '<div class="form-group col-xs-12 col-sm-3">'+
+		    '<label for="pwd"><i class="fa fa-usd"></i><b> <s:message code="admin.price"/>:</b></label>'+
+		    '<input  ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/"  ng-model="newformssize.price"  ng-required="true" class="form-control form-control-min" type="text" />'+
+		  '</div>'+
+		  '<div class="form-group col-xs-12 col-sm-3">'+
+		    '<label for="pwd"><i class="fa fa-filter"></i><b> <s:message code="admin.stock"/>:</b></label>'+
+			'<input type="number"  ng-required="true" ng-model="newformssize.stock" class="form-control form-control-min" type="text" />'+
+		  '</div>'+
+		'</div>';
+		    
+		   metelo ='<tr>'+
+				  		'<td>'+
+						    '<input ng-required="true" ng-model="newformssize.sku" class="form-control form-control-min" type="text" />'+
+						'</td>'+
+				  		'<td>'+
+				  		    '<select name="" id="" ng-model="newformssize.size" class="form-control form-control-min" ng-required="true">';
+						for ( var a in tallasperronas) {
+
+						    metelo = metelo + '<option value="'+tallasperronas[a].id+'">'+tallasperronas[a].name+'</option>';
+						}
+		  metelo = metelo + '</select>'+
+						'</td>'+
+				  		'<td>'+
+				  		    '<input  ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/"  ng-model="newformssize.price"  ng-required="true" class="form-control form-control-min" type="text" />'+
+						'</td>'+
+				  		'<td>'+
+				  			'<input type="number"  ng-required="true" ng-model="newformssize.stock" class="form-control form-control-min" type="text" />'+
+						 '</td>'+
+				  	'</tr>';
+		console.log(tallasperronas);
+		$('.extra').append(metelo);
+		limitetalla++;
+	}
+	else
+	{
+		msjerror('Solo 4 tallas');
+	}
+}
+
 
 /*poner y quitar clases*/
 function addremoveclass(clase,target)
