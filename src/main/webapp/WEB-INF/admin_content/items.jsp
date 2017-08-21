@@ -18,7 +18,7 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 				<div class="tab-content">
 				  <div id="home" class="tab-pane fade in active">
 				    <div class="center">
-						<form action="" onsubmit="return false" ng-submit="addProduct();"  id="form-users" name="form-users" ng-model="formu" class="">
+						<form action="" onsubmit="return false" ng-submit="getProductsByFilter();"  id="form-users" name="form-users" ng-model="formu" class="">
 						  <ul class="list-inline">
 						  	<li>
 							  	<div class="form-group">
