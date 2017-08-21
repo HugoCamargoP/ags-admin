@@ -33,7 +33,6 @@ function msjexito(exito)
 
 function subirarchivo(d, id)
 {
-	
 	var token = $('#csrf').val() , name = $('#csrf').attr('name');
 	console.log(name);
   $.ajax({

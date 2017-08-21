@@ -409,7 +409,7 @@ $scope.pago = function ()
 				formdata.append('file', document.getElementById('img').files[0]);
 				$scope.newformssizeimg.f = formdata;
 				
-				//subirarchivo(formdata, $scope.newformssizeimg.id);
+				//subirarchivo(formdata, $scope.newformssizeimg.id); 
 				
 				Service.addProductDetail(formdata , $scope.newformssizeimg.id).then(
 				function successCallback(response){
@@ -470,6 +470,20 @@ $scope.pago = function ()
 	$scope.getAllProducts = function()
 	{
 		Service.getAllProducts().then(
+				function successCallback(response){
+					if(response.data.data.length > 0 )
+					{
+							$scope.productos = response.data.data;
+					}
+				}, 
+				function errorCallback(response){	
+				});
+	}
+	
+	$scope.getProductsByFilter = function()
+	{
+		var b = 1, c = 10000;
+		Service.getProductsByFilter($scope.searchprodruct,b,c).then(
 				function successCallback(response){
 					if(response.data.data.length > 0 )
 					{

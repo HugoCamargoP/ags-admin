@@ -347,7 +347,6 @@ function Service(http, url)
 //        return http.post(url + '/product_detail'+'/'+product,file,{
 //            headers: {'Content-Type': 'multipart/form-data'}
 //        })
-
     	return http.post(url +'/product_detail/'+product , myFile, { headers: {'Content-Type': undefined} });
     	/*
     	return http({

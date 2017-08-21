@@ -1,7 +1,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div id="page-wrapper" ng-controller="${ appname }Prod" ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize = {};eachitem = {}; coveraux = {}; newformssize = {}; newformssizeimg = {};">
+<div id="page-wrapper" ng-controller="${ appname }Prod" ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize = {};eachitem = {}; coveraux = {}; newformssize = {}; newformssizeimg = {};searchprodruct = {}">
 	
 	<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	
@@ -9,6 +9,39 @@
 		<h3 class="blank1 center"><s:message code="admin.items"/></h3>
 			<div class="tab-content">
 				<div class="jumbotron">
+				
+				<div class="center">
+					<form action="" onsubmit="return false" ng-submit="getProductsByFilter();"  id="form-users" name="form-users" ng-model="formu" class="">
+					  <ul class="list-inline">
+					  	<li>
+						  	<div class="form-group">
+							    <label for="email"><i class="fa fa-barcode"></i>&nbsp;<b> SKU:</b></label>
+						   	 	<input type="text" style="width:100%;" class="form-control" value="" name="" id="" ng-model="searchprodruct.sku"/>
+							</div>
+					  	</li>
+					  	<li>
+						  	<div class="form-group">
+							    <label for="email"><i class="fa fa-file-text"></i>&nbsp;<b> <s:message code="admin.details" />:</b></label>
+						   	 	<input type="text" style="width:100%;" class="form-control" value="" name="" id="" ng-model="searchprodruct.description"/>
+							</div>
+					  	</li>
+					  	<li>
+						  <div class="form-group">
+						    <label for="pwd"><i class="fa fa-object-group"></i><b> <s:message code="admin.size"/>:</b></label> 
+							<select class="form-control form-control-min" name="" id="" ng-model="searchprodruct.size">
+								<option value="{{a.id}}"  ng-repeat="a in sizes">{{a.name}}</option>
+							</select>
+						  </div>
+					  	</li>
+					  </ul>
+					  <div class="clearfix visible-xs"></div> 
+					  <br class="visible-xs"/>
+					  <div class="center">
+					  	<button type="submit" class="btn-black btn"><span class="fa fa-search" aria-hidden="true"></span>&nbsp;<s:message code="admin.search"/></button>
+					  </div>
+					</form>
+				</div>
+				
 					 <div ng-repeat="p in productos" class="container marginem" ng-mouseover="overs[p.id] = true;" ng-mouseleave="overs[p.id] = false;" >
 					 	<legend><s:message code="admin.product" /> {{p.id}}</legend>
 					 	<div class="table-responsive center" ng-init="productos[$index].indexado = $index;">
@@ -132,7 +165,7 @@
 								<li class="col-xs-6 col-sm-4 col-md-3 col-lg-2 center" ng-repeat="a in p.productDetails">
 									<div class="img-info">
 										<button class="btn btn-black btn-delete hidden-xs" ng-click="deleteimg(p.indexado,$index,a.id);" ><i class="fa fa-times"></i></button>
-										<a href="#" target="_blank" class="btn btn-edit btn-black"><i class="fa fa-eye"></i></a>
+										<a href="{{a.url}}" target="_blank" class="btn btn-edit btn-black"><i class="fa fa-eye"></i></a>
 										<button class="btn btn-black btn-edit hidden"><i class="fa fa-pencil"></i></button>
 									</div>
 									<img class="click img-responsive img-thumbnail" src="{{a.url}}">
