@@ -15,6 +15,7 @@ import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.entities.ProductDetail;
 import com.arrowgs.agsadmin.entities.SizeDescription;
 import com.arrowgs.agsadmin.entities.SkuProduct;
+import com.arrowgs.agsadmin.helpers.ImagePropertiesHelper;
 import com.arrowgs.agsadmin.service.ProductService;
 
 
@@ -217,7 +218,11 @@ public class ProductServiceImplementation implements ProductService {
 	public void removeProductDetail(Integer idProductDetail) {		
 		try{
 			ProductDetail productDetail = productDao.getProductDetail(idProductDetail);
-			File image = new File(productDetail.getUrl());
+			Integer begin = productDetail.getUrl().lastIndexOf('/');
+			String imagePath = ImagePropertiesHelper.resource();
+			imagePath = imagePath+ "/" +productDetail.getUrl().substring(begin+1);
+			
+			File image = new File(imagePath);
 			if(image.exists()){
 				image.delete();
 			}

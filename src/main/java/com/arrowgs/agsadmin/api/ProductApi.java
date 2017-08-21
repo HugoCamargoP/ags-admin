@@ -143,7 +143,7 @@ public class ProductApi {
 			}
 			String path = ImagePropertiesHelper.resource();
 			
-			path = path+"\\"+image;
+			path = path+"/"+image;
 			String content = imageFile.getContentType();
 			content = content.substring(6);
 			path = path + "." +content;
