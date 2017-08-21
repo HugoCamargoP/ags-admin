@@ -506,7 +506,7 @@ $scope.pago = function ()
 				function errorCallback(response){	
 				});
 	}
-	
+
 	$scope.getProductSizes = function()
 	{
 		Service.getProductSizes().then(
@@ -521,7 +521,18 @@ $scope.pago = function ()
 				});
 	}
 	
-	
+	$scope.removeSkuProduct = function(a)
+	{
+		Service.removeSkuProduct(a).then(
+				function successCallback(response){
+					if(response.data.status == 'OK' )
+					{
+						$scope.getProductsByFilter();
+					}
+				}, 
+				function errorCallback(response){	
+				});
+	}
 
 	$scope.skuSize = {};
 	$scope.price = {};

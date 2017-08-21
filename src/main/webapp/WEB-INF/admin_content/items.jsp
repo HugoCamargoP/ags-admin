@@ -102,7 +102,7 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 					 				<td><b><s:message code="admin.stock" /></b></td>
 					 			</tr>
 					 			<tr ng-repeat="a in p.skuProduct">
-							 		<td ng-show="overs[p.id] || newsize[p.id]" class="hidden-xs">
+							 		<td ng-show="overs[p.id] || newsize[p.id]" class="hidden-xs click" ng-click="removeSkuProduct(a.id);">
 							 			<span class="fa fa-minus-square" aria-hidden="true"></span>
 							 		</td>
 					 				<td>
