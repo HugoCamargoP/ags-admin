@@ -348,14 +348,17 @@ function Service(http, url)
 //            headers: {'Content-Type': 'multipart/form-data'}
 //        })
 
+    	return http.post(url +'/product_detail/'+product , myFile, { headers: {'Content-Type': undefined} });
+    	/*
     	return http({
     		'method': 'POST',
     		'url': url +'/product_detail/'+product,
-    		data: myFile,
+    		myFile,
     		headers:{
-    			'Content-Type': 'multipart/form-data'
+    			'Content-Type': undefined
     		}
     	})
+    	*/
     }
    
     //Elimina el detalle de producto con el id correspondiente
