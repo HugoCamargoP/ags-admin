@@ -413,7 +413,7 @@ public class ProductDaoImplementation implements ProductDao {
 	public List<Product> getProductsByFilter(Product product, Integer page, Integer inPage) {
 		 page = (page -1)*inPage;
 		 boolean where = false;
-		 StringBuilder sql = new StringBuilder("SELECT * FROM productos p LEFT JOIN productos_sku ps ON ps.producto = p.id");
+		 StringBuilder sql = new StringBuilder("SELECT distinct(p.id), p.descripcion, p.activo FROM productos p LEFT JOIN productos_sku ps ON ps.producto = p.id");
 		 StringBuilder aux = new StringBuilder("");
 		 Map<String,Object> paramMap = new HashMap<>();		 
 		 if(product.getDescription()!=null && ! product.getDescription().equals("")){			 
