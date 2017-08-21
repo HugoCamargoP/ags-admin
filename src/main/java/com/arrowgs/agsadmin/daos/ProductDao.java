@@ -28,6 +28,9 @@ public interface ProductDao {
 	
 	//SkuProduct
 	List<SkuProduct> getSkuProductsByProduct(Integer idProduct);
+	List<SkuProduct> getSkuProductByProductAndSize(Integer idProduct, Integer size);
+	List<SkuProduct> getSkuProductBySku(Integer idProduct, String sku);
+	List<SkuProduct> getSkuProductBySku(Integer idProduct, String sku, Integer size);
 	void createSkuProduct(SkuProduct skuProduct);
 	SkuProduct getSkuProductBySku(String sku);
 	SkuProduct getSkuProductById(Integer idSkuProduct);

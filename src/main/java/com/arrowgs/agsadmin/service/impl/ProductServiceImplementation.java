@@ -67,8 +67,25 @@ public class ProductServiceImplementation implements ProductService {
 			Iterator<Product> iterator = products.iterator();
 			while(iterator.hasNext()){
 				Product actual = iterator.next();
-				actual.setProductDetails(productDao.getProductDetails(actual.getId())); 
-				actual.setSkuProduct(productDao.getSkuProductsByProduct(actual.getId()));
+				actual.setProductDetails(productDao.getProductDetails(actual.getId()));
+				if(product.getTalla()==null && product.getSku()==null)
+				{
+					actual.setSkuProduct(productDao.getSkuProductsByProduct(actual.getId()));
+				}else{
+					if(product.getTalla()!=null && product.getSku() ==null)
+					{
+						actual.setSkuProduct(productDao.getSkuProductByProductAndSize(actual.getId(),product.getTalla()));
+					}
+					
+					if(product.getTalla()==null && product.getSku() !=null)
+					{
+						actual.setSkuProduct(productDao.getSkuProductBySku(actual.getId(),product.getSku()));
+					}
+					
+					if(product.getTalla()!=null && product.getSku() !=null){
+						actual.setSkuProduct(productDao.getSkuProductBySku(actual.getId(),product.getSku(),product.getTalla()));
+					}
+				}
 			}
 			return products;		
 		}catch(Exception e){

@@ -216,7 +216,13 @@ public class ProductApi {
 		ResponseStatus status;
 		Map<String,Object> params = PathHelper.fromPathToMap(path);
 		Product product = ClassHelper.fromStringMap(Product.class, params);
-		product.setDescription(PathHelper.sqlLike(product.getDescription()));
+		if(product.getDescription()!=null)
+		{
+			product.setDescription(PathHelper.sqlLike(product.getDescription()));
+		}
+		if(product.getSku()!=null){
+			product.setSku(PathHelper.sqlLike(product.getSku()));
+		}
 		List<Product> products;
 		try{
 			products = productService.getProductsByFilter(product, page, inPage);
