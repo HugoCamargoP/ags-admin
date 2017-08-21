@@ -31,14 +31,21 @@ function msjexito(exito)
 /*++++*/
 
 
-function subirarchivo(data, id)
+function subirarchivo(d, id)
 {
+	
+	var token = $('#csrf').val() , name = $('#csrf').attr('name');
+	console.log(name);
   $.ajax({
       url: 'http://localhost:8080/ags-admin/rest/product_detail/'+id,
-      data: data,
+      data: d ,
       processData: false,
-      contentType: 'multipart/form-data',
+      contentType: undefined,
       type: 'POST',
+      headers: {
+          "X-XSRF-TOKEN": token,
+          'Content-Type': 'multipart/form-data'
+      },
       success: function ( data ) {
           alert( data );
       }

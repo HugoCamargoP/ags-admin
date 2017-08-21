@@ -2,6 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div id="page-wrapper" ng-controller="${ appname }Prod" ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize = {};eachitem = {}; coveraux = {}; newformssize = {}; newformssizeimg = {};">
+	
+	<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	
 	<div class="graphs">
 		<h3 class="blank1 center"><s:message code="admin.items"/></h3>
 			<div class="tab-content">
