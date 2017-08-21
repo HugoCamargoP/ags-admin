@@ -284,7 +284,7 @@ $scope.pago = function ()
 	$scope.asignadas = function (a)
 	{
 		$scope.currentpage = a;
-		$scope.getAllProducts();
+		$scope.getProductsByFilter();
 	}
 
 	$scope.asignadas1 = function (a)
@@ -339,7 +339,7 @@ $scope.pago = function ()
 			function successCallback(response){
 				if(response.data.status == 'OK')
 				{
-					$scope.getAllProducts();
+					$scope.getProductsByFilter();
 					msjexito('Exito');
 				}
 				else
@@ -359,7 +359,7 @@ $scope.pago = function ()
 			function successCallback(response){
 				if(response.data.status == 'OK')
 				{
-					$scope.getAllProducts();
+					$scope.getProductsByFilter();
 					var aux = $scope.newformssize.product;
 					$scope.newformssize = {}
 					$scope.newformssize.product = aux;
@@ -385,7 +385,7 @@ $scope.pago = function ()
 				function successCallback(response){
 					if(response.data.status == 'OK')
 					{
-						$scope.getAllProducts();
+						$scope.getProductsByFilter();
 						document.getElementById("img").value='';
 						msjexito('Exito');
 					}
@@ -415,7 +415,7 @@ $scope.pago = function ()
 				function successCallback(response){
 					if(response.data.status == 'OK')
 					{
-						$scope.getAllProducts();
+						$scope.getProductsByFilter();
 						document.getElementById("img").value='';
 						msjexito('Exito');
 					}
