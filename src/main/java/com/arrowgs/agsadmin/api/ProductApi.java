@@ -16,11 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.arrowgs.agsadmin.controllers.cons.Constants.ApiMappings;
 import com.arrowgs.agsadmin.entities.IdNameTable;
@@ -132,17 +130,26 @@ public class ProductApi {
 				image = last.getId().intValue() + 1;
 			}
 			String path = ImagePropertiesHelper.resource();
+			
 			path = path+"\\"+image;
 			String content = imageFile.getContentType();
-			content = content.substring(content.length()-4);
+			content = content.substring(6);
+			path = path + "." +content;
+			String imageName = ImagePropertiesHelper.localHostResource();
+			imageName = imageName + image.toString() + "." + content;
 			BufferedImage src = ImageIO.read(new ByteArrayInputStream(imageFile.getBytes()));
 			File finalFile = new File(path);
-			ImageIO.write(src, content, finalFile);
-			ProductDetail result = new ProductDetail();
-			result.setProduct(product);
-			result.setUrl(path);
-			productService.addProductDetail(result);
-			status = ResponseStatus.OK;
+			if(finalFile.createNewFile()){
+				ImageIO.write(src, content, finalFile);
+				ProductDetail result = new ProductDetail();
+				result.setProduct(product);
+				result.setUrl(imageName);
+				productService.addProductDetail(result);
+				status = ResponseStatus.OK;
+			}
+			else{
+				status = ResponseStatus.ExternalError;
+			}
 		}catch(Exception e){
 			status = ResponseStatus.ExternalError;
 		}
