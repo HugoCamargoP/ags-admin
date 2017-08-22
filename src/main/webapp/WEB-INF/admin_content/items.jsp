@@ -289,19 +289,19 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 							  	</tr>
 							  	<tr class="">
 							  		<td>
-									    <input ng-model="addpro.skuProduct[z.id].sku" class="form-control form-control-min" type="text" />
+									    <input ng-model="addpro.skuProduct1[z.id].sku" class="form-control form-control-min" type="text" />
 									</td>
 							  		<td class="hidden">
-							  		    <select name="" ng-model="addpro.skuProduct[z.id].size" id="" class="form-control form-control-min" ng-disabled="true" ng-init="addpro.skuProduct[z.id].size = z.id;">
+							  		    <select name="" ng-model="addpro.skuProduct1[z.id].size" id="" class="form-control form-control-min" ng-disabled="true" ng-init="addpro.skuProduct1[z.id].size = z.id;">
 							 				<option value="{{z.id}}" selected="selected">{{z.name}}</option>
 							 				<option value=""></option>
 							 			</select>
 									</td>
 							  		<td>
-							  		    <input ng-model="addpro.skuProduct[z.id].price" class="form-control form-control-min" type="text" />
+							  		    <input ng-model="addpro.skuProduct1[z.id].price" class="form-control form-control-min" type="text" />
 									</td>
 							  		<td>
-							  			<input ng-model="addpro.skuProduct[z.id].stock" type="number" class="form-control form-control-min" type="text" />
+							  			<input ng-model="addpro.skuProduct1[z.id].stock" type="number" class="form-control form-control-min" type="text" />
 									 </td>
 							  	</tr>
 							</table>
@@ -309,8 +309,7 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 					  </div>
 				  </div>
 			</div>
-		<div class="clearfix"></div>
-		<br />	  
+		<div class="clearfix" style="margin-bottom:10px;"></div>
 				  
 <%--
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>

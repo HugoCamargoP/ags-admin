@@ -487,6 +487,10 @@ $scope.pago = function ()
 	
 	$scope.createProduct = function()
 	{
+		 console.log($scope.addpro.skuProduct1);
+		for ( var i in $scope.addpro.skuProduct1) {
+			console.log(a);
+		}
 		Service.createProduct($scope.addpro).then(
 				function successCallback(response){
 					if(response.data.data.length > 0 || response.data.status == "OK")
