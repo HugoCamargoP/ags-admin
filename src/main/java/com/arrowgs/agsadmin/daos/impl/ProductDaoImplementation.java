@@ -513,6 +513,13 @@ public class ProductDaoImplementation implements ProductDao {
 		paramMap.addValue("enable", Enable);
 		return jdbcTemplate.query(sql, paramMap, new SkuProductRowMapper(true));
 	}
+	
+	@Override
+	public List<SkuProduct> getSkuProductByProductFilter(Product product) {
+		String sql = "";
+		return null;
+	}
+
 
 	@Override
 	public SkuProduct getSkuProductBySku(String sku) {
@@ -562,7 +569,7 @@ public class ProductDaoImplementation implements ProductDao {
 		
 		Map<String,Object> paramMap= new HashMap<>();
 		paramMap.put("talla", skuProduct.getSize());
-		paramMap.put("precio", skuProduct.getSize());
+		paramMap.put("precio", skuProduct.getPrice());
 		paramMap.put("almacen", skuProduct.getStock());
 		paramMap.put("sku", skuProduct.getSku());
 		paramMap.put("id", skuProduct.getId());
@@ -710,8 +717,6 @@ public class ProductDaoImplementation implements ProductDao {
 		SqlParameterSource paramMap = new MapSqlParameterSource("id",idProductDetail);		
 		return jdbcTemplate.query(sql, paramMap, new ProductDetailRowExtractor());
 	}
-
-
 	
 
 }
