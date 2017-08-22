@@ -487,9 +487,13 @@ $scope.pago = function ()
 	
 	$scope.createProduct = function()
 	{
-		 console.log($scope.addpro.skuProduct1);
+		//console.log($scope.addpro.skuProduct1);
+		//$scope.addpro.skuProduct = {};
 		for ( var i in $scope.addpro.skuProduct1) {
-			console.log(a);
+			if(i.sku != "" && i.price != "" && i.stock != "" )
+			{
+				$scope.addpro.skuProduct[0].push(i);
+			}
 		}
 		Service.createProduct($scope.addpro).then(
 				function successCallback(response){
