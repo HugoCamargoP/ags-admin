@@ -485,9 +485,9 @@ $scope.pago = function ()
 				});
 	}
 	
-	$scope.addProduct1 = function()
+	$scope.createProduct = function()
 	{
-		Service.addProduct($scope.addpro).then(
+		Service.createProduct($scope.addpro).then(
 				function successCallback(response){
 					if(response.data.data.length > 0 || response.data.status == "OK")
 					{

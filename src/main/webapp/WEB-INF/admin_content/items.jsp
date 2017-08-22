@@ -257,7 +257,7 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 	        <h4 class="modal-title"><s:message code="admin.tittleNewProduct"/></h4>
 	      </div>
 	      <div class="modal-body">
-			<form action="" id="addproform" name="addproform" ng-model="addproform" onsubmit="return false" ng-submit="addProduct1();">
+			<form action="" id="addproform" name="addproform" ng-model="addproform" onsubmit="return false" ng-submit="createProduct();">
 				
 				<input type="hidden" value="{{size}}" id="siss" />
 				
@@ -283,7 +283,7 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 							  <table class="table table-striped table-over extra">
 							  	<tr>
 							  		<th><i class="fa fa-barcode"></i><b> SKU</b></th>
-							  		<th><i class="fa fa-object-group"></i><b> <s:message code="admin.size"/></b></th>
+							  		<th class="hidden"><i class="fa fa-object-group"></i><b> <s:message code="admin.size"/></b></th>
 							  		<th><i class="fa fa-usd"></i><b> <s:message code="admin.price"/></b></th>
 							  		<th><i class="fa fa-filter"></i><b> <s:message code="admin.stock"/></b></th>
 							  	</tr>
@@ -291,9 +291,10 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 							  		<td>
 									    <input ng-model="addpro.skuProduct[z.id].sku" class="form-control form-control-min" type="text" />
 									</td>
-							  		<td>
-							  		    <select name="" ng-model="addpro.skuProduct[z.id].size" id="" class="form-control form-control-min" ng-disabled="true">
-							 				<option value="{{z.id}}">{{z.name}}</option>
+							  		<td class="hidden">
+							  		    <select name="" ng-model="addpro.skuProduct[z.id].size" id="" class="form-control form-control-min" ng-disabled="true" ng-init="addpro.skuProduct[z.id].size = z.id;">
+							 				<option value="{{z.id}}" selected="selected">{{z.name}}</option>
+							 				<option value=""></option>
 							 			</select>
 									</td>
 							  		<td>
