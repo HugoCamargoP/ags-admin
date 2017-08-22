@@ -517,12 +517,12 @@ public class ProductDaoImplementation implements ProductDao {
 	
 	@Override
 	public List<SkuProduct> getSkuProductByProductFilter(Product product) {
-		StringBuilder sql = new StringBuilder("SELECT * FROM productos_sku");
+		StringBuilder sql = new StringBuilder("SELECT * FROM productos_sku p");
 		StringBuilder aux = new StringBuilder("");
 		boolean where=false;
 		Map<String,Object> paramMap = new HashMap<>();
 		if(product.getSku()!=null){
-			aux.append(" sku like :sku");
+			aux.append(" p.sku like :sku");
 			paramMap.put("sku", product.getSku());
 			where = true;
 		}
@@ -530,7 +530,7 @@ public class ProductDaoImplementation implements ProductDao {
 			if(where){
 				aux.append(" AND");
 			}
-			aux.append(" talla = :talla");
+			aux.append(" p.talla = :talla");
 			paramMap.put("talla", product.getTalla());
 			where = true;
 		}
@@ -538,7 +538,7 @@ public class ProductDaoImplementation implements ProductDao {
 			if(where){
 				aux.append(" AND");
 			}
-			aux.append(" precio > :greater");
+			aux.append(" p.precio > :greater");
 			paramMap.put("greater", product.getGreaterThan());
 			where = true;
 		}
@@ -546,15 +546,19 @@ public class ProductDaoImplementation implements ProductDao {
 			if(where){
 				aux.append(" AND");
 			}
-			aux.append(" precio < :less");
+			aux.append(" p.precio < :less");
 			paramMap.put("less", product.getLessThan());
 			where = true;
 		}
+		sql.append(" WHERE");
 		if(where){
-			sql.append(" WHERE");
-			
+			sql.append(aux);
+			sql.append(" AND");
 		}
-		return null;
+		sql.append(" p.producto = :producto");
+		paramMap.put("producto", product.getId());
+		
+		return jdbcTemplate.query(sql.toString(), paramMap, new SkuProductRowMapper(true));
 	}
 
 

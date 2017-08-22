@@ -313,6 +313,12 @@ function Service(http, url)
     this.updateProduct = function(product){
         return http.put(url + '/product',product)
     }
+    
+    //Crea un producto
+    	//Parámetros necesitados: Product product (Extra Data no necesaria)
+    this.createProduct = function(product){
+    	return http.post(url + '/product',product)
+    }
    
     //Elimina el producto con el sku correspondiente junto con sus detalles y sku's
         //Parámetros necesitados: Integer idProduct  (id del producto)
