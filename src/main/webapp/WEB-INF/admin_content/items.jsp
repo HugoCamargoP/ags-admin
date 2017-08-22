@@ -58,8 +58,10 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 					 	<div class="table-responsive center" ng-init="productos[$index].indexado = $index;">
 					 		<table class="table table-bordered">
 					 			<tr class="tabletitulos">
-					 				<td data-toggle="tooltip" title="ELiminar Producto" ng-class="{show: overs[p.id] || newsize[p.id]}" ng-click="removeProduct(p.id);" class="btn-black hidden-xs" style="display:none;">
-					 					<span class="fa fa-minus-square" aria-hidden="true"></span>
+					 				<td ng-class="{show: overs[p.id] || newsize[p.id]}" ng-click="removeProduct(p.id);" class="btn-black hidden-xs" style="display:none;">
+					 					<div data-toggle="tooltip" title="ELiminar Producto">
+					 						<span class="fa fa-minus-square" aria-hidden="true"></span>
+					 					</div>
 					 				</td>
 					 				<td colspan="4">
 					 					<b><s:message code="admin.details" /></b>
@@ -91,10 +93,14 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 					 			</tr>
 					 			<tr class="tabletitulos">
 					 				<td ng-hide="newsize[p.id]" data-toggle="modal" data-target="#newYetibera" ng-class="{show: overs[p.id]}" ng-click="newsize[p.id] = true; newformssize.product = p.id;" class="btn-black hidden-xs" style="display:none;">
-					 					<span class="fa fa-plus" aria-hidden="true"></span>
+					 					<div data-toggle="tooltip" title="Nuevo SKU">
+					 						<span class="fa fa-plus" aria-hidden="true"></span>
+					 					</div>
 					 				</td>
 					 				<td ng-show="newsize[p.id]" data-toggle="modal" data-target="#newYetibera" ng-class="{show:  overs[p.id] || newsize[p.id]}" ng-click="newsize[p.id] = false; newformssize.product = p.id;" class="btn-black hidden-xs" style="display:none;">
-					 					<span class="fa fa-plus" aria-hidden="true"></span>
+					 					<div data-toggle="tooltip" title="Nuevo SKU">
+					 						<span class="fa fa-plus" aria-hidden="true"></span>
+					 					</div>
 					 				</td>
 					 				<td><b>SKU</b></td>
 					 				<td><b><s:message code="admin.size" /></b></td>
@@ -102,8 +108,10 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 					 				<td><b><s:message code="admin.stock" /></b></td>
 					 			</tr>
 					 			<tr ng-repeat="a in p.skuProduct">
-							 		<td  data-toggle="tooltip" data-placement="right" title="ELiminar SKU" ng-show="overs[p.id] || newsize[p.id]" class="btn-black hidden-xs click" ng-click="removeSkuProduct(a.id);">
-							 			<span class="fa fa-minus-square" aria-hidden="true"></span>
+							 		<td ng-show="overs[p.id] || newsize[p.id]" class="btn-black hidden-xs click" ng-click="removeSkuProduct(a.id);">
+							 			<div  data-toggle="tooltip" title="ELiminar SKU"  data-placement="right">
+							 				<span class="fa fa-minus-square" aria-hidden="true"></span>
+							 			</div>
 							 		</td>
 					 				<td>
 					 					<div class="click hidden-xs" ng-hide="eachitem[a.id].sku" ng-dblclick="eachitem[a.id].sku = a.sku;">{{a.sku}}</div>
@@ -253,44 +261,55 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 				
 				<input type="hidden" value="{{size}}" id="siss" />
 				
-				  <div class="form-group col-xs-12">
+				<div class="form-group col-xs-12">
 				    <label for="pwd"><i class="fa fa-file-text"></i><b>&nbsp;<s:message code="admin.details" />:</b></label> 
 				    <input ng-required="true" ng-model="addpro.description" class="form-control form-control-min" type="text" />
-				  </div>
-				  
-				  <div class="col-xs-12 center">
-				  	<a href="javascript:addproductosku();" class="btn-black">&nbsp;<span class="fa fa-plus"></span>&nbsp;<s:message code="admin.tittleNewSKU" />&nbsp;</a>
-				  </div>
-				  <div class="col-xs-12">
-					  <div class="table-responsive">
-						  <table class="table table-striped table-over extra">
-						  	<tr>
-						  		<th><i class="fa fa-barcode"></i><b> SKU</b></th>
-						  		<th><i class="fa fa-object-group"></i><b> <s:message code="admin.size"/></b></th>
-						  		<th><i class="fa fa-usd"></i><b> <s:message code="admin.price"/></b></th>
-						  		<th><i class="fa fa-filter"></i><b> <s:message code="admin.stock"/></b></th>
-						  	</tr>
-						  	<tr class="hidden">
-						  		<td>
-								    <input class="form-control form-control-min" type="text" />
-								</td>
-						  		<td>
-						  		    <select name="" id="" ng-model="newformssize.size" class="form-control form-control-min" ng-required="true">
-						 				<option value="{{a.id}}"  ng-repeat="a in sizes">{{a.name}}</option>
-						 			</select>
-								</td>
-						  		<td>
-						  		    <input  ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/"  ng-model="newformssize.price"  ng-required="true" class="form-control form-control-min" type="text" />
-								</td>
-						  		<td>
-						  			<input type="number"  ng-required="true" ng-model="newformssize.stock" class="form-control form-control-min" type="text" />
-								 </td>
-						  	</tr>
-						</table>
-					</div>
 				</div>
 		
-		<div class="clearfix"></div>		  
+			  	
+				<div class="col-xs-12 center">
+					<label for="pwd"><i class="fa fa-"></i><b>&nbsp;<s:message code="admin.tittleNewSKU" /></b></label>
+				</div>
+				<div class="clearfix"></div>
+
+			  	<ul class="nav nav-pills">
+				  	<li class="btn-black"  ng-repeat="z in sizes"><a data-toggle="pill" href="#h{{z.id}}">{{z.name}}</a></li>
+				</ul>
+				
+				<div class="tab-content"> 
+					<div id="h{{z.id}}" ng-repeat="z in sizes" class="tab-pane">
+					    <div class="col-xs-12">
+						  <div class="table-responsive">
+							  <table class="table table-striped table-over extra">
+							  	<tr>
+							  		<th><i class="fa fa-barcode"></i><b> SKU</b></th>
+							  		<th><i class="fa fa-object-group"></i><b> <s:message code="admin.size"/></b></th>
+							  		<th><i class="fa fa-usd"></i><b> <s:message code="admin.price"/></b></th>
+							  		<th><i class="fa fa-filter"></i><b> <s:message code="admin.stock"/></b></th>
+							  	</tr>
+							  	<tr class="">
+							  		<td>
+									    <input ng-model="addpro.skuProduct[z.id].sku" class="form-control form-control-min" type="text" />
+									</td>
+							  		<td>
+							  		    <select name="" ng-model="addpro.skuProduct[z.id].size" id="" class="form-control form-control-min" ng-disabled="true">
+							 				<option value="{{z.id}}">{{z.name}}</option>
+							 			</select>
+									</td>
+							  		<td>
+							  		    <input ng-model="addpro.skuProduct[z.id].price" class="form-control form-control-min" type="text" />
+									</td>
+							  		<td>
+							  			<input ng-model="addpro.skuProduct[z.id].stock" type="number" class="form-control form-control-min" type="text" />
+									 </td>
+							  	</tr>
+							</table>
+						</div>
+					  </div>
+				  </div>
+			</div>
+		<div class="clearfix"></div>
+		<br />	  
 				  
 <%--
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
@@ -368,7 +387,6 @@ margin-right:5px;
 </div>
 <div class="clearfix"></div>
 <div id="dragandrophandler"><s:message code="admin.dragdropfiles" /></div>
-<br><br>
 <div id=""></div>
 <script>
 function sendFileToServer(formData,status)
@@ -512,8 +530,7 @@ $(document).on('drop', function (e)
 });
  
 });
-</script>
-				  
+</script>			
 				  <div>
 				  	<button class="btn btn-black" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 				  </div>

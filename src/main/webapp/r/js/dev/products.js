@@ -353,23 +353,20 @@ $scope.pago = function ()
 	
 	$scope.createSkuProduct = function(a)
 	{
-		console.log($scope.formsnewsize);
-		if($scope.formsnewsize.$valid)
+		console.log($scope.addproform);
+		if($scope.addproform.$valid)
 		{
-			Service.createSkuProduct($scope.newformssize).then(
+			Service.createSkuProduct($scope.addpro).then(
 			function successCallback(response){
 				if(response.data.status == 'OK')
 				{
+					$scope.addpro = {};
 					$scope.getProductsByFilter();
-					var aux = $scope.newformssize.product;
-					$scope.newformssize = {}
-					$scope.newformssize.product = aux;
-					$scope.productos = response.data.data;
-					msjexito('Exito');
+					msjexito('');
 				}
 				else
 				{
-					msjerror('Error');
+					msjerror(response.data.error);
 				}
 			},
 			function errorCallback(){

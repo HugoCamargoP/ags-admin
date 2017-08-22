@@ -11,7 +11,7 @@ $margin1em : 1em;
 $radio : 1px;
 $opc-menu-hover : rgb(48,48,48);
 
-/*stylos range*/
+/*stylos range
 
 @track-color: #424242;
 @thumb-color: #555bc8;
@@ -127,6 +127,10 @@ input[type=range] {
 }
 /*Stylos range*/
 
+.table 
+{
+    margin-bottom: 0px;
+}
 .img-info:hover
 {
 	opacity:1;
