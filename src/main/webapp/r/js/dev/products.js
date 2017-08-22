@@ -353,20 +353,23 @@ $scope.pago = function ()
 	
 	$scope.createSkuProduct = function(a)
 	{
-		console.log($scope.addproform);
-		if($scope.addproform.$valid)
+		console.log($scope.formsnewsize);
+		if($scope.formsnewsize.$valid)
 		{
-			Service.createSkuProduct($scope.addpro).then(
+			Service.createSkuProduct($scope.newformssize).then(
 			function successCallback(response){
 				if(response.data.status == 'OK')
 				{
-					$scope.addpro = {};
 					$scope.getProductsByFilter();
-					msjexito('');
+					var aux = $scope.newformssize.product;
+					$scope.newformssize = {}
+					$scope.newformssize.product = aux;
+					$scope.productos = response.data.data;
+					msjexito('Exito');
 				}
 				else
 				{
-					msjerror(response.data.error);
+					msjerror('Error');
 				}
 			},
 			function errorCallback(){
@@ -482,7 +485,7 @@ $scope.pago = function ()
 				});
 	}
 	
-	$scope.addProduct = function()
+	$scope.addProduct1 = function()
 	{
 		Service.addProduct($scope.addpro).then(
 				function successCallback(response){

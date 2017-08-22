@@ -257,7 +257,7 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 	        <h4 class="modal-title"><s:message code="admin.tittleNewProduct"/></h4>
 	      </div>
 	      <div class="modal-body">
-			<form action="" id="addproform" name="addproform" ng-model="addproform" onsubmit="return false" ng-submit="createSkuProduct();">
+			<form action="" id="addproform" name="addproform" ng-model="addproform" onsubmit="return false" ng-submit="addProduct1();">
 				
 				<input type="hidden" value="{{size}}" id="siss" />
 				
