@@ -264,7 +264,10 @@ public class ProductDaoImplementation implements ProductDao {
 			paramMap.put("descripcion", product.getDescription());
 			paramMap.put("id", product.getId());			
 			jdbcTemplate.update(sql, paramMap);
-			modifyListSkuProduct(product.getSkuProduct());
+			if(product.getSkuProduct()!=null)
+			{
+				modifyListSkuProduct(product.getSkuProduct());
+			}
 	
 			transactionManager.commit(transactionStatus);
 		}catch(Exception e){

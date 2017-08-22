@@ -76,7 +76,7 @@ public class ProductApi {
 				status = ResponseStatus.OK;
 			}
 			if(productStatus == ProductStatus.SKUAlreadyExist){
-				error = messageSource.getMessage("err.sizeSkuExist", null, "", locale);				
+				error = messageSource.getMessage("err.skuAlreadyExist", null, "", locale);				
 			}
 
 		}catch(Exception e){
@@ -125,16 +125,27 @@ public class ProductApi {
 	}
 	
 	@RequestMapping(path = ApiMappings.Product, method = RequestMethod.PUT)
-	public Map<String,? extends Object> updateProduct(@RequestBody Product product){
+	public Map<String,? extends Object> updateProduct(@RequestBody Product product, Locale locale){
 		ResponseStatus status;
+		ProductStatus productStatus;
+		String error = "";
 		try{
-			productService.modifyProduct(product);
+			productStatus = productService.modifyProduct(product);
 			product = productService.getProductById(product.getId());
+			if(productStatus == ProductStatus.OK){				
+			}
+			if(productStatus == ProductStatus.SizeAlreadyExist){
+				error = messageSource.getMessage("err.sizeAlreadyExist", null, "", locale);
+			}
+			if(productStatus == ProductStatus.SKUAlreadyExist){
+				error = messageSource.getMessage("err.skuAlreadyExist", null, "", locale);				
+			}
 			status = ResponseStatus.OK;
 		}catch(Exception e){
+			error = messageSource.getMessage("err.somethingWrong", null, "", locale);	
 			status = ResponseStatus.ExternalError;
 		}
-		return ControllerHelper.mapResponse(status, product);
+		return ControllerHelper.mapResponse(status, product, error);
 	}
 	
 	@RequestMapping(path = ApiMappings.Product+"/{id}", method = RequestMethod.DELETE)

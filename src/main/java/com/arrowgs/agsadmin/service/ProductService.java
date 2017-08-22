@@ -20,7 +20,7 @@ public interface ProductService {
 	List<Product> getProductsByFilter(Product product, Integer page, Integer inPage);
 	Product getProductById(Integer id);
 	ProductStatus addProduct(Product product);
-	void modifyProduct(Product product);		
+	ProductStatus modifyProduct(Product product);		
 	void removeProductById(Integer id);	
 	Integer getProductsCountyFilter(Product product);
 	
