@@ -139,6 +139,10 @@ function muestra(ob)
 
 $(document).ready(function () {
 	
+
+	  $("body").popover({ selector: '[data-toggle="popover"]' });
+	  $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+	
 	$(".js-example-basic-single").select2();
 	
 		// Graph Data ##############################################

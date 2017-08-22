@@ -58,8 +58,8 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 					 	<div class="table-responsive center" ng-init="productos[$index].indexado = $index;">
 					 		<table class="table table-bordered">
 					 			<tr class="tabletitulos">
-					 				<td ng-class="{show: overs[p.id] || newsize[p.id]}" class="btn-black hidden-xs" style="display:none;color:rgba(255,255,255,0);">
-					 					<span class="fa fa-pencil" aria-hidden="true"></span>
+					 				<td data-toggle="tooltip" title="ELiminar Producto" ng-class="{show: overs[p.id] || newsize[p.id]}" ng-click="removeProduct(p.id);" class="btn-black hidden-xs" style="display:none;">
+					 					<span class="fa fa-minus-square" aria-hidden="true"></span>
 					 				</td>
 					 				<td colspan="4">
 					 					<b><s:message code="admin.details" /></b>
@@ -102,7 +102,7 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 					 				<td><b><s:message code="admin.stock" /></b></td>
 					 			</tr>
 					 			<tr ng-repeat="a in p.skuProduct">
-							 		<td ng-show="overs[p.id] || newsize[p.id]" class="btn-black hidden-xs click" ng-click="removeSkuProduct(a.id);">
+							 		<td  data-toggle="tooltip" data-placement="right" title="ELiminar SKU" ng-show="overs[p.id] || newsize[p.id]" class="btn-black hidden-xs click" ng-click="removeSkuProduct(a.id);">
 							 			<span class="fa fa-minus-square" aria-hidden="true"></span>
 							 		</td>
 					 				<td>

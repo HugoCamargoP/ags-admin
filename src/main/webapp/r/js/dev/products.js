@@ -526,17 +526,37 @@ $scope.pago = function ()
 				});
 	}
 	
+	
+	$scope.removeProduct = function(a)
+	{
+		if(confirm('¿Eliminar producto?'))
+		{
+			Service.removeProduct(a).then(
+					function successCallback(response){
+						if(response.data.status == 'OK' )
+						{
+							$scope.getProductsByFilter();
+						}
+					}, 
+					function errorCallback(response){	
+					});
+		}
+	}
+	
 	$scope.removeSkuProduct = function(a)
 	{
-		Service.removeSkuProduct(a).then(
-				function successCallback(response){
-					if(response.data.status == 'OK' )
-					{
-						$scope.getProductsByFilter();
-					}
-				}, 
-				function errorCallback(response){	
-				});
+		if(confirm('¿Eliminar este SKU?'))
+		{
+			Service.removeSkuProduct(a).then(
+					function successCallback(response){
+						if(response.data.status == 'OK' )
+						{
+							$scope.getProductsByFilter();
+						}
+					}, 
+					function errorCallback(response){	
+					});
+		}
 	}
 
 	$scope.skuSize = {};
