@@ -1,6 +1,7 @@
 package com.arrowgs.agsadmin.service.impl;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -76,7 +77,10 @@ public class ProductServiceImplementation implements ProductService {
 				}else{
 					if(product.getTalla()!=null && product.getSku() ==null)
 					{
-						actual.setSkuProduct(productDao.getSkuProductByProductAndSize(actual.getId(),product.getTalla()));
+						List<SkuProduct> list = new ArrayList<>();
+						SkuProduct sizeSku =productDao.getSkuProductByProductAndSize(actual.getId(),product.getTalla());
+						list.add(sizeSku);
+						actual.setSkuProduct(list);
 					}
 					
 					if(product.getTalla()==null && product.getSku() !=null)
@@ -97,13 +101,14 @@ public class ProductServiceImplementation implements ProductService {
 	}	
 	
 	@Override
-	public void addProduct(Product product) {
+	public ProductStatus addProduct(Product product) {
 		try{
 			productDao.addProduct(product);
 		}catch(Exception e){
 			logger.error("ProductService : addProduct : "+ e.toString());
 			throw e;
 		}
+		return null;
 	}
 		
 
@@ -285,24 +290,59 @@ public class ProductServiceImplementation implements ProductService {
 	}
 	
 	@Override
-	public void createSkuProduct(SkuProduct skuProduct) {
+	public ProductStatus createSkuProduct(SkuProduct skuProduct) {
+		ProductStatus status;
 		try{
-			productDao.createSkuProduct(skuProduct);
+			SkuProduct exist = productDao.getSkuProductByProductAndSize(skuProduct.getProduct(), skuProduct.getSize());
+			if(exist==null)
+			{
+				exist = productDao.getSkuProductBySku(skuProduct.getSku());
+				if(exist==null)
+				{
+					productDao.createSkuProduct(skuProduct);
+					status = ProductStatus.OK;
+				}else{
+					status = ProductStatus.SKUAlreadyExist;
+				}
+				
+			}else{
+				status = ProductStatus.SizeAlreadyExist;
+			}
 		}catch(Exception e){
 			logger.error("ProductService : createSkuProduct : "+ e.toString());
 			throw e;
 		}
 		
+		return status;
+		
 	}
 
 	@Override
-	public void updateSkuProducts(SkuProduct skuProduct) {		
+	public ProductStatus updateSkuProducts(SkuProduct skuProduct) {
+		ProductStatus status;
 		try{
-			productDao.updateSkuProducts(skuProduct);
+			SkuProduct exist = productDao.getSkuProductByProductAndSize(skuProduct.getProduct(), skuProduct.getSize());
+			if(exist==null || exist.getId().intValue() == skuProduct.getId().intValue())
+			{
+				exist = productDao.getSkuProductBySku(skuProduct.getSku());
+				if(exist==null || exist.getId().intValue() == skuProduct.getId().intValue())
+				{
+					productDao.updateSkuProducts(skuProduct);
+					status = ProductStatus.OK;
+				}else{
+					status = ProductStatus.SKUAlreadyExist;
+				}
+				
+			}else{
+				status = ProductStatus.SizeAlreadyExist;
+			}
+
 		}catch(Exception e){
 			logger.error("ProductService : updateSkuProducts : "+ e.toString());
 			throw e;
 		}
+		
+		return status;
 	}
 
 	@Override

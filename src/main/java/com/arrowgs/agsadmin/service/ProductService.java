@@ -11,21 +11,25 @@ import com.arrowgs.agsadmin.entities.SkuProduct;
 
 public interface ProductService {
 	
+	static enum ProductStatus{
+		OK, SizeAlreadyExist, SKUAlreadyExist
+	}
+	
 	//Product
 	List<Product> getProducts();
 	List<Product> getProductsByFilter(Product product, Integer page, Integer inPage);
 	Product getProductById(Integer id);
-	void addProduct(Product product);
+	ProductStatus addProduct(Product product);
 	void modifyProduct(Product product);		
 	void removeProductById(Integer id);	
 	Integer getProductsCountyFilter(Product product);
 	
 	//SkuProduct
 	List<SkuProduct> getSkuProductsByProduct(Integer idProduct);
-	void createSkuProduct(SkuProduct skuProduct);
+	ProductStatus createSkuProduct(SkuProduct skuProduct);
 	SkuProduct getSkuProductBySku(String sku);
 	SkuProduct getSkuProductById(Integer idSkuProduct);
-	void updateSkuProducts(SkuProduct skuProduct);
+	ProductStatus updateSkuProducts(SkuProduct skuProduct);
 	void modifySkuProductList(List<SkuProduct> skuProducts);
 	void removeSkuProductByProduct(Integer idProduct);
 	void removeSkuProductById(Integer idSkuProduct);

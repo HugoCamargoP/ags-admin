@@ -577,12 +577,12 @@ public class ProductDaoImplementation implements ProductDao {
 	}
 	
 	@Override
-	public List<SkuProduct> getSkuProductByProductAndSize(Integer idProduct, Integer size) {
+	public SkuProduct getSkuProductByProductAndSize(Integer idProduct, Integer size) {
 		String sql = "SELECT p.*, t.talla, pr.descripcion FROM productos_sku p LEFT JOIN tallas t ON p.talla = t.id JOIN productos pr ON pr.id = p.producto WHERE p.talla = :size AND p.producto = :idProduct AND p.activo = :enable ORDER BY p.talla";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource("size",size);
 		paramMap.addValue("idProduct", idProduct);
 		paramMap.addValue("enable", Enable);
-		return jdbcTemplate.query(sql, paramMap, new SkuProductRowMapper(true));
+		return jdbcTemplate.query(sql, paramMap, new SkuProductRowExtractor(true));
 	}
 	
 

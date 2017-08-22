@@ -5,12 +5,14 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +33,8 @@ import com.arrowgs.agsadmin.helpers.ControllerHelper;
 import com.arrowgs.agsadmin.helpers.ControllerHelper.ResponseStatus;
 import com.arrowgs.agsadmin.helpers.ImagePropertiesHelper;
 import com.arrowgs.agsadmin.helpers.PathHelper;
-import com.arrowgs.agsadmin.service.ProductService;;
+import com.arrowgs.agsadmin.service.ProductService;
+import com.arrowgs.agsadmin.service.ProductService.ProductStatus;;
 
 @CrossOrigin
 @RestController
@@ -39,6 +42,9 @@ public class ProductApi {
 
 	@Autowired
 	ProductService productService;	
+	
+	@Autowired
+	MessageSource messageSource;
 
 	@RequestMapping(path = ApiMappings.Product, method = RequestMethod.GET)
 	public Map<String,? extends Object> getAllProducts(){
@@ -55,20 +61,34 @@ public class ProductApi {
 	}
 	
 	@RequestMapping(path = ApiMappings.ProductSku, method = RequestMethod.POST)
-	public Map<String,? extends Object> createSkuProduct(@RequestBody SkuProduct skuProduct){
-		ResponseStatus status;		
+	public Map<String,? extends Object> createSkuProduct(@RequestBody SkuProduct skuProduct, Locale locale){
+		ResponseStatus status;	
+		String error = "";
 		try{
-			productService.createSkuProduct(skuProduct);
-			status = ResponseStatus.OK;
+			ProductStatus productStatus = productService.createSkuProduct(skuProduct);
+			status = ResponseStatus.ExternalError;
+			if(productStatus == ProductStatus.OK){
+				error = messageSource.getMessage("succ.Ok", null, "", locale);
+				status = ResponseStatus.OK;
+			}
+			if(productStatus == ProductStatus.SizeAlreadyExist){
+				error = messageSource.getMessage("err.sizeAlreadyExist", null, "", locale);
+				status = ResponseStatus.OK;
+			}
+			if(productStatus == ProductStatus.SKUAlreadyExist){
+				error = messageSource.getMessage("err.sizeSkuExist", null, "", locale);				
+			}
+
 		}catch(Exception e){
+			error = messageSource.getMessage("err.somethingWrong", null, "", locale);	
 			status = ResponseStatus.ExternalError;
 		}
-		return ControllerHelper.mapResponse(status, null);
+		return ControllerHelper.mapResponse(status, null, error);
 	}
 	
 	@RequestMapping(path = ApiMappings.ProductSku+"/{idSkuProduct}", method = RequestMethod.DELETE)
 	public Map<String,? extends Object> deleteSkuProduct(@PathVariable Integer idSkuProduct){
-		ResponseStatus status;		
+		ResponseStatus status;	
 		try{
 			productService.removeSkuProductById(idSkuProduct);
 			status = ResponseStatus.OK;
