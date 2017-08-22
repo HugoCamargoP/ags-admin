@@ -132,7 +132,8 @@ public class ProductApi {
 		try{
 			productStatus = productService.modifyProduct(product);
 			product = productService.getProductById(product.getId());
-			if(productStatus == ProductStatus.OK){				
+			if(productStatus == ProductStatus.OK){
+				error = messageSource.getMessage("succ.UpdateOk	", null, "", locale);
 			}
 			if(productStatus == ProductStatus.SizeAlreadyExist){
 				error = messageSource.getMessage("err.sizeAlreadyExist", null, "", locale);
