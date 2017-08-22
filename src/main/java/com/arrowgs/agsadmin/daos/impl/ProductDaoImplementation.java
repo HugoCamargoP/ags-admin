@@ -333,13 +333,14 @@ public class ProductDaoImplementation implements ProductDao {
 			producto.put("descripcion", product.getDescription());				
 			producto.put("activo", Enable);
 			Number idProduct = productoInsertActor.executeAndReturnKey(producto);
-			Iterator<SkuProduct> iterator = product.getSkuProduct().iterator();
-			while(iterator.hasNext()){
-				SkuProduct actual = iterator.next();
-				actual.setProduct(idProduct.intValue());
-				createSkuProduct(actual);
-			}
-						
+			if(product.getSkuProduct()!=null){
+				Iterator<SkuProduct> iterator = product.getSkuProduct().iterator();
+				while(iterator.hasNext()){
+					SkuProduct actual = iterator.next();
+					actual.setProduct(idProduct.intValue());
+					createSkuProduct(actual);
+				}
+			}		
 			transactionManager.commit(transactionStatus);
 		}catch(Exception e){
 			transactionManager.rollback(transactionStatus);
@@ -516,7 +517,43 @@ public class ProductDaoImplementation implements ProductDao {
 	
 	@Override
 	public List<SkuProduct> getSkuProductByProductFilter(Product product) {
-		String sql = "";
+		StringBuilder sql = new StringBuilder("SELECT * FROM productos_sku");
+		StringBuilder aux = new StringBuilder("");
+		boolean where=false;
+		Map<String,Object> paramMap = new HashMap<>();
+		if(product.getSku()!=null){
+			aux.append(" sku like :sku");
+			paramMap.put("sku", product.getSku());
+			where = true;
+		}
+		if(product.getTalla()!=null){
+			if(where){
+				aux.append(" AND");
+			}
+			aux.append(" talla = :talla");
+			paramMap.put("talla", product.getTalla());
+			where = true;
+		}
+		if(product.getGreaterThan()!=null){
+			if(where){
+				aux.append(" AND");
+			}
+			aux.append(" precio > :greater");
+			paramMap.put("greater", product.getGreaterThan());
+			where = true;
+		}
+		if(product.getLessThan()!=null){
+			if(where){
+				aux.append(" AND");
+			}
+			aux.append(" precio < :less");
+			paramMap.put("less", product.getLessThan());
+			where = true;
+		}
+		if(where){
+			sql.append(" WHERE");
+			
+		}
 		return null;
 	}
 
