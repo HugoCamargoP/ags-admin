@@ -441,6 +441,22 @@ public class ProductDaoImplementation implements ProductDao {
 			 paramMap.put("talla", product.getTalla());
 			 where = true;
 		 }
+		 if(product.getGreaterThan()!=null){
+			 if(where){
+				 aux.append(" and");
+			 }
+			 aux.append(" ps.precio > :greater");
+			 paramMap.put("greater", product.getTalla());
+			 where = true;
+		 }
+		 if(product.getLessThan()!=null ){
+			 if(where){
+				 aux.append(" and");
+			 }
+			 aux.append(" ps.precio < :less");
+			 paramMap.put("less", product.getTalla());
+			 where = true;
+		 }
 		 if(where){
 			 sql.append(" WHERE");
 			 sql.append(aux);
@@ -517,7 +533,7 @@ public class ProductDaoImplementation implements ProductDao {
 	
 	@Override
 	public List<SkuProduct> getSkuProductByProductFilter(Product product) {
-		StringBuilder sql = new StringBuilder("SELECT * FROM productos_sku p");
+		StringBuilder sql = new StringBuilder("SELECT p.*, t.talla, pr.descripcion FROM productos_sku p LEFT JOIN tallas t ON p.talla = t.id JOIN productos pr ON pr.id = p.producto");
 		StringBuilder aux = new StringBuilder("");
 		boolean where=false;
 		Map<String,Object> paramMap = new HashMap<>();
