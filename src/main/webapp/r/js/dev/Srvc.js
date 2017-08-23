@@ -362,7 +362,20 @@ function Service(http, url)
     this.addProductDetail = function(myFile,product){
     	return http.post(url +'/product_detail/'+product , myFile, { headers: {'Content-Type': undefined} });
     }
+    
+    //Agrega una imagen relacionada con el producto
+    	//Parámetros necesitados: MultipartFile image, Integer product
+	this.addProductDetailList = function(myFile,product){
+		return http.post(url +'/product_detail/'+product+'/list' , myFile, { headers: {'Content-Type': undefined} });
+	}
+	
+	//Agrega una imagen relacionada con el producto
+		//Parámetros necesitados: MultipartFile image, Integer product
+	this.addProductDetailArray = function(myFile,product){
+		return http.post(url +'/product_detail/'+product+'/array' , myFile, { headers: {'Content-Type': undefined} });
+	}
    
+	
     //Elimina el detalle de producto con el id correspondiente
         //Parámetros necesitados: Integer id   
     this.removeProductDetail = function(id){
