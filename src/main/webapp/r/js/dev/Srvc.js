@@ -290,7 +290,7 @@ function Service(http, url)
         //Parámetros necesarios: Product product, Integer page, Integer inPage (inPage = cuantos por página)
     this.getProductsByFilter = function(product, page, inPage){
         var path = "";
-        path = path + "sku=" + product.sku + "&description=" + product.description + "&talla=" + product.size;
+        path = path + "sku=" + product.sku + "&description=" + product.description + "&talla=" + product.size + "&greaterThan="+product.greaterThan + "&lessThan=" + product.lessThan;
         return http({
             'method': 'GET',
             'url': url + '/product_filter/' + path + ' ' + page + ' ' + inPage

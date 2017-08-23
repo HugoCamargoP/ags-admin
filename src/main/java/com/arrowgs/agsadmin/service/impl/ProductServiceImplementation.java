@@ -1,7 +1,6 @@
 package com.arrowgs.agsadmin.service.impl;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -71,27 +70,8 @@ public class ProductServiceImplementation implements ProductService {
 			while(iterator.hasNext()){
 				Product actual = iterator.next();
 				actual.setProductDetails(productDao.getProductDetails(actual.getId()));
-				if(product.getTalla()==null && product.getSku()==null)
-				{
-					actual.setSkuProduct(productDao.getSkuProductsByProduct(actual.getId()));
-				}else{
-					if(product.getTalla()!=null && product.getSku() ==null)
-					{
-						List<SkuProduct> list = new ArrayList<>();
-						SkuProduct sizeSku =productDao.getSkuProductByProductAndSize(actual.getId(),product.getTalla());
-						list.add(sizeSku);
-						actual.setSkuProduct(list);
-					}
-					
-					if(product.getTalla()==null && product.getSku() !=null)
-					{
-						actual.setSkuProduct(productDao.getSkuProductBySku(actual.getId(),product.getSku()));
-					}
-					
-					if(product.getTalla()!=null && product.getSku() !=null){
-						actual.setSkuProduct(productDao.getSkuProductBySku(actual.getId(),product.getSku(),product.getTalla()));
-					}
-				}
+				product.setId(actual.getId());
+				actual.setSkuProduct(productDao.getSkuProductByProductFilter(product));
 			}
 			return products;		
 		}catch(Exception e){
