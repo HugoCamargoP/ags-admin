@@ -219,7 +219,9 @@ public class ProductDaoImplementation implements ProductDao {
 	public void setDataSource(DataSource dataSource){
 		jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 		
-		productoInsertActor = new SimpleJdbcInsert(dataSource).withTableName(ProductTable);
+		productoInsertActor = new SimpleJdbcInsert(dataSource)
+				.withTableName(ProductTable)
+				.usingGeneratedKeyColumns("id");
 		
 		productDetailInsertActor = new SimpleJdbcInsert(dataSource)
 				.withTableName(ProducDetailTable)
@@ -333,7 +335,7 @@ public class ProductDaoImplementation implements ProductDao {
 			producto.put("descripcion", product.getDescription());				
 			producto.put("activo", Enable);
 			Number idProduct = productoInsertActor.executeAndReturnKey(producto);
-			if(product.getSkuProduct()!=null){
+			if(product.getSkuProduct()!=null || product.getSkuProduct().size()>0){
 				Iterator<SkuProduct> iterator = product.getSkuProduct().iterator();
 				while(iterator.hasNext()){
 					SkuProduct actual = iterator.next();
