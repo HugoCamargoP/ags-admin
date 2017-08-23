@@ -504,6 +504,8 @@ $scope.pago = function ()
 							//$scope.productos = response.data.data;
 							$scope.addpro =  {};
 							$scope.addpro.skuProduct = [];
+							$scope.sizes = [];
+							$scope.getProductSizes();
 					}
 				}, 
 				function errorCallback(response){	

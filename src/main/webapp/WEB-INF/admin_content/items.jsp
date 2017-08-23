@@ -292,8 +292,8 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 									    <input ng-model="addpro.skuProduct[$index].sku" class="form-control form-control-min" type="text" />
 									</td>
 							  		<td class="hidden">
-							  		    <select name="" ng-model="addpro.skuProduct[$index].size" id="" class="form-control form-control-min" ng-disabled="true" ng-init="addpro.skuProduct[$index].size = z.id;">
-							 				<option value="{{z.id}}" selected="selected">{{z.name}}</option>
+							  		    <select name="" ng-model="addpro.skuProduct[$index].size" id="" class="form-control form-control-min" ng-disabled="true" >
+							 				<option value="{{z.id}}" selected="selected" ng-init="addpro.skuProduct[$index].size = z.id;">{{z.name}}</option>
 							 				<option value=""></option>
 							 			</select>
 									</td>
