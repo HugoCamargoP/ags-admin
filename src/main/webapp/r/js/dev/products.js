@@ -487,10 +487,12 @@ $scope.pago = function ()
 	$scope.createProduct = function()
 	{
 		objetcauz = []
+		var inter = 0 ;
 		for ( var a in $scope.addpro.skuProduct) {
 			if($scope.addpro.skuProduct[a].sku != undefined && $scope.addpro.skuProduct[a].price != undefined && $scope.addpro.skuProduct[a].stock != undefined )
 			{
-				objetcauz[a] = $scope.addpro.skuProduct[a];
+				objetcauz[inter] = $scope.addpro.skuProduct[a];
+				inter++;
 			}
 		}
 		$scope.addpro.skuProduct = objetcauz;
@@ -500,6 +502,8 @@ $scope.pago = function ()
 					//if(response.data.data.length > 0 || response.data.status == "OK")
 					{
 							//$scope.productos = response.data.data;
+							$scope.addpro =  {};
+							$scope.addpro.skuProduct = [];
 					}
 				}, 
 				function errorCallback(response){	
