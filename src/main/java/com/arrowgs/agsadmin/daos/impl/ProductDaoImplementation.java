@@ -243,7 +243,7 @@ public class ProductDaoImplementation implements ProductDao {
 	
 	@Override
 	public List<Product> getProducts() {		
-		String query = "select * from productos where activo = :enable";
+		String query = "select * from productos where activo = :enable order by id desc";
 		SqlParameterSource paramMap = new MapSqlParameterSource("enable",Enable);
 		return jdbcTemplate.query(query,paramMap,new ProductRowMapper());
 	}
@@ -468,7 +468,7 @@ public class ProductDaoImplementation implements ProductDao {
 			 sql.append(" WHERE p.activo = :enable");
 		 }
 		 paramMap.put("enable",Enable);
-		 sql.append(" LIMIT :page , :inPage");
+		 sql.append(" ORDER BY p.id DESC LIMIT :page , :inPage");
 		 paramMap.put("page", page);
 		 paramMap.put("inPage", inPage);
 		return jdbcTemplate.query(sql.toString(), paramMap, new ProductRowMapper());
@@ -575,6 +575,7 @@ public class ProductDaoImplementation implements ProductDao {
 		}
 		sql.append(" p.producto = :producto");
 		paramMap.put("producto", product.getId());
+		sql.append(" ORDER BY p.talla DESC");
 		
 		return jdbcTemplate.query(sql.toString(), paramMap, new SkuProductRowMapper(true));
 	}
