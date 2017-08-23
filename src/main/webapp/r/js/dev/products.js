@@ -446,6 +446,24 @@ $scope.pago = function ()
 		}
 	}
 	
+	$scope.muchasimg = function()
+	{
+		Service.addProductDetailList(fd,9).then(
+			function successCallback(response)
+			{
+				
+			}, 
+			function errorCallback(response){	
+			});
+		Service.addProductDetailArray(fd,9).then(
+			function successCallback(response)
+			{
+				
+			}, 
+			function errorCallback(response){	
+			});
+	}
+	
 	$scope.hascoverflow = function(b,x)
 	{
 		cover(b,x);
@@ -499,13 +517,13 @@ $scope.pago = function ()
 		
 		Service.createProduct($scope.addpro).then(
 				function successCallback(response){
-					//if(response.data.data.length > 0 || response.data.status == "OK")
+					if(response.data.status == "OK")
 					{
-							//$scope.productos = response.data.data;
 							$scope.addpro =  {};
 							$scope.addpro.skuProduct = [];
 							$scope.sizes = [];
 							$scope.getProductSizes();
+							getProductsByFilter();
 					}
 				}, 
 				function errorCallback(response){	

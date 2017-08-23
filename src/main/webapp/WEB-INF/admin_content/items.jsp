@@ -391,7 +391,7 @@ margin-right:5px;
 <div id="dragandrophandler">
 	<label class="click" for="fileqwer[]">
 		<s:message code="admin.dragdropfiles" />
-		<input id="fileqwer[]" type="file" class="hidden" />
+		<input onchange="masfiles();" id="fileqwer[]" name="fileqwer[]" type="file" class="hidden" multiple />
 	</label>
 </div>
 <div id=""></div>
@@ -482,12 +482,26 @@ function createStatusbar(obj)
         });
     }
 }
+
+var fd = new FormData();
+
+
+function masfiles()
+	{
+		var obj = $("#dragandrophandler");
+	     $(this).css('border', '2px dotted #0B85A1');
+	     //e.preventDefault();
+	     var files =  document.getElementById('fileqwer[]').files;
+	     document.getElementById('fileqwer[]').values="";
+	     //We need to send dropped files to Server
+	     handleFileUpload(files,obj);
+	}
+
 function handleFileUpload(files,obj)
 {
 	console.log(files);
    for (var i = 0; i < files.length; i++) 
    {
-        var fd = new FormData();
         fd.append('file', files[i]);
  
         var status = new createStatusbar(obj); //Using this we can set progress.
@@ -542,6 +556,9 @@ $(document).on('drop', function (e)
 				  	<button class="btn btn-black" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 				  </div>
 			</form>
+			<div class="col-xs-12">
+				<a href="" ng-click="muchasimg()" class="btn btn-black">muchas imagenes </a>
+			</div>
 			<div class="clearfix"></div>
 	      </div>
 	      <div class="modal-footer">
