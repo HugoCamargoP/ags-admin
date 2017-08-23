@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -161,6 +162,8 @@ public class ProductApi {
 		return ControllerHelper.mapResponse(status, null);
 	}
 	
+	
+	//IMAGES
 	@RequestMapping(path = ApiMappings.ProductDetail+"/{product}", method = RequestMethod.POST)
 	public Map<String,? extends Object> addProductDetail(@RequestPart("file") MultipartFile imageFile, @PathVariable Integer product, HttpServletRequest request){
 		ResponseStatus status;
@@ -199,6 +202,113 @@ public class ProductApi {
 		}
 		return ControllerHelper.mapResponse(status, null);
 	}
+	
+	@RequestMapping(path = ApiMappings.ProductDetail+"/{product}/list", method = RequestMethod.POST)
+	public Map<String,? extends Object> addProductDetailList(@RequestPart("file") List<MultipartFile> imageFiles, @PathVariable Integer product, HttpServletRequest request){
+		ResponseStatus status;
+		try{
+			ProductDetail last = productService.getLastProductDetail();
+			Integer image;
+			if(last==null){
+				image = 1;
+			}
+			else{
+				image = last.getId().intValue() + 1;
+			}
+			
+			Iterator<MultipartFile> iterator = imageFiles.iterator();
+			status = ResponseStatus.ExternalError;
+			boolean begin = false;
+			while(iterator.hasNext()){
+				if(!begin&&last!=null){
+					last = productService.getLastProductDetail();
+					image = last.getId().intValue() + 1;
+				}else{
+					image++;
+				}
+				MultipartFile imageFile = iterator.next();
+				
+				String path = ImagePropertiesHelper.resource();
+				
+				path = path+"/"+image;
+				String content = imageFile.getContentType();
+				content = content.substring(6);
+				path = path + "." +content;
+				String imageName = ImagePropertiesHelper.localHostResource();
+				imageName = imageName + image.toString() + "." + content;
+				BufferedImage src = ImageIO.read(new ByteArrayInputStream(imageFile.getBytes()));
+				File finalFile = new File(path);
+				if(finalFile.createNewFile()){
+					ImageIO.write(src, content, finalFile);
+					ProductDetail result = new ProductDetail();
+					result.setProduct(product);
+					result.setUrl(imageName);
+					productService.addProductDetail(result);
+					status = ResponseStatus.OK;
+				}
+				else{
+					status = ResponseStatus.ExternalError;
+				}
+			}
+		}catch(Exception e){
+			status = ResponseStatus.ExternalError;
+		}
+		return ControllerHelper.mapResponse(status, null);
+	}
+	
+	
+	@RequestMapping(path = ApiMappings.ProductDetail+"/{product}/array", method = RequestMethod.POST)
+	public Map<String,? extends Object> addProductDetailArray(@RequestPart("file") MultipartFile[] imageFiles, @PathVariable Integer product, HttpServletRequest request){
+		ResponseStatus status;
+		try{
+			ProductDetail last = productService.getLastProductDetail();
+			Integer image;
+			if(last==null){
+				image = 1;
+			}
+			else{
+				image = last.getId().intValue() + 1;
+			}
+			
+			status = ResponseStatus.ExternalError;
+			boolean begin = false;
+			for(MultipartFile imageFile : imageFiles){
+				if(!begin&&last!=null){
+					last = productService.getLastProductDetail();
+					image = last.getId().intValue() + 1;
+				}else{
+					image++;
+				}
+				
+				String path = ImagePropertiesHelper.resource();
+				
+				path = path+"/"+image;
+				String content = imageFile.getContentType();
+				content = content.substring(6);
+				path = path + "." +content;
+				String imageName = ImagePropertiesHelper.localHostResource();
+				imageName = imageName + image.toString() + "." + content;
+				BufferedImage src = ImageIO.read(new ByteArrayInputStream(imageFile.getBytes()));
+				File finalFile = new File(path);
+				if(finalFile.createNewFile()){
+					ImageIO.write(src, content, finalFile);
+					ProductDetail result = new ProductDetail();
+					result.setProduct(product);
+					result.setUrl(imageName);
+					productService.addProductDetail(result);
+					status = ResponseStatus.OK;
+				}
+				else{
+					status = ResponseStatus.ExternalError;
+				}
+			}
+		}catch(Exception e){
+			status = ResponseStatus.ExternalError;
+		}
+		return ControllerHelper.mapResponse(status, null);
+	}
+	
+	//END IMAGES
 	
 	@RequestMapping(path = ApiMappings.ProductDetail, method = RequestMethod.GET)
 	public Map<String,? extends Object> getAllProductDetail(){
