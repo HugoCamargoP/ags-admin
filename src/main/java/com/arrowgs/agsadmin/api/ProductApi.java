@@ -232,6 +232,7 @@ public class ProductApi {
 				
 				path = path+"/"+image;
 				String content = imageFile.getContentType();
+				System.out.println(content);
 				content = content.substring(6);
 				path = path + "." +content;
 				String imageName = ImagePropertiesHelper.localHostResource();
