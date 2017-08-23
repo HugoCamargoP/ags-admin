@@ -251,7 +251,7 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 	  <div class="modal-dialog">
 	
 	    <!-- Modal content-->
-	    <div class="modal-content">
+	    <div class="modal-content" ng-init="addpro.skuProduct = [];">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
 	        <h4 class="modal-title"><s:message code="admin.tittleNewProduct"/></h4>
@@ -289,19 +289,19 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 							  	</tr>
 							  	<tr class="">
 							  		<td>
-									    <input ng-model="addpro.skuProduct[z.id].sku" class="form-control form-control-min" type="text" />
+									    <input ng-model="addpro.skuProduct[$index].sku" class="form-control form-control-min" type="text" />
 									</td>
 							  		<td class="hidden">
-							  		    <select name="" ng-model="addpro.skuProduct[z.id].size" id="" class="form-control form-control-min" ng-disabled="true" ng-init="addpro.skuProduct[z.id].size = z.id;">
+							  		    <select name="" ng-model="addpro.skuProduct[$index].size" id="" class="form-control form-control-min" ng-disabled="true" ng-init="addpro.skuProduct[$index].size = z.id;">
 							 				<option value="{{z.id}}" selected="selected">{{z.name}}</option>
 							 				<option value=""></option>
 							 			</select>
 									</td>
 							  		<td>
-							  		    <input ng-model="addpro.skuProduct[z.id].price" class="form-control form-control-min" type="text" />
+							  		    <input ng-model="addpro.skuProduct[$index].price" class="form-control form-control-min" type="text" />
 									</td>
 							  		<td>
-							  			<input ng-model="addpro.skuProduct[z.id].stock" type="number" class="form-control form-control-min" type="text" />
+							  			<input ng-model="addpro.skuProduct[$index].stock" type="number" class="form-control form-control-min" type="text" />
 									 </td>
 							  	</tr>
 							</table>
@@ -309,8 +309,7 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 					  </div>
 				  </div>
 			</div>
-		<div class="clearfix"></div>
-		<br />	  
+		<div class="clearfix" style="margin-bottom:10px;"></div>
 				  
 <%--
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
@@ -326,6 +325,7 @@ padding:10px 10px 10 10px;
 margin-bottom:10px;
 font-size:200%;
 }
+/*
 .progressBar {
     width: 200px;
     height: 22px;
@@ -342,6 +342,7 @@ font-size:200%;
     color: #fff;
     text-align: right;
     line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+    /*
     width: 0;
     background-color: #0ba1b5; border-radius: 3px; 
 }
@@ -381,13 +382,18 @@ margin-right:5px;
     padding:4px 15px;
     cursor:pointer;
     vertical-align:top
-    }
+    }*/
 </style>
 <div class="col-xs-12">
 	<label for="pwd"><i class="fa fa-file-image-o"></i><b>&nbsp;<s:message code="admin.Imagen" /></b></label>
 </div>
 <div class="clearfix"></div>
-<div id="dragandrophandler"><s:message code="admin.dragdropfiles" /></div>
+<div id="dragandrophandler">
+	<label class="click" for="fileqwer[]">
+		<s:message code="admin.dragdropfiles" />
+		<input id="fileqwer[]" type="file" class="hidden" />
+	</label>
+</div>
 <div id=""></div>
 <script>
 function sendFileToServer(formData,status)
@@ -433,11 +439,11 @@ function createStatusbar(obj)
      rowCount++;
      var row="odd";
      if(rowCount %2 ==0) row ="even";
-     this.statusbar = $("<div class='statusbar "+row+"'></div>");
-     this.filename = $("<div class='filename'></div>").appendTo(this.statusbar);
-     this.size = $("<div class='filesize'></div>").appendTo(this.statusbar);
-     this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
-     //this.abort = $("<div class='abort'>Abort</div>").appendTo(this.statusbar);
+     this.statusbar = $("<div class='statusbar hidden "+row+"'></div>");
+     this.filename = $("<div class='filename hidden'></div>").appendTo(this.statusbar);
+     this.size = $("<div class='filesize hidden'></div>").appendTo(this.statusbar);
+     this.progressBar = $("<div class='progressBar hidden'><div></div></div>").appendTo(this.statusbar);
+     this.abort = $("<div class='abort hidden'>Abort</div>").appendTo(this.statusbar);
      obj.after(this.statusbar);
  
     this.setFileNameSize = function(name,size)
@@ -478,6 +484,7 @@ function createStatusbar(obj)
 }
 function handleFileUpload(files,obj)
 {
+	console.log(files);
    for (var i = 0; i < files.length; i++) 
    {
         var fd = new FormData();
@@ -486,7 +493,6 @@ function handleFileUpload(files,obj)
         var status = new createStatusbar(obj); //Using this we can set progress.
         status.setFileNameSize(files[i].name,files[i].size);
         sendFileToServer(fd,status);
- 
    }
 }
 $(document).ready(function()

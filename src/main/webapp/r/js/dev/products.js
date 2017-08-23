@@ -484,14 +484,22 @@ $scope.pago = function ()
 				function errorCallback(response){	
 				});
 	}
-	
 	$scope.createProduct = function()
 	{
+		objetcauz = []
+		for ( var a in $scope.addpro.skuProduct) {
+			if($scope.addpro.skuProduct[a].sku != undefined && $scope.addpro.skuProduct[a].price != undefined && $scope.addpro.skuProduct[a].stock != undefined )
+			{
+				objetcauz[a] = $scope.addpro.skuProduct[a];
+			}
+		}
+		$scope.addpro.skuProduct = objetcauz;
+		
 		Service.createProduct($scope.addpro).then(
 				function successCallback(response){
-					if(response.data.data.length > 0 || response.data.status == "OK")
+					//if(response.data.data.length > 0 || response.data.status == "OK")
 					{
-							$scope.productos = response.data.data;
+							//$scope.productos = response.data.data;
 					}
 				}, 
 				function errorCallback(response){	
