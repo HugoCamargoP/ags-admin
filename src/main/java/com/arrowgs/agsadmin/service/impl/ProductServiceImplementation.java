@@ -163,10 +163,7 @@ public class ProductServiceImplementation implements ProductService {
 			Iterator<ProductDetail> iterator = productDetails.iterator();
 			while(iterator.hasNext()){
 				ProductDetail actual = iterator.next();
-				File file = new File(actual.getUrl());
-				if(file.exists()){
-					file.delete();
-				}
+				removeProductDetail(actual.getId());
 			}
 			productDao.removeProductById(id); 
 		}catch(Exception e){
