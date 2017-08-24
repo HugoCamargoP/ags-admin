@@ -9,7 +9,7 @@ function clearDiv(a)
 function masfiles()
 	{
 		var obj = $("#dragandrophandler");
-	     $(this).css('border', '2px dotted #0B85A1');
+	     $(this).css('border', '2px dotted');
 	     var files =  document.getElementById('fileqwer[]').files;
 	     document.getElementById('fileqwer[]').values="";
 	     handleFileUpload(files,obj);
@@ -30,8 +30,12 @@ function handleFileUpload(files,obj)
 	   if( files[i].type == 'image/jpeg' || files[i].type == 'image/png' || files[i].type == 'image/bmp' || files[i].type == 'image/tiff'  )
 	   {
 		   allfilestemp[rowCount] = files[i];
+		   var nombretemp = "";
+		   console.log(files[i].name.length);
+		   if(files[i].name.length > 26){ nombretemp = files[i].name.substring(1,23)+'...';}
+		   else{ nombretemp = files[i].name; }
 		   $('#statusId').append('<div class="col-xs-12 col-sm-6 status'+rowCount+'" id="">'+
-				   '<b><span class=" fa fa-minus-square click" onclick="quitar('+rowCount+');" aria-hidden="true"></span>&nbsp;'+files[i].name+'</b></div>');
+				   '<b title="'+files[i].name+'"><span class=" fa fa-minus-square click" onclick="quitar('+rowCount+');" aria-hidden="true"></span>&nbsp;'+nombretemp+'</b></div>');
 		   rowCount++;
 	   }
    }
@@ -43,7 +47,7 @@ obj.on('dragenter', function (e)
 {
     e.stopPropagation();
     e.preventDefault();
-    $(this).css('border', '2px solid #0B85A1');
+    $(this).css('border', '2px solid ');
 });
 obj.on('dragover', function (e) 
 {
@@ -53,7 +57,7 @@ obj.on('dragover', function (e)
 obj.on('drop', function (e) 
 {
  
-     $(this).css('border', '2px dotted #0B85A1');
+     $(this).css('border', '2px dotted ');
      e.preventDefault();
      var files = e.originalEvent.dataTransfer.files;
  
@@ -69,7 +73,7 @@ $(document).on('dragover', function (e)
 {
   e.stopPropagation();
   e.preventDefault();
-  obj.css('border', '2px dotted #0B85A1');
+  obj.css('border', '2px dotted ');
 });
 $(document).on('drop', function (e) 
 {
@@ -139,51 +143,6 @@ function addproductosku()
 {
 	if(parseInt(limitetalla) < 5)
 	{
-		var metelo = '<div class="col-xs-12">'+
-		  '<div class="form-group col-xs-12 col-sm-3">'+
-		    '<label for="pwd"><i class="fa fa-barcode"></i><b>SKU:</b></label>'+ 
-		    '<input class="form-control form-control-min" type="text" />'+
-		  '</div>'+
-		  '<div class="form-group col-xs-12 col-sm-3">'+
-		    '<label for="pwd"><i class="fa fa-object-group"></i><b> <s:message code="admin.size"/>:</b></label>'+ 
-		    '<select name="" id="" class="form-control form-control-min">';
-			for ( var a in tallasperronas) {
-
-			    metelo = metelo + '<option value="'+tallasperronas[a].id+'">'+tallasperronas[a].name+'</option>';
-			}
-		    metelo = metelo + '</select>'+
-		  '</div>'+
-		  '<div class="form-group col-xs-12 col-sm-3">'+
-		    '<label for="pwd"><i class="fa fa-usd"></i><b> <s:message code="admin.price"/>:</b></label>'+
-		    '<input  ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/" class="form-control form-control-min" type="text" />'+
-		  '</div>'+
-		  '<div class="form-group col-xs-12 col-sm-3">'+
-		    '<label for="pwd"><i class="fa fa-filter"></i><b> <s:message code="admin.stock"/>:</b></label>'+
-			'<input type="number" class="form-control form-control-min" type="text" />'+
-		  '</div>'+
-		'</div>';
-		    
-		   metelo ='<tr>'+
-				  		'<td>'+
-						    '<input class="form-control form-control-min" type="text" />'+
-						'</td>'+
-				  		'<td>'+
-				  		    '<select name="" id="" class="form-control form-control-min">';
-						for ( var a in tallasperronas) {
-
-						    metelo = metelo + '<option value="'+tallasperronas[a].id+'">'+tallasperronas[a].name+'</option>';
-						}
-		  metelo = metelo + '</select>'+
-						'</td>'+
-				  		'<td>'+
-				  		    '<input class="form-control form-control-min" type="text" />'+
-						'</td>'+
-				  		'<td>'+
-				  			'<input type="number" class="form-control form-control-min" type="text" />'+
-						 '</td>'+
-				  	'</tr>';
-		$('.extra').append(metelo);
-		limitetalla++;
 	}
 	else
 	{
