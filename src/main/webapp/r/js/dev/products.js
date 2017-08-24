@@ -448,6 +448,8 @@ $scope.pago = function ()
 	
 	$scope.muchasimg = function()
 	{
+		console.log(allfilestemp);
+		/*
 		Service.addProductDetailList(fd,9).then(
 			function successCallback(response)
 			{
@@ -455,13 +457,7 @@ $scope.pago = function ()
 			}, 
 			function errorCallback(response){	
 			});
-		Service.addProductDetailArray(fd,9).then(
-			function successCallback(response)
-			{
-				
-			}, 
-			function errorCallback(response){	
-			});
+		*/
 	}
 	
 	$scope.hascoverflow = function(b,x)

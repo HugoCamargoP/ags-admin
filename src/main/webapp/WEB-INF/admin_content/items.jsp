@@ -394,7 +394,8 @@ margin-right:5px;
 		<input onchange="masfiles();" id="fileqwer[]" name="fileqwer[]" type="file" class="hidden" multiple />
 	</label>
 </div>
-<div id=""></div>
+<div id="statusId">
+</div>
 <script>
 function sendFileToServer(formData,status)
 {
@@ -437,7 +438,8 @@ var rowCount=0;
 function createStatusbar(obj)
 {
      rowCount++;
-     var row="odd";
+    /* 
+    var row="odd";
      if(rowCount %2 ==0) row ="even";
      this.statusbar = $("<div class='statusbar hidden "+row+"'></div>");
      this.filename = $("<div class='filename hidden'></div>").appendTo(this.statusbar);
@@ -445,7 +447,8 @@ function createStatusbar(obj)
      this.progressBar = $("<div class='progressBar hidden'><div></div></div>").appendTo(this.statusbar);
      this.abort = $("<div class='abort hidden'>Abort</div>").appendTo(this.statusbar);
      obj.after(this.statusbar);
- 
+
+     
     this.setFileNameSize = function(name,size)
     {
         var sizeStr="";
@@ -481,6 +484,7 @@ function createStatusbar(obj)
             sb.hide();
         });
     }
+    */
 }
 
 var fd = new FormData();
@@ -497,17 +501,25 @@ function masfiles()
 	     handleFileUpload(files,obj);
 	}
 
+var allfilestemp = [];
+
 function handleFileUpload(files,obj)
 {
+	
    for (var i = 0; i < files.length; i++) 
    {
 	   if( files[i].type == 'image/jpeg' || files[i].type == 'image/png' || files[i].type == 'image/bmp' || files[i].type == 'image/tiff'  )
 	   {
-			console.log(files[i]);
-	        fd.append('file', files[i]);
+		   allfilestemp[rowCount] = files[i];
+		   $('#statusId').append('<div class="col-xs-12 col-sm-6" id="status'+rowCount+'">'+
+				   '<b><span class="fa fa-minus-square" aria-hidden="true"></span>&nbsp;'+files[i].name+'</b></div>');
+		   rowCount++;
+		   /*
+			fd.append('file', files[i]);
 	        var status = new createStatusbar(obj); //Using this we can set progress.
 	        status.setFileNameSize(files[i].name,files[i].size);
 	        sendFileToServer(fd,status);
+	      */
 	   }
    }
 }
@@ -553,13 +565,14 @@ $(document).on('drop', function (e)
 });
  
 });
-</script>			
+</script>		
+				  <div class="clearfix"></div>	
 				  <div>
 				  	<button class="btn btn-black" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 				  </div>
 			</form>
 			<div class="col-xs-12">
-				<a href="" ng-click="muchasimg()" class="btn btn-black">muchas imagenes </a>
+				<a href="" ng-click="muchasimg()" class="btn btn-black hidden">muchas imagenes </a>
 			</div>
 			<div class="clearfix"></div>
 	      </div>
