@@ -21,8 +21,27 @@ public class ImagePropertiesHelper {
 			
 			if(is!=null){
 				Properties image = new Properties();
-				location = image.getProperty("img.location");
 				image.load(is);
+				location = image.getProperty("img.location");
+
+			}
+		} catch (IOException e) {
+			logger.error("public void  resource(): " + e.toString());
+		}
+		
+		return location;
+	}
+	
+	static public String  localHostResource(){
+		String location = null;
+		InputStream is = ImagePropertiesHelper.class.getClassLoader().getResourceAsStream(IMAGE_PROPERTIES);
+		try {
+			
+			if(is!=null){
+				Properties image = new Properties();
+				image.load(is);
+				location = image.getProperty("img.localHost");
+
 			}
 		} catch (IOException e) {
 			logger.error("public void  resource(): " + e.toString());

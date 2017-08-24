@@ -1,4 +1,18 @@
 /* Style general */
+#dragandrophandler {
+  border: 2px dotted #787878;
+  color: #92AAB0;
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px 10px 10 10px;
+  margin-bottom: 10px;
+  font-size: 200%;
+}
+
+.table {
+  margin-bottom: 0px;
+}
+
 .img-info:hover {
   opacity: 1;
 }

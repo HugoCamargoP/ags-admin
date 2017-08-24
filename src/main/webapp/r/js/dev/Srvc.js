@@ -290,7 +290,7 @@ function Service(http, url)
         //Parámetros necesarios: Product product, Integer page, Integer inPage (inPage = cuantos por página)
     this.getProductsByFilter = function(product, page, inPage){
         var path = "";
-        path = path + "sku=" + product.sku + "&description=" + product.description;
+        path = path + "sku=" + product.sku + "&description=" + product.description + "&talla=" + product.size + "&greaterThan="+product.greaterThan + "&lessThan=" + product.lessThan;
         return http({
             'method': 'GET',
             'url': url + '/product_filter/' + path + ' ' + page + ' ' + inPage
@@ -313,13 +313,29 @@ function Service(http, url)
     this.updateProduct = function(product){
         return http.put(url + '/product',product)
     }
+    
+    //Crea un producto
+    	//Parámetros necesitados: Product product (Extra Data no necesaria)
+    this.createProduct = function(product){
+    	return http.post(url + '/product',product)
+    }
    
-    //Elimina el producto con el sku correspondiente junto con sus detalles
-        //Parámetros necesitados: Integer sku   
-    this.removeProduct = function(sku){
+    //Elimina el producto con el sku correspondiente junto con sus detalles y sku's
+        //Parámetros necesitados: Integer idProduct  (id del producto)
+    this.removeProduct = function(idProduct){
         return http({
             'method': 'DELETE',
-            'url': url + '/product/' + sku
+            'url': url + '/product/' + idProduct
+        })
+    }
+    
+    
+    //Elimina el producto con el sku correspondiente junto con sus detalles y sku's
+    	//Parámetros necesitados: Integer idProduct  (id del producto)    
+    this.removeSkuProduct = function(idSkuProduct){
+        return http({
+            'method': 'DELETE',
+            'url': url + '/product_sku/' + idSkuProduct
         })
     }
    
@@ -344,29 +360,22 @@ function Service(http, url)
     //Agrega una imagen relacionada con el producto
         //Parámetros necesitados: MultipartFile image, Integer product
     this.addProductDetail = function(myFile,product){
-//        return http.post(url + '/product_detail'+'/'+product,file,{
-//            headers: {'Content-Type': 'multipart/form-data'}
-//        })
-
-//    	return http({
-//    		'method': 'POST',
-//    		'url': url +'/product_detail/'+product,
-//    		data: myFile,
-//    		headers:{
-//    			'Content-Type': 'multipart/form-data'
-//    		},
-//    	    transformRequest: function(data, headersGetterFunction) {
-//    	        return data; // do nothing! FormData is very good!
-//    	    }
-//    	})
-    	var fd = new FormData();
-    	fd.append('file',myFile);
-    	return http.post(url + '/product_detail'+'/'+product,fd,{
-    		transformRequest: angular.identity,
-    		headers: {'Content-Type': undefined}
-    	});
+    	return http.post(url +'/product_detail/'+product , myFile, { headers: {'Content-Type': undefined} });
     }
+    
+    //Agrega una imagen relacionada con el producto
+    	//Parámetros necesitados: MultipartFile image, Integer product
+	this.addProductDetailList = function(myFile,product){
+		return http.post(url +'/product_detail/'+product+'/list' , myFile, { headers: {'Content-Type': undefined} });
+	}
+	
+	//Agrega una imagen relacionada con el producto
+		//Parámetros necesitados: MultipartFile image, Integer product
+	this.addProductDetailArray = function(myFile,product){
+		return http.post(url +'/product_detail/'+product+'/array' , myFile, { headers: {'Content-Type': undefined} });
+	}
    
+	
     //Elimina el detalle de producto con el id correspondiente
         //Parámetros necesitados: Integer id   
     this.removeProductDetail = function(id){
@@ -416,6 +425,14 @@ function Service(http, url)
 		return http.put(url+'/product_sizes/description',sizeDescription)
 	}
 	
+	/*********************REPORTS**************/
+	
+	this.getReportSchema = function(){
+		return http({
+			'method':'GET',
+			'url':url+'/reports'
+		})
+	}
 }
 
 /*

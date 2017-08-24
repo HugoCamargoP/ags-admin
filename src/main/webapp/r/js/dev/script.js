@@ -1,4 +1,91 @@
+/* drag and drop uploadfiles */
+var rowCount=0;
+var fd = new FormData();
+
+function clearDiv(a)
+{
+	$(a).html('');
+}
+function masfiles()
+	{
+		var obj = $("#dragandrophandler");
+	     $(this).css('border', '2px dotted');
+	     var files =  document.getElementById('fileqwer[]').files;
+	     document.getElementById('fileqwer[]').values="";
+	     handleFileUpload(files,obj);
+	}
+
+var allfilestemp = [];
+
+function quitar(b)
+{
+	delete allfilestemp[b];
+	$('.status'+b).addClass('hidden');
+}
+
+function handleFileUpload(files,obj)
+{
+   for (var i = 0; i < files.length; i++) 
+   {
+	   if( files[i].type == 'image/jpeg' || files[i].type == 'image/png' || files[i].type == 'image/bmp' || files[i].type == 'image/tiff'  )
+	   {
+		   allfilestemp[rowCount] = files[i];
+		   var nombretemp = "";
+		   console.log(files[i].name.length);
+		   if(files[i].name.length > 26){ nombretemp = files[i].name.substring(1,23)+'...';}
+		   else{ nombretemp = files[i].name; }
+		   $('#statusId').append('<div class="col-xs-12 col-sm-6 status'+rowCount+'" id="">'+
+				   '<b title="'+files[i].name+'"><span class=" fa fa-minus-square click" onclick="quitar('+rowCount+');" aria-hidden="true"></span>&nbsp;'+nombretemp+'</b></div>');
+		   rowCount++;
+	   }
+   }
+}
+$(document).ready(function()
+{
+var obj = $("#dragandrophandler");
+obj.on('dragenter', function (e) 
+{
+    e.stopPropagation();
+    e.preventDefault();
+    $(this).css('border', '2px solid ');
+});
+obj.on('dragover', function (e) 
+{
+     e.stopPropagation();
+     e.preventDefault();
+});
+obj.on('drop', function (e) 
+{
+ 
+     $(this).css('border', '2px dotted ');
+     e.preventDefault();
+     var files = e.originalEvent.dataTransfer.files;
+ 
+     //We need to send dropped files to Server
+     handleFileUpload(files,obj);
+});
+$(document).on('dragenter', function (e) 
+{
+    e.stopPropagation();
+    e.preventDefault();
+});
+$(document).on('dragover', function (e) 
+{
+  e.stopPropagation();
+  e.preventDefault();
+  obj.css('border', '2px dotted ');
+});
+$(document).on('drop', function (e) 
+{
+    e.stopPropagation();
+    e.preventDefault();
+});
+ 
+});
+
+/**/
 /*++Notificaciones++*/
+var tallasperronas = {};
 var auxauxaux = [];
 var mensajesglobal = 0;
 function msjerror(error)
@@ -31,19 +118,38 @@ function msjexito(exito)
 /*++++*/
 
 
-function subirarchivo(data, id)
+function subirarchivo(d, id)
 {
+	var token = $('#csrf').val() , name = $('#csrf').attr('name');
+	console.log(name);
   $.ajax({
       url: 'http://localhost:8080/ags-admin/rest/product_detail/'+id,
-      data: data,
+      data: d ,
       processData: false,
-      contentType: 'multipart/form-data',
+      contentType: undefined,
       type: 'POST',
+      headers: {
+          "X-XSRF-TOKEN": token,
+          'Content-Type': 'multipart/form-data'
+      },
       success: function ( data ) {
           alert( data );
       }
   });
 }
+
+var limitetalla = 1;
+function addproductosku()
+{
+	if(parseInt(limitetalla) < 5)
+	{
+	}
+	else
+	{
+		msjerror('Solo '+tallasperronas.length+' tallas');
+	}
+}
+
 
 /*poner y quitar clases*/
 function addremoveclass(clase,target)
@@ -73,6 +179,10 @@ function muestra(ob)
 }
 
 $(document).ready(function () {
+	
+
+	  $("body").popover({ selector: '[data-toggle="popover"]' });
+	  $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 	
 	$(".js-example-basic-single").select2();
 	

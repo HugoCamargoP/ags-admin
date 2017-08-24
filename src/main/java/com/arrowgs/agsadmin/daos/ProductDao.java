@@ -16,6 +16,9 @@ public interface ProductDao {
 	static final String	SizeTable		  	= "tallas";
 	static final String SizeDescriptionTable= "medidas_descripcion";
 	
+	static final Integer Enable = 1;
+	static final Integer Disable = 0;
+	
 	//Product
 	List<Product> getProducts();
 	List<Product> getProductsByFilter(Product product, Integer page, Integer inPage);
@@ -28,15 +31,22 @@ public interface ProductDao {
 	
 	//SkuProduct
 	List<SkuProduct> getSkuProductsByProduct(Integer idProduct);
+	SkuProduct getSkuProductByProductAndSize(Integer idProduct, Integer size);
+	List<SkuProduct> getSkuProductBySku(Integer idProduct, String sku);
+	List<SkuProduct> getSkuProductBySku(Integer idProduct, String sku, Integer size);
+	List<SkuProduct> getSkuProductByProductFilter(Product product);
 	void createSkuProduct(SkuProduct skuProduct);
 	SkuProduct getSkuProductBySku(String sku);
 	SkuProduct getSkuProductById(Integer idSkuProduct);
 	void modifyListSkuProduct(List<SkuProduct> skuProducts);
 	void updateSkuProducts(SkuProduct skuProduct);	
+	void removeSkuProductByProduct(Integer idProduct);
+	void removeSkuProductById(Integer idSkuProduct);
 	
 	//ProductDetail
 	List<ProductDetail> getAllProductDetails();
 	List<ProductDetail> getProductDetails(Integer idProduct);
+	ProductDetail getProductDetail(Integer idProductDetail);
 	ProductDetail getLastProductDetail();
 	ProductDetail oneProductDetail(Integer idProduct);
 	void addProductDetail(ProductDetail productDetail);

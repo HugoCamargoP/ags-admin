@@ -1,18 +1,67 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div id="page-wrapper" ng-controller="${ appname }Prod" ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize = {};eachitem = {}; coveraux = {}; newformssize = {}; newformssizeimg = {};">
+<div id="page-wrapper" ng-controller="${ appname }Prod" 
+ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {};newsize = {};eachitem = {}; coveraux = {}; newformssize = {}; newformssizeimg = {};searchprodruct = {}; addpro ={};">
+	
+	<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	
 	<div class="graphs">
 		<h3 class="blank1 center"><s:message code="admin.items"/></h3>
 			<div class="tab-content">
 				<div class="jumbotron">
+				<ul class="nav nav-tabs container">
+				  <li class="active"><a data-toggle="tab" href="#home"><span class="fa fa-search" aria-hidden="true"></span>&nbsp;<s:message code="admin.search"/></a></li>
+				  <li><a href="#newProducto" data-toggle="modal" ><span class="fa fa-plus" aria-hidden="true"></span>&nbsp;<s:message code="admin.addproduct"/></a></li>
+				</ul>
+				
+				<div class="tab-content container">
+				  <div id="home" class="tab-pane fade in active">
+				    <div class="center">
+						<form action="" onsubmit="return false" ng-submit="getProductsByFilter();"  id="form-users" name="form-users" ng-model="formu" class="">
+						  <ul class="list-inline">
+						  	<li>
+							  	<div class="form-group">
+								    <label for="email"><i class="fa fa-barcode"></i>&nbsp;<b> SKU:</b></label>
+							   	 	<input type="text" style="width:100%;" class="form-control" value="" name="" id="" ng-model="searchprodruct.sku"/>
+								</div>
+						  	</li>
+						  	<li>
+							  	<div class="form-group">
+								    <label for="email"><i class="fa fa-file-text"></i>&nbsp;<b> <s:message code="admin.details" />:</b></label>
+							   	 	<input type="text" style="width:100%;" class="form-control" value="" name="" id="" ng-model="searchprodruct.description"/>
+								</div>
+						  	</li>
+						  	<li>
+							  <div class="form-group">
+							    <label for="pwd"><i class="fa fa-object-group"></i><b> <s:message code="admin.size"/>:</b></label> 
+								<select class="form-control form-control-min" name="" id="" ng-model="searchprodruct.size">
+									<option value="{{a.id}}"  ng-repeat="a in sizes">{{a.name}}</option>
+									<option value=""></option>
+								</select>
+							  </div>
+						  	</li>
+						  </ul>
+						  <div class="clearfix visible-xs"></div> 
+						  <br class="visible-xs"/>
+						  <div class="center">
+						  	<button type="submit" class="btn-black btn"><span class="fa fa-search" aria-hidden="true"></span>&nbsp;<s:message code="admin.search"/></button>
+						  </div>
+						</form>
+					</div>
+				  </div>
+				</div>
+				<div class="clearfix"></div>
+				
 					 <div ng-repeat="p in productos" class="container marginem" ng-mouseover="overs[p.id] = true;" ng-mouseleave="overs[p.id] = false;" >
 					 	<legend><s:message code="admin.product" /> {{p.id}}</legend>
 					 	<div class="table-responsive center" ng-init="productos[$index].indexado = $index;">
 					 		<table class="table table-bordered">
 					 			<tr class="tabletitulos">
-					 				<td ng-class="{show: overs[p.id] || newsize[p.id]}" class="btn-black hidden-xs" style="display:none;color:rgba(255,255,255,0);">
-					 					<span class="fa fa-pencil" aria-hidden="true"></span>
+					 				<td ng-class="{show: overs[p.id] || newsize[p.id]}" ng-click="removeProduct(p.id);" class="btn-black hidden-xs" style="display:none;">
+					 					<div data-toggle="tooltip" title="ELiminar Producto">
+					 						<span class="fa fa-minus-square" aria-hidden="true"></span>
+					 					</div>
 					 				</td>
 					 				<td colspan="4">
 					 					<b><s:message code="admin.details" /></b>
@@ -44,10 +93,14 @@
 					 			</tr>
 					 			<tr class="tabletitulos">
 					 				<td ng-hide="newsize[p.id]" data-toggle="modal" data-target="#newYetibera" ng-class="{show: overs[p.id]}" ng-click="newsize[p.id] = true; newformssize.product = p.id;" class="btn-black hidden-xs" style="display:none;">
-					 					<span class="fa fa-plus" aria-hidden="true"></span>
+					 					<div data-toggle="tooltip" title="Nuevo SKU">
+					 						<span class="fa fa-plus" aria-hidden="true"></span>
+					 					</div>
 					 				</td>
 					 				<td ng-show="newsize[p.id]" data-toggle="modal" data-target="#newYetibera" ng-class="{show:  overs[p.id] || newsize[p.id]}" ng-click="newsize[p.id] = false; newformssize.product = p.id;" class="btn-black hidden-xs" style="display:none;">
-					 					<span class="fa fa-plus" aria-hidden="true"></span>
+					 					<div data-toggle="tooltip" title="Nuevo SKU">
+					 						<span class="fa fa-plus" aria-hidden="true"></span>
+					 					</div>
 					 				</td>
 					 				<td><b>SKU</b></td>
 					 				<td><b><s:message code="admin.size" /></b></td>
@@ -55,8 +108,10 @@
 					 				<td><b><s:message code="admin.stock" /></b></td>
 					 			</tr>
 					 			<tr ng-repeat="a in p.skuProduct">
-							 		<td ng-show="overs[p.id] || newsize[p.id]" class="hidden-xs">
-							 			<span class="fa fa-minus-square" aria-hidden="true"></span>
+							 		<td ng-show="overs[p.id] || newsize[p.id]" class="btn-black hidden-xs click" ng-click="removeSkuProduct(a.id);">
+							 			<div  data-toggle="tooltip" title="ELiminar SKU"  data-placement="right">
+							 				<span class="fa fa-minus-square" aria-hidden="true"></span>
+							 			</div>
 							 		</td>
 					 				<td>
 					 					<div class="click hidden-xs" ng-hide="eachitem[a.id].sku" ng-dblclick="eachitem[a.id].sku = a.sku;">{{a.sku}}</div>
@@ -129,7 +184,7 @@
 								<li class="col-xs-6 col-sm-4 col-md-3 col-lg-2 center" ng-repeat="a in p.productDetails">
 									<div class="img-info">
 										<button class="btn btn-black btn-delete hidden-xs" ng-click="deleteimg(p.indexado,$index,a.id);" ><i class="fa fa-times"></i></button>
-										<a href="#" target="_blank" class="btn btn-edit btn-black"><i class="fa fa-eye"></i></a>
+										<a href="{{a.url}}" target="_blank" class="btn btn-edit btn-black"><i class="fa fa-eye"></i></a>
 										<button class="btn btn-black btn-edit hidden"><i class="fa fa-pencil"></i></button>
 									</div>
 									<img class="click img-responsive img-thumbnail" src="{{a.url}}">
@@ -190,6 +245,104 @@
 	  </div>
 	</div>	
 	
+	
+	<!-- Modal -->
+	<div id="newProducto" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content" ng-init="addpro.skuProduct = [];">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title"><s:message code="admin.tittleNewProduct"/></h4>
+	      </div>
+	      <div class="modal-body">
+			<form action="" id="addproform" name="addproform" ng-model="addproform" onsubmit="return false" ng-submit="createProduct();">
+				
+				<input type="hidden" value="{{size}}" id="siss" />
+				
+				<div class="form-group col-xs-12">
+				    <label for="pwd"><i class="fa fa-file-text"></i><b>&nbsp;<s:message code="admin.details" />:</b></label> 
+				    <input ng-required="true" ng-model="addpro.description" class="form-control form-control-min" type="text" />
+				</div>
+		
+			  	
+				<div class="col-xs-12 center hidden">
+					<label for="pwd"><i class="fa fa-"></i><b>&nbsp;<s:message code="admin.tittleNewSKU" /></b></label>
+				</div>
+				<div class="clearfix"></div>
+
+			  	<ul class="nav nav-pills" id="menusmodal">
+				  	<li class="btn-black" ng-class="{active: $index == 0}" ng-repeat="z in sizes"><a data-toggle="pill" href="#h{{z.id}}">{{z.name}}</a></li>
+				</ul>
+				
+				<div class="tab-content"> 
+					<div id="h{{z.id}}" ng-repeat="z in sizes" class="tab-pane" ng-class="{active: $index == 0}">
+					    <div class="col-xs-12">
+						  <div class="table-responsive">
+							  <table class="table table-striped table-over extra">
+							  	<tr>
+							  		<th><i class="fa fa-barcode"></i><b> SKU</b></th>
+							  		<th class=""><i class="fa fa-object-group"></i><b> <s:message code="admin.size"/></b></th>
+							  		<th><i class="fa fa-usd"></i><b> <s:message code="admin.price"/></b></th>
+							  		<th><i class="fa fa-filter"></i><b> <s:message code="admin.stock"/></b></th>
+							  	</tr>
+							  	<tr class="">
+							  		<td>
+									    <input ng-model="addpro.skuProduct[$index].sku" class="form-control form-control-min" type="text" />
+									</td>
+							  		<td class="">
+							  		    <select name="" ng-model="addpro.skuProduct[$index].size" id="" class="form-control form-control-min" ng-disabled="true" >
+							 				<option value="{{z.id}}" selected="selected" ng-init="addpro.skuProduct[$index].size = z.id;">{{z.name}}</option>
+							 				<option value=""></option>
+							 			</select>
+									</td>
+							  		<td>
+							  		    <input ng-model="addpro.skuProduct[$index].price" class="form-control form-control-min" type="text" />
+									</td>
+							  		<td>
+							  			<input ng-model="addpro.skuProduct[$index].stock" type="number" class="form-control form-control-min" type="text" />
+									 </td>
+							  	</tr>
+							</table>
+						</div>
+					  </div>
+				  </div>
+				</div>
+				
+				<div class="clearfix" style="margin-bottom:10px;"></div>
+	
+				<div class="col-xs-12">
+					<label for="pwd"><i class="fa fa-file-image-o"></i><b>&nbsp;<s:message code="admin.Imagen" /></b></label>
+				</div>
+				<div class="clearfix"></div>
+				<div id="dragandrophandler">
+					<label class="click" for="fileqwer[]">
+						<s:message code="admin.dragdropfiles" />
+						<input onchange="masfiles();" id="fileqwer[]" name="fileqwer[]" type="file" class="hidden" multiple />
+					</label>
+				</div>
+				<div id="statusId"></div>
+	
+				<div class="clearfix"></div>	
+				<br />
+				<div>
+			  		<button class="btn btn-black" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+				</div>
+			</form>
+			<div class="col-xs-12">
+				<a href="" ng-click="muchasimg()" class="hidden btn btn-black">muchas imagenes </a>
+			</div>
+			<div class="clearfix"></div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>	
+	
 			
 	<!-- Modal -->
 	<div id="newYetiberaImg" class="modal fade" role="dialog">
@@ -221,7 +374,5 @@
 	</div>		
 		
 </div>
-
-
 
 <script type="text/javascript" src="${ContextPath}/r/js${DeployContext}/products.js" charset="utf-8"></script>

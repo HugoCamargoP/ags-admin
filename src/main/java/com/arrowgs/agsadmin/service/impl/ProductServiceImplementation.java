@@ -1,5 +1,6 @@
 package com.arrowgs.agsadmin.service.impl;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.entities.ProductDetail;
 import com.arrowgs.agsadmin.entities.SizeDescription;
 import com.arrowgs.agsadmin.entities.SkuProduct;
+import com.arrowgs.agsadmin.helpers.ImagePropertiesHelper;
 import com.arrowgs.agsadmin.service.ProductService;
 
 
@@ -67,8 +69,9 @@ public class ProductServiceImplementation implements ProductService {
 			Iterator<Product> iterator = products.iterator();
 			while(iterator.hasNext()){
 				Product actual = iterator.next();
-				actual.setProductDetails(productDao.getProductDetails(actual.getId())); 
-				actual.setSkuProduct(productDao.getSkuProductsByProduct(actual.getId()));
+				actual.setProductDetails(productDao.getProductDetails(actual.getId()));
+				product.setId(actual.getId());
+				actual.setSkuProduct(productDao.getSkuProductByProductFilter(product));
 			}
 			return products;		
 		}catch(Exception e){
@@ -78,25 +81,46 @@ public class ProductServiceImplementation implements ProductService {
 	}	
 	
 	@Override
-	public void addProduct(Product product) {
+	public ProductStatus addProduct(Product product) {
 		try{
 			productDao.addProduct(product);
 		}catch(Exception e){
 			logger.error("ProductService : addProduct : "+ e.toString());
 			throw e;
 		}
+		return null;
 	}
 		
 
 	@Override
-	public void modifyProduct(Product product) {
+	public ProductStatus modifyProduct(Product product) {
+		ProductStatus status;
 		try{
-			productDao.modifyProduct(product);
+			status = ProductStatus.OK;
+			if(product.getSkuProduct()!=null){				
+				Iterator<SkuProduct> iterator = product.getSkuProduct().iterator();
+				while(iterator.hasNext()){
+					SkuProduct actual = iterator.next();
+					SkuProduct exist = productDao.getSkuProductByProductAndSize(product.getId(), actual.getSize());
+					if(!(exist==null || exist.getId().intValue() == actual.getId().intValue())){
+						status = ProductStatus.SizeAlreadyExist;
+						break;
+					}
+					exist = productDao.getSkuProductBySku(actual.getSku());
+					if(!(exist==null || exist.getId().intValue() == actual.getId().intValue())){
+						status = ProductStatus.SKUAlreadyExist;
+						break;
+					}
+				}
+			}
+			if(status == ProductStatus.OK){
+				productDao.modifyProduct(product);
+			}
 		}catch(Exception e){
 			logger.error("ProductService : modifyProduct : "+ e.toString());
 			throw e;
 		}
-		
+		return status;
 	}
 	
 	@Override
@@ -108,10 +132,39 @@ public class ProductServiceImplementation implements ProductService {
 			throw e;
 		}
 	}
+	
+
+	@Override
+	public void removeSkuProductByProduct(Integer idProduct) {
+		try{
+			productDao.removeSkuProductByProduct(idProduct);
+		}catch(Exception e){
+			logger.error("ProductService : removeSkuProductByProduct : "+ e.toString());
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public void removeSkuProductById(Integer idSkuProduct) {
+		try{
+			productDao.removeSkuProductById(idSkuProduct);
+		}catch(Exception e){
+			logger.error("ProductService : removeSkuProductById : "+ e.toString());
+			throw e;	
+		}
+		
+	}
 
 	@Override
 	public void removeProductById(Integer id) {
 		try{
+			List<ProductDetail> productDetails = productDao.getProductDetails(id);
+			Iterator<ProductDetail> iterator = productDetails.iterator();
+			while(iterator.hasNext()){
+				ProductDetail actual = iterator.next();
+				removeProductDetail(actual.getId());
+			}
 			productDao.removeProductById(id); 
 		}catch(Exception e){
 			logger.error("ProductService : removeProductById : "+ e.toString());
@@ -166,6 +219,15 @@ public class ProductServiceImplementation implements ProductService {
 	@Override
 	public void removeProductDetail(Integer idProductDetail) {		
 		try{
+			ProductDetail productDetail = productDao.getProductDetail(idProductDetail);
+			Integer begin = productDetail.getUrl().lastIndexOf('/');
+			String imagePath = ImagePropertiesHelper.resource();
+			imagePath = imagePath+ "/" +productDetail.getUrl().substring(begin+1);
+			
+			File image = new File(imagePath);
+			if(image.exists()){
+				image.delete();
+			}
 			productDao.removeProductDetail(idProductDetail);
 		}catch(Exception e){
 			logger.error("ProductService : removeProductDetail : "+ e.toString());
@@ -225,24 +287,59 @@ public class ProductServiceImplementation implements ProductService {
 	}
 	
 	@Override
-	public void createSkuProduct(SkuProduct skuProduct) {
+	public ProductStatus createSkuProduct(SkuProduct skuProduct) {
+		ProductStatus status;
 		try{
-			productDao.createSkuProduct(skuProduct);
+			SkuProduct exist = productDao.getSkuProductByProductAndSize(skuProduct.getProduct(), skuProduct.getSize());
+			if(exist==null)
+			{
+				exist = productDao.getSkuProductBySku(skuProduct.getSku());
+				if(exist==null)
+				{
+					productDao.createSkuProduct(skuProduct);
+					status = ProductStatus.OK;
+				}else{
+					status = ProductStatus.SKUAlreadyExist;
+				}
+				
+			}else{
+				status = ProductStatus.SizeAlreadyExist;
+			}
 		}catch(Exception e){
 			logger.error("ProductService : createSkuProduct : "+ e.toString());
 			throw e;
 		}
 		
+		return status;
+		
 	}
 
 	@Override
-	public void updateSkuProducts(SkuProduct skuProduct) {		
+	public ProductStatus updateSkuProducts(SkuProduct skuProduct) {
+		ProductStatus status;
 		try{
-			productDao.updateSkuProducts(skuProduct);
+			SkuProduct exist = productDao.getSkuProductByProductAndSize(skuProduct.getProduct(), skuProduct.getSize());
+			if(exist==null || exist.getId().intValue() == skuProduct.getId().intValue())
+			{
+				exist = productDao.getSkuProductBySku(skuProduct.getSku());
+				if(exist==null || exist.getId().intValue() == skuProduct.getId().intValue())
+				{
+					productDao.updateSkuProducts(skuProduct);
+					status = ProductStatus.OK;
+				}else{
+					status = ProductStatus.SKUAlreadyExist;
+				}
+				
+			}else{
+				status = ProductStatus.SizeAlreadyExist;
+			}
+
 		}catch(Exception e){
 			logger.error("ProductService : updateSkuProducts : "+ e.toString());
 			throw e;
 		}
+		
+		return status;
 	}
 
 	@Override
@@ -323,7 +420,6 @@ public class ProductServiceImplementation implements ProductService {
 		}
 		
 	}
-
 
 
 }

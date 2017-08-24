@@ -14,6 +14,8 @@ public class Product {
 	//Filter Data
 	private String	sku;
 	private Integer	talla; 
+	private Double	greaterThan;
+	private Double	lessThan;
 	
 	/*******Getter and Setter Sku*******/
 	public Integer getId(){
@@ -68,6 +70,26 @@ public class Product {
 
 	public void setTalla(Integer talla) {
 		this.talla = talla;
+	}
+
+	
+	/*******Getter and Setter GreaterThan*******/
+	public Double getGreaterThan() {
+		return greaterThan;
+	}
+
+	public void setGreaterThan(Double greaterThan) {
+		this.greaterThan = greaterThan;
+	}
+
+	
+	/*******Getter and Setter LessThan*******/
+	public Double getLessThan() {
+		return lessThan;
+	}
+
+	public void setLessThan(Double lessThan) {
+		this.lessThan = lessThan;
 	}
 
 	
