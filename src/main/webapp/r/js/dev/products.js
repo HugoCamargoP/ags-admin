@@ -519,11 +519,19 @@ $scope.pago = function ()
 				function successCallback(response){
 					if(response.data.status == "OK")
 					{
-							$scope.addpro =  {};
-							$scope.addpro.skuProduct = [];
-							$scope.sizes = [];
-							$scope.getProductSizes();
-							getProductsByFilter();
+						//response.data.data.id
+						Service.addProductDetailList(fd,9).then(
+							function successCallback(response)
+							{
+								$scope.addpro =  {};
+								$scope.addpro.skuProduct = [];
+								$scope.sizes = [];
+								$scope.getProductSizes();
+								getProductsByFilter();
+								fd = new FormData();
+							}, 
+							function errorCallback(response){	
+							});
 					}
 				}, 
 				function errorCallback(response){	

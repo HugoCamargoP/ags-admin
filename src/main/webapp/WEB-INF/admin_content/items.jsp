@@ -499,14 +499,16 @@ function masfiles()
 
 function handleFileUpload(files,obj)
 {
-	console.log(files);
    for (var i = 0; i < files.length; i++) 
    {
-        fd.append('file', files[i]);
- 
-        var status = new createStatusbar(obj); //Using this we can set progress.
-        status.setFileNameSize(files[i].name,files[i].size);
-        sendFileToServer(fd,status);
+	   if( files[i].type == 'image/jpeg' || files[i].type == 'image/png' || files[i].type == 'image/bmp' || files[i].type == 'image/tiff'  )
+	   {
+			console.log(files[i]);
+	        fd.append('file', files[i]);
+	        var status = new createStatusbar(obj); //Using this we can set progress.
+	        status.setFileNameSize(files[i].name,files[i].size);
+	        sendFileToServer(fd,status);
+	   }
    }
 }
 $(document).ready(function()
