@@ -335,6 +335,7 @@ public class ProductDaoImplementation implements ProductDao {
 			producto.put("descripcion", product.getDescription());				
 			producto.put("activo", Enable);
 			Number idProduct = productoInsertActor.executeAndReturnKey(producto);
+			product.setId(idProduct.intValue());
 			if(product.getSkuProduct()!=null || product.getSkuProduct().size()>0){
 				Iterator<SkuProduct> iterator = product.getSkuProduct().iterator();
 				while(iterator.hasNext()){
