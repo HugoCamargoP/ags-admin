@@ -510,24 +510,47 @@ $scope.pago = function ()
 			}
 		}
 		$scope.addpro.skuProduct = objetcauz;
-		
+		console.log(allfilestemp.length);
+		$scope.getProductSizes();
+
 		Service.createProduct($scope.addpro).then(
 				function successCallback(response){
-					if(response.data.status == "OK")
+					if(response.data.status == "OK" && response.data.data.id != "")
 					{
-						//response.data.data.id
-						Service.addProductDetailList(fd,9).then(
-							function successCallback(response)
-							{
-								$scope.addpro =  {};
-								$scope.addpro.skuProduct = [];
-								$scope.sizes = [];
-								$scope.getProductSizes();
-								getProductsByFilter();
-								fd = new FormData();
-							}, 
-							function errorCallback(response){	
-							});
+						fd = new FormData();
+						var hayimgtoupload = false;
+						for ( var a in allfilestemp) 
+						{
+							hayimgtoupload = true;
+						    fd.append("file", allfilestemp[a]);
+						}
+						
+						if(hayimgtoupload)
+						{
+							Service.addProductDetailList(fd,response.data.data.id).then(
+									function successCallback(response)
+									{
+										$scope.addpro =  {};
+										$scope.addpro.skuProduct = [];
+										$scope.sizes = [];
+										$scope.getProductSizes();
+										$scope.getProductsByFilter();
+										allfilestemp = [];
+										clearDiv('#statusId');
+										msjexito('Producto agregado');
+										if(response.data.error != "")
+										{
+											var errorTemp = response.data.error.split('||');
+											var mensajeerrror = ''; 
+											for ( var v in errorTemp) {
+												 mensajeerrror += errorTemp[v]+'<br />';
+											}
+											msjerror(mensajeerrror);
+										}
+									}, 
+									function errorCallback(response){	
+									});	
+						}
 					}
 				}, 
 				function errorCallback(response){	

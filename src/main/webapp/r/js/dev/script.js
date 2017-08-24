@@ -1,3 +1,85 @@
+/* drag and drop uploadfiles */
+var rowCount=0;
+var fd = new FormData();
+
+function clearDiv(a)
+{
+	$(a).html('');
+}
+function masfiles()
+	{
+		var obj = $("#dragandrophandler");
+	     $(this).css('border', '2px dotted #0B85A1');
+	     var files =  document.getElementById('fileqwer[]').files;
+	     document.getElementById('fileqwer[]').values="";
+	     handleFileUpload(files,obj);
+	}
+
+var allfilestemp = [];
+
+function quitar(b)
+{
+	delete allfilestemp[b];
+	$('.status'+b).addClass('hidden');
+}
+
+function handleFileUpload(files,obj)
+{
+   for (var i = 0; i < files.length; i++) 
+   {
+	   if( files[i].type == 'image/jpeg' || files[i].type == 'image/png' || files[i].type == 'image/bmp' || files[i].type == 'image/tiff'  )
+	   {
+		   allfilestemp[rowCount] = files[i];
+		   $('#statusId').append('<div class="col-xs-12 col-sm-6 status'+rowCount+'" id="">'+
+				   '<b><span class=" fa fa-minus-square click" onclick="quitar('+rowCount+');" aria-hidden="true"></span>&nbsp;'+files[i].name+'</b></div>');
+		   rowCount++;
+	   }
+   }
+}
+$(document).ready(function()
+{
+var obj = $("#dragandrophandler");
+obj.on('dragenter', function (e) 
+{
+    e.stopPropagation();
+    e.preventDefault();
+    $(this).css('border', '2px solid #0B85A1');
+});
+obj.on('dragover', function (e) 
+{
+     e.stopPropagation();
+     e.preventDefault();
+});
+obj.on('drop', function (e) 
+{
+ 
+     $(this).css('border', '2px dotted #0B85A1');
+     e.preventDefault();
+     var files = e.originalEvent.dataTransfer.files;
+ 
+     //We need to send dropped files to Server
+     handleFileUpload(files,obj);
+});
+$(document).on('dragenter', function (e) 
+{
+    e.stopPropagation();
+    e.preventDefault();
+});
+$(document).on('dragover', function (e) 
+{
+  e.stopPropagation();
+  e.preventDefault();
+  obj.css('border', '2px dotted #0B85A1');
+});
+$(document).on('drop', function (e) 
+{
+    e.stopPropagation();
+    e.preventDefault();
+});
+ 
+});
+
+/**/
 /*++Notificaciones++*/
 var tallasperronas = {};
 var auxauxaux = [];
