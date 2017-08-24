@@ -425,6 +425,14 @@ function Service(http, url)
 		return http.put(url+'/product_sizes/description',sizeDescription)
 	}
 	
+	/*********************REPORTS**************/
+	
+	this.getReportSchema = function(){
+		return http({
+			'method':'GET',
+			'url':url+'/reports'
+		})
+	}
 }
 
 /*
