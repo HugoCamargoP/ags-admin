@@ -574,7 +574,8 @@ public class ProductDaoImplementation implements ProductDao {
 			sql.append(aux);
 			sql.append(" AND");
 		}
-		sql.append(" p.producto = :producto");
+		sql.append(" p.producto = :producto AND p.activo = :activo");
+		paramMap.put("activo", Enable);
 		paramMap.put("producto", product.getId());
 		sql.append(" ORDER BY p.talla DESC");
 		
