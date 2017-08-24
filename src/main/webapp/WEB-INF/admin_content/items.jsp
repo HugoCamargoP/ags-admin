@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div id="page-wrapper" ng-controller="${ appname }Prod" 
-ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize = {};eachitem = {}; coveraux = {}; newformssize = {}; newformssizeimg = {};searchprodruct = {}; addpro ={};">
+ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {};newsize = {};eachitem = {}; coveraux = {}; newformssize = {}; newformssizeimg = {};searchprodruct = {}; addpro ={};">
 	
 	<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	
