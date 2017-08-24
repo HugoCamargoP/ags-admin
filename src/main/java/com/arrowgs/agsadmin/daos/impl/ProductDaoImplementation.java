@@ -463,10 +463,10 @@ public class ProductDaoImplementation implements ProductDao {
 		 if(where){
 			 sql.append(" WHERE");
 			 sql.append(aux);
-			 sql.append(" AND p.activo = :enable");			 
+			 sql.append(" AND p.activo = :enable AND ps.activo = :enable");			 
 		 }
 		 else{
-			 sql.append(" WHERE p.activo = :enable");
+			 sql.append(" WHERE p.activo = :enable AND ps.activo = :enable");
 		 }
 		 paramMap.put("enable",Enable);
 		 sql.append(" ORDER BY p.id DESC LIMIT :page , :inPage");
