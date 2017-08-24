@@ -543,6 +543,7 @@ $scope.pago = function ()
 											var errorTemp = response.data.error.split('||');
 											var mensajeerrror = ''; 
 											for ( var v in errorTemp) {
+												console.log(v);
 												 mensajeerrror += errorTemp[v]+'<br />';
 											}
 											msjerror(mensajeerrror);
