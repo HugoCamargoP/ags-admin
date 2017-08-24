@@ -211,54 +211,58 @@ public class ProductApi {
 		ResponseStatus status = ResponseStatus.OK;
 		String error = "", errorFinal="";
 		try{
-			ProductDetail last = productService.getLastProductDetail();
-			Integer image;
-			if(last==null){
-				image = 1;
-			}
-			else{
-				image = last.getId().intValue() + 1;
-			}
-			
-			Iterator<MultipartFile> iterator = imageFiles.iterator();			
-			boolean begin = false;
-			while(iterator.hasNext()){
-				if(!begin&&last!=null){
-					last = productService.getLastProductDetail();
-					image = last.getId().intValue() + 1;
-				}else{
-					image++;
-				}
-				MultipartFile imageFile = iterator.next();
-				byte[] data = imageFile.getBytes();
-				MagicMatch match = Magic.getMagicMatch(data);
-				String mimeType = match.getMimeType();				
-				
-				String path = ImagePropertiesHelper.resource();
-				if(mimeType.contains("image")){				
-					path = path+"/"+image;
-					String content = imageFile.getContentType();
-					content = content.substring(6);
-					path = path + "." +content;
-					String imageName = ImagePropertiesHelper.localHostResource();
-					imageName = imageName + image.toString() + "." + content;
-					BufferedImage src = ImageIO.read(new ByteArrayInputStream(imageFile.getBytes()));
-					File finalFile = new File(path);
-					if(finalFile.createNewFile()){
-						ImageIO.write(src, content, finalFile);
-						ProductDetail result = new ProductDetail();
-						result.setProduct(product);
-						result.setUrl(imageName);
-						productService.addProductDetail(result);
-						status = ResponseStatus.OK;
-					}
-					else{
-						status = ResponseStatus.ExternalError;
-					}
+			if(imageFiles!=null){
+				ProductDetail last = productService.getLastProductDetail();
+				Integer image;
+				if(last==null){
+					image = 1;
 				}
 				else{
-					error = error + imageFile.getOriginalFilename() + "||";
+					image = last.getId().intValue() + 1;
 				}
+				
+				Iterator<MultipartFile> iterator = imageFiles.iterator();			
+				boolean begin = false;
+				while(iterator.hasNext()){
+					if(!begin&&last!=null){
+						last = productService.getLastProductDetail();
+						image = last.getId().intValue() + 1;
+					}else{
+						image++;
+					}
+					MultipartFile imageFile = iterator.next();
+					byte[] data = imageFile.getBytes();
+					MagicMatch match = Magic.getMagicMatch(data);
+					String mimeType = match.getMimeType();				
+					
+					String path = ImagePropertiesHelper.resource();
+					if(mimeType.contains("image")){				
+						path = path+"/"+image;
+						String content = imageFile.getContentType();
+						content = content.substring(6);
+						path = path + "." +content;
+						String imageName = ImagePropertiesHelper.localHostResource();
+						imageName = imageName + image.toString() + "." + content;
+						BufferedImage src = ImageIO.read(new ByteArrayInputStream(imageFile.getBytes()));
+						File finalFile = new File(path);
+						if(finalFile.createNewFile()){
+							ImageIO.write(src, content, finalFile);
+							ProductDetail result = new ProductDetail();
+							result.setProduct(product);
+							result.setUrl(imageName);
+							productService.addProductDetail(result);
+							status = ResponseStatus.OK;
+						}
+						else{
+							status = ResponseStatus.ExternalError;
+						}
+					}
+					else{
+						error = error + imageFile.getOriginalFilename() + "||";
+					}
+				}
+			}else{
+				status= ResponseStatus.ExternalError;
 			}
 		}catch(Exception e){
 			status = ResponseStatus.ExternalError;
@@ -273,56 +277,56 @@ public class ProductApi {
 	}
 	
 	
-	@RequestMapping(path = ApiMappings.ProductDetail+"/{product}/array", method = RequestMethod.POST)
-	public Map<String,? extends Object> addProductDetailArray(@RequestPart("file") MultipartFile[] imageFiles, @PathVariable Integer product, HttpServletRequest request){
-		ResponseStatus status;
-		try{
-			ProductDetail last = productService.getLastProductDetail();
-			Integer image;
-			if(last==null){
-				image = 1;
-			}
-			else{
-				image = last.getId().intValue() + 1;
-			}
-			
-			status = ResponseStatus.ExternalError;
-			boolean begin = false;
-			for(MultipartFile imageFile : imageFiles){
-				if(!begin&&last!=null){
-					last = productService.getLastProductDetail();
-					image = last.getId().intValue() + 1;
-				}else{
-					image++;
-				}
-				
-				String path = ImagePropertiesHelper.resource();
-				
-				path = path+"/"+image;
-				String content = imageFile.getContentType();
-				content = content.substring(6);
-				path = path + "." +content;
-				String imageName = ImagePropertiesHelper.localHostResource();
-				imageName = imageName + image.toString() + "." + content;
-				BufferedImage src = ImageIO.read(new ByteArrayInputStream(imageFile.getBytes()));
-				File finalFile = new File(path);
-				if(finalFile.createNewFile()){
-					ImageIO.write(src, content, finalFile);
-					ProductDetail result = new ProductDetail();
-					result.setProduct(product);
-					result.setUrl(imageName);
-					productService.addProductDetail(result);
-					status = ResponseStatus.OK;
-				}
-				else{
-					status = ResponseStatus.ExternalError;
-				}
-			}
-		}catch(Exception e){
-			status = ResponseStatus.ExternalError;
-		}
-		return ControllerHelper.mapResponse(status, null);
-	}
+//	@RequestMapping(path = ApiMappings.ProductDetail+"/{product}/array", method = RequestMethod.POST)
+//	public Map<String,? extends Object> addProductDetailArray(@RequestPart("file") MultipartFile[] imageFiles, @PathVariable Integer product, HttpServletRequest request){
+//		ResponseStatus status;
+//		try{
+//			ProductDetail last = productService.getLastProductDetail();
+//			Integer image;
+//			if(last==null){
+//				image = 1;
+//			}
+//			else{
+//				image = last.getId().intValue() + 1;
+//			}
+//			
+//			status = ResponseStatus.ExternalError;
+//			boolean begin = false;
+//			for(MultipartFile imageFile : imageFiles){
+//				if(!begin&&last!=null){
+//					last = productService.getLastProductDetail();
+//					image = last.getId().intValue() + 1;
+//				}else{
+//					image++;
+//				}
+//				
+//				String path = ImagePropertiesHelper.resource();
+//				
+//				path = path+"/"+image;
+//				String content = imageFile.getContentType();
+//				content = content.substring(6);
+//				path = path + "." +content;
+//				String imageName = ImagePropertiesHelper.localHostResource();
+//				imageName = imageName + image.toString() + "." + content;
+//				BufferedImage src = ImageIO.read(new ByteArrayInputStream(imageFile.getBytes()));
+//				File finalFile = new File(path);
+//				if(finalFile.createNewFile()){
+//					ImageIO.write(src, content, finalFile);
+//					ProductDetail result = new ProductDetail();
+//					result.setProduct(product);
+//					result.setUrl(imageName);
+//					productService.addProductDetail(result);
+//					status = ResponseStatus.OK;
+//				}
+//				else{
+//					status = ResponseStatus.ExternalError;
+//				}
+//			}
+//		}catch(Exception e){
+//			status = ResponseStatus.ExternalError;
+//		}
+//		return ControllerHelper.mapResponse(status, null);
+//	}
 	
 	//END IMAGES
 	
