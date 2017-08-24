@@ -267,23 +267,23 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 				</div>
 		
 			  	
-				<div class="col-xs-12 center">
+				<div class="col-xs-12 center hidden">
 					<label for="pwd"><i class="fa fa-"></i><b>&nbsp;<s:message code="admin.tittleNewSKU" /></b></label>
 				</div>
 				<div class="clearfix"></div>
 
-			  	<ul class="nav nav-pills">
-				  	<li class="btn-black"  ng-repeat="z in sizes"><a data-toggle="pill" href="#h{{z.id}}">{{z.name}}</a></li>
+			  	<ul class="nav nav-pills" id="menusmodal">
+				  	<li class="btn-black" ng-class="{active: $index == 0}" ng-repeat="z in sizes"><a data-toggle="pill" href="#h{{z.id}}">{{z.name}}</a></li>
 				</ul>
 				
 				<div class="tab-content"> 
-					<div id="h{{z.id}}" ng-repeat="z in sizes" class="tab-pane">
+					<div id="h{{z.id}}" ng-repeat="z in sizes" class="tab-pane" ng-class="{active: $index == 0}">
 					    <div class="col-xs-12">
 						  <div class="table-responsive">
 							  <table class="table table-striped table-over extra">
 							  	<tr>
 							  		<th><i class="fa fa-barcode"></i><b> SKU</b></th>
-							  		<th class="hidden"><i class="fa fa-object-group"></i><b> <s:message code="admin.size"/></b></th>
+							  		<th class=""><i class="fa fa-object-group"></i><b> <s:message code="admin.size"/></b></th>
 							  		<th><i class="fa fa-usd"></i><b> <s:message code="admin.price"/></b></th>
 							  		<th><i class="fa fa-filter"></i><b> <s:message code="admin.stock"/></b></th>
 							  	</tr>
@@ -291,7 +291,7 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 							  		<td>
 									    <input ng-model="addpro.skuProduct[$index].sku" class="form-control form-control-min" type="text" />
 									</td>
-							  		<td class="hidden">
+							  		<td class="">
 							  		    <select name="" ng-model="addpro.skuProduct[$index].size" id="" class="form-control form-control-min" ng-disabled="true" >
 							 				<option value="{{z.id}}" selected="selected" ng-init="addpro.skuProduct[$index].size = z.id;">{{z.name}}</option>
 							 				<option value=""></option>
@@ -308,258 +308,30 @@ ng-init="getAllProducts();getProductSizes();forms={};forms1={};overs= {};newsize
 						</div>
 					  </div>
 				  </div>
-			</div>
-		<div class="clearfix" style="margin-bottom:10px;"></div>
-				  
-<%--
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
- --%>
-<style>
-#dragandrophandler
-{
-border:2px dotted #0B85A1;
-color:#92AAB0;
-text-align:center;
-vertical-align:middle;
-padding:10px 10px 10 10px;
-margin-bottom:10px;
-font-size:200%;
-}
-/*
-.progressBar {
-    width: 200px;
-    height: 22px;
-    border: 1px solid #ddd;
-    border-radius: 5px; 
-    overflow: hidden;
-    display:inline-block;
-    margin:0px 10px 5px 5px;
-    vertical-align:top;
-}
- 
-.progressBar div {
-    height: 100%;
-    color: #fff;
-    text-align: right;
-    line-height: 22px; /* same as #progressBar height if we want text middle aligned */
-    /*
-    width: 0;
-    background-color: #0ba1b5; border-radius: 3px; 
-}
-.statusbar
-{
-    border-top:1px solid #A9CCD1;
-    min-height:25px;
-    width:700px;
-    padding:10px 10px 0px 10px;
-    vertical-align:top;
-}
-.statusbar:nth-child(odd){
-    background:#EBEFF0;
-}
-.filename
-{
-display:inline-block;
-vertical-align:top;
-width:250px;
-}
-.filesize
-{
-display:inline-block;
-vertical-align:top;
-color:#30693D;
-width:100px;
-margin-left:10px;
-margin-right:5px;
-}
-.abort{
-    background-color:#A8352F;
-    -moz-border-radius:4px;
-    -webkit-border-radius:4px;
-    border-radius:4px;display:inline-block;
-    color:#fff;
-    font-family:arial;font-size:13px;font-weight:normal;
-    padding:4px 15px;
-    cursor:pointer;
-    vertical-align:top
-    }*/
-</style>
-<div class="col-xs-12">
-	<label for="pwd"><i class="fa fa-file-image-o"></i><b>&nbsp;<s:message code="admin.Imagen" /></b></label>
-</div>
-<div class="clearfix"></div>
-<div id="dragandrophandler">
-	<label class="click" for="fileqwer[]">
-		<s:message code="admin.dragdropfiles" />
-		<input onchange="masfiles();" id="fileqwer[]" name="fileqwer[]" type="file" class="hidden" multiple />
-	</label>
-</div>
-<div id=""></div>
-<script>
-function sendFileToServer(formData,status)
-{
-    var uploadURL ="http://hayageek.com/examples/jquery/drag-drop-file-upload/upload.php"; //Upload URL
-    var extraData ={}; //Extra Data.
-    var jqXHR=$.ajax({
-            xhr: function() {
-            var xhrobj = $.ajaxSettings.xhr();
-            if (xhrobj.upload) {
-                    xhrobj.upload.addEventListener('progress', function(event) {
-                        var percent = 0;
-                        var position = event.loaded || event.position;
-                        var total = event.total;
-                        if (event.lengthComputable) {
-                            percent = Math.ceil(position / total * 100);
-                        }
-                        //Set progress
-                        status.setProgress(percent);
-                    }, false);
-                }
-            return xhrobj;
-        },
-    url: uploadURL,
-    type: "POST",
-    contentType:false,
-    processData: false,
-        cache: false,
-        data: formData,
-        success: function(data){
-            status.setProgress(100);
- 
-            $("#status1").append("File upload Done<br>");         
-        }
-    }); 
- 
-    status.setAbort(jqXHR);
-}
- 
-var rowCount=0;
-function createStatusbar(obj)
-{
-     rowCount++;
-     var row="odd";
-     if(rowCount %2 ==0) row ="even";
-     this.statusbar = $("<div class='statusbar hidden "+row+"'></div>");
-     this.filename = $("<div class='filename hidden'></div>").appendTo(this.statusbar);
-     this.size = $("<div class='filesize hidden'></div>").appendTo(this.statusbar);
-     this.progressBar = $("<div class='progressBar hidden'><div></div></div>").appendTo(this.statusbar);
-     this.abort = $("<div class='abort hidden'>Abort</div>").appendTo(this.statusbar);
-     obj.after(this.statusbar);
- 
-    this.setFileNameSize = function(name,size)
-    {
-        var sizeStr="";
-        var sizeKB = size/1024;
-        if(parseInt(sizeKB) > 1024)
-        {
-            var sizeMB = sizeKB/1024;
-            sizeStr = sizeMB.toFixed(2)+" MB";
-        }
-        else
-        {
-            sizeStr = sizeKB.toFixed(2)+" KB";
-        }
- 
-        this.filename.html(name);
-        this.size.html(sizeStr);
-    }
-    this.setProgress = function(progress)
-    {       
-        var progressBarWidth =progress*this.progressBar.width()/ 100;  
-        this.progressBar.find('div').animate({ width: progressBarWidth }, 10).html(progress + "% ");
-        if(parseInt(progress) >= 100)
-        {
-            this.abort.hide();
-        }
-    }
-    this.setAbort = function(jqxhr)
-    {
-        var sb = this.statusbar;
-        this.abort.click(function()
-        {
-            jqxhr.abort();
-            sb.hide();
-        });
-    }
-}
-
-var fd = new FormData();
-
-
-function masfiles()
-	{
-		var obj = $("#dragandrophandler");
-	     $(this).css('border', '2px dotted #0B85A1');
-	     //e.preventDefault();
-	     var files =  document.getElementById('fileqwer[]').files;
-	     document.getElementById('fileqwer[]').values="";
-	     //We need to send dropped files to Server
-	     handleFileUpload(files,obj);
-	}
-
-function handleFileUpload(files,obj)
-{
-   for (var i = 0; i < files.length; i++) 
-   {
-	   if( files[i].type == 'image/jpeg' || files[i].type == 'image/png' || files[i].type == 'image/bmp' || files[i].type == 'image/tiff'  )
-	   {
-			console.log(files[i]);
-	        fd.append('file', files[i]);
-	        var status = new createStatusbar(obj); //Using this we can set progress.
-	        status.setFileNameSize(files[i].name,files[i].size);
-	        sendFileToServer(fd,status);
-	   }
-   }
-}
-$(document).ready(function()
-{
-var obj = $("#dragandrophandler");
-obj.on('dragenter', function (e) 
-{
-    e.stopPropagation();
-    e.preventDefault();
-    $(this).css('border', '2px solid #0B85A1');
-});
-obj.on('dragover', function (e) 
-{
-     e.stopPropagation();
-     e.preventDefault();
-});
-obj.on('drop', function (e) 
-{
- 
-     $(this).css('border', '2px dotted #0B85A1');
-     e.preventDefault();
-     var files = e.originalEvent.dataTransfer.files;
- 
-     //We need to send dropped files to Server
-     handleFileUpload(files,obj);
-});
-$(document).on('dragenter', function (e) 
-{
-    e.stopPropagation();
-    e.preventDefault();
-});
-$(document).on('dragover', function (e) 
-{
-  e.stopPropagation();
-  e.preventDefault();
-  obj.css('border', '2px dotted #0B85A1');
-});
-$(document).on('drop', function (e) 
-{
-    e.stopPropagation();
-    e.preventDefault();
-});
- 
-});
-</script>			
-				  <div>
-				  	<button class="btn btn-black" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
-				  </div>
+				</div>
+				
+				<div class="clearfix" style="margin-bottom:10px;"></div>
+	
+				<div class="col-xs-12">
+					<label for="pwd"><i class="fa fa-file-image-o"></i><b>&nbsp;<s:message code="admin.Imagen" /></b></label>
+				</div>
+				<div class="clearfix"></div>
+				<div id="dragandrophandler">
+					<label class="click" for="fileqwer[]">
+						<s:message code="admin.dragdropfiles" />
+						<input onchange="masfiles();" id="fileqwer[]" name="fileqwer[]" type="file" class="hidden" multiple />
+					</label>
+				</div>
+				<div id="statusId"></div>
+	
+				<div class="clearfix"></div>	
+				<br />
+				<div>
+			  		<button class="btn btn-black" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+				</div>
 			</form>
 			<div class="col-xs-12">
-				<a href="" ng-click="muchasimg()" class="btn btn-black">muchas imagenes </a>
+				<a href="" ng-click="muchasimg()" class="hidden btn btn-black">muchas imagenes </a>
 			</div>
 			<div class="clearfix"></div>
 	      </div>
