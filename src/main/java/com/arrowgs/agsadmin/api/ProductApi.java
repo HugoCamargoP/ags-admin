@@ -35,7 +35,10 @@ import com.arrowgs.agsadmin.helpers.ControllerHelper.ResponseStatus;
 import com.arrowgs.agsadmin.helpers.ImagePropertiesHelper;
 import com.arrowgs.agsadmin.helpers.PathHelper;
 import com.arrowgs.agsadmin.service.ProductService;
-import com.arrowgs.agsadmin.service.ProductService.ProductStatus;;
+import com.arrowgs.agsadmin.service.ProductService.ProductStatus;
+
+import net.sf.jmimemagic.Magic;
+import net.sf.jmimemagic.MagicMatch;;
 
 @CrossOrigin
 @RestController
@@ -122,7 +125,7 @@ public class ProductApi {
 		}catch(Exception e){			
 			status = ResponseStatus.ExternalError;
 		}
-		return ControllerHelper.mapResponse(status, null);
+		return ControllerHelper.mapResponse(status, product);
 	}
 	
 	@RequestMapping(path = ApiMappings.Product, method = RequestMethod.PUT)
@@ -204,8 +207,9 @@ public class ProductApi {
 	}
 	
 	@RequestMapping(path = ApiMappings.ProductDetail+"/{product}/list", method = RequestMethod.POST)
-	public Map<String,? extends Object> addProductDetailList(@RequestPart("file") List<MultipartFile> imageFiles, @PathVariable Integer product, HttpServletRequest request){
-		ResponseStatus status;
+	public Map<String,? extends Object> addProductDetailList(@RequestPart("file") List<MultipartFile> imageFiles, @PathVariable Integer product, HttpServletRequest request, Locale locale){
+		ResponseStatus status = ResponseStatus.OK;
+		String error = "", errorFinal="";
 		try{
 			ProductDetail last = productService.getLastProductDetail();
 			Integer image;
@@ -216,8 +220,7 @@ public class ProductApi {
 				image = last.getId().intValue() + 1;
 			}
 			
-			Iterator<MultipartFile> iterator = imageFiles.iterator();
-			status = ResponseStatus.ExternalError;
+			Iterator<MultipartFile> iterator = imageFiles.iterator();			
 			boolean begin = false;
 			while(iterator.hasNext()){
 				if(!begin&&last!=null){
@@ -227,34 +230,46 @@ public class ProductApi {
 					image++;
 				}
 				MultipartFile imageFile = iterator.next();
+				byte[] data = imageFile.getBytes();
+				MagicMatch match = Magic.getMagicMatch(data);
+				String mimeType = match.getMimeType();				
 				
 				String path = ImagePropertiesHelper.resource();
-				
-				path = path+"/"+image;
-				String content = imageFile.getContentType();
-				System.out.println(content);
-				content = content.substring(6);
-				path = path + "." +content;
-				String imageName = ImagePropertiesHelper.localHostResource();
-				imageName = imageName + image.toString() + "." + content;
-				BufferedImage src = ImageIO.read(new ByteArrayInputStream(imageFile.getBytes()));
-				File finalFile = new File(path);
-				if(finalFile.createNewFile()){
-					ImageIO.write(src, content, finalFile);
-					ProductDetail result = new ProductDetail();
-					result.setProduct(product);
-					result.setUrl(imageName);
-					productService.addProductDetail(result);
-					status = ResponseStatus.OK;
+				if(mimeType.contains("image")){				
+					path = path+"/"+image;
+					String content = imageFile.getContentType();
+					content = content.substring(6);
+					path = path + "." +content;
+					String imageName = ImagePropertiesHelper.localHostResource();
+					imageName = imageName + image.toString() + "." + content;
+					BufferedImage src = ImageIO.read(new ByteArrayInputStream(imageFile.getBytes()));
+					File finalFile = new File(path);
+					if(finalFile.createNewFile()){
+						ImageIO.write(src, content, finalFile);
+						ProductDetail result = new ProductDetail();
+						result.setProduct(product);
+						result.setUrl(imageName);
+						productService.addProductDetail(result);
+						status = ResponseStatus.OK;
+					}
+					else{
+						status = ResponseStatus.ExternalError;
+					}
 				}
 				else{
-					status = ResponseStatus.ExternalError;
+					error = error + imageFile.getOriginalFilename() + "||";
 				}
 			}
 		}catch(Exception e){
 			status = ResponseStatus.ExternalError;
+			errorFinal = messageSource.getMessage("err.ImagesUpload", null, "", locale);
 		}
-		return ControllerHelper.mapResponse(status, null);
+		if(!error.equals("")){
+			errorFinal = messageSource.getMessage("err.ImagesUpload", null, "", locale) + "||";
+			errorFinal = errorFinal + error;
+			
+		}
+		return ControllerHelper.mapResponse(status, null,errorFinal);
 	}
 	
 	
