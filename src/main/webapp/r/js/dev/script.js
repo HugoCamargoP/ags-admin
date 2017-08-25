@@ -94,7 +94,7 @@ function msjerror(error)
 	  	$("#mensajes").append('<div id="mensaje'+mensajesglobal+'" class="alert alert2 alert-danger text-center"><b>'+error+'</b></div>');
 	  	setTimeout(function() {
 	  	       eliminaThis();
-	  	    },2000);
+	  	    },4000);
 	}
 	
 function eliminaThis()
@@ -111,7 +111,7 @@ function msjexito(exito)
 	  	$("#mensajes").append('<div id="mensaje'+mensajesglobal+'" class="alert alert2 alert-success text-center"><b>'+exito+'</b></div>');
 	  	setTimeout(function() {
 	  	       eliminaThis();
-	  	    },2000);
+	  	    },4000);
 	}
 		
 
