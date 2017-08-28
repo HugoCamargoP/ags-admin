@@ -432,6 +432,14 @@ public class ProductDaoImplementation implements ProductDao {
 			 paramMap.put("descripcion", product.getDescription());
 			 where = true;
 		 }
+		 if(product.getTitle()!=null && ! product.getTitle().equals("")){
+			 if(where){
+				 aux.append(" and");
+			 }
+			 aux.append(" p.titulo like :titulo");
+			 paramMap.put("titulo", product.getTitle());
+			 where = true;
+		 }
 		 if(product.getSku()!=null && ! product.getSku().equals("")){
 			 if(where){
 				 aux.append(" and");

@@ -397,6 +397,9 @@ public class ProductApi {
 		if(product.getSku()!=null){
 			product.setSku(PathHelper.sqlLike(product.getSku()));
 		}
+		if(product.getTitle()!=null){
+			product.setTitle(PathHelper.sqlLike(product.getTitle()));
+		}
 		List<Product> products;
 		try{
 			products = productService.getProductsByFilter(product, page, inPage);
