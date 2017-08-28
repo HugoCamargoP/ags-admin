@@ -14,6 +14,7 @@ public class SkuProduct {
 	
 	/*Extra Extra Data*/
 	private String productDescr;
+	private String productTitle;
 	
 	/*******Getter and Setter price***********/
 	public Double getPrice(){
@@ -85,5 +86,15 @@ public class SkuProduct {
 
 	public void setProductDescr(String productDescr) {
 		this.productDescr = productDescr;
+	}
+
+	
+	/*******Getter and Setter productTitle***********/
+	public String getProductTitle() {
+		return productTitle;
+	}
+
+	public void setProductTitle(String productTitle) {
+		this.productTitle = productTitle;
 	}	
 }

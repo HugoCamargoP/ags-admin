@@ -5,7 +5,8 @@ import java.util.List;
 public class Product {
 
 	private Integer id;
-	private String 	description;	
+	private String 	description;
+	private String	title;
 	
 	//Extra Data
 	private List<ProductDetail> productDetails;
@@ -33,6 +34,16 @@ public class Product {
 	
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	
+	/*******Getter and Setter title*******/
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	/*******Getter and Setter productDetail*******/
