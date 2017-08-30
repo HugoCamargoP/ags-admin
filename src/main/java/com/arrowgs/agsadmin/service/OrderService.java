@@ -10,7 +10,8 @@ public interface OrderService {
 	
 	final static String	 detailPay = "Costo pedido";
 	
-	final public static int statusShoppingCar  = 2;
+	final public static int statusShoppingCar  = 3;
+	final public static int statusPreOrden     = 2;
 	final public static int statusWishList	   = 1;
 	
 	//Order
