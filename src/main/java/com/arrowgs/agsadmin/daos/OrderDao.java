@@ -47,4 +47,10 @@ public interface OrderDao {
 	List<OrderAmount> getOrderAmountByOrder(Integer idOrder);
 	void removeOrderAmountById(Integer idOrderAmount);
 	OrderAmount addOrderAmount(OrderAmount orderAmount);
+	
+	//Sales report
+	List<Order> getSalesByFilter(Order order);
+	List<OrderDetail> getSalesProduct(Order order);
+	List<OrderDetail> getOrderDetailByFilter(Order order);
+	
 }

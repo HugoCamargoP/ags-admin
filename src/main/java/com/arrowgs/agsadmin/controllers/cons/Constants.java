@@ -45,5 +45,7 @@ public interface Constants {
 		
 		//Report
 		static final String ReportSchema			= ServiceContext + "/reports";
+		static final String SalesReportConstructor2	= ServiceContext + "/sales2";
+		static final String SalesReportConstructor	= ServiceContext + "/sales";
 	}
 }

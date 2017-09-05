@@ -10,8 +10,13 @@ public interface OrderService {
 	
 	final static String	 detailPay = "Costo pedido";
 	
+	final public static int warning			   = 8;
+	final public static int completedOrder	   = 7;
+	final public static int sendedOrder		   = 6;
+	final public static int approvedOrder      = 5;
+	final public static int requestedOrder 	   = 4;
 	final public static int statusShoppingCar  = 3;
-	final public static int statusPreOrden     = 2;
+	final public static int statusPreOrder     = 2;
 	final public static int statusWishList	   = 1;
 	
 	//Order
@@ -42,5 +47,9 @@ public interface OrderService {
 	/*OrderAmount*/
 	List<OrderAmount> getOrderAmountByOrder(Integer idOrder);
 	boolean createOrderAmount(OrderAmount orderAmount);	
+	
+	/*Sales*/
+	List<Order> getSalesByFilter(Order order);
+	List<OrderDetail> getSalesProduct(Order order);
 	
 }

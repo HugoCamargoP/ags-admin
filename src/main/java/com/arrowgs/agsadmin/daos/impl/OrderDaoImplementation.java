@@ -63,6 +63,7 @@ public class OrderDaoImplementation implements OrderDao{
 			
 			if(expandible){
 				orden.setUserText(rs.getString(7));
+				orden.setStatusText(rs.getString(8));
 			}
 			
 			return orden;
@@ -96,7 +97,7 @@ public class OrderDaoImplementation implements OrderDao{
 			detalle.setIdDetail(rs.getInt(1));
 			detalle.setIdOrder(rs.getInt(2));
 			detalle.setIdProductSku(rs.getInt(3));
-			detalle.setAmount(rs.getInt(4));
+			detalle.setQuantity(rs.getInt(4));
 			return detalle;
 		}
 		
@@ -314,7 +315,7 @@ public class OrderDaoImplementation implements OrderDao{
 	@Override
 	public List<Order> getOrdersByFilter(Order order, Integer page, Integer numOrder) {		
 		page = ((page-1) * numOrder);
-		StringBuilder sql = new StringBuilder("SELECT o.*, u.email FROM ordenes o LEFT JOIN usuarios u ON o.usuario = u.id");
+		StringBuilder sql = new StringBuilder("SELECT o.*, u.email, e.descripcion FROM ordenes o LEFT JOIN usuarios u ON o.usuario = u.id LEFT JOIN estados e ON e.id = o.estado");
 		StringBuilder aux = new StringBuilder("");
 		boolean where = false;
 		Map<String,Object> paramMap = new HashMap<>();
@@ -433,7 +434,7 @@ public class OrderDaoImplementation implements OrderDao{
 		Map<String,Object> mapOrderDetail = new HashMap<String,Object>();		
 		mapOrderDetail.put("orden", orderDetail.getIdOrder());
 		mapOrderDetail.put("id_producto_sku", orderDetail.getIdProductSku());
-		mapOrderDetail.put("cantidad", orderDetail.getAmount());
+		mapOrderDetail.put("cantidad", orderDetail.getQuantity());
 		Number idDetail = orderDetailInsertActor.executeAndReturnKey(mapOrderDetail);
 		orderDetail.setIdDetail(idDetail.intValue());
 	}
@@ -444,7 +445,7 @@ public class OrderDaoImplementation implements OrderDao{
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("orden", orderDetail.getIdOrder());
 		paramMap.put("id_producto_sku", orderDetail.getIdProductSku());
-		paramMap.put("cantidad", orderDetail.getAmount());
+		paramMap.put("cantidad", orderDetail.getQuantity());
 		paramMap.put("id", orderDetail.getIdDetail());
 		jdbcTemplate.update(sql, paramMap);
 	}
@@ -525,6 +526,117 @@ public class OrderDaoImplementation implements OrderDao{
 		String sql = "DELETE FROM orden_costos WHERE id = :id";
 		SqlParameterSource paramMap = new MapSqlParameterSource("id",idOrderAmount);
 		jdbcTemplate.update(sql, paramMap);
+	}
+
+	@Override
+	public List<Order> getSalesByFilter(Order order) {
+		StringBuilder sql = new StringBuilder("SELECT DISTINCT(o.id),o.usuario,o.domicilio,o.estado,o.creacion,o.comentario, u.email,e.descripcion FROM ordenes o LEFT JOIN orden_detalles od ON o.id = od.orden LEFT JOIN productos_sku ps ON od.id_producto_sku = ps.id LEFT JOIN productos p on ps.producto = p.id LEFT JOIN usuarios u ON o.usuario = u.id LEFT JOIN orden_historico oh ON oh.orden = o.id LEFT JOIN estados e ON e.id = o.estado");
+		StringBuilder aux = new StringBuilder("");
+		Map<String,Object> paramMap = new HashMap<>();
+		boolean where = false;
+		
+		if(order.getHistoric()!=null){
+			aux.append(" oh.estado >= :historic");
+			paramMap.put("historic", order.getHistoric());
+			where = true;
+		}
+		if(order.getStatus()!=null){
+			if(where){
+				aux.append(" AND");
+			}
+			aux.append(" o.estado = :estado");
+			paramMap.put("estado", order.getStatus());
+			where = true;
+		}
+		
+		if(order.getProduct()!=null){
+			if(where){
+				aux.append(" AND");
+			}
+			aux.append(" ps.producto = :producto");
+			paramMap.put("producto", order.getProduct());
+			where = true;
+		}
+		if(order.getSizeProduct()!=null){
+			if(where){
+				aux.append(" AND");
+			}
+			aux.append(" ps.talla = :talla");
+			paramMap.put("talla", order.getSizeProduct());
+			where = true;
+		}
+		if(order.getClient()!=null && order.getClient().intValue()>0){
+			if(where){
+				aux.append(" AND");
+			}
+			aux.append(" o.usuario = :usuario");
+			paramMap.put("usuario", order.getClient());
+			where = true;
+		}
+		if(where){
+			sql.append(" WHERE");
+		}
+		sql.append(aux);
+		return jdbcTemplate.query(sql.toString(), paramMap, new OrderRowMapper(true));
+	}
+
+	@Override
+	public List<OrderDetail> getOrderDetailByFilter(Order order) {
+		StringBuilder sql = new StringBuilder("SELECT od.* FROM orden_detalles od LEFT JOIN productos_sku ps ON od.id_producto_sku = ps.id WHERE od.orden = :orden");
+		StringBuilder aux = new StringBuilder("");
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("orden", order.getId());
+		if(order.getSizeProduct()!=null){
+			aux.append(" AND ps.talla = :talla");
+			paramMap.put("talla", order.getSizeProduct());
+		}
+		if(order.getSku()!=null){
+			aux.append(" AND ps.sku = :sku");
+			paramMap.put("sku", order.getSku());
+		}
+		sql.append(aux);
+		return jdbcTemplate.query(sql.toString(), paramMap, new OrderDetailRowMapper());
+	}
+
+	@Override
+	public List<OrderDetail> getSalesProduct(Order order) {
+		StringBuilder sql = new StringBuilder("SELECT DISTINCT(od.id), od.orden, od.id_producto_sku, od.cantidad FROM orden_detalles od LEFT JOIN ordenes o on od.orden = o.id LEFT JOIN productos_sku ps ON od.id_producto_sku = ps.id LEFT JOIN orden_historico oh ON oh.orden = o.id");
+		StringBuilder aux = new StringBuilder("");
+		Map<String,Object> paramMap = new HashMap<>();
+		if(order.getSizeProduct()!=null){
+			aux.append(" AND ps.talla = :talla");
+			paramMap.put("talla", order.getSizeProduct());
+		}
+		if(order.getProduct()!=null){			
+			aux.append(" AND ps.producto = :producto");
+			paramMap.put("producto", order.getProduct());
+		}
+		if(order.getSku()!=null){
+			aux.append(" AND ps.sku = :sku");
+			paramMap.put("sku", order.getSku());
+		}
+		if(order.getSince()!=null){
+			aux.append(" AND oh.actualizacion >= :desde");
+			paramMap.put("desde", order.getSince());
+		}
+		if(order.getUpTo()!=null){
+			aux.append(" AND oh.actualizacion <= :hasta");
+			paramMap.put("hasta", order.getUpTo());
+		}
+		if(order.getClient()!=null){
+			aux.append(" AND o.usuario = :usuario");
+			paramMap.put("usuario", order.getClient());
+		}
+		if(order.getStatus()!=null){
+			aux.append(" AND o.estado = :estado");
+			paramMap.put("estado", order.getStatus());
+		}
+		sql.append(" WHERE oh.estado >= :approved AND oh.estado <= :warning");
+		paramMap.put("approved", order.getHistoric());
+		paramMap.put("warning", order.getLastBoundQuery());
+		sql.append(aux);
+		sql.append(" ORDER BY od.id_producto_sku");
+		return jdbcTemplate.query(sql.toString(), paramMap, new OrderDetailRowMapper());
 	}
 
 }

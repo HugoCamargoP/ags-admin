@@ -90,9 +90,9 @@ public class OrderServiceImplementation implements OrderService {
 			while(detailList.hasNext()){
 				OrderDetail actual = detailList.next();	
 				Integer stock = actual.getProduct().getStock(),
-						amount = actual.getAmount();				
+						amount = actual.getQuantity();				
 				if(amount > stock){
-					actual.setAmount(stock);
+					actual.setQuantity(stock);
 					orderDao.modifyOrderProduct(actual);
 					result = false;
 				}
@@ -287,7 +287,7 @@ public class OrderServiceImplementation implements OrderService {
 		try{									
 			OrderDetail order = orderDao.getOrderDetailById(idDetail);
 			order.setProduct(productService.getSkuProductById(order.getIdProductSku()));
-			if(order.getProduct().getStock() >= order.getAmount() + 1){
+			if(order.getProduct().getStock() >= order.getQuantity() + 1){
 				orderDao.incrementProductDetail(idDetail);
 				result = true;
 			}			
@@ -302,7 +302,7 @@ public class OrderServiceImplementation implements OrderService {
 		boolean result = false;
 		try{
 			OrderDetail order = orderDao.getOrderDetailById(idDetail);
-			if(order.getAmount()-1 >0)
+			if(order.getQuantity()-1 >0)
 			{
 				orderDao.decrementProductDetail(idDetail);
 				result = true;
@@ -364,9 +364,9 @@ public class OrderServiceImplementation implements OrderService {
 			OrderDetail actual = iterator.next();
 			SkuProduct product = productService.getSkuProductById(actual.getIdProductSku());
 			Integer stock = product.getStock(),
-					amount = actual.getAmount();	
+					amount = actual.getQuantity();	
 			if(amount > stock){
-				actual.setAmount(stock);
+				actual.setQuantity(stock);
 				result = false;
 			}			
 			if(result){
@@ -390,6 +390,77 @@ public class OrderServiceImplementation implements OrderService {
 			}
 		}		
 		return result;
+	}
+
+	@Override
+	public List<Order> getSalesByFilter(Order order) {
+		List<Order> orders;
+		try{
+			orders = orderDao.getSalesByFilter(order);
+			if(orders!=null){
+				Iterator<Order> iterator = orders.iterator();
+				while(iterator.hasNext()){
+					Order actual = iterator.next();
+					order.setId(actual.getId());
+					actual.setOrderDetail(orderDao.getOrderDetailByFilter(order));
+				}
+			}
+		}catch(Exception e){
+			logger.error("OrderService : getSalesByFilter : " + e.toString());
+			throw e;
+		}
+		return orders;
+	}
+
+	@Override
+	public List<OrderDetail> getSalesProduct(Order order) {
+		List<OrderDetail> ordersDetail;
+		try{
+			List<OrderDetail> detailByDao = orderDao.getSalesProduct(order);			
+			ordersDetail = null;
+			if(detailByDao!=null){
+				Iterator<OrderDetail> iterator = detailByDao.iterator();
+				ordersDetail = new ArrayList<>();
+				int quantity = 0, skuId=0;
+
+				while(iterator.hasNext()){
+					OrderDetail actual = iterator.next();
+					if(ordersDetail.isEmpty()){
+						ordersDetail.add(actual);
+						skuId= actual.getIdProductSku();						
+					}
+					if(actual.getIdProductSku().intValue()!=skuId){
+						OrderDetail last = ordersDetail.get(ordersDetail.size()-1);
+						SkuProduct product = productService.getSkuProductById(skuId);
+						last.setAmount(quantity * product.getPrice());
+						last.setQuantity(quantity);
+						last.setProduct(product);
+						
+						skuId = actual.getIdProductSku();
+						quantity = actual.getQuantity();
+						if(!iterator.hasNext()){
+							actual.setQuantity(quantity);
+							actual.setProduct(productService.getSkuProductById(skuId));
+							actual.setAmount(quantity * actual.getProduct().getPrice());							
+						}
+						ordersDetail.add(actual);
+						
+					}else{
+						quantity = quantity + actual.getQuantity();
+						if(!iterator.hasNext()){
+							OrderDetail last = ordersDetail.get(ordersDetail.size()-1);
+							last.setQuantity(quantity);
+							last.setProduct(productService.getSkuProductById(skuId));
+							last.setAmount(quantity * actual.getProduct().getPrice());							
+						}						
+					}					
+				}
+			}
+		}catch(Exception e){
+			logger.error("OrderService : getSalesProduct : " + e.toString());
+			throw e;
+		}
+		return ordersDetail;
 	}
 	
 }

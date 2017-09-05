@@ -5,11 +5,12 @@ public class OrderDetail {
 	private Integer idDetail;
 	private Integer idOrder;
 	private Integer idProductSku;
-	private Integer amount;
+	private Integer quantity;
 	
 	/*Extra data*/
 	private SkuProduct product;
 	private String  url;
+	private Double	amount;
 	
 	/*******Getter and Setter idDetail*********/
 	public Integer getIdDetail(){
@@ -39,12 +40,12 @@ public class OrderDetail {
 	}
 		
 	/*******Getter and Setter Amount*********/
-	public Integer getAmount() {
-		return this.amount;
+	public Integer getQuantity() {
+		return this.quantity;
 	}
 
-	public void setAmount(Integer amount) {
-		this.amount = amount;
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 	/*******Getter and Setter product*********/
@@ -63,6 +64,16 @@ public class OrderDetail {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	
+	/*******Getter and Setter amount*********/
+	public Double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
 
 	
