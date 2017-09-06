@@ -1,5 +1,6 @@
 package com.arrowgs.agsadmin.daos;
 
+import java.util.Date;
 import java.util.List;
 
 import com.arrowgs.agsadmin.entities.Order;
@@ -42,8 +43,9 @@ public interface OrderDao {
 	//OrderRecord
 	List<OrderRecord> getOrderRecordByOrder(Integer idOrder);
 	void addOrderRecord(OrderRecord orderRecord);
+	Date getDateByOrderAndStatus(Integer order, Integer status);
 	
-	//OrderRecord
+	//OrderAmount
 	List<OrderAmount> getOrderAmountByOrder(Integer idOrder);
 	void removeOrderAmountById(Integer idOrderAmount);
 	OrderAmount addOrderAmount(OrderAmount orderAmount);

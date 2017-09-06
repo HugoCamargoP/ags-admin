@@ -403,6 +403,7 @@ public class OrderServiceImplementation implements OrderService {
 					Order actual = iterator.next();
 					order.setId(actual.getId());
 					actual.setOrderDetail(orderDao.getOrderDetailByFilter(order));
+					actual.setOrderRecord(orderDao.getOrderRecordByOrder(actual.getId()));
 				}
 			}
 		}catch(Exception e){

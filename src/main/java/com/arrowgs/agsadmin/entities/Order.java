@@ -15,8 +15,10 @@ public class Order {
 	
 	/***************Extra Data****************/
 	private List<OrderDetail> orderDetail;
-	private String userText;
-	private String statusText;
+	private List<OrderRecord> orderRecord;
+	private String 	userText;
+	private String 	statusText;
+	private Date	statusDate;
 	
 	/***************Filter Data****************/
 	private String	sku;
@@ -77,6 +79,15 @@ public class Order {
 	}
 	
 	
+	/***********Getter and Setter orderRecord**********/
+	public List<OrderRecord> getOrderRecord() {
+		return orderRecord;
+	}
+
+	public void setOrderRecord(List<OrderRecord> orderRecord) {
+		this.orderRecord = orderRecord;
+	}
+
 	/***********Getter and Setter Address**********/
 	public Integer getAddress() {
 		return address;
@@ -204,6 +215,16 @@ public class Order {
 
 	public void setLastBoundQuery(Integer lastBoundQuery) {
 		this.lastBoundQuery = lastBoundQuery;
+	}
+
+	
+	/***********Getter and Setter StatusDate**********/
+	public Date getStatusDate() {
+		return statusDate;
+	}
+
+	public void setStatusDate(Date statusDate) {
+		this.statusDate = statusDate;
 	}
 	
 	

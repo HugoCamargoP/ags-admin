@@ -2,6 +2,7 @@ package com.arrowgs.agsadmin.daos.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -484,9 +485,9 @@ public class OrderDaoImplementation implements OrderDao{
 	/*OrderRecord*/
 	@Override
 	public List<OrderRecord> getOrderRecordByOrder(Integer idOrder) {
-		String sql = "SELECT * FROM orden_historico WHERE orden = :id";
+		String sql = "SELECT oh.*, e.descripcion FROM orden_historico oh LEFT JOIN estados e ON oh.estado = e.id WHERE orden = :id";
 		SqlParameterSource paramMap = new MapSqlParameterSource("id",idOrder);
-		return jdbcTemplate.query(sql, paramMap, new OrderRecordRowMapper(false));
+		return jdbcTemplate.query(sql, paramMap, new OrderRecordRowMapper(true));
 	}
 
 	@Override
@@ -549,6 +550,23 @@ public class OrderDaoImplementation implements OrderDao{
 			where = true;
 		}
 		
+		if(order.getSince()!=null){
+			if(where){
+				aux.append(" AND");
+			}			
+			aux.append(" (oh.actualizacion >= :desde OR o.creacion >= :desde)");
+			paramMap.put("desde", order.getSince());
+			where=true;
+		}
+		
+		if(order.getUpTo()!=null){
+			if(where){
+				aux.append(" AND");
+			}			
+			aux.append(" (oh.actualizacion <= :hasta OR o.creacion <= :hasta)");
+			paramMap.put("hasta", order.getUpTo());
+			where=true;
+		}
 		if(order.getProduct()!=null){
 			if(where){
 				aux.append(" AND");
@@ -637,6 +655,23 @@ public class OrderDaoImplementation implements OrderDao{
 		sql.append(aux);
 		sql.append(" ORDER BY od.id_producto_sku");
 		return jdbcTemplate.query(sql.toString(), paramMap, new OrderDetailRowMapper());
+	}
+
+	@Override
+	public Date getDateByOrderAndStatus(Integer order, Integer status) {
+		String sql = "SELECT actualizacion FROM orden_historico WHERE orden = :orden AND estado = :status";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource("orden",order);
+		paramMap.addValue("status", status);
+		List<Date> dates = jdbcTemplate.query(sql, paramMap, new RowMapper<Date>(){
+
+			@Override
+			public Date mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Date date;
+				date = rs.getDate(1);
+				return date;
+			}
+		});
+		return dates.get(0);
 	}
 
 }

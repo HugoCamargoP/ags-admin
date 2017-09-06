@@ -69,7 +69,7 @@ public class ReportApi {
 	@RequestMapping(path = ApiMappings.SalesReportConstructor, method = RequestMethod.GET)
 	public Map<String,? extends Object> getProductSalesReport(
 			@RequestParam(required = false, name="product") Integer product,
-			@RequestParam(required = false, name="talla") Integer sizeProduct,
+			@RequestParam(required = false, name="size") Integer sizeProduct,
 			@RequestParam(required = false, name="sku") String sku,
 			@RequestParam(required = false, name="since") Date since,
 			@RequestParam(required = false, name="upTo") Date upTo,
