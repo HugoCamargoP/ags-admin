@@ -99,6 +99,7 @@ public class OrderDaoImplementation implements OrderDao{
 			detalle.setIdOrder(rs.getInt(2));
 			detalle.setIdProductSku(rs.getInt(3));
 			detalle.setQuantity(rs.getInt(4));
+			detalle.setIndividualPrice(rs.getDouble(5));
 			return detalle;
 		}
 		
@@ -618,7 +619,7 @@ public class OrderDaoImplementation implements OrderDao{
 
 	@Override
 	public List<OrderDetail> getSalesProduct(Order order) {
-		StringBuilder sql = new StringBuilder("SELECT DISTINCT(od.id), od.orden, od.id_producto_sku, od.cantidad FROM orden_detalles od LEFT JOIN ordenes o on od.orden = o.id LEFT JOIN productos_sku ps ON od.id_producto_sku = ps.id LEFT JOIN orden_historico oh ON oh.orden = o.id");
+		StringBuilder sql = new StringBuilder("SELECT DISTINCT(od.id), od.orden, od.id_producto_sku, od.cantidad, od.precio_individual FROM orden_detalles od LEFT JOIN ordenes o on od.orden = o.id LEFT JOIN productos_sku ps ON od.id_producto_sku = ps.id LEFT JOIN orden_historico oh ON oh.orden = o.id");
 		StringBuilder aux = new StringBuilder("");
 		Map<String,Object> paramMap = new HashMap<>();
 		if(order.getSizeProduct()!=null){

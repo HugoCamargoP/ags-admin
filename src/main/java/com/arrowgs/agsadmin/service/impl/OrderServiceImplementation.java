@@ -423,7 +423,7 @@ public class OrderServiceImplementation implements OrderService {
 				Iterator<OrderDetail> iterator = detailByDao.iterator();
 				ordersDetail = new ArrayList<>();
 				int quantity = 0, skuId=0;
-
+				double amount=0.0;
 				while(iterator.hasNext()){
 					OrderDetail actual = iterator.next();
 					if(ordersDetail.isEmpty()){
@@ -433,26 +433,32 @@ public class OrderServiceImplementation implements OrderService {
 					if(actual.getIdProductSku().intValue()!=skuId){
 						OrderDetail last = ordersDetail.get(ordersDetail.size()-1);
 						SkuProduct product = productService.getSkuProductById(skuId);
-						last.setAmount(quantity * product.getPrice());
+						last.setAmount(amount);						
 						last.setQuantity(quantity);
 						last.setProduct(product);
+						last.setIndividualPrice(amount/quantity);
 						
 						skuId = actual.getIdProductSku();
 						quantity = actual.getQuantity();
+						amount = (actual.getQuantity() * actual.getIndividualPrice());
 						if(!iterator.hasNext()){
 							actual.setQuantity(quantity);
 							actual.setProduct(productService.getSkuProductById(skuId));
-							actual.setAmount(quantity * actual.getProduct().getPrice());							
+							actual.setAmount(amount);
+							actual.setIndividualPrice(amount/quantity);
 						}
 						ordersDetail.add(actual);
 						
 					}else{
 						quantity = quantity + actual.getQuantity();
+						amount = amount + (actual.getQuantity() * actual.getIndividualPrice());
 						if(!iterator.hasNext()){
 							OrderDetail last = ordersDetail.get(ordersDetail.size()-1);
 							last.setQuantity(quantity);
 							last.setProduct(productService.getSkuProductById(skuId));
-							last.setAmount(quantity * actual.getProduct().getPrice());							
+							last.setAmount(amount);
+							last.setIndividualPrice(amount/quantity);
+							amount = 0.0;
 						}						
 					}					
 				}

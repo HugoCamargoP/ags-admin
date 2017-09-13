@@ -58,11 +58,78 @@
 						<property name="type" value="1" />
 						<property name="model" value="client" />
 					</bean>
-					
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="Fecha de Inicio" />
+						<property name="type" value="4" />
+						<property name="model" value="since" />
+					</bean>
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="Fecha Final" />
+						<property name="type" value="4" />
+						<property name="model" value="upTo" />
+					</bean>
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="Talla" />
+						<property name="type" value="1" />
+						<property name="model" value="size" />
+					</bean>
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="Producto" />
+						<property name="type" value="1" />
+						<property name="model" value="product" />
+					</bean>	
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="Ventas" />
+						<property name="type" value="5" />
+						<property name="model" value="clientFlag" />
+					</bean>										
 				</util:list>
 			</property>
 		</bean>
-
+		
+		<bean class="com.arrowgs.agsadmin.entities.Report">
+			<property name="id" value="2" />
+			<property name="name" value="Ordenes" />
+			<property name="parameters">
+				<util:list value-type="com.arrowgs.agsadmin.entities.Report.Parameter">
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="Cliente" />
+						<property name="type" value="1" />
+						<property name="model" value="client" />
+					</bean>
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="Fecha de Inicio" />
+						<property name="type" value="4" />
+						<property name="model" value="since" />
+					</bean>
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="Fecha Final" />
+						<property name="type" value="4" />
+						<property name="model" value="upTo" />
+					</bean>
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="Talla" />
+						<property name="type" value="1" />
+						<property name="model" value="size" />
+					</bean>
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="Producto" />
+						<property name="type" value="1" />
+						<property name="model" value="product" />
+					</bean>	
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="Estado" />
+						<property name="type" value="1" />
+						<property name="model" value="status" />
+					</bean>						
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="Ventas" />
+						<property name="type" value="5" />
+						<property name="model" value="ordersFlag" />
+					</bean>										
+				</util:list>
+			</property>
+		</bean>		
 
 	</util:list>
 

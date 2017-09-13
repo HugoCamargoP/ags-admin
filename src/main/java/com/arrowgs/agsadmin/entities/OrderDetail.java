@@ -6,6 +6,7 @@ public class OrderDetail {
 	private Integer idOrder;
 	private Integer idProductSku;
 	private Integer quantity;
+	private Double 	individualPrice;
 	
 	/*Extra data*/
 	private SkuProduct product;
@@ -39,13 +40,23 @@ public class OrderDetail {
 		this.idProductSku = idProductSku;
 	}
 		
-	/*******Getter and Setter Amount*********/
+	/*******Getter and Setter Quantity*********/
 	public Integer getQuantity() {
 		return this.quantity;
 	}
-
+		
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+
+	
+	/*******Getter and Setter individualPrice*********/
+	public Double getIndividualPrice() {
+		return individualPrice;
+	}
+
+	public void setIndividualPrice(Double individualPrice) {
+		this.individualPrice = individualPrice;
 	}
 
 	/*******Getter and Setter product*********/
