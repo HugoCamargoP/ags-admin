@@ -461,7 +461,7 @@ public class ProductDaoImplementation implements ProductDao {
 				 aux.append(" and");
 			 }
 			 aux.append(" ps.precio > :greater");
-			 paramMap.put("greater", product.getTalla());
+			 paramMap.put("greater", product.getGreaterThan());
 			 where = true;
 		 }
 		 if(product.getLessThan()!=null ){
@@ -469,7 +469,7 @@ public class ProductDaoImplementation implements ProductDao {
 				 aux.append(" and");
 			 }
 			 aux.append(" ps.precio < :less");
-			 paramMap.put("less", product.getTalla());
+			 paramMap.put("less", product.getLessThan());
 			 where = true;
 		 }
 		 if(where){
