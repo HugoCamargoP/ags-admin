@@ -17,6 +17,7 @@ import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderDetail;
 import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.helpers.ControllerHelper;
+import com.arrowgs.agsadmin.helpers.SqlHelper;
 import com.arrowgs.agsadmin.helpers.ControllerHelper.ResponseStatus;
 import com.arrowgs.agsadmin.service.OrderService;
 import com.arrowgs.agsadmin.service.ProductService;
@@ -84,6 +85,9 @@ public class SalesController {
 				}
 				if(stocktakingFlag){
 					Product productEnti = new Product();
+					if(sku!=null){
+						sku = SqlHelper.likeSpaceHelper(sku);
+					}
 					productEnti.setSku(sku);
 					productEnti.setTalla(sizeProduct);
 					products = productService.getProductsByFilter(productEnti, 1, 999999999);
