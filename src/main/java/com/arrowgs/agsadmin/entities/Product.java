@@ -10,7 +10,8 @@ public class Product {
 	
 	//Extra Data
 	private List<ProductDetail> productDetails;
-	private List<SkuProduct> skuProduct;
+	private List<SkuProduct> 	skuProduct;
+	private Integer 			sales;
 	
 	//Filter Data
 	private String	sku;
@@ -101,6 +102,16 @@ public class Product {
 
 	public void setLessThan(Double lessThan) {
 		this.lessThan = lessThan;
+	}
+
+	
+	/*******Getter and Setter Sales*******/
+	public Integer getSales() {
+		return sales;
+	}
+
+	public void setSales(Integer sales) {
+		this.sales = sales;
 	}
 
 	

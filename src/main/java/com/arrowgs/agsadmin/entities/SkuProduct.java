@@ -13,8 +13,9 @@ public class SkuProduct {
 	private String sizeText;
 	
 	/*Extra Extra Data*/
-	private String productDescr;
-	private String productTitle;
+	private String 	productDescr;
+	private String 	productTitle;
+	private Integer individualSales;
 	
 	/*******Getter and Setter price***********/
 	public Double getPrice(){
@@ -96,5 +97,14 @@ public class SkuProduct {
 
 	public void setProductTitle(String productTitle) {
 		this.productTitle = productTitle;
+	}
+
+	/*******Getter and Setter individualSales***********/
+	public Integer getIndividualSales() {
+		return individualSales;
+	}
+
+	public void setIndividualSales(Integer individualSales) {
+		this.individualSales = individualSales;
 	}	
 }

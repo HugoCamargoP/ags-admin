@@ -155,7 +155,7 @@ public class OrderDaoImplementation implements OrderDao{
 	}
 	
 	
-	/*Order*/
+	/*Order Amount*/
 	class OrderAmountRowMapper implements RowMapper<OrderAmount>{
 
 		@Override
@@ -529,6 +529,12 @@ public class OrderDaoImplementation implements OrderDao{
 		SqlParameterSource paramMap = new MapSqlParameterSource("id",idOrderAmount);
 		jdbcTemplate.update(sql, paramMap);
 	}
+	
+	@Override
+	public List<OrderAmount> getTopFiveOrderAmount() {
+		String sql = "SELECT id,orden,SUM(costo) AS costo, detalle FROM orden_costos GROUP BY orden ORDER BY costo DESC LIMIT 5";
+		return jdbcTemplate.query(sql, new OrderAmountRowMapper());
+	}
 
 	@Override
 	public List<Order> getSalesByFilter(Order order) {
@@ -674,5 +680,12 @@ public class OrderDaoImplementation implements OrderDao{
 		});
 		return dates.get(0);
 	}
+
+	@Override
+	public List<Order> getTopOrdersSales() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

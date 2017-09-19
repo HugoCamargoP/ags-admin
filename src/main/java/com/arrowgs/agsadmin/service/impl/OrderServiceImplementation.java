@@ -50,7 +50,8 @@ public class OrderServiceImplementation implements OrderService {
 		try{			
 			Order userOrder = orderDao.getOrderById(id);			
 			userOrder.setOrderDetail(getOrderDetailByOrder(userOrder.getId()));
-			
+			userOrder.setOrderAmount(orderDao.getOrderAmountByOrder(id));
+			userOrder.setOrderRecord(orderDao.getOrderRecordByOrder(id));
 			return userOrder;
 		}
 		catch(Exception e){
@@ -118,6 +119,27 @@ public class OrderServiceImplementation implements OrderService {
 	}
 	
 	@Override
+	public List<Order> topFiveOrders() {
+		List<Order> orders = new ArrayList<>();
+		try{
+			List<OrderAmount> ordersAmount = getTopFiveOrderAmount();
+			if(ordersAmount!=null && !ordersAmount.isEmpty()){
+				Iterator<OrderAmount> iterator = ordersAmount.iterator();
+				while(iterator.hasNext()){
+					OrderAmount actualAmount = iterator.next();
+					Order actualOrder = getOrderById(actualAmount.getOrder());
+					actualOrder.setTotalAmount(actualAmount.getAmount());
+					orders.add(actualOrder);
+				}
+			}
+		}catch(Exception e){
+			logger.error("OrderService : topFiveOrders : "+ e.toString());
+			throw e;
+		}
+		return orders;
+	}
+	
+	@Override
 	public List<Order> getOrderByFilter(Order order, Integer page, Integer numOrder) {
 		List<Order> orders;
 		try{
@@ -133,7 +155,8 @@ public class OrderServiceImplementation implements OrderService {
 					orderDetail.setProduct(sku);
 					ProductDetail product = productService.oneProductDetail(sku.getProduct());
 					orderDetail.setUrl(product.getUrl());
-				}			
+				}
+				actualOrder.setOrderAmount(orderDao.getOrderAmountByOrder(actualOrder.getId()));
 			}
 		}catch(Exception e){
 			orders = null;
@@ -352,6 +375,18 @@ public class OrderServiceImplementation implements OrderService {
 			throw e;
 		}
 	}
+	
+	@Override
+	public List<OrderAmount> getTopFiveOrderAmount() {
+		List<OrderAmount> orderAmount;
+		try{
+			orderAmount = orderDao.getTopFiveOrderAmount();
+		}catch(Exception e){
+			logger.error("OrderService : geTopFiveOrderAmount : " + e.toString());
+			throw e;
+		}
+		return orderAmount;
+	}
 
 	@Override
 	public boolean createOrderAmount(OrderAmount orderAmount) {
@@ -469,5 +504,6 @@ public class OrderServiceImplementation implements OrderService {
 		}
 		return ordersDetail;
 	}
+
 	
 }

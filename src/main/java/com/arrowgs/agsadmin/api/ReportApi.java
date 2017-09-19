@@ -143,4 +143,28 @@ public class ReportApi {
 		response.put("inventario", products);
 		return ControllerHelper.mapResponse(status, response);
 	}
+	
+	@RequestMapping(path = ApiMappings.TopFive, method = RequestMethod.GET)
+	public Map<String,? extends Object> getTopFive(@RequestParam(name="top",required=true) Integer choose){
+		Map<String,Object> result = null;
+		ResponseStatus status;
+		switch(choose){
+		case 1:
+			List<Product> products = productService.topProducts();
+			status = ResponseStatus.OK;
+			result = ControllerHelper.mapResponse(status, products);
+			break;
+		case 2:
+			break;
+		case 3:
+			List<Order> orders = orderService.topFiveOrders();
+			status = ResponseStatus.OK;
+			result = ControllerHelper.mapResponse(status, orders);
+			break;
+		case 4:
+			break;
+		default:
+		}
+		return result;
+	}
 }

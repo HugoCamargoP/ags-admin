@@ -12,10 +12,12 @@ public class Order {
 	private Date creation;
 	private String comment;
 
+	private Double totalAmount;
 	
 	/***************Extra Data****************/
 	private List<OrderDetail> orderDetail;
 	private List<OrderRecord> orderRecord;
+	private List<OrderAmount> orderAmount;
 	private String 	userText;
 	private String 	statusText;
 	private Date	statusDate;
@@ -88,6 +90,15 @@ public class Order {
 		this.orderRecord = orderRecord;
 	}
 
+	/***********Getter and Setter orderAmount**********/
+	public List<OrderAmount> getOrderAmount() {
+		return orderAmount;
+	}
+
+	public void setOrderAmount(List<OrderAmount> orderAmount) {
+		this.orderAmount = orderAmount;
+	}
+
 	/***********Getter and Setter Address**********/
 	public Integer getAddress() {
 		return address;
@@ -103,11 +114,19 @@ public class Order {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}	
-	
+
 	public String getComment() {
 		return comment;
 	}
-
+	/***********Getter and Setter totalAmount**********/
+	
+	public Double getTotalAmount() {
+		return totalAmount;
+	}
+	
+	public void setTotalAmount(Double totalAmount) {
+		this.totalAmount = totalAmount;
+	}
 	
 	/***********Getter and Setter userText********/
 	
