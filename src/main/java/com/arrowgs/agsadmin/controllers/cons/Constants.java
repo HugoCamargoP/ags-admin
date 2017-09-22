@@ -24,6 +24,7 @@ public interface Constants {
 		static final String adminUsers 			= rootadmin+"/users";
 		static final String adminItems 			= rootadmin+"/items";
 		static final String adminReports 		= rootadmin+"/reports";
+		static final String adminSales			= rootadmin+"/sales";
 		
 	}
 	
@@ -47,5 +48,6 @@ public interface Constants {
 		static final String ReportSchema			= ServiceContext + "/reports";
 		static final String SalesReportConstructor2	= ServiceContext + "/sales2";
 		static final String SalesReportConstructor	= ServiceContext + "/sales";
+		static final String TopFive					= ServiceContext + "/top-five";
 	}
 }

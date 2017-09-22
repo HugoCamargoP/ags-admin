@@ -28,6 +28,7 @@ import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.entities.ProductDetail;
 import com.arrowgs.agsadmin.entities.SizeDescription;
 import com.arrowgs.agsadmin.entities.SkuProduct;
+import com.arrowgs.agsadmin.service.OrderService;
 
 
 
@@ -108,6 +109,25 @@ public class ProductDaoImplementation implements ProductDao {
 		@Override
 		public SkuProduct extractData(ResultSet rs) throws SQLException, DataAccessException {
 			return rs.next() ? (new SkuProductRowMapper(expandible)).mapRow(rs, 0) : null;
+		}
+		
+	}
+	
+	//SkuTop
+	class SkuProductTopRowMapper implements RowMapper<SkuProduct>{
+				
+		
+		@Override
+		public SkuProduct mapRow(ResultSet rs, int col) throws SQLException {
+			SkuProduct sku = new SkuProduct();
+			sku.setId(rs.getInt(1));
+			sku.setProduct(rs.getInt(2));
+			sku.setSku(rs.getString(3));
+			sku.setSize(rs.getInt(4));
+			sku.setPrice(rs.getDouble(5));
+			sku.setStock(rs.getInt(6));
+			sku.setIndividualSales(rs.getInt(8));
+			return sku;
 		}
 		
 	}
@@ -211,6 +231,32 @@ public class ProductDaoImplementation implements ProductDao {
 		}
 		
 	}
+	
+	/* Product */
+	class TopProductRowMapper implements RowMapper<Product>{
+
+		@Override
+		public Product mapRow(ResultSet rs, int row) throws SQLException {
+			Product producto = new Product();
+			producto.setId(rs.getInt(1));
+			producto.setDescription(rs.getString(2));
+			producto.setTitle(rs.getString(4));
+			producto.setSales(rs.getInt(5));
+			return producto;
+		}
+		
+	}
+	
+	class TopProductRowExtractor implements ResultSetExtractor<Product>{
+
+		@Override
+		public Product extractData(ResultSet rs) throws SQLException, DataAccessException {
+			
+			return rs.next() ? (new ProductRowMapper()).mapRow(rs, 0) : null;
+		}
+		
+	}
+	
 	
 	@Autowired
 	public void setTransactionManager(PlatformTransactionManager transactionManager){
@@ -461,7 +507,7 @@ public class ProductDaoImplementation implements ProductDao {
 				 aux.append(" and");
 			 }
 			 aux.append(" ps.precio > :greater");
-			 paramMap.put("greater", product.getTalla());
+			 paramMap.put("greater", product.getGreaterThan());
 			 where = true;
 		 }
 		 if(product.getLessThan()!=null ){
@@ -469,7 +515,7 @@ public class ProductDaoImplementation implements ProductDao {
 				 aux.append(" and");
 			 }
 			 aux.append(" ps.precio < :less");
-			 paramMap.put("less", product.getTalla());
+			 paramMap.put("less", product.getLessThan());
 			 where = true;
 		 }
 		 if(where){
@@ -790,6 +836,22 @@ public class ProductDaoImplementation implements ProductDao {
 		String sql = "SELECT * FROM producto_detalles WHERE id = :id";
 		SqlParameterSource paramMap = new MapSqlParameterSource("id",idProductDetail);		
 		return jdbcTemplate.query(sql, paramMap, new ProductDetailRowExtractor());
+	}
+
+	@Override
+	public List<Product> topProducts() {
+		String sql = "SELECT p.*, SUM(od.cantidad) AS cantidad_vendida FROM productos p LEFT JOIN productos_sku ps ON p.id = ps.producto JOIN orden_detalles od ON od.id_producto_sku = ps.id JOIN ordenes o on o.id = od.orden WHERE o.estado>=5 AND o.estado<8 GROUP BY ps.producto ORDER BY cantidad_vendida DESC LIMIT 5";
+		return jdbcTemplate.query(sql, new TopProductRowMapper());
+	}
+
+	@Override
+	public List<SkuProduct> skuProductsBySalesProducts(Integer idProduct) {
+		String sql = "SELECT ps.*, SUM(od.cantidad) AS Cantidad_individual FROM productos_sku ps LEFT JOIN orden_detalles od ON ps.id = od.id_producto_sku LEFT JOIN ordenes o ON o.id = od.orden WHERE o.estado>= :sales AND o.estado< :warning AND ps.producto = :id GROUP BY ps.id";
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("sales", OrderService.approvedOrder);
+		paramMap.put("warning", OrderService.warning);
+		paramMap.put("id", idProduct);
+		return jdbcTemplate.query(sql,paramMap,new SkuProductTopRowMapper());
 	}
 	
 

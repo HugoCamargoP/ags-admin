@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.arrowgs.agsadmin.daos.AddressDao;
 import com.arrowgs.agsadmin.entities.Address;
 import com.arrowgs.agsadmin.entities.IdNameTable;
+import com.arrowgs.agsadmin.entities.IdNumTable;
 import com.arrowgs.agsadmin.service.AddressService;
 
 @Service
@@ -103,6 +104,18 @@ public class AddressServiceImplementation implements AddressService{
 			throw e;
 		}
 		return countries;
+	}
+
+	@Override
+	public List<IdNumTable> getTopCountries() {
+		List<IdNumTable> topCountries;
+		try{
+			topCountries = addressDao.getTopCountries();
+		}catch(Exception e){
+			logger.error("AddressService : getTopCountries : " + e.toString());
+			throw e;
+		}
+		return topCountries;
 	}
 
 

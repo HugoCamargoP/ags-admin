@@ -28,6 +28,9 @@ public interface ProductDao {
 	void modifyProduct(Product product, Integer id);	
 	void removeProductById(Integer id);
 	Integer getCountProductsByFilter(Product product);
+		/*Top Product*/
+	List<Product> topProducts();
+	List<SkuProduct> skuProductsBySalesProducts(Integer idProduct);
 	
 	//SkuProduct
 	List<SkuProduct> getSkuProductsByProduct(Integer idProduct);

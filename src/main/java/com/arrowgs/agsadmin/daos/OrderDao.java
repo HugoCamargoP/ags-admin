@@ -27,6 +27,7 @@ public interface OrderDao {
 	void updateState(Order order, OrderRecord orderRecord);
 	Integer getCountByFilter(Order order);
 	List<Order> getOrdersByFilter(Order order, Integer page, Integer numOrder);
+	List<Order> getTopOrdersSales();
 	
 	//OrderDetail
 	List<OrderDetail> getOrderDetailByOrder(Integer id);
@@ -47,6 +48,7 @@ public interface OrderDao {
 	
 	//OrderAmount
 	List<OrderAmount> getOrderAmountByOrder(Integer idOrder);
+	List<OrderAmount> getTopFiveOrderAmount();
 	void removeOrderAmountById(Integer idOrderAmount);
 	OrderAmount addOrderAmount(OrderAmount orderAmount);
 	

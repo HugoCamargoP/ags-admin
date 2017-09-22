@@ -23,6 +23,8 @@ public interface ProductService {
 	ProductStatus modifyProduct(Product product);		
 	void removeProductById(Integer id);	
 	Integer getProductsCountyFilter(Product product);
+		/*Top Product*/
+	List<Product> topProducts();
 	
 	//SkuProduct
 	List<SkuProduct> getSkuProductsByProduct(Integer idProduct);

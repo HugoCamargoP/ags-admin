@@ -173,6 +173,10 @@ function Service(http, url)
             'url': url + '/users/filter?email='+email+'&filter='+filter
         })
     }
+    
+    this.userUpdateRol = function(users){
+    	return http.put(url + '/users/rol', users)
+    }
    
     /*  Measure FitBase  */
    

@@ -421,5 +421,24 @@ public class ProductServiceImplementation implements ProductService {
 		
 	}
 
+	@Override
+	public List<Product> topProducts() {
+		List<Product> top=null;
+		try{
+			top = productDao.topProducts();
+			if(top!=null){
+				Iterator<Product> iterator = top.iterator();
+				while(iterator.hasNext()){
+					Product product = iterator.next();
+					product.setSkuProduct(productDao.skuProductsBySalesProducts(product.getId()));
+				}
+			}
+		}catch(Exception e){
+			logger.error("ProductService : topProducts : " + e.toString());
+			throw e;
+		}
+		return top;
+	}
+
 
 }

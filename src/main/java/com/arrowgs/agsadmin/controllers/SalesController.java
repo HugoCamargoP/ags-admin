@@ -1,38 +1,30 @@
-package com.arrowgs.agsadmin.api;
+package com.arrowgs.agsadmin.controllers;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.arrowgs.agsadmin.entities.IdNumTable;
+import com.arrowgs.agsadmin.controllers.cons.Constants.Mappings;
 import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderDetail;
 import com.arrowgs.agsadmin.entities.Product;
-import com.arrowgs.agsadmin.entities.Report;
 import com.arrowgs.agsadmin.helpers.ControllerHelper;
-import com.arrowgs.agsadmin.helpers.ControllerHelper.ResponseStatus;
 import com.arrowgs.agsadmin.helpers.SqlHelper;
-import com.arrowgs.agsadmin.service.AddressService;
+import com.arrowgs.agsadmin.helpers.ControllerHelper.ResponseStatus;
 import com.arrowgs.agsadmin.service.OrderService;
 import com.arrowgs.agsadmin.service.ProductService;
-import com.arrowgs.agsadmin.controllers.cons.Constants.ApiMappings;
 
-
-@RestController
-public class ReportApi {
-
-
-	@Resource
-	List<Report> reports;
+@Controller
+@RequestMapping(Mappings.adminSales)
+public class SalesController {
 	
 	@Autowired
 	OrderService orderService;
@@ -40,46 +32,9 @@ public class ReportApi {
 	@Autowired
 	ProductService productService;
 	
-	@Autowired
-	AddressService addressService;
 	
-	@RequestMapping(path = ApiMappings.ReportSchema, method = RequestMethod.GET)
-	public List<Report> getReports(){
-		return reports;
-	}
-	
-	@RequestMapping(path = ApiMappings.SalesReportConstructor2, method = RequestMethod.GET)
-	public Map<String,? extends Object> getOrderSalesReport(
-			@RequestParam(required = false, name="product") Integer product,
-			@RequestParam(required = false, name="talla") Integer sizeProduct,
-			@RequestParam(required = false, name="sku") String sku,
-			@RequestParam(required = false, name="since") Date since,
-			@RequestParam(required = false, name="upTo") Date upTo,
-			@RequestParam(required = false, name ="client") Integer client){
-		
-		Order order = new Order();
-		order.setProduct(product);
-		order.setSizeProduct(sizeProduct);
-		order.setSku(sku);
-		order.setClient(client);
-		
-		ResponseStatus status;
-		List<Order> orders;
-		try{
-			orders = orderService.getSalesByFilter(order);
-			
-			status = ResponseStatus.OK;
-		}catch(Exception e){
-			orders = null;
-			status = ResponseStatus.ExternalError;
-		}
-		
-		return ControllerHelper.mapResponse(status, orders);
-	}
-	
-	
-	@RequestMapping(path = ApiMappings.SalesReportConstructor, method = RequestMethod.GET)
-	public Map<String,? extends Object> getProductSalesReport(
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView getProductSalesReport(
 			@RequestParam(required = false, name="product") Integer product,
 			@RequestParam(required = false, name="size") Integer sizeProduct,
 			@RequestParam(required = false, name="sku") String sku,
@@ -91,6 +46,8 @@ public class ReportApi {
 			@RequestParam(required = false, name = "clientFlag") boolean clientFlag,
 			@RequestParam(required = false, name = "ordersFlag") boolean ordersFlag,
 			@RequestParam(required = false, name = "stocktakingFlag") boolean stocktakingFlag){
+		
+		ModelAndView mv = new ModelAndView();
 		
 		Order order = new Order();
 		order.setProduct(product);
@@ -134,7 +91,7 @@ public class ReportApi {
 					productEnti.setSku(sku);
 					productEnti.setTalla(sizeProduct);
 					products = productService.getProductsByFilter(productEnti, 1, 999999999);
-				}				
+				}
 			}
 
 			status = ResponseStatus.OK;
@@ -146,33 +103,8 @@ public class ReportApi {
 		response.put("productos", ordersDetail);
 		response.put("ordenes", orders);
 		response.put("inventario", products);
-		return ControllerHelper.mapResponse(status, response);
+		mv.addObject("response",ControllerHelper.mapResponse(status, response));
+		return mv;
 	}
-	
-	@RequestMapping(path = ApiMappings.TopFive, method = RequestMethod.GET)
-	public Map<String,? extends Object> getTopFive(@RequestParam(name="top",required=true) Integer choose){
-		Map<String,Object> result = null;
-		ResponseStatus status;
-		switch(choose){
-		case 1:
-			List<Product> products = productService.topProducts();
-			status = ResponseStatus.OK;
-			result = ControllerHelper.mapResponse(status, products);
-			break;
-		case 2:
-			break;
-		case 3:
-			List<Order> orders = orderService.topFiveOrders();
-			status = ResponseStatus.OK;
-			result = ControllerHelper.mapResponse(status, orders);
-			break;
-		case 4:
-			List<IdNumTable> topCountries = addressService.getTopCountries();
-			status = ResponseStatus.OK;
-			result = ControllerHelper.mapResponse(status, topCountries);
-			break;
-		default:
-		}
-		return result;
-	}
+
 }

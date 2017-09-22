@@ -25,6 +25,7 @@ public interface OrderService {
 	List<Order> getOrderByFilter(Order order, Integer page, Integer numOrder);
 	List<Order> getOrderByUsuario(Integer user);
 	List<Order> getOrderByState(Integer state);
+	List<Order> topFiveOrders();
 	Order getUserCar(Integer user, Integer status);
 	boolean addOrder(Order order);
 	boolean updateOrder(Order order);
@@ -46,6 +47,7 @@ public interface OrderService {
 	
 	/*OrderAmount*/
 	List<OrderAmount> getOrderAmountByOrder(Integer idOrder);
+	List<OrderAmount> getTopFiveOrderAmount();
 	boolean createOrderAmount(OrderAmount orderAmount);	
 	
 	/*Sales*/

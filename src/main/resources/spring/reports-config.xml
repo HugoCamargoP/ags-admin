@@ -40,7 +40,7 @@
 						<property name="model" value="sku" />
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
-						<property name="name" value="Ventas" />
+						<property name="name" value="Flag" />
 						<property name="type" value="5" />
 						<property name="model" value="salesFlag" />
 					</bean>					
@@ -77,9 +77,14 @@
 						<property name="name" value="Producto" />
 						<property name="type" value="1" />
 						<property name="model" value="product" />
+					</bean>
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="SKU" />
+						<property name="type" value="3" />
+						<property name="model" value="sku" />
 					</bean>	
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
-						<property name="name" value="Ventas" />
+						<property name="name" value="Flag" />
 						<property name="type" value="5" />
 						<property name="model" value="clientFlag" />
 					</bean>										
@@ -88,7 +93,7 @@
 		</bean>
 		
 		<bean class="com.arrowgs.agsadmin.entities.Report">
-			<property name="id" value="2" />
+			<property name="id" value="3" />
 			<property name="name" value="Ordenes" />
 			<property name="parameters">
 				<util:list value-type="com.arrowgs.agsadmin.entities.Report.Parameter">
@@ -123,13 +128,38 @@
 						<property name="model" value="status" />
 					</bean>						
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
-						<property name="name" value="Ventas" />
+						<property name="name" value="Flag" />
 						<property name="type" value="5" />
 						<property name="model" value="ordersFlag" />
 					</bean>										
 				</util:list>
 			</property>
+		</bean>
+		
+		<bean class="com.arrowgs.agsadmin.entities.Report">
+			<property name="id" value="4" />
+			<property name="name" value="Inventario" />
+			<property name="parameters">
+				<util:list value-type="com.arrowgs.agsadmin.entities.Report.Parameter">
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="Talla" />
+						<property name="type" value="1" />
+						<property name="model" value="size" />
+					</bean>
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="Producto" />
+						<property name="type" value="1" />
+						<property name="model" value="product" />
+					</bean>							
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="Flag" />
+						<property name="type" value="5" />
+						<property name="model" value="stocktackinFlag" />
+					</bean>										
+				</util:list>
+			</property>
 		</bean>		
+				
 
 	</util:list>
 
