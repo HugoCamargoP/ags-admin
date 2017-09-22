@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.arrowgs.agsadmin.entities.Address;
 import com.arrowgs.agsadmin.entities.IdNameTable;
+import com.arrowgs.agsadmin.entities.IdNumTable;
 
 public interface AddressDao {
 	
@@ -25,5 +26,8 @@ public interface AddressDao {
 	
 	/*Pais Consulta*/
 	public List<IdNameTable> getCountries();
+	
+	/*Top Countries*/
+	public List<IdNumTable> getTopCountries();
 
 }

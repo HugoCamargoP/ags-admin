@@ -21,6 +21,8 @@ import org.springframework.stereotype.Repository;
 import com.arrowgs.agsadmin.daos.AddressDao;
 import com.arrowgs.agsadmin.entities.Address;
 import com.arrowgs.agsadmin.entities.IdNameTable;
+import com.arrowgs.agsadmin.entities.IdNumTable;
+import com.arrowgs.agsadmin.service.OrderService;
 
 @Repository
 public class AddressDaoImplementation implements AddressDao{
@@ -151,6 +153,28 @@ public class AddressDaoImplementation implements AddressDao{
 	public List<IdNameTable> getCountries() {
 		String sql = "SELECT * FROM paises";
 		return jdbcTemplate.query(sql, new IdNameTableRowMapper());
+	}
+
+
+	@Override
+	public List<IdNumTable> getTopCountries() {
+		String sql = "SELECT d.pais, COUNT(*), p.nombre FROM domicilios d LEFT JOIN ordenes o ON d.id = o.domicilio JOIN paises p ON d.pais = p.id WHERE o.estado > :approved AND o.estado < :warning GROUP BY d.pais LIMIT 5";
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("approved", OrderService.approvedOrder);
+		paramMap.put("warning", OrderService.warning);		
+		
+		return jdbcTemplate.query(sql, paramMap, new RowMapper<IdNumTable>(){
+
+			@Override
+			public IdNumTable mapRow(ResultSet rs, int rowNum) throws SQLException {
+				IdNumTable topCoun = new IdNumTable();
+				topCoun.setId(rs.getInt(1));
+				topCoun.setNum(rs.getInt(2));
+				topCoun.setName(rs.getString(3));
+				return topCoun;
+			}
+			
+		});
 	}
 
 

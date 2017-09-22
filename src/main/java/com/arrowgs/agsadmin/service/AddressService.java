@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.arrowgs.agsadmin.entities.Address;
 import com.arrowgs.agsadmin.entities.IdNameTable;
+import com.arrowgs.agsadmin.entities.IdNumTable;
 
 public interface AddressService {
 	
@@ -23,5 +24,7 @@ public interface AddressService {
 	
 	/*Consulta paises*/
 	public List<IdNameTable> getCountries();
+	
+	public List<IdNumTable> getTopCountries();
 
 }

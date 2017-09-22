@@ -45,7 +45,7 @@ public class SalesController {
 			@RequestParam(required = false, name = "salesFlag") boolean salesFlag,
 			@RequestParam(required = false, name = "clientFlag") boolean clientFlag,
 			@RequestParam(required = false, name = "ordersFlag") boolean ordersFlag,
-			@RequestParam(required = false, name = "ordersFlag") boolean stocktakingFlag){
+			@RequestParam(required = false, name = "stocktakingFlag") boolean stocktakingFlag){
 		
 		ModelAndView mv = new ModelAndView();
 		

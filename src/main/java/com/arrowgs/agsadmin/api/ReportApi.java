@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.arrowgs.agsadmin.entities.IdNumTable;
 import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderDetail;
 import com.arrowgs.agsadmin.entities.Product;
@@ -20,6 +21,7 @@ import com.arrowgs.agsadmin.entities.Report;
 import com.arrowgs.agsadmin.helpers.ControllerHelper;
 import com.arrowgs.agsadmin.helpers.ControllerHelper.ResponseStatus;
 import com.arrowgs.agsadmin.helpers.SqlHelper;
+import com.arrowgs.agsadmin.service.AddressService;
 import com.arrowgs.agsadmin.service.OrderService;
 import com.arrowgs.agsadmin.service.ProductService;
 import com.arrowgs.agsadmin.controllers.cons.Constants.ApiMappings;
@@ -37,6 +39,9 @@ public class ReportApi {
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	AddressService addressService;
 	
 	@RequestMapping(path = ApiMappings.ReportSchema, method = RequestMethod.GET)
 	public List<Report> getReports(){
@@ -162,6 +167,9 @@ public class ReportApi {
 			result = ControllerHelper.mapResponse(status, orders);
 			break;
 		case 4:
+			List<IdNumTable> topCountries = addressService.getTopCountries();
+			status = ResponseStatus.OK;
+			result = ControllerHelper.mapResponse(status, topCountries);
 			break;
 		default:
 		}
