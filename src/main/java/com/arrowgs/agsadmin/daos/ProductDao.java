@@ -3,6 +3,7 @@ package com.arrowgs.agsadmin.daos;
 import java.util.List;
 
 import com.arrowgs.agsadmin.entities.IdNameTable;
+import com.arrowgs.agsadmin.entities.IdNumTable;
 import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.entities.ProductDetail;
 import com.arrowgs.agsadmin.entities.SizeDescription;
@@ -67,5 +68,8 @@ public interface ProductDao {
 	List<SizeDescription> getSizeDescription();
 	void createSizeDescription(SizeDescription sizeDescription);
 	void updateSizeDescription(SizeDescription sizeDescription);
+	
+	//Sales Size
+	List<IdNumTable> getSalesBySize();
 	
 }

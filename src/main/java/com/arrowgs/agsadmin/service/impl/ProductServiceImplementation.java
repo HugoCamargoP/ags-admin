@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.arrowgs.agsadmin.daos.ProductDao;
 import com.arrowgs.agsadmin.entities.IdNameTable;
+import com.arrowgs.agsadmin.entities.IdNumTable;
 import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.entities.ProductDetail;
 import com.arrowgs.agsadmin.entities.SizeDescription;
@@ -438,6 +439,18 @@ public class ProductServiceImplementation implements ProductService {
 			throw e;
 		}
 		return top;
+	}
+
+	@Override
+	public List<IdNumTable> getSalesBySize() {
+		List<IdNumTable> sizeSales;
+		try{
+			sizeSales = productDao.getSalesBySize();
+		}catch(Exception e){
+			logger.error("ProductService : getSalesBySize : "+ e.toString());
+			throw e;
+		}
+		return sizeSales;
 	}
 
 

@@ -90,7 +90,8 @@ public class ReportApi {
 			@RequestParam(required = false, name = "salesFlag") boolean salesFlag,
 			@RequestParam(required = false, name = "clientFlag") boolean clientFlag,
 			@RequestParam(required = false, name = "ordersFlag") boolean ordersFlag,
-			@RequestParam(required = false, name = "stocktakingFlag") boolean stocktakingFlag){
+			@RequestParam(required = false, name = "stocktakingFlag") boolean stocktakingFlag,
+			@RequestParam(required = false, name = "sizeFlag") boolean salesBySize){
 		
 		Order order = new Order();
 		order.setProduct(product);
@@ -105,6 +106,7 @@ public class ReportApi {
 		List<OrderDetail> ordersDetail=null;
 		List<Order> orders=null;
 		List<Product> products = null;
+		List<IdNumTable> salesBySizeTable = null;
 		try{
 			
 			if(ordersFlag){				
@@ -134,7 +136,10 @@ public class ReportApi {
 					productEnti.setSku(sku);
 					productEnti.setTalla(sizeProduct);
 					products = productService.getProductsByFilter(productEnti, 1, 999999999);
-				}				
+				}
+				if(salesBySize){
+					salesBySizeTable = productService.getSalesBySize();
+				}
 			}
 
 			status = ResponseStatus.OK;
@@ -146,6 +151,7 @@ public class ReportApi {
 		response.put("productos", ordersDetail);
 		response.put("ordenes", orders);
 		response.put("inventario", products);
+		response.put("tallaVentas", salesBySizeTable);
 		return ControllerHelper.mapResponse(status, response);
 	}
 	

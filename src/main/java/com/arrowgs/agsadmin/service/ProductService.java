@@ -3,6 +3,7 @@ package com.arrowgs.agsadmin.service;
 import java.util.List;
 
 import com.arrowgs.agsadmin.entities.IdNameTable;
+import com.arrowgs.agsadmin.entities.IdNumTable;
 import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.entities.ProductDetail;
 import com.arrowgs.agsadmin.entities.SizeDescription;
@@ -54,4 +55,7 @@ public interface ProductService {
 	void createSizeDescription(SizeDescription sizeDescription);
 	void updateSizeDescription(SizeDescription sizeDescription);
 	public List<SizeDescription> getSizeDescription();
+	
+	//Sales By Size
+	List<IdNumTable> getSalesBySize();
 }

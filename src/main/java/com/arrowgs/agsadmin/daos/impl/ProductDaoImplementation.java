@@ -24,6 +24,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.arrowgs.agsadmin.daos.ProductDao;
 import com.arrowgs.agsadmin.entities.IdNameTable;
+import com.arrowgs.agsadmin.entities.IdNumTable;
 import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.entities.ProductDetail;
 import com.arrowgs.agsadmin.entities.SizeDescription;
@@ -852,6 +853,29 @@ public class ProductDaoImplementation implements ProductDao {
 		paramMap.put("warning", OrderService.warning);
 		paramMap.put("id", idProduct);
 		return jdbcTemplate.query(sql,paramMap,new SkuProductTopRowMapper());
+	}
+
+	@Override
+	public List<IdNumTable> getSalesBySize() {
+		String sql = "SELECT ps.talla, t.talla, SUM(od.cantidad), SUM((od.precio_individual * cantidad)) FROM productos_sku ps LEFT JOIN orden_detalles od  ON od.id_producto_sku = ps.id JOIN tallas t ON ps.talla = t.id JOIN ordenes o on o.id = od.orden WHERE o.estado >= :approved AND o.estado < :warning GROUP BY ps.talla";		
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("approved", OrderService.approvedOrder);
+		paramMap.put("warning", OrderService.warning);
+		return jdbcTemplate.query(sql, paramMap, new RowMapper<IdNumTable>() {
+
+			@Override
+			public IdNumTable mapRow(ResultSet rs, int rowNum) throws SQLException {
+				IdNumTable numTable = new IdNumTable();
+				
+				numTable.setId(rs.getInt(1));
+				numTable.setName(rs.getString(2));
+				numTable.setNum(rs.getInt(3));
+				numTable.setDoubleAttribute(rs.getDouble(4));
+				
+				return numTable;
+			}
+		});
+		
 	}
 	
 

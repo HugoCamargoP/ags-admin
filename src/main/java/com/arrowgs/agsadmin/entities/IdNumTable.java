@@ -7,6 +7,7 @@ public class IdNumTable {
 	
 	/*Extra Data*/
 	private String	name;
+	private Double	doubleAttribute;
 	
 	public Integer getId() {
 		return id;
@@ -27,6 +28,12 @@ public class IdNumTable {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public Double getDoubleAttribute() {
+		return doubleAttribute;
+	}
+	public void setDoubleAttribute(Double doubleAttribute) {
+		this.doubleAttribute = doubleAttribute;
 	}
 	
 

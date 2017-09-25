@@ -158,6 +158,20 @@
 					</bean>										
 				</util:list>
 			</property>
+		</bean>
+		
+		<bean class="com.arrowgs.agsadmin.entities.Report">
+			<property name="id" value="5" />
+			<property name="name" value="TallasGeneral" />
+			<property name="parameters">
+				<util:list value-type="com.arrowgs.agsadmin.entities.Report.Parameter">					
+					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
+						<property name="name" value="Flag" />
+						<property name="type" value="5" />
+						<property name="model" value="sizeFlag" />
+					</bean>										
+				</util:list>
+			</property>
 		</bean>		
 				
 
