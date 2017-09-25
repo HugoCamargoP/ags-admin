@@ -25,6 +25,7 @@ public interface Constants {
 		static final String adminItems 			= rootadmin+"/items";
 		static final String adminReports 		= rootadmin+"/reports";
 		static final String adminSales			= rootadmin+"/sales";
+		static final String adminTopFive		= rootadmin+"/top-five";
 		
 	}
 	

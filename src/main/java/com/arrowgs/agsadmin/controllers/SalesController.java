@@ -20,6 +20,7 @@ import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.helpers.ControllerHelper;
 import com.arrowgs.agsadmin.helpers.SqlHelper;
 import com.arrowgs.agsadmin.helpers.ControllerHelper.ResponseStatus;
+import com.arrowgs.agsadmin.service.AddressService;
 import com.arrowgs.agsadmin.service.OrderService;
 import com.arrowgs.agsadmin.service.ProductService;
 
@@ -32,6 +33,9 @@ public class SalesController {
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	AddressService addressService;
 	
 	
 	@RequestMapping(method = RequestMethod.GET)
@@ -114,6 +118,31 @@ public class SalesController {
 		return mv;
 	}
 	
-	
+	@RequestMapping(path = Mappings.adminTopFive, method = RequestMethod.GET)
+	public Map<String,? extends Object> getTopFive(@RequestParam(name="top",required=true) Integer choose){
+		Map<String,Object> result = null;
+		ResponseStatus status;
+		switch(choose){
+		case 1:
+			List<Product> products = productService.topProducts();
+			status = ResponseStatus.OK;
+			result = ControllerHelper.mapResponse(status, products);
+			break;
+		case 2:
+			break;
+		case 3:
+			List<Order> orders = orderService.topFiveOrders();
+			status = ResponseStatus.OK;
+			result = ControllerHelper.mapResponse(status, orders);
+			break;
+		case 4:
+			List<IdNumTable> topCountries = addressService.getTopCountries();
+			status = ResponseStatus.OK;
+			result = ControllerHelper.mapResponse(status, topCountries);
+			break;
+		default:
+		}
+		return result;
+	}
 
 }

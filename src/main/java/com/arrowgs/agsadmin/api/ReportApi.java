@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.arrowgs.agsadmin.entities.IdNumTable;
 import com.arrowgs.agsadmin.entities.Order;
@@ -156,29 +157,36 @@ public class ReportApi {
 	}
 	
 	@RequestMapping(path = ApiMappings.TopFive, method = RequestMethod.GET)
-	public Map<String,? extends Object> getTopFive(@RequestParam(name="top",required=true) Integer choose){
+	public ModelAndView getTopFive(@RequestParam(name="top",required=true) Integer choose){
 		Map<String,Object> result = null;
 		ResponseStatus status;
-		switch(choose){
-		case 1:
-			List<Product> products = productService.topProducts();
-			status = ResponseStatus.OK;
-			result = ControllerHelper.mapResponse(status, products);
-			break;
-		case 2:
-			break;
-		case 3:
-			List<Order> orders = orderService.topFiveOrders();
-			status = ResponseStatus.OK;
-			result = ControllerHelper.mapResponse(status, orders);
-			break;
-		case 4:
-			List<IdNumTable> topCountries = addressService.getTopCountries();
-			status = ResponseStatus.OK;
-			result = ControllerHelper.mapResponse(status, topCountries);
-			break;
-		default:
+		ModelAndView mv = new ModelAndView();
+		try{
+			switch(choose){
+			case 1:
+				List<Product> products = productService.topProducts();
+				status = ResponseStatus.OK;
+				result = ControllerHelper.mapResponse(status, products);
+				break;
+			case 2:
+				break;
+			case 3:
+				List<Order> orders = orderService.topFiveOrders();
+				status = ResponseStatus.OK;
+				result = ControllerHelper.mapResponse(status, orders);
+				break;
+			case 4:
+				List<IdNumTable> topCountries = addressService.getTopCountries();
+				status = ResponseStatus.OK;
+				result = ControllerHelper.mapResponse(status, topCountries);
+				break;
+			default:
+			}
+		}catch(Exception e){
+			status = ResponseStatus.ExternalError;
+			result = ControllerHelper.mapResponse(status, null);
 		}
-		return result;
+		mv.addObject("data", result);
+		return mv;
 	}
 }
