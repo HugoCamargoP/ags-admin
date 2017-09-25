@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.arrowgs.agsadmin.controllers.cons.Constants.Mappings;
+import com.arrowgs.agsadmin.entities.IdNumTable;
 import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderDetail;
 import com.arrowgs.agsadmin.entities.Product;
@@ -45,7 +46,8 @@ public class SalesController {
 			@RequestParam(required = false, name = "salesFlag") boolean salesFlag,
 			@RequestParam(required = false, name = "clientFlag") boolean clientFlag,
 			@RequestParam(required = false, name = "ordersFlag") boolean ordersFlag,
-			@RequestParam(required = false, name = "stocktakingFlag") boolean stocktakingFlag){
+			@RequestParam(required = false, name = "stocktakingFlag") boolean stocktakingFlag,
+			@RequestParam(required = false, name = "sizeFlag") boolean salesBySize){
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -62,6 +64,7 @@ public class SalesController {
 		List<OrderDetail> ordersDetail=null;
 		List<Order> orders=null;
 		List<Product> products = null;
+		List<IdNumTable> salesBySizeTable = null;
 		try{
 			
 			if(ordersFlag){				
@@ -92,6 +95,9 @@ public class SalesController {
 					productEnti.setTalla(sizeProduct);
 					products = productService.getProductsByFilter(productEnti, 1, 999999999);
 				}
+				if(salesBySize){
+					salesBySizeTable = productService.getSalesBySize();
+				}
 			}
 
 			status = ResponseStatus.OK;
@@ -103,8 +109,11 @@ public class SalesController {
 		response.put("productos", ordersDetail);
 		response.put("ordenes", orders);
 		response.put("inventario", products);
+		response.put("tallaVentas", salesBySizeTable);
 		mv.addObject("response",ControllerHelper.mapResponse(status, response));
 		return mv;
 	}
+	
+	
 
 }
