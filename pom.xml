@@ -120,7 +120,13 @@
 	<dependency>
       <groupId>net.sf.jmimemagic</groupId>
       <artifactId>jmimemagic</artifactId>
-      <version>${net-sf-jmimemagic.version}</version> 
+      <version>${net-sf-jmimemagic.version}</version>
+      <exclusions>
+      	<exclusion>
+      		<groupId>xerces</groupId>
+      		<artifactId>xercesImpl</artifactId>
+      	</exclusion>
+      </exclusions> 
  	</dependency>
 
 	<!-- Spring JDBC and Transactions -->
