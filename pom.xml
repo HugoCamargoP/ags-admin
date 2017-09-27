@@ -55,8 +55,8 @@
 	<!-- We will use C3P0 as Connection & Stmt pooling strategy -->
 	<c3p0.version>0.9.5.2</c3p0.version>
 	
-	<!-- PDFBox -->
-	<pdfbox.version>2.0.0</pdfbox.version>
+	<!-- PDFJasper -->
+	<pdfjasper.version>6.4.0</pdfjasper.version>
 
 	<!-- Logging -->
 	<logback.version>1.0.13</logback.version>
@@ -155,6 +155,14 @@
 		<artifactId>spring-security-config</artifactId>
 		<version>${spring-security.version}</version>
 	</dependency>
+	
+	<!-- PDF JASPER -->
+	<dependency>
+	    <groupId>net.sf.jasperreports</groupId>
+	    <artifactId>jasperreports</artifactId>
+	    <version>${pdfjasper.version}</version>
+	</dependency>
+	
 
 	<!-- Apache Tiles -->
 	<dependency>

@@ -3,6 +3,7 @@ package com.arrowgs.agsadmin.daos;
 import java.util.List;
 
 import com.arrowgs.agsadmin.entities.IdNameTable;
+import com.arrowgs.agsadmin.entities.IdNumTable;
 import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.entities.ProductDetail;
 import com.arrowgs.agsadmin.entities.SizeDescription;
@@ -15,6 +16,7 @@ public interface ProductDao {
 	static final String SkuProductTable   	= "productos_sku";
 	static final String	SizeTable		  	= "tallas";
 	static final String SizeDescriptionTable= "medidas_descripcion";
+	static final String DepartmentTable		= "departamentos";
 	
 	static final Integer Enable = 1;
 	static final Integer Disable = 0;
@@ -28,6 +30,9 @@ public interface ProductDao {
 	void modifyProduct(Product product, Integer id);	
 	void removeProductById(Integer id);
 	Integer getCountProductsByFilter(Product product);
+		/*Top Product*/
+	List<Product> topProducts();
+	List<SkuProduct> skuProductsBySalesProducts(Integer idProduct);
 	
 	//SkuProduct
 	List<SkuProduct> getSkuProductsByProduct(Integer idProduct);
@@ -64,5 +69,11 @@ public interface ProductDao {
 	List<SizeDescription> getSizeDescription();
 	void createSizeDescription(SizeDescription sizeDescription);
 	void updateSizeDescription(SizeDescription sizeDescription);
+	
+	//Sales Size
+	List<IdNumTable> getSalesBySize();
+	
+	//Departments
+	List<IdNameTable> getDepartments();
 	
 }

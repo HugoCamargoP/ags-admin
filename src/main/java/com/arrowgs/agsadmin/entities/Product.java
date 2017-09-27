@@ -5,11 +5,14 @@ import java.util.List;
 public class Product {
 
 	private Integer id;
-	private String 	description;	
+	private String 	description;
+	private String	title;
+	private Integer department;
 	
 	//Extra Data
 	private List<ProductDetail> productDetails;
-	private List<SkuProduct> skuProduct;
+	private List<SkuProduct> 	skuProduct;
+	private Integer 			sales;
 	
 	//Filter Data
 	private String	sku;
@@ -33,6 +36,26 @@ public class Product {
 	
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	
+	/*******Getter and Setter title*******/
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	
+	/*******Getter and Setter department*******/
+	public Integer getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Integer department) {
+		this.department = department;
 	}
 
 	/*******Getter and Setter productDetail*******/
@@ -90,6 +113,16 @@ public class Product {
 
 	public void setLessThan(Double lessThan) {
 		this.lessThan = lessThan;
+	}
+
+	
+	/*******Getter and Setter Sales*******/
+	public Integer getSales() {
+		return sales;
+	}
+
+	public void setSales(Integer sales) {
+		this.sales = sales;
 	}
 
 	
