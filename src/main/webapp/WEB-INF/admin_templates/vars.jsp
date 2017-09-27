@@ -19,7 +19,7 @@
 <c:url var="linkAdminModifyU" value="/modifyU" scope="application"/>
 <c:url var="linkAdminReports" value="/reports" scope="application"/>
 <c:url var="linkAdminItems" value="/items" scope="application"/>
-
+<c:url var="linkSales" value="/sales" scope="application"/>
 
 <c:url var="linkAdmin" value="/" scope="application"/>
 <c:url var="linkAdminEmpty" value="#" scope="application"/>

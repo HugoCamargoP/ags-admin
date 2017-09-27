@@ -57,9 +57,45 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 					 	<legend><s:message code="admin.product" /> {{p.id}}</legend>
 					 	<div class="table-responsive center" ng-init="productos[$index].indexado = $index;">
 					 		<table class="table table-bordered">
+					 		
 					 			<tr class="tabletitulos">
 					 				<td ng-class="{show: overs[p.id] || newsize[p.id]}" ng-click="removeProduct(p.id);" class="btn-black hidden-xs" style="display:none;">
 					 					<div data-toggle="tooltip" title="ELiminar Producto">
+					 						<span class="fa fa-minus-square" aria-hidden="true"></span>
+					 					</div>
+					 				</td>
+					 				<td colspan="4">
+					 					<b><s:message code="admin.title" /></b>
+					 				</td>
+					 			</tr>
+					 			<tr class="">
+					 				<td ng-class="{show: overs[p.id] || newsize[p.id]}" class="hidden-xs" style="display:none;color:rgba(255,255,255,0);">
+					 					<span class="fa fa-user" aria-hidden="true"></span>
+					 				</td>
+					 				<td colspan="4">
+					 					<div class="click hidden-xs" ng-hide="eachitem[p.id].titulo" ng-dblclick="eachitem[p.id].titulo = p.title;">{{p.title}}</div>
+					 					<div class="visible-xs">{{p.title}}</div>
+					 					<div ng-show="eachitem[p.id].titulo">
+					 						<form action="" id="forms[p.id].titulo" name="forms[p.id].titulo" onsubmit="return false" ng-submit="updateProduct(productos[$index].indexado);eachitem[p.id].titulo = false;" >
+						 						<div class="col-xs-12 col-md-10">
+						 							<input ng-required="true" class="form-control form-control-min" type="text" ng-model="productos[p.indexado].title"/>
+						 						</div>
+						 						<div class="col-xs-6 col-md-1">
+						 							<button type="submit" class="btn btn-success"><span class="fa fa-floppy-o" aria-hidden="true"></span></button>
+						 						</div>
+						 						<div class="col-xs-6 col-md-1">
+						 							<a class="btn btn-danger" ng-click="p.title = eachitem[p.id].titulo;eachitem[p.id].titulo = false;">
+						 								<span class="fa fa-times-circle" aria-hidden="true"></span>
+						 							</a>
+						 						</div>
+					 						</form>
+					 					</div>
+					 				</td>
+					 			</tr>
+					 			
+					 			<tr class="tabletitulos">
+					 				<td ng-class="{show: overs[p.id] || newsize[p.id]}" class="hidden-xs" style="display:none;">
+					 					<div style="color:black;">
 					 						<span class="fa fa-minus-square" aria-hidden="true"></span>
 					 					</div>
 					 				</td>
