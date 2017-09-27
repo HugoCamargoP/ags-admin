@@ -265,6 +265,17 @@ function Service(http, url)
      */
    
     /**************Product*************/
+    
+    
+    //Obtiene todos los departamantos existentes
+    	//Parámetros no necesitados
+    
+    this.getDepartments = function(){
+    	return http({
+    		'method':'GET',
+    		'url': url + '/departamentos'
+    	})
+    }
    
     //Obtiene todos los productos y sus detalles
         //Parámetros no necesitados

@@ -16,6 +16,7 @@ public interface ProductDao {
 	static final String SkuProductTable   	= "productos_sku";
 	static final String	SizeTable		  	= "tallas";
 	static final String SizeDescriptionTable= "medidas_descripcion";
+	static final String DepartmentTable		= "departamentos";
 	
 	static final Integer Enable = 1;
 	static final Integer Disable = 0;
@@ -71,5 +72,8 @@ public interface ProductDao {
 	
 	//Sales Size
 	List<IdNumTable> getSalesBySize();
+	
+	//Departments
+	List<IdNameTable> getDepartments();
 	
 }

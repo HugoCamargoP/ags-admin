@@ -23,6 +23,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.arrowgs.agsadmin.daos.OrderDao;
+import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderAmount;
 import com.arrowgs.agsadmin.entities.OrderDetail;
@@ -165,6 +166,8 @@ public class OrderDaoImplementation implements OrderDao{
 			orden.setOrder(rs.getInt(2));
 			orden.setAmount(rs.getDouble(3));
 			orden.setDetail(rs.getString(4));
+			orden.setTenderType(rs.getInt(5));
+			orden.setVariety(rs.getString(6));
 			return orden;
 		}
 		
@@ -176,6 +179,31 @@ public class OrderDaoImplementation implements OrderDao{
 		public OrderAmount extractData(ResultSet rs) throws SQLException, DataAccessException {
 						
 			return rs.next() ? (new OrderAmountRowMapper()).mapRow(rs, 0) : null;
+		}
+		
+	}
+	
+	
+	//Tipos de Pago
+	
+	class IdNameTableRowMapper implements RowMapper<IdNameTable>{
+
+		@Override
+		public IdNameTable mapRow(ResultSet rs, int rowNum) throws SQLException {
+			IdNameTable tender = new IdNameTable();
+			tender.setId(rs.getInt(1));
+			tender.setName(rs.getString(2));
+			
+			return tender;
+		}
+		
+	}
+	
+	class IdNameTableRowExtractor implements ResultSetExtractor<IdNameTable>{
+
+		@Override
+		public IdNameTable extractData(ResultSet rs) throws SQLException, DataAccessException {
+			return rs.next() ? (new IdNameTableRowMapper()).mapRow(rs, 0) : null;
 		}
 		
 	}
@@ -516,6 +544,8 @@ public class OrderDaoImplementation implements OrderDao{
 		paramMap.put("orden", orderAmount.getOrder());
 		paramMap.put("costo", orderAmount.getAmount());
 		paramMap.put("detalle", orderAmount.getDetail());
+		paramMap.put("medio_pago", orderAmount.getTenderType());
+		paramMap.put("variedad", orderAmount.getVariety());
 					
 		Number id = orderAmountInsertActor.executeAndReturnKey(paramMap);
 		orderAmount.setId(id.intValue());
@@ -685,6 +715,12 @@ public class OrderDaoImplementation implements OrderDao{
 	public List<Order> getTopOrdersSales() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<IdNameTable> getTenderTypes() {
+		String sql = "SELECT * FROM tipos_pago";
+		return jdbcTemplate.query(sql, new IdNameTableRowMapper());
 	}
 
 

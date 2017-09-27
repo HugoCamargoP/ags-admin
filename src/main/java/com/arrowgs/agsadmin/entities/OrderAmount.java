@@ -6,6 +6,8 @@ public class OrderAmount {
 	private Integer order;
 	private Double	amount;
 	private String	detail;
+	private Integer	tenderType;
+	private String	variety;
 	
 	/*********** Getter and Setter id ***********/
 	public Integer getId() {
@@ -40,6 +42,26 @@ public class OrderAmount {
 	}
 	public void setDetail(String detail) {
 		this.detail = detail;
+	}
+
+	
+	/*********** Getter and Setter tenderType ***********/
+	public Integer getTenderType() {
+		return tenderType;
+	}
+
+	public void setTenderType(Integer tenderType) {
+		this.tenderType = tenderType;
+	}
+
+	
+	/*********** Getter and Setter variety ***********/
+	public String getVariety() {
+		return variety;
+	}
+
+	public void setVariety(String variety) {
+		this.variety = variety;
 	}
 	
 	

@@ -58,4 +58,7 @@ public interface ProductService {
 	
 	//Sales By Size
 	List<IdNumTable> getSalesBySize();
+	
+	//Departments
+	List<IdNameTable> getDepartments();
 }

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.arrowgs.agsadmin.daos.OrderDao;
+import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderAmount;
 import com.arrowgs.agsadmin.entities.OrderDetail;
@@ -503,6 +504,18 @@ public class OrderServiceImplementation implements OrderService {
 			throw e;
 		}
 		return ordersDetail;
+	}
+
+	@Override
+	public List<IdNameTable> getTenderTypes() {
+		List<IdNameTable> tenderTypes;
+		try{
+			tenderTypes = orderDao.getTenderTypes();
+		}catch(Exception e){
+			logger.error("OrderService : getTenderTypes : " + e.toString());
+			throw e;
+		}
+		return tenderTypes;
 	}
 
 	

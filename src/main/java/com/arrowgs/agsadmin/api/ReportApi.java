@@ -1,11 +1,13 @@
 package com.arrowgs.agsadmin.api;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,7 @@ import com.arrowgs.agsadmin.helpers.ControllerHelper;
 import com.arrowgs.agsadmin.helpers.ControllerHelper.ResponseStatus;
 import com.arrowgs.agsadmin.helpers.SqlHelper;
 import com.arrowgs.agsadmin.service.AddressService;
+import com.arrowgs.agsadmin.service.JasperService;
 import com.arrowgs.agsadmin.service.OrderService;
 import com.arrowgs.agsadmin.service.ProductService;
 import com.arrowgs.agsadmin.controllers.cons.Constants.ApiMappings;
@@ -43,6 +46,9 @@ public class ReportApi {
 	
 	@Autowired
 	AddressService addressService;
+	
+	@Autowired
+	JasperService jasperService;
 	
 	@RequestMapping(path = ApiMappings.ReportSchema, method = RequestMethod.GET)
 	public List<Report> getReports(){
@@ -92,7 +98,8 @@ public class ReportApi {
 			@RequestParam(required = false, name = "clientFlag") boolean clientFlag,
 			@RequestParam(required = false, name = "ordersFlag") boolean ordersFlag,
 			@RequestParam(required = false, name = "stocktakingFlag") boolean stocktakingFlag,
-			@RequestParam(required = false, name = "sizeFlag") boolean salesBySize){
+			@RequestParam(required = false, name = "sizeFlag") boolean salesBySize,
+			HttpServletResponse responseServlet){
 		
 		Order order = new Order();
 		order.setProduct(product);
@@ -108,10 +115,12 @@ public class ReportApi {
 		List<Order> orders=null;
 		List<Product> products = null;
 		List<IdNumTable> salesBySizeTable = null;
+		Integer reportType=0;
 		try{
 			
 			if(ordersFlag){				
 				orders = orderService.getSalesByFilter(order);
+				reportType=1;
 			}
 			else{
 				
@@ -119,6 +128,7 @@ public class ReportApi {
 					order.setHistoric(OrderService.approvedOrder);
 					order.setLastBoundQuery(OrderService.completedOrder);
 					ordersDetail = orderService.getSalesProduct(order);
+					reportType=2;
 				}
 				if(clientFlag){
 					if(ordersDetail==null && client != null && client.intValue()>0){						
@@ -126,6 +136,7 @@ public class ReportApi {
 						order.setLastBoundQuery(OrderService.warning);
 						ordersDetail = orderService.getSalesProduct(order);
 						orders = orderService.getSalesByFilter(order);
+						reportType=3;
 					}
 					
 				}
@@ -137,12 +148,25 @@ public class ReportApi {
 					productEnti.setSku(sku);
 					productEnti.setTalla(sizeProduct);
 					products = productService.getProductsByFilter(productEnti, 1, 999999999);
+					reportType=4;
 				}
 				if(salesBySize){
 					salesBySizeTable = productService.getSalesBySize();
+					reportType=5;
 				}
 			}
-
+			ByteArrayOutputStream pdf = new ByteArrayOutputStream();
+			if(orders!=null){
+				 pdf = jasperService.getReportPdf(reportType, orders);
+			}
+			byte[] os = pdf.toByteArray();
+			responseServlet.setContentLength(os.length);
+			responseServlet.setContentType("application/pdf");
+			responseServlet.addHeader("Content-Disposition","attachment; filename=reporte.pdf");
+			
+			responseServlet.getOutputStream().write(os);
+			responseServlet.getOutputStream().flush();
+			
 			status = ResponseStatus.OK;
 		}catch(Exception e){
 			ordersDetail = null;

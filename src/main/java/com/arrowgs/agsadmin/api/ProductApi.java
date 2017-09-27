@@ -508,4 +508,19 @@ public class ProductApi {
 		return ControllerHelper.mapResponse(status, null);
 	}
 	
+	
+	@RequestMapping(path = ApiMappings.Departments, method = RequestMethod.GET)
+	public Map<String,? extends Object> getDepartments(){
+		ResponseStatus status;
+		List<IdNameTable> departments;
+		try{
+			departments = productService.getDepartments();
+			status = ResponseStatus.OK;
+		}catch(Exception e){
+			departments = null;
+			status = ResponseStatus.ExternalError;
+		}
+		return ControllerHelper.mapResponse(status, departments);
+	}
+	
 }

@@ -2,6 +2,7 @@ package com.arrowgs.agsadmin.service;
 
 import java.util.List;
 
+import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderAmount;
 import com.arrowgs.agsadmin.entities.OrderDetail;
@@ -54,4 +55,7 @@ public interface OrderService {
 	List<Order> getSalesByFilter(Order order);
 	List<OrderDetail> getSalesProduct(Order order);
 	
+	
+	/*Tender Type*/
+	List<IdNameTable> getTenderTypes();
 }

@@ -7,6 +7,7 @@ public class Product {
 	private Integer id;
 	private String 	description;
 	private String	title;
+	private Integer department;
 	
 	//Extra Data
 	private List<ProductDetail> productDetails;
@@ -45,6 +46,16 @@ public class Product {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	
+	/*******Getter and Setter department*******/
+	public Integer getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Integer department) {
+		this.department = department;
 	}
 
 	/*******Getter and Setter productDetail*******/

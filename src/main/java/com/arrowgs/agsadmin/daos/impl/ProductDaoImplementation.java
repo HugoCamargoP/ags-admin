@@ -55,6 +55,7 @@ public class ProductDaoImplementation implements ProductDao {
 			producto.setId(rs.getInt(1));
 			producto.setDescription(rs.getString(2));
 			producto.setTitle(rs.getString(4));
+			producto.setDepartment(rs.getInt(5));
 			return producto;
 		}
 		
@@ -385,6 +386,7 @@ public class ProductDaoImplementation implements ProductDao {
 			producto.put("descripcion", product.getDescription());
 			producto.put("titulo", product.getTitle());
 			producto.put("activo", Enable);
+			producto.put("departamento", product.getDepartment());
 			Number idProduct = productoInsertActor.executeAndReturnKey(producto);
 			product.setId(idProduct.intValue());
 			if(product.getSkuProduct()!=null || product.getSkuProduct().size()>0){
@@ -876,6 +878,12 @@ public class ProductDaoImplementation implements ProductDao {
 			}
 		});
 		
+	}
+
+	@Override
+	public List<IdNameTable> getDepartments() {
+		String sql = "SELECT * FROM departamentos";
+		return jdbcTemplate.query(sql, new SizeRowMapper());
 	}
 	
 

@@ -3,6 +3,7 @@ package com.arrowgs.agsadmin.daos;
 import java.util.Date;
 import java.util.List;
 
+import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderAmount;
 import com.arrowgs.agsadmin.entities.OrderDetail;
@@ -56,5 +57,9 @@ public interface OrderDao {
 	List<Order> getSalesByFilter(Order order);
 	List<OrderDetail> getSalesProduct(Order order);
 	List<OrderDetail> getOrderDetailByFilter(Order order);
+	
+	//Tipos Pago
+	List<IdNameTable> getTenderTypes();
+	
 	
 }

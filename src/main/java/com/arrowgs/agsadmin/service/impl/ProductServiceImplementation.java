@@ -453,5 +453,17 @@ public class ProductServiceImplementation implements ProductService {
 		return sizeSales;
 	}
 
+	@Override
+	public List<IdNameTable> getDepartments() {
+		List<IdNameTable> departments;
+		try{
+			departments = productDao.getDepartments();
+		}catch(Exception e){
+			logger.error("ProductService : getDepartments : " + e.toString());
+			throw e;
+		}
+		return departments;
+	}
+
 
 }
