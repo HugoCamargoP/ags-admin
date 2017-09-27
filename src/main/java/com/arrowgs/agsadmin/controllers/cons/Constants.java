@@ -24,6 +24,8 @@ public interface Constants {
 		static final String adminUsers 			= rootadmin+"/users";
 		static final String adminItems 			= rootadmin+"/items";
 		static final String adminReports 		= rootadmin+"/reports";
+		static final String adminSales			= rootadmin+"/sales";
+		static final String adminTopFive		= rootadmin+"/top-five";
 		
 	}
 	
@@ -42,8 +44,12 @@ public interface Constants {
 		static final String ProductCountFilter		= ServiceContext + "/product_filter/count";
 		static final String ProductSizes	  		= ServiceContext + "/product_sizes";
 		static final String ProductSizesDescription = ProductSizes 	 + "/description";
+		static final String Departments				= ServiceContext + "/departamentos";
 		
 		//Report
 		static final String ReportSchema			= ServiceContext + "/reports";
+		static final String SalesReportConstructor2	= ServiceContext + "/sales2";
+		static final String SalesReportConstructor	= ServiceContext + "/sales";
+		static final String TopFive					= ServiceContext + "/top-five";
 	}
 }

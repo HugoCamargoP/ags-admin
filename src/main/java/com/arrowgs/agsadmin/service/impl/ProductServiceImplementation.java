@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.arrowgs.agsadmin.daos.ProductDao;
 import com.arrowgs.agsadmin.entities.IdNameTable;
+import com.arrowgs.agsadmin.entities.IdNumTable;
 import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.entities.ProductDetail;
 import com.arrowgs.agsadmin.entities.SizeDescription;
@@ -419,6 +420,49 @@ public class ProductServiceImplementation implements ProductService {
 			throw e;
 		}
 		
+	}
+
+	@Override
+	public List<Product> topProducts() {
+		List<Product> top=null;
+		try{
+			top = productDao.topProducts();
+			if(top!=null){
+				Iterator<Product> iterator = top.iterator();
+				while(iterator.hasNext()){
+					Product product = iterator.next();
+					product.setSkuProduct(productDao.skuProductsBySalesProducts(product.getId()));
+				}
+			}
+		}catch(Exception e){
+			logger.error("ProductService : topProducts : " + e.toString());
+			throw e;
+		}
+		return top;
+	}
+
+	@Override
+	public List<IdNumTable> getSalesBySize() {
+		List<IdNumTable> sizeSales;
+		try{
+			sizeSales = productDao.getSalesBySize();
+		}catch(Exception e){
+			logger.error("ProductService : getSalesBySize : "+ e.toString());
+			throw e;
+		}
+		return sizeSales;
+	}
+
+	@Override
+	public List<IdNameTable> getDepartments() {
+		List<IdNameTable> departments;
+		try{
+			departments = productDao.getDepartments();
+		}catch(Exception e){
+			logger.error("ProductService : getDepartments : " + e.toString());
+			throw e;
+		}
+		return departments;
 	}
 
 

@@ -397,6 +397,9 @@ public class ProductApi {
 		if(product.getSku()!=null){
 			product.setSku(PathHelper.sqlLike(product.getSku()));
 		}
+		if(product.getTitle()!=null){
+			product.setTitle(PathHelper.sqlLike(product.getTitle()));
+		}
 		List<Product> products;
 		try{
 			products = productService.getProductsByFilter(product, page, inPage);
@@ -503,6 +506,21 @@ public class ProductApi {
 			status = ResponseStatus.ExternalError;
 		}
 		return ControllerHelper.mapResponse(status, null);
+	}
+	
+	
+	@RequestMapping(path = ApiMappings.Departments, method = RequestMethod.GET)
+	public Map<String,? extends Object> getDepartments(){
+		ResponseStatus status;
+		List<IdNameTable> departments;
+		try{
+			departments = productService.getDepartments();
+			status = ResponseStatus.OK;
+		}catch(Exception e){
+			departments = null;
+			status = ResponseStatus.ExternalError;
+		}
+		return ControllerHelper.mapResponse(status, departments);
 	}
 	
 }

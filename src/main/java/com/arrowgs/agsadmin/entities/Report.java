@@ -8,6 +8,7 @@ public class Report {
 	
 		private String name;
 		private int type;
+		private String model;
 		
 		public Parameter() {
 			// TODO Auto-generated constructor stub
@@ -15,10 +16,11 @@ public class Report {
 		
 		
 		
-		public Parameter(String name, int type) {
+		public Parameter(String name, int type, String model) {
 			super();
 			this.name = name;
 			this.type = type;
+			this.model = model;
 		}
 		
 		
@@ -34,6 +36,12 @@ public class Report {
 		}
 		public void setType(int type) {
 			this.type = type;
+		}
+		public String getModel() {
+			return model;
+		}
+		public void setModel(String model) {
+			this.model = model;
 		}
 	
 	}
