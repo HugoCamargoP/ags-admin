@@ -49,9 +49,6 @@
 	<!-- We will use C3P0 as Connection & Stmt pooling strategy -->
 	<c3p0.version>0.9.5.2</c3p0.version>
 	
-	<!-- PDFBox -->
-	<pdfbox.version>2.0.0</pdfbox.version>
-
 	<!-- Logging -->
 	<logback.version>1.0.13</logback.version>
 	<slf4j.version>1.7.5</slf4j.version>
@@ -158,9 +155,21 @@
 	</dependency>
 	
 	<dependency>
+        <groupId>commons-digester</groupId>
+        <artifactId>commons-digester</artifactId>
+        <version>1.8</version>
+    </dependency>
+    
+	<dependency>
 	  <groupId>org.apache.tiles</groupId>
 	  <artifactId>tiles-jsp</artifactId>
 	  <version>${tiles.version}</version>
+      <exclusions>
+          <exclusion>
+              <groupId>commons-digester</groupId>
+              <artifactId>commons-digester</artifactId>
+          </exclusion>
+      </exclusions>
 	</dependency>
 	
 	<!-- MySQL -->
@@ -219,7 +228,13 @@
 		<version>${logback.version}</version>
 		<scope>runtime</scope>
 	</dependency>
-
+	
+	<dependency>
+	    <groupId>net.sf.jasperreports</groupId>
+	    <artifactId>jasperreports</artifactId>
+	    <version>6.4.0</version>
+	</dependency>
+	
   </dependencies>
 
   <build>
