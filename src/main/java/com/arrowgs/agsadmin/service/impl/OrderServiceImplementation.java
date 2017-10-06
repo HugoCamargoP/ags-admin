@@ -439,7 +439,18 @@ public class OrderServiceImplementation implements OrderService {
 					Order actual = iterator.next();
 					order.setId(actual.getId());
 					actual.setOrderDetail(orderDao.getOrderDetailByFilter(order));
+					
+					if(actual.getOrderDetail()!=null)
+					{
+						Iterator<OrderDetail> orderDetail = actual.getOrderDetail().iterator();
+						while(orderDetail.hasNext()){
+						OrderDetail detail = orderDetail.next();
+						detail.setProduct(productService.getSkuProductById(detail.getIdProductSku()));
+						detail.setAmount(detail.getQuantity()*detail.getIndividualPrice());
+					}
 					actual.setOrderRecord(orderDao.getOrderRecordByOrder(actual.getId()));
+					actual.setOrderAmount(orderDao.getOrderAmountByOrder(actual.getId()));
+					}
 				}
 			}
 		}catch(Exception e){

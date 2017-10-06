@@ -49,6 +49,12 @@ public class ProductDaoImplementation implements ProductDao {
 	/* Product */
 	class ProductRowMapper implements RowMapper<Product>{
 
+		private boolean expandible;
+		
+		public ProductRowMapper(boolean expandible) {
+			this.expandible = expandible;
+		}
+		
 		@Override
 		public Product mapRow(ResultSet rs, int row) throws SQLException {
 			Product producto = new Product();
@@ -56,6 +62,9 @@ public class ProductDaoImplementation implements ProductDao {
 			producto.setDescription(rs.getString(2));
 			producto.setTitle(rs.getString(4));
 			producto.setDepartment(rs.getInt(5));
+			if(expandible){
+				producto.setDepartmentText(rs.getString(6));
+			}
 			return producto;
 		}
 		
@@ -63,10 +72,16 @@ public class ProductDaoImplementation implements ProductDao {
 	
 	class ProductRowExtractor implements ResultSetExtractor<Product>{
 
+		private boolean expandible;
+		
+		public ProductRowExtractor(boolean expandible) {
+			this.expandible = expandible;
+		}
+		
 		@Override
 		public Product extractData(ResultSet rs) throws SQLException, DataAccessException {
 			
-			return rs.next() ? (new ProductRowMapper()).mapRow(rs, 0) : null;
+			return rs.next() ? (new ProductRowMapper(expandible)).mapRow(rs, 0) : null;
 		}
 		
 	}
@@ -254,7 +269,7 @@ public class ProductDaoImplementation implements ProductDao {
 		@Override
 		public Product extractData(ResultSet rs) throws SQLException, DataAccessException {
 			
-			return rs.next() ? (new ProductRowMapper()).mapRow(rs, 0) : null;
+			return rs.next() ? (new ProductRowMapper(false)).mapRow(rs, 0) : null;
 		}
 		
 	}
@@ -295,15 +310,15 @@ public class ProductDaoImplementation implements ProductDao {
 	public List<Product> getProducts() {		
 		String query = "select * from productos where activo = :enable order by id desc";
 		SqlParameterSource paramMap = new MapSqlParameterSource("enable",Enable);
-		return jdbcTemplate.query(query,paramMap,new ProductRowMapper());
+		return jdbcTemplate.query(query,paramMap,new ProductRowMapper(false));
 	}
 
 	@Override
 	public Product getProductById(Integer id) {
-		String query = "select * from productos where id = :id and activo = :enable";
+		String query = "select p.*, d.descripcion from productos p left join departamentos d on p.departamento=d.id where p.id = :id and p.activo = :enable";
 		MapSqlParameterSource productMap = new MapSqlParameterSource("id",id);
 		productMap.addValue("enable", Enable);
-		return jdbcTemplate.query(query, productMap, new ProductRowExtractor());
+		return jdbcTemplate.query(query, productMap, new ProductRowExtractor(true));
 	}
 
 	@Override
@@ -473,7 +488,7 @@ public class ProductDaoImplementation implements ProductDao {
 	public List<Product> getProductsByFilter(Product product, Integer page, Integer inPage) {
 		 page = (page -1)*inPage;
 		 boolean where = false;
-		 StringBuilder sql = new StringBuilder("SELECT distinct(p.id), p.descripcion, p.activo, p.titulo FROM productos p LEFT JOIN productos_sku ps ON ps.producto = p.id");
+		 StringBuilder sql = new StringBuilder("SELECT distinct(p.id), p.descripcion, p.activo, p.titulo, p.departamento, d.descripcion FROM productos p LEFT JOIN productos_sku ps ON ps.producto = p.id JOIN departamentos d on p.departamento = d.id");
 		 StringBuilder aux = new StringBuilder("");
 		 Map<String,Object> paramMap = new HashMap<>();		 
 		 if(product.getDescription()!=null && ! product.getDescription().equals("")){			 
@@ -533,7 +548,7 @@ public class ProductDaoImplementation implements ProductDao {
 		 sql.append(" ORDER BY p.id DESC LIMIT :page , :inPage");
 		 paramMap.put("page", page);
 		 paramMap.put("inPage", inPage);
-		return jdbcTemplate.query(sql.toString(), paramMap, new ProductRowMapper());
+		return jdbcTemplate.query(sql.toString(), paramMap, new ProductRowMapper(true));
 	}
 
 	@Override

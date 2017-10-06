@@ -3,6 +3,7 @@ package com.arrowgs.agsadmin.api;
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -128,6 +129,8 @@ public class ReportApi {
 					order.setHistoric(OrderService.approvedOrder);
 					order.setLastBoundQuery(OrderService.completedOrder);
 					ordersDetail = orderService.getSalesProduct(order);
+					products = productService.makeProductListByOrderedOrderDetail(ordersDetail);
+					ordersDetail=null;
 					reportType=2;
 				}
 				if(clientFlag){
@@ -136,7 +139,17 @@ public class ReportApi {
 						order.setLastBoundQuery(OrderService.warning);
 						ordersDetail = orderService.getSalesProduct(order);
 						orders = orderService.getSalesByFilter(order);
-						reportType=3;
+						products = productService.makeProductListByOrderedOrderDetail(ordersDetail);
+						ordersDetail = null;
+						
+						Iterator<Product> iterator = products.iterator();
+						Order using = orders.get(0);
+						while(iterator.hasNext()){
+							Product actual = iterator.next();
+							actual.setUserText(using.getUserText());
+						}
+						//reportType=3;
+						reportType=6;
 					}
 					
 				}
@@ -155,10 +168,8 @@ public class ReportApi {
 					reportType=5;
 				}
 			}
-			ByteArrayOutputStream pdf = new ByteArrayOutputStream();
-			if(orders!=null){
-				 pdf = jasperService.getReportPdf(reportType, orders);
-			}
+			ByteArrayOutputStream pdf = new ByteArrayOutputStream();			
+			pdf = jasperService.getReportPdf(reportType, orders,products, salesBySizeTable);			
 			byte[] os = pdf.toByteArray();
 			responseServlet.setContentLength(os.length);
 			responseServlet.setContentType("application/pdf");
@@ -171,11 +182,15 @@ public class ReportApi {
 		}catch(Exception e){
 			ordersDetail = null;
 			status = ResponseStatus.ExternalError;
+			System.out.println(e);
 		}
 		Map<String,Object> response = new HashMap<>();
-		response.put("productos", ordersDetail);
+		response.put("productos", products);
 		response.put("ordenes", orders);
-		response.put("inventario", products);
+		if(stocktakingFlag)
+		{
+			response.put("inventario", products);
+		}
 		response.put("tallaVentas", salesBySizeTable);
 		return ControllerHelper.mapResponse(status, response);
 	}

@@ -1,6 +1,7 @@
 package com.arrowgs.agsadmin.service.impl;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.arrowgs.agsadmin.daos.ProductDao;
 import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.IdNumTable;
+import com.arrowgs.agsadmin.entities.OrderDetail;
 import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.entities.ProductDetail;
 import com.arrowgs.agsadmin.entities.SizeDescription;
@@ -463,6 +465,56 @@ public class ProductServiceImplementation implements ProductService {
 			throw e;
 		}
 		return departments;
+	}
+
+	//Must be ordered by product
+	@Override
+	public List<Product> makeProductListByOrderedOrderDetail(List<OrderDetail> orderDetail) {
+		List<Product> products=null;
+		try{
+			products = new ArrayList<>();
+			Iterator<OrderDetail> iterator = orderDetail.iterator();
+			List<OrderDetail> orderDetails = new ArrayList<>();
+			int productId = -1, skuId=-1;
+			while(iterator.hasNext()){
+				OrderDetail actual = iterator.next();
+				if(actual.getIdProductSku().intValue()!=skuId){					
+					SkuProduct skuProduct = productDao.getSkuProductById(actual.getIdProductSku().intValue());
+					Product lastOne;
+					Product product = productDao.getProductById(skuProduct.getProduct());
+					if(productId==-1 && orderDetails.isEmpty()){
+						productId = product.getId().intValue();
+						lastOne = product;
+						skuId = actual.getIdProductSku().intValue();
+					}
+					else{
+						lastOne =  productDao.getProductById(productDao.getSkuProductById(skuId).getProduct());
+					}
+					if(product.getId().intValue()!=productId){						
+						List<OrderDetail> realOrder = new ArrayList<>();
+						Iterator<OrderDetail> iteratorDos = orderDetails.iterator();
+						while(iteratorDos.hasNext()){
+							OrderDetail set = iteratorDos.next();
+							realOrder.add(set);
+						}
+						
+						lastOne.setOrdersDetails(realOrder);
+						products.add(lastOne);
+						productId = product.getId().intValue();
+						orderDetails.clear();
+						orderDetails.add(actual);
+						skuId = actual.getIdProductSku().intValue();
+					}
+					else{
+						orderDetails.add(actual);
+					}
+				}
+			}
+		}catch(Exception e){
+			logger.error("ProductService : makeProductListByOrderedOrderDetail : " + e.toString());
+			throw e;
+		}
+		return products;
 	}
 
 

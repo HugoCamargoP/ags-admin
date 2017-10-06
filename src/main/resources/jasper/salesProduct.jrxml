@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="salesProduct" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3cc5d170-9d9a-4a2f-9724-8ba683e7f5f9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Arrow\\ags-admin\\src\\main\\resources\\jasper\\subreport\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="orderDetailSubRepCom" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<field name="title" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="departmentText" class="java.lang.String"/>
+	<field name="ordersDetails" class="java.util.Collection"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="79" uuid="a071f8fa-6ebb-4efb-acbd-e0e96c2e42a6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[VENTAS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<rectangle>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="571" height="125" uuid="66cb1193-a611-461e-aa8d-9ff7df5459d8"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="65" height="20" uuid="f4ed8a0b-3174-470f-96e3-59c4d8a820d8"/>
+				<text><![CDATA[PRODUCTO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="65" y="20" width="100" height="20" uuid="cbea92bb-48ad-42d2-ab84-320d1b76e745"/>
+				<textFieldExpression><![CDATA[$F{title} + ". "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="165" y="20" width="100" height="20" uuid="23bd0f15-083e-47e8-9c12-cbca0ace5085"/>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="0" width="100" height="20" uuid="9d873255-0cd2-4801-849d-a9fbfc6972dc"/>
+				<text><![CDATA[DEPARTAMENTO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="400" y="20" width="100" height="20" uuid="60feee34-d010-4e4b-a0da-6a89ac004b4a"/>
+				<textFieldExpression><![CDATA[$F{departmentText}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="70" width="65" height="44" uuid="c7e424fa-666d-44c9-b7ff-fceb21c43942"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{ordersDetails})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{orderDetailSubRepCom}]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="27" y="50" width="100" height="20" uuid="1280230e-9f26-419a-b717-e9214a67713f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[SKU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="175" y="50" width="100" height="20" uuid="de032c71-7f61-42cf-b590-9f150a527da3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="330" y="50" width="100" height="20" uuid="44a4006d-4e55-4a88-93db-2213fce503fb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Precio por pieza]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="505" y="50" width="66" height="20" uuid="26f1b500-86b6-486c-b2d7-5b40e4f859bf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

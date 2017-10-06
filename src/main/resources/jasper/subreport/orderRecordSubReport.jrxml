@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="orderRecordSubReport" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ee5cc146-8391-4797-85dd-1d6a8a598098">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="stateText" class="java.lang.String"/>
+	<field name="update" class="java.util.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="0" width="126" height="20" uuid="68aaa6f9-e8d0-49ab-a3c9-a63f22779c27"/>
+				<textFieldExpression><![CDATA[$F{stateText}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="128" y="0" width="155" height="20" uuid="64f8d94c-26d4-4463-9763-8bd32c8256c4"/>
+				<textFieldExpression><![CDATA[$F{update}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

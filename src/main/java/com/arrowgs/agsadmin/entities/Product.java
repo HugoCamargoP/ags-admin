@@ -13,6 +13,9 @@ public class Product {
 	private List<ProductDetail> productDetails;
 	private List<SkuProduct> 	skuProduct;
 	private Integer 			sales;
+	private List<OrderDetail>	ordersDetails;
+	private String				departmentText;
+	private String				userText;
 	
 	//Filter Data
 	private String	sku;
@@ -123,6 +126,34 @@ public class Product {
 
 	public void setSales(Integer sales) {
 		this.sales = sales;
+	}
+
+	
+	/*******Getter and Setter OrdersDetails*******/
+	public List<OrderDetail> getOrdersDetails() {
+		return ordersDetails;
+	}
+
+	public void setOrdersDetails(List<OrderDetail> ordersDetails) {
+		this.ordersDetails = ordersDetails;
+	}
+
+	
+	/*******Getter and Setter DepartmentText*******/
+	public String getDepartmentText() {
+		return departmentText;
+	}
+
+	public void setDepartmentText(String departmentText) {
+		this.departmentText = departmentText;
+	}
+
+	public String getUserText() {
+		return userText;
+	}
+
+	public void setUserText(String userText) {
+		this.userText = userText;
 	}
 
 	
