@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.arrowgs.agsadmin.controllers.cons.Constants.ApiMappings;
 import com.arrowgs.agsadmin.entities.IdNumTable;
 import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderDetail;
@@ -30,7 +30,6 @@ import com.arrowgs.agsadmin.service.AddressService;
 import com.arrowgs.agsadmin.service.JasperService;
 import com.arrowgs.agsadmin.service.OrderService;
 import com.arrowgs.agsadmin.service.ProductService;
-import com.arrowgs.agsadmin.controllers.cons.Constants.ApiMappings;
 
 
 @RestController
@@ -210,10 +209,9 @@ public class ReportApi {
 	}
 	
 	@RequestMapping(path = ApiMappings.TopFive, method = RequestMethod.GET)
-	public ModelAndView getTopFive(@RequestParam(name="top",required=true) Integer choose){
+	public Map<String,? extends Object> getTopFive(@RequestParam(name="top",required=true) Integer choose){
 		Map<String,Object> result = null;
 		ResponseStatus status;
-		ModelAndView mv = new ModelAndView();
 		try{
 			switch(choose){
 			case 1:
@@ -239,7 +237,6 @@ public class ReportApi {
 			status = ResponseStatus.ExternalError;
 			result = ControllerHelper.mapResponse(status, null);
 		}
-		mv.addObject("data", result);
-		return mv;
+		return result;
 	}
 }

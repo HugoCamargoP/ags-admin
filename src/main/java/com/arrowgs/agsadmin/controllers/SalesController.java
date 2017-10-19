@@ -2,10 +2,12 @@ package com.arrowgs.agsadmin.controllers;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,8 +45,8 @@ public class SalesController {
 			@RequestParam(required = false, name="product") Integer product,
 			@RequestParam(required = false, name="size") Integer sizeProduct,
 			@RequestParam(required = false, name="sku") String sku,
-			@RequestParam(required = false, name="since") Date since,
-			@RequestParam(required = false, name="upTo") Date upTo,
+			@RequestParam(required = false, name="since") @DateTimeFormat(pattern = "dd-MM-yyyy") Date since,
+			@RequestParam(required = false, name="upTo") @DateTimeFormat(pattern = "dd-MM-yyyy") Date upTo,
 			@RequestParam(required = false, name ="client") Integer client,
 			@RequestParam(required = false, name = "status")Integer statusOrder,
 			@RequestParam(required = false, name = "salesFlag") boolean salesFlag,
@@ -80,6 +82,16 @@ public class SalesController {
 					order.setHistoric(OrderService.approvedOrder);
 					order.setLastBoundQuery(OrderService.completedOrder);
 					ordersDetail = orderService.getSalesProduct(order);
+					products = productService.makeProductListByOrderedOrderDetail(ordersDetail);
+					if(products!=null && products.size()>0){
+						Iterator<Product> iterator = products.iterator();
+						while(iterator.hasNext()){
+							Product actual = iterator.next();
+							actual.setSince(order.getSince());
+							actual.setUpTo(order.getUpTo());
+						}
+					}
+					ordersDetail=null;
 				}
 				if(clientFlag){
 					if(ordersDetail==null && client != null && client.intValue()>0){						
@@ -87,6 +99,20 @@ public class SalesController {
 						order.setLastBoundQuery(OrderService.warning);
 						ordersDetail = orderService.getSalesProduct(order);
 						orders = orderService.getSalesByFilter(order);
+						products = productService.makeProductListByOrderedOrderDetail(ordersDetail);
+						ordersDetail = null;
+						
+						if(products!=null && products.size()>0)
+						{
+							Iterator<Product> iterator = products.iterator();
+							Order using = orders.get(0);
+							while(iterator.hasNext()){
+								Product actual = iterator.next();
+								actual.setUserText(using.getUserText());
+								actual.setSince(order.getSince());
+								actual.setUpTo(order.getUpTo());
+							}
+						}
 					}
 					
 				}
@@ -110,9 +136,12 @@ public class SalesController {
 			status = ResponseStatus.ExternalError;
 		}
 		Map<String,Object> response = new HashMap<>();
-		response.put("productos", ordersDetail);
+		response.put("productos", products);
 		response.put("ordenes", orders);
-		response.put("inventario", products);
+		if(stocktakingFlag)
+		{
+			response.put("inventario", products);
+		}
 		response.put("tallaVentas", salesBySizeTable);
 		mv.addObject("response",ControllerHelper.mapResponse(status, response));
 		return mv;
