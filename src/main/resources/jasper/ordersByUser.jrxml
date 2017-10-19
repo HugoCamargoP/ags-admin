@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ordersByUser" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="973fea72-9a55-4767-a15c-69576e9cc73c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="146"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="orderDetailSub" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -18,11 +18,45 @@
 	<field name="orderDetail" class="java.util.Collection"/>
 	<field name="orderRecord" class="java.util.Collection"/>
 	<field name="orderAmount" class="java.util.Collection"/>
+	<field name="since" class="java.util.Date"/>
+	<field name="upTo" class="java.util.Date"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="80" splitType="Stretch"/>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="0" width="572" height="40" uuid="a2a5fa46-dfef-45a9-813a-2a91b683bb6e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="32"/>
+				</textElement>
+				<text><![CDATA[ÓRDENES]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="516" y="60" width="57" height="20" uuid="0b5ce5bb-1890-4fda-8890-cb9abf9fc937"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="416" y="60" width="100" height="20" uuid="a91e86bc-28af-4dec-95ef-bbea66761ab0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha de creación:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="60" width="101" height="20" isRemoveLineWhenBlank="true" uuid="a733e4b9-c144-4187-842e-c57e37d7a982">
+					<printWhenExpression><![CDATA[$F{since}!=null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Desde: " + new SimpleDateFormat("dd/MM/yyyy").format($F{since})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="124" y="60" width="100" height="20" isRemoveLineWhenBlank="true" uuid="ca6b0f58-d0b4-4c68-9548-6a809a858c9c">
+					<printWhenExpression><![CDATA[$F{upTo}!=null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" Hasta: " + new SimpleDateFormat("dd/MM/yyyy").format($F{upTo})]]></textFieldExpression>
+			</textField>
+		</band>
 	</title>
 	<detail>
 		<band height="369" splitType="Stretch">
@@ -53,13 +87,9 @@
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{orderDetail})]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{orderDetailSub}]]></subreportExpression>
 			</subreport>
-			<textField>
-				<reportElement isPrintRepeatedValues="false" x="202" y="1" width="100" height="20" uuid="2c21f46a-4d04-44de-abbb-500f75563895"/>
-				<textFieldExpression><![CDATA[$F{userText}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="1" width="124" height="20" uuid="e1b6dab1-1891-46de-9ffc-4e9a68035208"/>
-				<text><![CDATA[Autor de las Ordenes:]]></text>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="1" width="224" height="20" uuid="e1b6dab1-1891-46de-9ffc-4e9a68035208"/>
+				<text><![CDATA["Autor de las Ordenes: "  + $F{userText}]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="124" y="36" width="100" height="20" uuid="b7dea48a-b925-45da-9bfb-193620382496"/>
@@ -132,13 +162,34 @@
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{orderRecord})]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{orderRecordSub}]]></subreportExpression>
 			</subreport>
-			<staticText>
-				<reportElement x="1" y="-78" width="572" height="79" uuid="a2a5fa46-dfef-45a9-813a-2a91b683bb6e"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="32"/>
-				</textElement>
-				<text><![CDATA[ÓRDENES]]></text>
-			</staticText>
 		</band>
 	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="473" y="30" width="56" height="20" uuid="cd2b50c2-923e-4208-8604-180e4ed353c6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="529" y="30" width="40" height="20" uuid="933f0a23-c0b0-47c3-bd2e-e2293900b02b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="473" y="30" width="56" height="20" uuid="97936b79-6fc9-4a62-9eda-fe1f30d2853f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="529" y="30" width="40" height="20" uuid="a1b113a3-30fc-42a9-9203-d2d02b157f5d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
 </jasperReport>

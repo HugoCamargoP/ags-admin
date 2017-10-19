@@ -20,9 +20,21 @@
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="572" height="79" uuid="ed3894b6-167f-48f5-a132-e564985fae00"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement x="0" y="0" width="572" height="41" uuid="ed3894b6-167f-48f5-a132-e564985fae00"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="32"/>
+				</textElement>
 				<text><![CDATA[INVENTARIO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="516" y="55" width="57" height="20" uuid="0d423de6-60f3-49da-87ac-ff3b9b835d96"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="416" y="55" width="100" height="20" uuid="e9661e92-e246-4912-91c6-3303049fdf16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha de creación:]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -90,4 +102,32 @@
 			</subreport>
 		</band>
 	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="475" y="30" width="56" height="20" uuid="4eeceb2f-f1ff-4302-98cc-ab7c083bdd65"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="531" y="30" width="40" height="20" uuid="e387ea0f-e00a-488e-a5f5-4d1ec2b1c02a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="475" y="30" width="56" height="20" uuid="65ec43f1-b90b-42ed-b3e8-63e6315c6837"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="531" y="30" width="40" height="20" uuid="8cc8824c-929b-401d-b83e-5d112bf93f96"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
 </jasperReport>

@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -91,8 +92,8 @@ public class ReportApi {
 			@RequestParam(required = false, name="product") Integer product,
 			@RequestParam(required = false, name="size") Integer sizeProduct,
 			@RequestParam(required = false, name="sku") String sku,
-			@RequestParam(required = false, name="since") Date since,
-			@RequestParam(required = false, name="upTo") Date upTo,
+			@RequestParam(required = false, name="since") @DateTimeFormat(pattern = "dd-MM-yyyy") Date since,
+			@RequestParam(required = false, name="upTo") @DateTimeFormat(pattern = "dd-MM-yyyy") Date upTo,
 			@RequestParam(required = false, name ="client") Integer client,
 			@RequestParam(required = false, name = "status")Integer statusOrder,
 			@RequestParam(required = false, name = "salesFlag") boolean salesFlag,
@@ -130,6 +131,14 @@ public class ReportApi {
 					order.setLastBoundQuery(OrderService.completedOrder);
 					ordersDetail = orderService.getSalesProduct(order);
 					products = productService.makeProductListByOrderedOrderDetail(ordersDetail);
+					if(products!=null && products.size()>0){
+						Iterator<Product> iterator = products.iterator();
+						while(iterator.hasNext()){
+							Product actual = iterator.next();
+							actual.setSince(order.getSince());
+							actual.setUpTo(order.getUpTo());
+						}
+					}
 					ordersDetail=null;
 					reportType=2;
 				}
@@ -142,11 +151,16 @@ public class ReportApi {
 						products = productService.makeProductListByOrderedOrderDetail(ordersDetail);
 						ordersDetail = null;
 						
-						Iterator<Product> iterator = products.iterator();
-						Order using = orders.get(0);
-						while(iterator.hasNext()){
-							Product actual = iterator.next();
-							actual.setUserText(using.getUserText());
+						if(products!=null && products.size()>0)
+						{
+							Iterator<Product> iterator = products.iterator();
+							Order using = orders.get(0);
+							while(iterator.hasNext()){
+								Product actual = iterator.next();
+								actual.setUserText(using.getUserText());
+								actual.setSince(order.getSince());
+								actual.setUpTo(order.getUpTo());
+							}
 						}
 						//reportType=3;
 						reportType=6;

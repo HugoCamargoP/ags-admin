@@ -1,5 +1,6 @@
 package com.arrowgs.agsadmin.entities;
 
+import java.util.Date;
 import java.util.List;
 
 public class Product {
@@ -22,6 +23,10 @@ public class Product {
 	private Integer	talla; 
 	private Double	greaterThan;
 	private Double	lessThan;
+	
+	//Report Data Extra
+	private Date	since;
+	private Date	upTo;
 	
 	/*******Getter and Setter Sku*******/
 	public Integer getId(){
@@ -154,6 +159,22 @@ public class Product {
 
 	public void setUserText(String userText) {
 		this.userText = userText;
+	}
+
+	public Date getSince() {
+		return since;
+	}
+
+	public void setSince(Date since) {
+		this.since = since;
+	}
+
+	public Date getUpTo() {
+		return upTo;
+	}
+
+	public void setUpTo(Date upTo) {
+		this.upTo = upTo;
 	}
 
 	

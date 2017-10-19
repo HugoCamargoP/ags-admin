@@ -437,6 +437,8 @@ public class OrderServiceImplementation implements OrderService {
 				Iterator<Order> iterator = orders.iterator();
 				while(iterator.hasNext()){
 					Order actual = iterator.next();
+					actual.setSince(order.getSince());
+					actual.setUpTo(order.getUpTo());
 					order.setId(actual.getId());
 					actual.setOrderDetail(orderDao.getOrderDetailByFilter(order));
 					

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="salesProduct" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3cc5d170-9d9a-4a2f-9724-8ba683e7f5f9">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="1"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Arrow\\ags-admin\\src\\main\\resources\\jasper\\subreport\\"]]></defaultValueExpression>
 	</parameter>
@@ -13,16 +13,44 @@
 	<field name="description" class="java.lang.String"/>
 	<field name="departmentText" class="java.lang.String"/>
 	<field name="ordersDetails" class="java.util.Collection"/>
+	<field name="since" class="java.util.Date"/>
+	<field name="upTo" class="java.util.Date"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="572" height="79" uuid="a071f8fa-6ebb-4efb-acbd-e0e96c2e42a6"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement x="0" y="0" width="572" height="47" uuid="a071f8fa-6ebb-4efb-acbd-e0e96c2e42a6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="32"/>
+				</textElement>
 				<text><![CDATA[VENTAS]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="416" y="59" width="100" height="20" uuid="ac4f2687-cb6e-46e8-8f94-f6140f99d2e3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha de creación:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="516" y="59" width="57" height="20" uuid="531fde0e-4662-44df-8b02-82735a1fb3dc"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="124" y="59" width="100" height="20" isRemoveLineWhenBlank="true" uuid="e0c13fc6-d6de-40ff-a4bc-61ae7b585a7b">
+					<printWhenExpression><![CDATA[$F{upTo}!=null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" Hasta: " + new SimpleDateFormat("dd/MM/yyyy").format($F{upTo})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="59" width="101" height="20" isRemoveLineWhenBlank="true" uuid="d0f8ce24-88fd-448f-89c5-e01b72d84d2f">
+					<printWhenExpression><![CDATA[$F{since}!=null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Desde: " + new SimpleDateFormat("dd/MM/yyyy").format($F{since})]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<detail>
@@ -77,4 +105,32 @@
 			</staticText>
 		</band>
 	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="476" y="30" width="56" height="20" uuid="468dbd47-4c35-4e5c-a484-d4884ebd0240"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="532" y="30" width="40" height="20" uuid="376aab2a-bf2a-4f4f-a59d-6d1cb7bf86df"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="475" y="30" width="56" height="20" uuid="da0ec41e-5b9a-44b7-b634-3e2aaf0f7316"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="531" y="30" width="40" height="20" uuid="e52934ee-0060-4474-a07d-aa6b7394947d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
 </jasperReport>
