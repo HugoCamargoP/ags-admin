@@ -12,5 +12,7 @@ import com.arrowgs.agsadmin.entities.Product;
 public interface JasperService {
 	
 	public ByteArrayOutputStream getReportPdf(Integer reportType, List<Order> orders, List<Product> products, List<IdNumTable> salesBySize) throws Exception;
+	
+	public ByteArrayOutputStream getTopFivePdf(List<Order> orders, List<Product> products, List<IdNumTable> countries) throws Exception;
 
 }

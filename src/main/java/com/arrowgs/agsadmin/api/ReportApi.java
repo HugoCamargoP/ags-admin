@@ -209,33 +209,50 @@ public class ReportApi {
 	}
 	
 	@RequestMapping(path = ApiMappings.TopFive, method = RequestMethod.GET)
-	public Map<String,? extends Object> getTopFive(@RequestParam(name="top",required=true) Integer choose){
+	public Map<String,? extends Object> getTopFive(@RequestParam(name="top",required=true) Integer choose, HttpServletResponse responseServlet){
 		Map<String,Object> result = null;
 		ResponseStatus status;
+		List<Product> products = null;
+		List<Order> orders = null;
+		List<IdNumTable> topCountries = null;
+		ByteArrayOutputStream pdf = new ByteArrayOutputStream();	
 		try{
 			switch(choose){
 			case 1:
-				List<Product> products = productService.topProducts();
+				products = productService.topProducts();
 				status = ResponseStatus.OK;
 				result = ControllerHelper.mapResponse(status, products);
 				break;
 			case 2:
 				break;
 			case 3:
-				List<Order> orders = orderService.topFiveOrders();
+				orders = orderService.topFiveOrders();
 				status = ResponseStatus.OK;
 				result = ControllerHelper.mapResponse(status, orders);
 				break;
 			case 4:
-				List<IdNumTable> topCountries = addressService.getTopCountries();
+				topCountries = addressService.getTopCountries();
 				status = ResponseStatus.OK;
 				result = ControllerHelper.mapResponse(status, topCountries);
 				break;
 			default:
 			}
+			
+			pdf = jasperService.getTopFivePdf(orders, products, topCountries);
+			
+			byte[] os = pdf.toByteArray();
+			responseServlet.setContentLength(os.length);
+			responseServlet.setContentType("application/pdf");
+			responseServlet.addHeader("Content-Disposition","attachment; filename=reporte.pdf");
+			
+			responseServlet.getOutputStream().write(os);
+			responseServlet.getOutputStream().flush();
+			
+			status = ResponseStatus.OK;
+			result = ControllerHelper.mapResponse(status, result);
 		}catch(Exception e){
 			status = ResponseStatus.ExternalError;
-			result = ControllerHelper.mapResponse(status, null);
+			result = ControllerHelper.mapResponse(status, null);			
 		}
 		return result;
 	}

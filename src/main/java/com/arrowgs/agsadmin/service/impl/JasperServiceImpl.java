@@ -174,5 +174,67 @@ public class JasperServiceImpl implements JasperService{
 		return os;
 	}
 
+	
+	@Override
+	public ByteArrayOutputStream getTopFivePdf(List<Order> orders, List<Product> products, List<IdNumTable> countries)
+			throws Exception {
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		InputStream is = null;
+		Map<String,Object> paramMap = new HashMap<>();
+		JRPdfExporter exporter;
+		if(orders!=null){
+			is = JasperServiceImpl.class.getClassLoader().getResourceAsStream("/jasper/orders.jrxml");
+			InputStream orderDetailSub = JasperServiceImpl.class.getClassLoader().getResourceAsStream("/jasper/subreport/orderDetailSubReport.jrxml");
+			JasperReport orderDetailCom= JasperCompileManager.compileReport(orderDetailSub);
+			InputStream orderRecordSub = JasperServiceImpl.class.getClassLoader().getResourceAsStream("/jasper/subreport/orderRecordSubReport.jrxml");
+			JasperReport orderRecordCom= JasperCompileManager.compileReport(orderRecordSub);
+			InputStream orderAmountSub = JasperServiceImpl.class.getClassLoader().getResourceAsStream("/jasper/subreport/orderAmountSubReport.jrxml");
+			JasperReport orderAmountCom= JasperCompileManager.compileReport(orderAmountSub);
+			
+			paramMap.clear();
+			paramMap.put("orderDetailSub", orderDetailCom);
+			paramMap.put("orderRecordSub", orderRecordCom);
+			paramMap.put("orderAmountSub", orderAmountCom);
+			
+			JasperReport jasperReport = JasperCompileManager.compileReport(is);			
+			JasperPrint jasperPrint = JasperFillManager.fillReport(
+					  jasperReport, paramMap, new JRBeanCollectionDataSource(orders));
+			exporter = new JRPdfExporter();
+			 
+			exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(os));
+			exporter.exportReport();
+				
+		}
+		if(products!=null){
+			is = JasperServiceImpl.class.getClassLoader().getResourceAsStream("/jasper/topFiveProducts.jrxml");
+			InputStream productSubReport = JasperServiceImpl.class.getClassLoader().getResourceAsStream("/jasper/subreport/topSkuProductSubReport.jrxml");
+			JasperReport productSubReportComp = JasperCompileManager.compileReport(productSubReport);
+			paramMap.put("skuProduct", productSubReportComp);
+			JasperReport productComp = JasperCompileManager.compileReport(is);
+			
+			JasperPrint productPrint = JasperFillManager.fillReport(
+					productComp, paramMap, new JRBeanCollectionDataSource(products));
+			
+			exporter = new JRPdfExporter();
+			exporter.setExporterInput(new SimpleExporterInput(productPrint));
+			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(os));
+			exporter.exportReport();
+			
+		}
+		if(countries!=null){
+			is = JasperServiceImpl.class.getClassLoader().getResourceAsStream("/jasper/topCountries.jrxml");
+			JasperReport countriesCom= JasperCompileManager.compileReport(is);
+			
+			JasperPrint countriesPrint = JasperFillManager.fillReport(
+					countriesCom,null, new JRBeanCollectionDataSource(countries));
+			exporter = new JRPdfExporter();
+			exporter.setExporterInput(new SimpleExporterInput(countriesPrint));
+			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(os));
+			exporter.exportReport();
+		}
+		return os;
+	}
+
 
 }
