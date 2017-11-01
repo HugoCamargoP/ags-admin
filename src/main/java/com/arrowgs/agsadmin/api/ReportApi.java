@@ -161,8 +161,8 @@ public class ReportApi {
 								actual.setUpTo(order.getUpTo());
 							}
 						}
-						//reportType=3;
-						reportType=6;
+						reportType=3;
+						//reportType=6;
 					}
 					
 				}
@@ -178,6 +178,12 @@ public class ReportApi {
 				}
 				if(salesBySize){
 					salesBySizeTable = productService.getSalesBySize();
+					if(salesBySizeTable!=null && salesBySizeTable.size()>0)
+					{
+						salesBySizeTable.get(0).setSince(order.getSince());
+						salesBySizeTable.get(0).setUpTo(order.getUpTo());
+						
+					}
 					reportType=5;
 				}
 			}

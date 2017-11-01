@@ -1,5 +1,7 @@
 package com.arrowgs.agsadmin.entities;
 
+import java.util.Date;
+
 public class IdNumTable {
 
 	private Integer	id;
@@ -8,6 +10,10 @@ public class IdNumTable {
 	/*Extra Data*/
 	private String	name;
 	private Double	doubleAttribute;
+	
+	/*Report Data*/
+	private Date	since;
+	private Date	upTo;
 	
 	public Integer getId() {
 		return id;
@@ -34,6 +40,18 @@ public class IdNumTable {
 	}
 	public void setDoubleAttribute(Double doubleAttribute) {
 		this.doubleAttribute = doubleAttribute;
+	}
+	public Date getSince() {
+		return since;
+	}
+	public void setSince(Date since) {
+		this.since = since;
+	}
+	public Date getUpTo() {
+		return upTo;
+	}
+	public void setUpTo(Date upTo) {
+		this.upTo = upTo;
 	}
 	
 

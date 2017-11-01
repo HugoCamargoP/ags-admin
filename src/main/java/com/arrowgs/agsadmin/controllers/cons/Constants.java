@@ -51,5 +51,8 @@ public interface Constants {
 		static final String SalesReportConstructor2	= ServiceContext + "/sales2";
 		static final String SalesReportConstructor	= ServiceContext + "/sales";
 		static final String TopFive					= ServiceContext + "/top-five";
+		
+		//Message
+		static final String MessageProperties		= ServiceContext + "/messages";
 	}
 }

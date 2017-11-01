@@ -6,6 +6,18 @@
  */
 function Service(http, url) 
 {
+
+	/************Messages**************/
+	
+	//Obtiene el mensaje que corresponde al nombre del atributo
+		//Parámetros necesarios: String attribute
+	this.getMessage = function(attribute){
+		return http({
+			'method':'GET',
+			'url':url + '/messages?attribute='+attribute
+		})
+	}
+	
     /************ORDERS**************/
    
     //Trae la orden que corresponda al usuario y estado en que se encuentre (wishlist,shopping car, etc)
