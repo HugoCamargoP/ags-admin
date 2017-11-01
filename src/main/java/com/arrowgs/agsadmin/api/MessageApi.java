@@ -8,12 +8,13 @@ import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.arrowgs.agsadmin.controllers.cons.Constants.ApiMappings;
 import com.arrowgs.agsadmin.helpers.ControllerHelper;
 import com.arrowgs.agsadmin.helpers.ControllerHelper.ResponseStatus;
 
-
+@RestController
 public class MessageApi {
 
 	@Autowired
