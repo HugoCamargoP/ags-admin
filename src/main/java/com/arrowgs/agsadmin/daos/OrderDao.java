@@ -25,7 +25,7 @@ public interface OrderDao {
 	void deleteOrder(Integer idOrden);	
 	void addOrder(Order order);
 	void updateOrder(Order order);
-	void updateState(Order order, OrderRecord orderRecord);
+	void updateStatus(Order order, OrderRecord orderRecord);
 	Integer getCountByFilter(Order order);
 	List<Order> getOrdersByFilter(Order order, Integer page, Integer numOrder);
 	List<Order> getTopOrdersSales();

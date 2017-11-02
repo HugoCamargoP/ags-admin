@@ -30,7 +30,7 @@ public interface OrderService {
 	Order getUserCar(Integer user, Integer status);
 	boolean addOrder(Order order);
 	boolean updateOrder(Order order);
-	void updateStateOrder(Order order);
+	void updateOrderStatus(Order order);
 	boolean deleteOrder(Integer idOrden);
 	Integer getCountByFilter(Order order);
 	boolean checkingShoppingCar(Integer user);

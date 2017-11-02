@@ -203,13 +203,13 @@ public class OrderServiceImplementation implements OrderService {
 	}
 	
 	@Override
-	public void updateStateOrder(Order order) {	
+	public void updateOrderStatus(Order order) {	
 		try{
 			OrderRecord orderRecord = new OrderRecord();		
 			orderRecord.setOrder(order.getId());
 			orderRecord.setState(order.getState());
 			orderRecord.setUpdate(new Date());
-			orderDao.updateState(order, orderRecord); 
+			orderDao.updateStatus(order, orderRecord); 
 		}catch(Exception e){
 			logger.error("OrderService : updateStateOrder : " + e.toString());
 			throw e;

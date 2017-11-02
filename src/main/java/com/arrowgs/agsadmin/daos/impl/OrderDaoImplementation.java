@@ -310,7 +310,7 @@ public class OrderDaoImplementation implements OrderDao{
 	}
 	
 	@Override
-	public void updateState(Order order, OrderRecord orderRecord) {
+	public void updateStatus(Order order, OrderRecord orderRecord) {
 		TransactionStatus transactionStatus =
 				transactionManager.getTransaction(new DefaultTransactionDefinition());
 		try{

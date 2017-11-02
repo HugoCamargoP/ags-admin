@@ -100,7 +100,7 @@ function Service(http, url)
     //Actualiza el estado de la orden y agrega informacion al historial
         //Parámetros necesarios: Order order
     this.updateOrderStatus = function(order){
-        return http.put(url + '/update_state',order)
+        return http.put(url + '/update_status',order)
     }
    
     //Actualiza el estado individual de un orderDetail para llevarlo de wishList a ShoppingCar

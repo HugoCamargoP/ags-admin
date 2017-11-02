@@ -54,5 +54,9 @@ public interface Constants {
 		
 		//Message
 		static final String MessageProperties		= ServiceContext + "/messages";
+		
+		
+		//Order
+		static final String UpdateState		  	   = ServiceContext + "/update_status";
 	}
 }
