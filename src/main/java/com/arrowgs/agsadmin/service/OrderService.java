@@ -6,6 +6,7 @@ import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderAmount;
 import com.arrowgs.agsadmin.entities.OrderDetail;
+import com.arrowgs.agsadmin.entities.User;
 
 public interface OrderService {
 	
@@ -58,4 +59,7 @@ public interface OrderService {
 	
 	/*Tender Type*/
 	List<IdNameTable> getTenderTypes();
+	
+	/*TOP FIVE CUSTOMER*/
+	List<User> topFiveCustomer();
 }

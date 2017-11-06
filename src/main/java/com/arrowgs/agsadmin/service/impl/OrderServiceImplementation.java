@@ -18,6 +18,7 @@ import com.arrowgs.agsadmin.entities.OrderDetail;
 import com.arrowgs.agsadmin.entities.OrderRecord;
 import com.arrowgs.agsadmin.entities.ProductDetail;
 import com.arrowgs.agsadmin.entities.SkuProduct;
+import com.arrowgs.agsadmin.entities.User;
 import com.arrowgs.agsadmin.service.OrderService;
 import com.arrowgs.agsadmin.service.ProductService;
 
@@ -529,6 +530,18 @@ public class OrderServiceImplementation implements OrderService {
 			throw e;
 		}
 		return tenderTypes;
+	}
+
+	@Override
+	public List<User> topFiveCustomer() {
+		List<User> users;
+		try{
+			users = orderDao.topFiveCustomer();
+		}catch(Exception e){
+			logger.error("OrderService : topFiveCustomer");
+			throw e;
+		}
+		return users;
 	}
 
 	

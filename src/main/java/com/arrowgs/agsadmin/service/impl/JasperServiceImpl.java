@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.arrowgs.agsadmin.entities.IdNumTable;
 import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.Product;
+import com.arrowgs.agsadmin.entities.User;
 import com.arrowgs.agsadmin.service.JasperService;
 
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -176,7 +177,7 @@ public class JasperServiceImpl implements JasperService{
 
 	
 	@Override
-	public ByteArrayOutputStream getTopFivePdf(List<Order> orders, List<Product> products, List<IdNumTable> countries)
+	public ByteArrayOutputStream getTopFivePdf(List<Order> orders, List<Product> products, List<IdNumTable> countries, List<User> users)
 			throws Exception {
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		InputStream is = null;
@@ -230,6 +231,19 @@ public class JasperServiceImpl implements JasperService{
 					countriesCom,null, new JRBeanCollectionDataSource(countries));
 			exporter = new JRPdfExporter();
 			exporter.setExporterInput(new SimpleExporterInput(countriesPrint));
+			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(os));
+			exporter.exportReport();
+		}
+		if(users!=null){
+			is = JasperServiceImpl.class.getClassLoader().getResourceAsStream("/jasper/topFiveCustomers.jrxml");
+			
+			JasperReport customersCom = JasperCompileManager.compileReport(is);
+			
+			JasperPrint customersPrint = JasperFillManager.fillReport(
+					customersCom,null, new JRBeanCollectionDataSource(users));
+			
+			exporter = new JRPdfExporter();
+			exporter.setExporterInput(new SimpleExporterInput(customersPrint));
 			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(os));
 			exporter.exportReport();
 		}

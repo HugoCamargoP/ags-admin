@@ -8,6 +8,7 @@ import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderAmount;
 import com.arrowgs.agsadmin.entities.OrderDetail;
 import com.arrowgs.agsadmin.entities.OrderRecord;
+import com.arrowgs.agsadmin.entities.User;
 
 public interface OrderDao {
 
@@ -60,6 +61,9 @@ public interface OrderDao {
 	
 	//Tipos Pago
 	List<IdNameTable> getTenderTypes();
+	
+	//Top User
+	List<User> topFiveCustomer();
 	
 	
 }

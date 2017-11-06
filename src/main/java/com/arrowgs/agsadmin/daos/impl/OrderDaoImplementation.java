@@ -28,6 +28,8 @@ import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderAmount;
 import com.arrowgs.agsadmin.entities.OrderDetail;
 import com.arrowgs.agsadmin.entities.OrderRecord;
+import com.arrowgs.agsadmin.entities.User;
+import com.arrowgs.agsadmin.service.OrderService;
 
 
 @Repository
@@ -218,6 +220,23 @@ public class OrderDaoImplementation implements OrderDao{
 		@Override
 		public IdNameTable extractData(ResultSet rs) throws SQLException, DataAccessException {
 			return rs.next() ? (new IdNameTableRowMapper()).mapRow(rs, 0) : null;
+		}
+		
+	}
+	
+	class UserRowMapper implements RowMapper<User>{
+
+		@Override
+		public User mapRow(ResultSet rs, int row) throws SQLException {
+			User myUser = new User();
+			myUser.setEmail(rs.getString(1));
+			myUser.setType(rs.getString(2));			
+			myUser.setName(rs.getString(3));
+			myUser.setPassword(rs.getString(4));
+			myUser.setId(rs.getInt(5));
+			myUser.setAmount(rs.getDouble(6));
+			myUser.setQuantity(rs.getInt(7));
+			return myUser;
 		}
 		
 	}
@@ -736,6 +755,15 @@ public class OrderDaoImplementation implements OrderDao{
 	public List<IdNameTable> getTenderTypes() {
 		String sql = "SELECT * FROM tipos_pago";
 		return jdbcTemplate.query(sql, new IdNameTableRowMapper());
+	}
+
+	@Override
+	public List<User> topFiveCustomer() {
+		String sql = "SELECT u.*, SUM((od.precio_individual * od.cantidad)) AS gasto, SUM(od.cantidad) AS productos FROM orden_detalles od LEFT JOIN ordenes o ON od.orden = o.id LEFT JOIN usuarios u ON o.usuario = u.id WHERE o.estado >=:approved AND o.estado < :warning GROUP BY u.id ORDER BY gasto DESC LIMIT 5";
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("approved", OrderService.approvedOrder);
+		paramMap.put("warning", OrderService.warning);		
+		return jdbcTemplate.query(sql, paramMap, new UserRowMapper());
 	}
 
 

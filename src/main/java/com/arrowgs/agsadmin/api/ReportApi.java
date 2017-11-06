@@ -23,6 +23,7 @@ import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderDetail;
 import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.entities.Report;
+import com.arrowgs.agsadmin.entities.User;
 import com.arrowgs.agsadmin.helpers.ControllerHelper;
 import com.arrowgs.agsadmin.helpers.ControllerHelper.ResponseStatus;
 import com.arrowgs.agsadmin.helpers.SqlHelper;
@@ -221,6 +222,7 @@ public class ReportApi {
 		List<Product> products = null;
 		List<Order> orders = null;
 		List<IdNumTable> topCountries = null;
+		List<User> users = null;
 		ByteArrayOutputStream pdf = new ByteArrayOutputStream();	
 		try{
 			switch(choose){
@@ -230,6 +232,9 @@ public class ReportApi {
 				result = ControllerHelper.mapResponse(status, products);
 				break;
 			case 2:
+				users = orderService.topFiveCustomer();
+				status = ResponseStatus.OK;
+				result = ControllerHelper.mapResponse(status, users);
 				break;
 			case 3:
 				orders = orderService.topFiveOrders();
@@ -244,7 +249,7 @@ public class ReportApi {
 			default:
 			}
 			
-			pdf = jasperService.getTopFivePdf(orders, products, topCountries);
+			pdf = jasperService.getTopFivePdf(orders, products, topCountries,users);
 			
 			byte[] os = pdf.toByteArray();
 			responseServlet.setContentLength(os.length);
@@ -258,7 +263,8 @@ public class ReportApi {
 			result = ControllerHelper.mapResponse(status, result);
 		}catch(Exception e){
 			status = ResponseStatus.ExternalError;
-			result = ControllerHelper.mapResponse(status, null);			
+			result = ControllerHelper.mapResponse(status, null);
+			System.out.println(e);
 		}
 		return result;
 	}
