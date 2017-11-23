@@ -356,6 +356,7 @@ $scope.pago = function ()
 		console.log($scope.formsnewsize);
 		if($scope.formsnewsize.$valid)
 		{
+			$scope.newformssize.department = 1;
 			Service.createSkuProduct($scope.newformssize).then(
 			function successCallback(response){
 				if(response.data.status == 'OK')
