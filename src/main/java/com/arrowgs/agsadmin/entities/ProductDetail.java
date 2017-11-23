@@ -5,6 +5,8 @@ public class ProductDetail {
 	private Integer id;
 	private Integer product;
 	private String url;
+		
+	private Integer side;
 	
 	/************** Getter and Setter id **************/
 	public Integer getId() {
@@ -28,5 +30,13 @@ public class ProductDetail {
 	}
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	
+	/************** Getter and Setter side **************/
+	public Integer getSide() {
+		return side;
+	}
+	public void setSide(Integer side) {
+		this.side = side;
 	}
 }

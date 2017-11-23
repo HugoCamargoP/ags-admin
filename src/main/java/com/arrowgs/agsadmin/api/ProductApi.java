@@ -3,13 +3,19 @@ package com.arrowgs.agsadmin.api;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -194,6 +200,28 @@ public class ProductApi {
 				ProductDetail result = new ProductDetail();
 				result.setProduct(product);
 				result.setUrl(imageName);
+				
+//				BufferedImage imageBuf = ImageIO.read(finalFile);
+//				
+//				File compressedImageFile = new File(ImagePropertiesHelper.resource()+"/compressed."+content);
+//				OutputStream os = new FileOutputStream(compressedImageFile);
+//				
+//				Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName(content);
+//				ImageWriter writer = (ImageWriter) writers.next();
+//				
+//				ImageOutputStream ios = ImageIO.createImageOutputStream(os);
+//			    writer.setOutput(ios);
+//				
+//			    ImageWriteParam param = writer.getDefaultWriteParam();
+//			    
+//			    param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+//			    param.setCompressionQuality(0.5f);
+//			    writer.write(null, new IIOImage(imageBuf, null, null), param);
+//			      
+//			    os.close();
+//			    ios.close();
+//			    writer.dispose();	
+			    
 				productService.addProductDetail(result);
 				status = ResponseStatus.OK;
 			}
@@ -249,8 +277,30 @@ public class ProductApi {
 							ImageIO.write(src, content, finalFile);
 							ProductDetail result = new ProductDetail();
 							result.setProduct(product);
-							result.setUrl(imageName);
-							productService.addProductDetail(result);
+							result.setUrl(imageName);							
+							
+							BufferedImage imageBuf = ImageIO.read(finalFile);
+							
+							File compressedImageFile = new File(ImagePropertiesHelper.resource()+"/compressed."+content);
+							OutputStream os = new FileOutputStream(compressedImageFile);
+							
+							Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName(content);
+							ImageWriter writer = (ImageWriter) writers.next();
+							
+							ImageOutputStream ios = ImageIO.createImageOutputStream(os);
+						    writer.setOutput(ios);
+							
+						    ImageWriteParam param = writer.getDefaultWriteParam();
+						    
+						    param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+						    param.setCompressionQuality(0.05f);
+						    writer.write(null, new IIOImage(imageBuf, null, null), param);
+						      
+						    os.close();
+						    ios.close();
+						    writer.dispose();						    
+						    
+						    productService.addProductDetail(result);
 							status = ResponseStatus.OK;
 						}
 						else{

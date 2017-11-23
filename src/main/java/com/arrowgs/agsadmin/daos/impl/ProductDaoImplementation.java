@@ -158,6 +158,7 @@ public class ProductDaoImplementation implements ProductDao {
 			detail.setId(rs.getInt(1));
 			detail.setProduct(rs.getInt(2));
 			detail.setUrl(rs.getString(3));
+			detail.setSide(rs.getInt(4));
 			return detail;
 		}
 		
@@ -430,7 +431,7 @@ public class ProductDaoImplementation implements ProductDao {
 
 	@Override
 	public List<ProductDetail> getProductDetails(Integer idProduct) {
-		String sql = "SELECT * FROM producto_detalles WHERE producto = :id";
+		String sql = "SELECT * FROM producto_detalles WHERE producto = :id ORDER BY side";
 		SqlParameterSource paramMap = new MapSqlParameterSource("id",idProduct);		
 		return jdbcTemplate.query(sql, paramMap, new ProductDetailRowMapper());
 	}
