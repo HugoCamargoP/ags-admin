@@ -238,9 +238,10 @@ public class JasperServiceImpl implements JasperService{
 			is = JasperServiceImpl.class.getClassLoader().getResourceAsStream("/jasper/topFiveCustomers.jrxml");
 			
 			JasperReport customersCom = JasperCompileManager.compileReport(is);
+			paramMap.put("users", users);
 			
 			JasperPrint customersPrint = JasperFillManager.fillReport(
-					customersCom,null, new JRBeanCollectionDataSource(users));
+					customersCom,paramMap, new JRBeanCollectionDataSource(users));
 			
 			exporter = new JRPdfExporter();
 			exporter.setExporterInput(new SimpleExporterInput(customersPrint));
