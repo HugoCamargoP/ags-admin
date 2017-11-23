@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="skuProductSubReport" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="b669f846-f9fc-4e41-9cd6-e675be206f5f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="sku" class="java.lang.String"/>
+	<field name="productTitle" class="java.lang.String"/>
+	<field name="productDescr" class="java.lang.String"/>
+	<field name="sizeText" class="java.lang.String"/>
+	<field name="stock" class="java.lang.Integer"/>
+	<field name="price" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="70" height="25" uuid="9cbcde2c-79ed-445c-b54f-95f5fedd1116"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sku}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="0" width="106" height="25" uuid="5171c7d1-d82e-4c0e-9762-eaaff3d5403f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{productTitle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="176" y="0" width="175" height="25" uuid="a1d07d94-ca48-48c9-85b6-dbbe41ee68a4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{productDescr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="351" y="0" width="59" height="25" uuid="bcd8a52d-086f-4a32-a256-6d1f891dd6d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sizeText}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="0" width="84" height="25" uuid="a47f4589-1952-49c4-8f57-cb5309567c2c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{stock}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="494" y="0" width="118" height="25" uuid="2ad551d1-0861-4885-b4d0-7aa90afc0230"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

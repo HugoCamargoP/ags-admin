@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.IdNumTable;
+import com.arrowgs.agsadmin.entities.OrderDetail;
 import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.entities.ProductDetail;
 import com.arrowgs.agsadmin.entities.SizeDescription;
@@ -24,6 +25,7 @@ public interface ProductService {
 	ProductStatus modifyProduct(Product product);		
 	void removeProductById(Integer id);	
 	Integer getProductsCountyFilter(Product product);
+	List<Product> makeProductListByOrderedOrderDetail(List<OrderDetail> orderDetail);
 		/*Top Product*/
 	List<Product> topProducts();
 	

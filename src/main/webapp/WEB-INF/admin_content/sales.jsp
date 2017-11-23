@@ -1,6 +1,15 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+
+						  	<%--
+								1 integer
+								2 double
+								3 string
+								4 date
+								5 boolean
+						  	 --%>
+						  	 
 <div id="page-wrapper" ng-controller="${ appname }Report" ng-init="getReportSchema();">
 	<div class="graphs">
 		<h3 class="blank1 center"><s:message code="admin.report"/></h3>
@@ -12,7 +21,7 @@
 	  						<span class="glyphicon glyphicon-plus"></span> {{r.name}} 
 	  					 </div>
 					    <div class="panel-body collapse" id="_{{r.name}}">
-					    	<form action="${ linkSales }" onsubmit="return false;" ng-submit="reports();" ng-model="r.name">
+					    	<form action="" onsubmit="return false;" ng-submit="reports();" ng-model="r.name">
 					    	 
 							  <div class="col-xs-12">
 								  <div class="form-group col-xs-12 col-sm-4" ng-repeat="p in r.parameters">

@@ -18,6 +18,7 @@ import com.arrowgs.agsadmin.entities.OrderDetail;
 import com.arrowgs.agsadmin.entities.OrderRecord;
 import com.arrowgs.agsadmin.entities.ProductDetail;
 import com.arrowgs.agsadmin.entities.SkuProduct;
+import com.arrowgs.agsadmin.entities.User;
 import com.arrowgs.agsadmin.service.OrderService;
 import com.arrowgs.agsadmin.service.ProductService;
 
@@ -203,13 +204,13 @@ public class OrderServiceImplementation implements OrderService {
 	}
 	
 	@Override
-	public void updateStateOrder(Order order) {	
+	public void updateOrderStatus(Order order) {	
 		try{
 			OrderRecord orderRecord = new OrderRecord();		
 			orderRecord.setOrder(order.getId());
 			orderRecord.setState(order.getState());
 			orderRecord.setUpdate(new Date());
-			orderDao.updateState(order, orderRecord); 
+			orderDao.updateStatus(order, orderRecord); 
 		}catch(Exception e){
 			logger.error("OrderService : updateStateOrder : " + e.toString());
 			throw e;
@@ -437,9 +438,22 @@ public class OrderServiceImplementation implements OrderService {
 				Iterator<Order> iterator = orders.iterator();
 				while(iterator.hasNext()){
 					Order actual = iterator.next();
+					actual.setSince(order.getSince());
+					actual.setUpTo(order.getUpTo());
 					order.setId(actual.getId());
 					actual.setOrderDetail(orderDao.getOrderDetailByFilter(order));
+					
+					if(actual.getOrderDetail()!=null)
+					{
+						Iterator<OrderDetail> orderDetail = actual.getOrderDetail().iterator();
+						while(orderDetail.hasNext()){
+						OrderDetail detail = orderDetail.next();
+						detail.setProduct(productService.getSkuProductById(detail.getIdProductSku()));
+						detail.setAmount(detail.getQuantity()*detail.getIndividualPrice());
+					}
 					actual.setOrderRecord(orderDao.getOrderRecordByOrder(actual.getId()));
+					actual.setOrderAmount(orderDao.getOrderAmountByOrder(actual.getId()));
+					}
 				}
 			}
 		}catch(Exception e){
@@ -516,6 +530,18 @@ public class OrderServiceImplementation implements OrderService {
 			throw e;
 		}
 		return tenderTypes;
+	}
+
+	@Override
+	public List<User> topFiveCustomer() {
+		List<User> users;
+		try{
+			users = orderDao.topFiveCustomer();
+		}catch(Exception e){
+			logger.error("OrderService : topFiveCustomer");
+			throw e;
+		}
+		return users;
 	}
 
 	

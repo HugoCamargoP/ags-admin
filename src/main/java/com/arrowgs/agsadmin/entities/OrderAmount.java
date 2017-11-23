@@ -9,6 +9,9 @@ public class OrderAmount {
 	private Integer	tenderType;
 	private String	variety;
 	
+	//Extra Data
+	private String tenderTypeText;
+	
 	/*********** Getter and Setter id ***********/
 	public Integer getId() {
 		return id;
@@ -62,6 +65,16 @@ public class OrderAmount {
 
 	public void setVariety(String variety) {
 		this.variety = variety;
+	}
+
+	
+	/*********** Getter and Setter tenderTypeText ***********/
+	public String getTenderTypeText() {
+		return tenderTypeText;
+	}
+
+	public void setTenderTypeText(String tenderTypeText) {
+		this.tenderTypeText = tenderTypeText;
 	}
 	
 	

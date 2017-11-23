@@ -86,6 +86,7 @@ function($scope, Service)
 	
 	$scope.userUpdateRol = function ()
 	{
+		console.log($scope.usuarios+" userUpdateRol");
 		Service.userUpdateRol($scope.usuarios).then(function successCallback(response){
 			if(response.data.data.length > 0 )
 			{

@@ -1,50 +1,254 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="orders" language="java" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c81d4eef-d778-4888-ae9d-8b0faef3f933">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="orders" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4842f01b-abd1-4330-ba30-82abdbe720a5">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="3"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Arrow\\ags-admin\\src\\main\\resources\\jasper\\subreport\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="orderDetailSub" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="orderRecordSub" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="orderAmountSub" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<field name="id" class="java.lang.Integer"/>
 	<field name="userText" class="java.lang.String"/>
+	<field name="statusText" class="java.lang.String"/>
+	<field name="orderDetail" class="java.util.Collection"/>
+	<field name="orderRecord" class="java.util.Collection"/>
+	<field name="orderAmount" class="java.util.Collection"/>
+	<field name="state" class="java.lang.Integer"/>
+	<field name="since" class="java.util.Date"/>
+	<field name="upTo" class="java.util.Date"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
-	</title>
-	<pageHeader>
-		<band height="35" splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="45" y="2" width="100" height="20" uuid="bf625efa-19e3-4c30-9af4-53227011f480"/>
-				<text><![CDATA[id]]></text>
+				<reportElement x="1" y="0" width="572" height="37" uuid="b092de71-8bab-446c-ac70-15f82bb57e7e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="32"/>
+				</textElement>
+				<text><![CDATA[ÓRDENES]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="213" y="2" width="100" height="20" uuid="2ea11b13-21bf-491c-a58e-aa0692cca91e"/>
-				<text><![CDATA[userText]]></text>
-			</staticText>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="125" splitType="Stretch">
 			<textField>
-				<reportElement x="45" y="19" width="100" height="20" uuid="45433539-7d6d-4158-8c23-0bab7f55be58"/>
+				<reportElement isPrintRepeatedValues="false" x="2" y="59" width="100" height="20" isRemoveLineWhenBlank="true" uuid="c22b6f8b-4292-4198-b4b4-2aed7eaebd77">
+					<printWhenExpression><![CDATA[$F{since}!=null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Desde: " + new SimpleDateFormat("dd/MM/yyyy").format($F{since})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="124" y="59" width="100" height="20" isRemoveLineWhenBlank="true" uuid="ad7057f0-b299-487c-aa46-2e60384d70d4">
+					<printWhenExpression><![CDATA[$F{upTo}!=null]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[" Hasta: " + new SimpleDateFormat("dd/MM/yyyy").format($F{upTo})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="415" y="59" width="100" height="20" uuid="3c77a9f7-8d9d-44e2-b95c-b2a8242a71b8"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha de creación:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="515" y="59" width="57" height="20" uuid="757f5418-e85e-4434-aecf-8555ab2d08fb"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="320" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="22" width="100" height="20" uuid="a87fd228-6481-4d8f-b966-a95af65453e0"/>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="213" y="19" width="100" height="20" uuid="b3edbe4c-636e-4684-9b9d-0da992b1b7fa"/>
+				<reportElement x="166" y="22" width="100" height="20" uuid="f962a14e-22fc-4d8f-8c58-727942d0d960"/>
 				<textFieldExpression><![CDATA[$F{userText}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="301" y="22" width="100" height="20" uuid="c85da5c8-d2eb-459e-bb99-0317c302adb3"/>
+				<textFieldExpression><![CDATA[$F{statusText}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="104" width="166" height="37" uuid="fec2d872-5852-45f7-aef3-f74035243c5c"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{orderDetail})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{orderDetailSub}]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="48" width="100" height="20" uuid="98b4e5e2-3725-4250-b884-e6e5033a9682"/>
+				<text><![CDATA[Detalle de la Orden]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="84" width="100" height="20" uuid="df88300c-14ba-4aa5-a1da-d9336e8bd104"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[SKU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="472" y="84" width="100" height="20" uuid="7be3a84b-f58e-4767-9f74-7cdb96c132bb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total por pieza]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="84" width="100" height="20" uuid="06d7af9b-b29d-485d-bd92-9337e714c55f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="84" width="100" height="20" uuid="e2caefb5-4dfd-47a9-8cdf-40b32d9f2730"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Costo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="2" width="100" height="20" uuid="4fa63fc9-4571-451e-bc52-67aad8efb850"/>
+				<text><![CDATA[Número de Orden]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="166" y="2" width="100" height="20" uuid="2399b0df-730a-4db6-ab41-9fa065d8c412"/>
+				<text><![CDATA[Autor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="301" y="2" width="100" height="20" uuid="6913bc85-3c6a-4cce-b17a-92d52a084725"/>
+				<text><![CDATA[Estado Actual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="1" y="156" width="100" height="20" uuid="ce4627cf-aa21-4651-8e50-24eb2f2301e9"/>
+				<text><![CDATA[Historial de la Orden]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" x="1" y="196" width="166" height="39" uuid="a7bc8653-9683-47d4-a77e-f3bdbc716b8e"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{orderRecord})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{orderRecordSub}]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="1" y="176" width="123" height="20" uuid="3ea5cd0a-e8b4-4236-b8d9-91ae0fd35419"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="124" y="176" width="160" height="20" uuid="23d34093-b33f-489f-b4fc-f1884cf3e35c"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="1" y="148" width="571" height="1" uuid="36ba6690-5e17-4852-bdb4-29891d86ca8d"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="2" y="236" width="571" height="1" uuid="504befdf-f041-439c-bdb9-b01ca254feed"/>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="2" y="243" width="100" height="20" uuid="19a2d648-febb-45d7-806b-0079ab5cb8b2">
+					<printWhenExpression><![CDATA[new Boolean((new Integer($F{state}))>4)]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[Tipos de Pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="2" y="263" width="100" height="20" uuid="02dbde54-9820-40f0-881c-33284a411d00">
+					<printWhenExpression><![CDATA[new Boolean((new Integer($F{state}))>4)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="102" y="263" width="100" height="20" uuid="ac0ffab1-8ac8-4f7f-9079-558f1f3c1d83">
+					<printWhenExpression><![CDATA[new Boolean((new Integer($F{state}))>4)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[Detalle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="202" y="263" width="100" height="20" uuid="59637286-9aea-4c8b-81d7-f334e90d8367">
+					<printWhenExpression><![CDATA[new Boolean((new Integer($F{state}))>4)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[Variedad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="302" y="263" width="100" height="20" uuid="85daa188-59e2-4893-aa3d-2ea44b34bb49">
+					<printWhenExpression><![CDATA[new Boolean((new Integer($F{state}))>4)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" x="1" y="283" width="166" height="35" uuid="26ce6896-a97c-4191-bdaa-6e28d5172c8b">
+					<printWhenExpression><![CDATA[new Boolean((new Integer($F{state}))>4)]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{orderAmount})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{orderAmountSub}]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement positionType="Float" x="0" y="319" width="571" height="1" uuid="3d8179a6-1247-4b8c-88f1-314d9398134c">
+					<printWhenExpression><![CDATA[new Boolean((new Integer($F{state}))>4)]]></printWhenExpression>
+				</reportElement>
+			</line>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="50">
+			<textField>
+				<reportElement x="472" y="30" width="56" height="20" uuid="645c94e3-aa26-421e-899f-61c95703262f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="528" y="30" width="40" height="20" uuid="de24dddc-b327-4957-9cd9-cc82edee7cc5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
+	<lastPageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="472" y="30" width="56" height="20" uuid="68729997-4f52-469f-ac3e-abbd68ff02ed"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="528" y="30" width="40" height="20" uuid="342acbc1-564e-41e7-b4f2-93f0b5acaf85"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
 </jasperReport>

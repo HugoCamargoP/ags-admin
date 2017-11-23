@@ -158,7 +158,7 @@ public class AddressDaoImplementation implements AddressDao{
 
 	@Override
 	public List<IdNumTable> getTopCountries() {
-		String sql = "SELECT d.pais, COUNT(*), p.nombre FROM domicilios d LEFT JOIN ordenes o ON d.id = o.domicilio JOIN paises p ON d.pais = p.id WHERE o.estado > :approved AND o.estado < :warning GROUP BY d.pais LIMIT 5";
+		String sql = "SELECT d.pais, SUM(od.cantidad) AS productos_totales, SUM((od.cantidad*od.precio_individual)) AS total_monetario, p.nombre FROM domicilios d LEFT JOIN ordenes o ON d.id = o.domicilio JOIN paises p ON d.pais = p.id LEFT JOIN orden_detalles od ON od.orden = o.id WHERE o.estado >= :approved AND o.estado < :warning GROUP BY d.pais ORDER BY productos_totales DESC LIMIT 5";
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("approved", OrderService.approvedOrder);
 		paramMap.put("warning", OrderService.warning);		
@@ -170,7 +170,8 @@ public class AddressDaoImplementation implements AddressDao{
 				IdNumTable topCoun = new IdNumTable();
 				topCoun.setId(rs.getInt(1));
 				topCoun.setNum(rs.getInt(2));
-				topCoun.setName(rs.getString(3));
+				topCoun.setDoubleAttribute(rs.getDouble(3));
+				topCoun.setName(rs.getString(4));
 				return topCoun;
 			}
 			

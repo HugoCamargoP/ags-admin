@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="topFiveProducts" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0a15944-9bf5-4f61-9359-c0afe0e8f288">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="skuProduct" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<field name="description" class="java.lang.String"/>
+	<field name="title" class="java.lang.String"/>
+	<field name="sales" class="java.lang.Integer"/>
+	<field name="skuProduct" class="java.util.Collection"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="79" uuid="9e9fa01c-b0f5-437b-b90a-979d396dfff0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TOP 5: PRODUCTOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="238" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="100" height="20" uuid="2d79e39b-9703-4da9-8b99-4512b173219d"/>
+				<text><![CDATA[Descripción:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="20" width="100" height="20" uuid="ea36ca86-55a9-42bb-a62a-198506ea1a44"/>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="65c7aeb8-9b58-4cf3-aa2f-0b0354f4fc8e"/>
+				<text><![CDATA[Producto:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="bdd6dc25-23e0-43da-8bfc-50f1f0e01261"/>
+				<textFieldExpression><![CDATA[$F{title}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="100" height="20" uuid="b01d94ae-2dea-4701-96ae-0518991bc439"/>
+				<text><![CDATA[Ventas Totales:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="40" width="100" height="20" uuid="f34e2163-3a51-4a90-89ea-f09a22234d6b"/>
+				<textFieldExpression><![CDATA[$F{sales}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="84" y="80" width="119" height="20" isRemoveLineWhenBlank="true" uuid="1d28a657-d008-4ac0-a1c2-8560886da301"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[INVENTARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="1" y="80" width="83" height="20" isRemoveLineWhenBlank="true" uuid="c5e15ea9-383b-44ee-b5a1-3d356548c816"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[SKU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="295" y="80" width="122" height="20" isRemoveLineWhenBlank="true" uuid="5f251ce5-3867-46ea-81bf-e1a4e84da697"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[VENTAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="202" y="80" width="93" height="20" isRemoveLineWhenBlank="true" uuid="76dea323-d492-4d72-8146-067cde1ad215"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[PRECIO]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="100" width="75" height="56" isRemoveLineWhenBlank="true" uuid="ef9ad152-e779-4156-988a-66dbbe450556"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{skuProduct})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{skuProduct}]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

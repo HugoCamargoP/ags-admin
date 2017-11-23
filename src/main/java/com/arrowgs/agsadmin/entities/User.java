@@ -9,6 +9,10 @@ public class User {
 	private Integer	id;
 	
 	
+	/*PDF Extra Data */
+	private Double	amount;
+	private	Integer	quantity;
+	
 	/********Getter and Setter name****************/
 	public String getName(){
 		return this.name;
@@ -51,6 +55,25 @@ public class User {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	/********Getter and Setter amount*****************/
+	public Double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+
+	
+	/********Getter and Setter quantity*****************/
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 	

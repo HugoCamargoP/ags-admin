@@ -6,6 +6,18 @@
  */
 function Service(http, url) 
 {
+
+	/************Messages**************/
+	
+	//Obtiene el mensaje que corresponde al nombre del atributo
+		//Parámetros necesarios: String attribute
+	this.getMessage = function(attribute){
+		return http({
+			'method':'GET',
+			'url':url + '/messages?attribute='+attribute
+		})
+	}
+	
     /************ORDERS**************/
    
     //Trae la orden que corresponda al usuario y estado en que se encuentre (wishlist,shopping car, etc)
@@ -88,7 +100,7 @@ function Service(http, url)
     //Actualiza el estado de la orden y agrega informacion al historial
         //Parámetros necesarios: Order order
     this.updateOrderStatus = function(order){
-        return http.put(url + '/update_state',order)
+        return http.put(url + '/update_status',order)
     }
    
     //Actualiza el estado individual de un orderDetail para llevarlo de wishList a ShoppingCar

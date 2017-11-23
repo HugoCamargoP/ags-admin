@@ -1,5 +1,6 @@
 package com.arrowgs.agsadmin.entities;
 
+import java.util.Date;
 import java.util.List;
 
 public class Product {
@@ -13,12 +14,19 @@ public class Product {
 	private List<ProductDetail> productDetails;
 	private List<SkuProduct> 	skuProduct;
 	private Integer 			sales;
+	private List<OrderDetail>	ordersDetails;
+	private String				departmentText;
+	private String				userText;
 	
 	//Filter Data
 	private String	sku;
 	private Integer	talla; 
 	private Double	greaterThan;
 	private Double	lessThan;
+	
+	//Report Data Extra
+	private Date	since;
+	private Date	upTo;
 	
 	/*******Getter and Setter Sku*******/
 	public Integer getId(){
@@ -123,6 +131,50 @@ public class Product {
 
 	public void setSales(Integer sales) {
 		this.sales = sales;
+	}
+
+	
+	/*******Getter and Setter OrdersDetails*******/
+	public List<OrderDetail> getOrdersDetails() {
+		return ordersDetails;
+	}
+
+	public void setOrdersDetails(List<OrderDetail> ordersDetails) {
+		this.ordersDetails = ordersDetails;
+	}
+
+	
+	/*******Getter and Setter DepartmentText*******/
+	public String getDepartmentText() {
+		return departmentText;
+	}
+
+	public void setDepartmentText(String departmentText) {
+		this.departmentText = departmentText;
+	}
+
+	public String getUserText() {
+		return userText;
+	}
+
+	public void setUserText(String userText) {
+		this.userText = userText;
+	}
+
+	public Date getSince() {
+		return since;
+	}
+
+	public void setSince(Date since) {
+		this.since = since;
+	}
+
+	public Date getUpTo() {
+		return upTo;
+	}
+
+	public void setUpTo(Date upTo) {
+		this.upTo = upTo;
 	}
 
 	

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="orderAmountSubReport" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="45de2cb5-e129-44ea-a9d2-61985a22b92a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="tenderTypeText" class="java.lang.String"/>
+	<field name="detail" class="java.lang.String"/>
+	<field name="variety" class="java.lang.String"/>
+	<field name="amount" class="java.lang.Double"/>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" isRemoveLineWhenBlank="true" uuid="9a88c833-23ac-4beb-be7b-e31ee57d27be"/>
+				<textFieldExpression><![CDATA[$F{tenderTypeText}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" isRemoveLineWhenBlank="true" uuid="b68dc786-4f19-41b8-831f-96e5a34b87ca"/>
+				<textFieldExpression><![CDATA[$F{detail}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20" isRemoveLineWhenBlank="true" uuid="33e822b3-52dd-494d-bdd7-c03f0707d61a"/>
+				<textFieldExpression><![CDATA[$F{variety}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="100" height="20" isRemoveLineWhenBlank="true" uuid="e3cb4f32-fba0-44ec-ab48-4efcceef059f"/>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

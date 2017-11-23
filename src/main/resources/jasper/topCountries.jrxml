@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="topCountries" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cb7aac91-35c5-4ec2-af09-c185dfe87a4b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="num" class="java.lang.Integer"/>
+	<field name="doubleAttribute" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="79" uuid="b3dc42c4-0185-40a2-8a9b-a7e5835970cb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TOP 5 PAÍSES]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="134" height="20" uuid="825b9392-6580-4b88-9796-639a19a42cdf"/>
+				<text><![CDATA[País:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="134" y="0" width="100" height="20" uuid="23f8eb40-a2d1-42f7-92b4-8882115a11a2"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="134" height="20" uuid="c8b0892f-2023-45ad-bbc5-c1014f26bb86"/>
+				<text><![CDATA[Productos Comprados:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="134" y="20" width="100" height="20" uuid="450af168-83df-40aa-ae29-336bee0bebf0"/>
+				<textFieldExpression><![CDATA[$F{num}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="134" height="20" uuid="c33f2009-cc80-4bd3-9002-7d706d99294f"/>
+				<text><![CDATA[Total Vendido:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="134" y="40" width="100" height="20" uuid="9a7ab380-5a41-447f-abe5-2e990556c5ff"/>
+				<textFieldExpression><![CDATA["$"+$F{doubleAttribute}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
