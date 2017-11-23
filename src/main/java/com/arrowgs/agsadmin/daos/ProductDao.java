@@ -26,6 +26,7 @@ public interface ProductDao {
 	List<Product> getProductsByFilter(Product product, Integer page, Integer inPage);
 	void addProduct(Product product);
 	Product getProductById(Integer id);
+	Product getProductByIdWhithoutFilter(Integer id);
 	void modifyProduct(Product product);
 	void modifyProduct(Product product, Integer id);	
 	void removeProductById(Integer id);

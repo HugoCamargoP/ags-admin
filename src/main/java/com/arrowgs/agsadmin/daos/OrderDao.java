@@ -8,6 +8,7 @@ import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderAmount;
 import com.arrowgs.agsadmin.entities.OrderDetail;
 import com.arrowgs.agsadmin.entities.OrderRecord;
+import com.arrowgs.agsadmin.entities.User;
 
 public interface OrderDao {
 
@@ -25,7 +26,7 @@ public interface OrderDao {
 	void deleteOrder(Integer idOrden);	
 	void addOrder(Order order);
 	void updateOrder(Order order);
-	void updateState(Order order, OrderRecord orderRecord);
+	void updateStatus(Order order, OrderRecord orderRecord);
 	Integer getCountByFilter(Order order);
 	List<Order> getOrdersByFilter(Order order, Integer page, Integer numOrder);
 	List<Order> getTopOrdersSales();
@@ -60,6 +61,9 @@ public interface OrderDao {
 	
 	//Tipos Pago
 	List<IdNameTable> getTenderTypes();
+	
+	//Top User
+	List<User> topFiveCustomer();
 	
 	
 }

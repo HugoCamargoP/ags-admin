@@ -11,11 +11,27 @@
 	<detail>
 		<band height="23" splitType="Stretch">
 			<textField>
-				<reportElement x="2" y="0" width="126" height="20" uuid="68aaa6f9-e8d0-49ab-a3c9-a63f22779c27"/>
+				<reportElement x="2" y="0" width="126" height="23" uuid="68aaa6f9-e8d0-49ab-a3c9-a63f22779c27"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{stateText}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="128" y="0" width="155" height="20" uuid="64f8d94c-26d4-4463-9763-8bd32c8256c4"/>
+				<reportElement x="128" y="0" width="155" height="23" uuid="64f8d94c-26d4-4463-9763-8bd32c8256c4"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{update}]]></textFieldExpression>
 			</textField>
 		</band>

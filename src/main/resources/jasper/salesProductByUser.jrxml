@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="salesProductByUser" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6efbe7b8-e19e-4a3c-a719-41a48f2b44b7">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="56"/>
 	<parameter name="orderDetailSubRepComp" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -74,7 +74,7 @@
 				<text><![CDATA[PRODUCTO:]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="0" y="117" width="65" height="44" uuid="1d56d460-ff0e-4a77-95e8-a12fb33685d3"/>
+				<reportElement positionType="Float" x="0" y="117" width="65" height="44" uuid="1d56d460-ff0e-4a77-95e8-a12fb33685d3"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{ordersDetails})]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{orderDetailSubRepComp}]]></subreportExpression>
 			</subreport>
@@ -99,11 +99,11 @@
 				<text><![CDATA[Cantidad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="100" height="20" uuid="3fdc80e3-4708-4b6e-8caa-1ae527735d22"/>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="0" width="100" height="20" isPrintInFirstWholeBand="true" uuid="3fdc80e3-4708-4b6e-8caa-1ae527735d22"/>
 				<text><![CDATA[Cliente:]]></text>
 			</staticText>
 			<textField>
-				<reportElement isPrintRepeatedValues="false" x="100" y="0" width="100" height="20" uuid="1d249aa6-579d-4f8d-baf5-2fefc1804c75"/>
+				<reportElement isPrintRepeatedValues="false" x="100" y="0" width="100" height="20" isPrintInFirstWholeBand="true" uuid="1d249aa6-579d-4f8d-baf5-2fefc1804c75"/>
 				<textFieldExpression><![CDATA[$F{userText}]]></textFieldExpression>
 			</textField>
 		</band>

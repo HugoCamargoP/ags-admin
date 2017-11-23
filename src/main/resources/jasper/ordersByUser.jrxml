@@ -88,8 +88,8 @@
 				<subreportExpression><![CDATA[$P{orderDetailSub}]]></subreportExpression>
 			</subreport>
 			<staticText>
-				<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="1" width="224" height="20" uuid="e1b6dab1-1891-46de-9ffc-4e9a68035208"/>
-				<text><![CDATA["Autor de las Ordenes: "  + $F{userText}]]></text>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="1" width="124" height="20" isPrintInFirstWholeBand="true" uuid="e1b6dab1-1891-46de-9ffc-4e9a68035208"/>
+				<text><![CDATA[Autor de las Ordenes:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="124" y="36" width="100" height="20" uuid="b7dea48a-b925-45da-9bfb-193620382496"/>
@@ -162,6 +162,10 @@
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{orderRecord})]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{orderRecordSub}]]></subreportExpression>
 			</subreport>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="124" y="1" width="100" height="20" isPrintInFirstWholeBand="true" uuid="6a73eda8-1fa7-4645-a458-3efd13796465"/>
+				<textFieldExpression><![CDATA[$F{userText}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<pageFooter>

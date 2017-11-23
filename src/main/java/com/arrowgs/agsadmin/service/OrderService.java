@@ -6,6 +6,7 @@ import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderAmount;
 import com.arrowgs.agsadmin.entities.OrderDetail;
+import com.arrowgs.agsadmin.entities.User;
 
 public interface OrderService {
 	
@@ -30,7 +31,7 @@ public interface OrderService {
 	Order getUserCar(Integer user, Integer status);
 	boolean addOrder(Order order);
 	boolean updateOrder(Order order);
-	void updateStateOrder(Order order);
+	void updateOrderStatus(Order order);
 	boolean deleteOrder(Integer idOrden);
 	Integer getCountByFilter(Order order);
 	boolean checkingShoppingCar(Integer user);
@@ -58,4 +59,7 @@ public interface OrderService {
 	
 	/*Tender Type*/
 	List<IdNameTable> getTenderTypes();
+	
+	/*TOP FIVE CUSTOMER*/
+	List<User> topFiveCustomer();
 }

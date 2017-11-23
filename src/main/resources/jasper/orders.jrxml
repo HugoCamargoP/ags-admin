@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="orders" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4842f01b-abd1-4330-ba30-82abdbe720a5">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="96"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Arrow\\ags-admin\\src\\main\\resources\\jasper\\subreport\\"]]></defaultValueExpression>
 	</parameter>
@@ -127,11 +127,25 @@
 			</subreport>
 			<staticText>
 				<reportElement positionType="Float" x="1" y="176" width="123" height="20" uuid="3ea5cd0a-e8b4-4236-b8d9-91ae0fd35419"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Estado]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="124" y="176" width="160" height="20" uuid="23d34093-b33f-489f-b4fc-f1884cf3e35c"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Fecha]]></text>
 			</staticText>
@@ -151,24 +165,48 @@
 				<reportElement positionType="Float" x="2" y="263" width="100" height="20" uuid="02dbde54-9820-40f0-881c-33284a411d00">
 					<printWhenExpression><![CDATA[new Boolean((new Integer($F{state}))>4)]]></printWhenExpression>
 				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
 				<text><![CDATA[Tipo]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="102" y="263" width="100" height="20" uuid="ac0ffab1-8ac8-4f7f-9079-558f1f3c1d83">
 					<printWhenExpression><![CDATA[new Boolean((new Integer($F{state}))>4)]]></printWhenExpression>
 				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
 				<text><![CDATA[Detalle]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="202" y="263" width="100" height="20" uuid="59637286-9aea-4c8b-81d7-f334e90d8367">
 					<printWhenExpression><![CDATA[new Boolean((new Integer($F{state}))>4)]]></printWhenExpression>
 				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
 				<text><![CDATA[Variedad]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="302" y="263" width="100" height="20" uuid="85daa188-59e2-4893-aa3d-2ea44b34bb49">
 					<printWhenExpression><![CDATA[new Boolean((new Integer($F{state}))>4)]]></printWhenExpression>
 				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
 				<text><![CDATA[Cantidad]]></text>
 			</staticText>
 			<subreport>

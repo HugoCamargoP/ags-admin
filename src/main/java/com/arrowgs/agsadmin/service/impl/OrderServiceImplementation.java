@@ -18,6 +18,7 @@ import com.arrowgs.agsadmin.entities.OrderDetail;
 import com.arrowgs.agsadmin.entities.OrderRecord;
 import com.arrowgs.agsadmin.entities.ProductDetail;
 import com.arrowgs.agsadmin.entities.SkuProduct;
+import com.arrowgs.agsadmin.entities.User;
 import com.arrowgs.agsadmin.service.OrderService;
 import com.arrowgs.agsadmin.service.ProductService;
 
@@ -203,13 +204,13 @@ public class OrderServiceImplementation implements OrderService {
 	}
 	
 	@Override
-	public void updateStateOrder(Order order) {	
+	public void updateOrderStatus(Order order) {	
 		try{
 			OrderRecord orderRecord = new OrderRecord();		
 			orderRecord.setOrder(order.getId());
 			orderRecord.setState(order.getState());
 			orderRecord.setUpdate(new Date());
-			orderDao.updateState(order, orderRecord); 
+			orderDao.updateStatus(order, orderRecord); 
 		}catch(Exception e){
 			logger.error("OrderService : updateStateOrder : " + e.toString());
 			throw e;
@@ -529,6 +530,18 @@ public class OrderServiceImplementation implements OrderService {
 			throw e;
 		}
 		return tenderTypes;
+	}
+
+	@Override
+	public List<User> topFiveCustomer() {
+		List<User> users;
+		try{
+			users = orderDao.topFiveCustomer();
+		}catch(Exception e){
+			logger.error("OrderService : topFiveCustomer");
+			throw e;
+		}
+		return users;
 	}
 
 	

@@ -481,7 +481,7 @@ public class ProductServiceImplementation implements ProductService {
 				if(actual.getIdProductSku().intValue()!=skuId){					
 					SkuProduct skuProduct = productDao.getSkuProductById(actual.getIdProductSku().intValue());
 					Product lastOne;
-					Product product = productDao.getProductById(skuProduct.getProduct());
+					Product product = productDao.getProductByIdWhithoutFilter(skuProduct.getProduct());
 					if(productId==-1 && orderDetails.isEmpty()){
 						productId = product.getId().intValue();
 						lastOne = product;

@@ -258,7 +258,7 @@ public class ProductDaoImplementation implements ProductDao {
 			producto.setId(rs.getInt(1));
 			producto.setDescription(rs.getString(2));
 			producto.setTitle(rs.getString(4));
-			producto.setSales(rs.getInt(5));
+			producto.setSales(rs.getInt(6));
 			return producto;
 		}
 		
@@ -717,9 +717,8 @@ public class ProductDaoImplementation implements ProductDao {
 
 	@Override
 	public SkuProduct getSkuProductById(Integer idSkuProduct) {
-		String sql = "SELECT p.*, t.talla, pr.descripcion, pr.titulo FROM productos_sku p LEFT JOIN tallas t ON p.talla = t.id JOIN productos pr ON pr.id = p.producto WHERE p.id = :id AND p.activo = :enable ORDER BY p.talla";
-		MapSqlParameterSource paramMap = new MapSqlParameterSource("id",idSkuProduct);
-		paramMap.addValue("enable", Enable);
+		String sql = "SELECT p.*, t.talla, pr.descripcion, pr.titulo FROM productos_sku p LEFT JOIN tallas t ON p.talla = t.id JOIN productos pr ON pr.id = p.producto WHERE p.id = :id ORDER BY p.talla";
+		SqlParameterSource paramMap = new MapSqlParameterSource("id",idSkuProduct);
 		return jdbcTemplate.query(sql, paramMap, new SkuProductRowExtractor(true));
 		
 	}
@@ -899,6 +898,13 @@ public class ProductDaoImplementation implements ProductDao {
 	public List<IdNameTable> getDepartments() {
 		String sql = "SELECT * FROM departamentos";
 		return jdbcTemplate.query(sql, new SizeRowMapper());
+	}
+
+	@Override
+	public Product getProductByIdWhithoutFilter(Integer id) {
+		String query = "select p.*, d.descripcion from productos p left join departamentos d on p.departamento=d.id where p.id = :id";
+		SqlParameterSource productMap = new MapSqlParameterSource("id",id);
+		return jdbcTemplate.query(query, productMap, new ProductRowExtractor(true));
 	}
 	
 
