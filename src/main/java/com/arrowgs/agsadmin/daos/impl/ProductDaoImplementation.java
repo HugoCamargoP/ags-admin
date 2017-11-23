@@ -463,10 +463,12 @@ public class ProductDaoImplementation implements ProductDao {
 
 	@Override
 	public void modifyProductDetail(ProductDetail productDetail) {
-		String sql = "UPDATE producto_detalles SET producto = :producto , url_imagen = :url";
+		String sql = "UPDATE producto_detalles SET producto = :producto , url_imagen = :url, side = :side where id = :id";
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("producto", productDetail.getProduct());
 		paramMap.put("url", productDetail.getUrl());
+		paramMap.put("side", productDetail.getSide());
+		paramMap.put("id", productDetail.getId());
 		jdbcTemplate.update(sql, paramMap);
 	}
 
