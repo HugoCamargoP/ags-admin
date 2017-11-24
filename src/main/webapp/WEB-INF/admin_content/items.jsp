@@ -298,10 +298,14 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 				<input type="hidden" value="{{size}}" id="siss" />
 				
 				<div class="form-group col-xs-12">
+				    <label for="pwd"><i class="fa fa-file-text"></i><b>&nbsp;<s:message code="admin.title" />:</b></label> 
+				    <input ng-required="true" ng-model="addpro.title" class="form-control form-control-min" type="text" />
+				</div>
+				
+				<div class="form-group col-xs-12">
 				    <label for="pwd"><i class="fa fa-file-text"></i><b>&nbsp;<s:message code="admin.details" />:</b></label> 
 				    <input ng-required="true" ng-model="addpro.description" class="form-control form-control-min" type="text" />
 				</div>
-		
 			  	
 				<div class="col-xs-12 center hidden">
 					<label for="pwd"><i class="fa fa-"></i><b>&nbsp;<s:message code="admin.tittleNewSKU" /></b></label>

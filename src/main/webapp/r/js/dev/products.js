@@ -513,7 +513,9 @@ $scope.pago = function ()
 		$scope.addpro.skuProduct = objetcauz;
 		console.log(allfilestemp.length);
 		$scope.getProductSizes();
+		
 
+		$scope.addpro.department = 1;
 		Service.createProduct($scope.addpro).then(
 				function successCallback(response){
 					if(response.data.status == "OK" && response.data.data.id != "")
