@@ -14,6 +14,9 @@
 <script type="text/javascript" src="${ContextPath}/r/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${ContextPath}/r/js/select2.min.js"></script>
 
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   
