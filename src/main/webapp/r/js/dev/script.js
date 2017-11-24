@@ -180,6 +180,7 @@ function muestra(ob)
 
 $(document).ready(function () {
 	
+    $( ".datepicker" ).datepicker();
 
 	  $("body").popover({ selector: '[data-toggle="popover"]' });
 	  $("body").tooltip({ selector: '[data-toggle=tooltip]' });

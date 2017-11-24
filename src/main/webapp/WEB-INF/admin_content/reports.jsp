@@ -5,6 +5,7 @@
 
 --%>
 
+
 <div id="page-wrapper" ng-controller="${ appname }Report" ng-init="getReportSchema();">
 	<div class="graphs">
 		<h3 class="blank1 center"><s:message code="admin.report"/></h3>
@@ -29,6 +30,10 @@
 										<option value="">3</option>
 										<option value="">4</option>
 									</select>
+									<input ng-if="p.type == 4" class="form-control datepicker" type="text" ng-model="p.name"/>
+									<script>
+										$( "#datepicker" ).datepicker();
+									</script>
 								  </div>
 							  </div>
 								<button class="btn btn-black" ><s:message code="admin.reporteCreate" /></button>
