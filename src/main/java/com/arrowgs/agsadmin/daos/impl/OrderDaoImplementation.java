@@ -606,12 +606,12 @@ public class OrderDaoImplementation implements OrderDao{
 		Map<String,Object> paramMap = new HashMap<>();
 		boolean where = false;
 		
-		if(order.getHistoric()!=null){
+		if(order.getHistoric()!=null && order.getHistoric().intValue()>0){
 			aux.append(" oh.estado >= :historic");
 			paramMap.put("historic", order.getHistoric());
 			where = true;
 		}
-		if(order.getStatus()!=null){
+		if(order.getStatus()!=null && order.getStatus().intValue()>0){
 			if(where){
 				aux.append(" AND");
 			}
@@ -620,7 +620,7 @@ public class OrderDaoImplementation implements OrderDao{
 			where = true;
 		}
 		
-		if(order.getSince()!=null){
+		if(order.getSince()!=null && order.getSince().toString().length()>0){
 			if(where){
 				aux.append(" AND");
 			}			
@@ -629,7 +629,7 @@ public class OrderDaoImplementation implements OrderDao{
 			where=true;
 		}
 		
-		if(order.getUpTo()!=null){
+		if(order.getUpTo()!=null && order.getUpTo().toString().length()>0){
 			if(where){
 				aux.append(" AND");
 			}			
@@ -637,7 +637,7 @@ public class OrderDaoImplementation implements OrderDao{
 			paramMap.put("hasta", order.getUpTo());
 			where=true;
 		}
-		if(order.getProduct()!=null){
+		if(order.getProduct()!=null && order.getProduct().intValue()>0){
 			if(where){
 				aux.append(" AND");
 			}
@@ -645,7 +645,7 @@ public class OrderDaoImplementation implements OrderDao{
 			paramMap.put("producto", order.getProduct());
 			where = true;
 		}
-		if(order.getSizeProduct()!=null){
+		if(order.getSizeProduct()!=null && order.getSizeProduct().intValue()>0 ){
 			if(where){
 				aux.append(" AND");
 			}
@@ -692,31 +692,31 @@ public class OrderDaoImplementation implements OrderDao{
 		StringBuilder sql = new StringBuilder("SELECT DISTINCT(od.id), od.orden, od.id_producto_sku, od.cantidad, od.precio_individual FROM orden_detalles od LEFT JOIN ordenes o on od.orden = o.id LEFT JOIN productos_sku ps ON od.id_producto_sku = ps.id LEFT JOIN orden_historico oh ON oh.orden = o.id");
 		StringBuilder aux = new StringBuilder("");
 		Map<String,Object> paramMap = new HashMap<>();
-		if(order.getSizeProduct()!=null){
+		if(order.getSizeProduct()!=null && order.getSizeProduct().intValue()>0){
 			aux.append(" AND ps.talla = :talla");
 			paramMap.put("talla", order.getSizeProduct());
 		}
-		if(order.getProduct()!=null){			
+		if(order.getProduct()!=null && order.getProduct().intValue()>0){			
 			aux.append(" AND ps.producto = :producto");
 			paramMap.put("producto", order.getProduct());
 		}
-		if(order.getSku()!=null){
+		if(order.getSku()!=null && order.getSku().length()>0){
 			aux.append(" AND ps.sku = :sku");
 			paramMap.put("sku", order.getSku());
 		}
-		if(order.getSince()!=null){
+		if(order.getSince()!=null && order.getSince().toString().length()>0){
 			aux.append(" AND oh.actualizacion >= :desde");
 			paramMap.put("desde", order.getSince());
 		}
-		if(order.getUpTo()!=null){
+		if(order.getUpTo()!=null && order.getUpTo().toString().length()>0){
 			aux.append(" AND oh.actualizacion <= :hasta");
 			paramMap.put("hasta", order.getUpTo());
 		}
-		if(order.getClient()!=null){
+		if(order.getClient()!=null && order.getClient().intValue()>0){
 			aux.append(" AND o.usuario = :usuario");
 			paramMap.put("usuario", order.getClient());
 		}
-		if(order.getStatus()!=null){
+		if(order.getStatus()!=null && order.getStatus().intValue()>0){
 			aux.append(" AND o.estado = :estado");
 			paramMap.put("estado", order.getStatus());
 		}
