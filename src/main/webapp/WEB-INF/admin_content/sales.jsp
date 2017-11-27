@@ -9,7 +9,15 @@
 								4 date
 								5 boolean
 						  	 --%>
-	${ requestScope.response }					  	 
+	<c:forEach var="a" items="${ requestScope.response.inventario }">
+		${ a.description } 
+		<%--
+		${ a }  a<br/>
+		<c:forEach var="b" items="${ a }">
+			${ b } b<br />
+		</c:forEach>
+		--%>
+	</c:forEach>					  	 
 <div id="page-wrapper" ng-controller="${ appname }Report" ng-init="getReportSchema();">
 	<div class="graphs">
 		<h3 class="blank1 center"><s:message code="admin.report"/></h3>

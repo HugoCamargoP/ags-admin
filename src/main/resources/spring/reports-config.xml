@@ -154,7 +154,7 @@
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Flag" />
 						<property name="type" value="5" />
-						<property name="model" value="stocktackinFlag" />
+						<property name="model" value="stocktakingFlag" />
 					</bean>										
 				</util:list>
 			</property>

@@ -142,9 +142,6 @@ public class SalesController {
 		{
 			response.put("inventario", products);
 		}
-		else{
-			response.put("inventario", null);
-		}
 		response.put("tallaVentas", salesBySizeTable);
 		mv.addObject("response",ControllerHelper.mapResponse(status, response));
 		return mv;
