@@ -456,6 +456,7 @@ public class ProductDaoImplementation implements ProductDao {
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("producto", productDetail.getProduct());
 		paramMap.put("url_imagen", productDetail.getUrl());
+		paramMap.put("side", 3);
 		Number id = productDetailInsertActor.executeAndReturnKey(paramMap);
 		productDetail.setId(id.intValue());
 	}
