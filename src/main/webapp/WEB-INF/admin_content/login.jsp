@@ -41,9 +41,19 @@
 	</div>
 </c:if>
 
-<div class="container center">
 
-	<div id="menulgueador" style="display:none;" class="white-opacity displayCenter col-xs-12 col-sm-8 col-md-8 col-lg-4">
+<style>
+.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+}
+</style>
+<div class="container center fullscreen">
+	<div id="menulgueador" style="display:none;" class="white-opacity displayCenter col-xs-12 col-sm-8 col-md-8 col-lg-6">
 		<div class="col-xs-12 col-sm-6">
                  <img class="img-loginlogo" style="" src="${ContextPath}/r/img/logos/lnegro.png" alt="" />
 		</div>

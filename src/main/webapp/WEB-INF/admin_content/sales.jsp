@@ -9,7 +9,7 @@
 								4 date
 								5 boolean
 						  	 --%>
-						  	 
+	${ requestScope.response }					  	 
 <div id="page-wrapper" ng-controller="${ appname }Report" ng-init="getReportSchema();">
 	<div class="graphs">
 		<h3 class="blank1 center"><s:message code="admin.report"/></h3>
