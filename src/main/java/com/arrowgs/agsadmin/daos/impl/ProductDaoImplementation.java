@@ -524,7 +524,7 @@ public class ProductDaoImplementation implements ProductDao {
 			 paramMap.put("talla", product.getTalla());
 			 where = true;
 		 }
-		 if(product.getGreaterThan()!=null){
+		 if(product.getGreaterThan()!=null && product.getGreaterThan().doubleValue() > 0.0){
 			 if(where){
 				 aux.append(" and");
 			 }
@@ -532,7 +532,7 @@ public class ProductDaoImplementation implements ProductDao {
 			 paramMap.put("greater", product.getGreaterThan());
 			 where = true;
 		 }
-		 if(product.getLessThan()!=null ){
+		 if(product.getLessThan()!=null && product.getLessThan().doubleValue() > 0.0){
 			 if(where){
 				 aux.append(" and");
 			 }
