@@ -87,6 +87,11 @@
 		<put-attribute name="content"  value="/WEB-INF/admin_content/reports.jsp" />
 	</definition>
 	
+	<!-- Page  sales -->
+	<definition name="sales" extends="admin_mainTemplate">
+		<put-attribute name="content"  value="/WEB-INF/admin_content/sales.jsp" />
+	</definition>
+	
 	<!-- Page  base -->
 	<definition name="base" extends="admin_mainTemplate">
 		<put-attribute name="content"  value="/WEB-INF/admin_content/base.jsp" />
