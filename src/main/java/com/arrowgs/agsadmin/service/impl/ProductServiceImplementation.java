@@ -507,6 +507,10 @@ public class ProductServiceImplementation implements ProductService {
 					}
 					else{
 						orderDetails.add(actual);
+						if(products!=null && products.isEmpty() && !iterator.hasNext()){
+							lastOne.setOrdersDetails(orderDetails);
+							products.add(lastOne);
+						}
 					}
 				}
 			}
