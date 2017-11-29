@@ -17,7 +17,8 @@
 	  					 </div>
 					    <div class="panel-body collapse" id="_{{r.name}}">
 					    	<form action="${ linkSales }" onsubmit="" ng-submit="" ng-model="r.name">
-					    	 
+					    	  <input type="hidden" name="report" value="{{r.name}}" />
+					    	  <input type="hidden" name="idReport" value="{{r.id}}" />
 							  <div class="col-xs-12">
 								  <div class="form-group col-xs-12 col-sm-4" ng-repeat="p in r.parameters">
 								    <label ng-if="p.type != 5" for="pwd"><b> {{p.nameAux}} :</b></label> 

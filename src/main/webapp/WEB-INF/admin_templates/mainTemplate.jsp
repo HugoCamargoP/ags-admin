@@ -19,6 +19,9 @@
 		<tiles:insertAttribute name="js" />
 	</head>
 	<body ng-app="${ appname }App" class="left-side-collapsed">
+		<script>
+			var Newpath = "${ ContextPath }";
+		</script>
 		<div style="" class="mensajes" id="mensajes">
 			<%--div class="alert alert2 alert-success text-center">
 				hola

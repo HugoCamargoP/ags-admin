@@ -13,9 +13,9 @@ function($scope,$sce, Service)
 				{
 					$scope.reportes = response.data;
 					for ( var i in $scope.reportes) {
-						console.log($scope.reportes[i]);
+						//console.log($scope.reportes[i]);
 						for ( var a in $scope.reportes[i].parameters) {							
-							console.log($scope.reportes[i].parameters[a]);
+							//console.log($scope.reportes[i].parameters[a]);
 							$scope.reportes[i].parameters[a].nameAux = $scope.reportes[i].parameters[a].name;
 							$scope.reportes[i].parameters[a].string = $scope.reportes[i].parameters[a].model;
 							if($scope.reportes[i].parameters[a].type == 4)
