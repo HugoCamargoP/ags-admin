@@ -675,11 +675,11 @@ public class OrderDaoImplementation implements OrderDao{
 		StringBuilder aux = new StringBuilder("");
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("orden", order.getId());
-		if(order.getSizeProduct()!=null){
+		if(order.getSizeProduct()!=null && order.getSizeProduct().intValue()>0){
 			aux.append(" AND ps.talla = :talla");
 			paramMap.put("talla", order.getSizeProduct());
 		}
-		if(order.getSku()!=null){
+		if(order.getSku()!=null && order.getSku().length() > 0){
 			aux.append(" AND ps.sku = :sku");
 			paramMap.put("sku", order.getSku());
 		}

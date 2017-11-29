@@ -443,7 +443,7 @@ public class OrderServiceImplementation implements OrderService {
 					order.setId(actual.getId());
 					actual.setOrderDetail(orderDao.getOrderDetailByFilter(order));
 					
-					if(actual.getOrderDetail()!=null)
+					if(actual.getOrderDetail()!=null && actual.getOrderDetail().size()>0)
 					{
 						Iterator<OrderDetail> orderDetail = actual.getOrderDetail().iterator();
 						while(orderDetail.hasNext()){
