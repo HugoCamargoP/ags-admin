@@ -123,19 +123,17 @@
 						</tr>
 						<tr id="order_${ a.id }" class="collapse">
 							<td colspan="4">
-								${ a.orderDetail }
-								<c:forEach var="q" items="a.orderDetail">
+								
+								<c:forEach var="q" items="${ a.orderDetail }">
 									${ q }
 								</c:forEach>
-								${ a.orderRecord }
-								<c:forEach var="w" items="a.orderRecord">
-									${ w }
-									<c:forEach var="t" items="${ w }">
-										${ t }
-									</c:forEach>
+								
+								<c:forEach var="w" items="${ a.orderRecord }">
+									${ w.update } <br />
+									${ w.stateText }
 								</c:forEach>
-								${ a.orderAmount }
-								<c:forEach var="e" items="a.orderAmount">
+
+								<c:forEach var="e" items="${ a.orderAmount }">
 									${ e }
 								</c:forEach>
 							</td>
