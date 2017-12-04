@@ -13,7 +13,9 @@ public class SkuProduct {
 	private String sizeText;
 	
 	/*Extra Extra Data*/
-	private String 	productDescr;
+	private String 	productDescrEs;
+	private String 	productDescrEn;
+	private String 	productDescrFr;
 	private String 	productTitle;
 	private Integer individualSales;
 	
@@ -80,15 +82,29 @@ public class SkuProduct {
 		this.sizeText = sizeText;
 	}
 
-	/*******Getter and Setter productDescr***********/
-	public String getProductDescr() {
-		return productDescr;
+	public String getProductDescrEs() {
+		return productDescrEs;
 	}
 
-	public void setProductDescr(String productDescr) {
-		this.productDescr = productDescr;
+	public void setProductDescrEs(String productDescrEs) {
+		this.productDescrEs = productDescrEs;
 	}
 
+	public String getProductDescrEn() {
+		return productDescrEn;
+	}
+
+	public void setProductDescrEn(String productDescrEn) {
+		this.productDescrEn = productDescrEn;
+	}
+
+	public String getProductDescrFr() {
+		return productDescrFr;
+	}
+
+	public void setProductDescrFr(String productDescrFr) {
+		this.productDescrFr = productDescrFr;
+	}
 	
 	/*******Getter and Setter productTitle***********/
 	public String getProductTitle() {

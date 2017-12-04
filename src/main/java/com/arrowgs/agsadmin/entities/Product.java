@@ -6,7 +6,9 @@ import java.util.List;
 public class Product {
 
 	private Integer id;
-	private String 	description;
+	private String 	descriptionEs;
+	private String 	descriptionEn;
+	private String 	descriptionFr;	
 	private String	title;
 	private Integer department;
 	
@@ -38,15 +40,31 @@ public class Product {
 	}
 	
 	/*******Getter and Setter description*******/
-	public String getDescription(){
-		return this.description;
+	public String getDescriptionEs(){
+		return this.descriptionEs;
 	}
 	
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescriptionEs(String descriptionEs) {
+		this.descriptionEs = descriptionEs;
 	}
 
 	
+	public String getDescriptionEn() {
+		return descriptionEn;
+	}
+
+	public void setDescriptionEn(String descriptionEn) {
+		this.descriptionEn = descriptionEn;
+	}
+
+	public String getDescriptionFr() {
+		return descriptionFr;
+	}
+
+	public void setDescriptionFr(String descriptionFr) {
+		this.descriptionFr = descriptionFr;
+	}
+
 	/*******Getter and Setter title*******/
 	public String getTitle() {
 		return title;
