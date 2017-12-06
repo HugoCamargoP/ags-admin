@@ -41,7 +41,8 @@ public interface OrderDao {
 	void removeOrderDetailByOrder(Integer idOrder);
 	void addOneOrderDetail(OrderDetail orderDetail);
 	void removeOneOrderDetail(Integer idDetail);
-	void modifyOrderProduct(OrderDetail orderDetail);	
+	void modifyOrderProduct(OrderDetail orderDetail);
+	void modifyOrderProduct(List<OrderDetail> orderDetails);
 	
 	//OrderRecord
 	List<OrderRecord> getOrderRecordByOrder(Integer idOrder);

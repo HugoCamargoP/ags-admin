@@ -7,6 +7,8 @@ public class OrderDetail {
 	private Integer idProductSku;
 	private Integer quantity;
 	private Double 	individualPrice;
+	private String	guideNumber;
+	private String	shippingCompany;
 	
 	/*Extra data*/
 	private SkuProduct product;
@@ -57,6 +59,22 @@ public class OrderDetail {
 
 	public void setIndividualPrice(Double individualPrice) {
 		this.individualPrice = individualPrice;
+	}
+
+	public String getGuideNumber() {
+		return guideNumber;
+	}
+
+	public void setGuideNumber(String guideNumber) {
+		this.guideNumber = guideNumber;
+	}
+
+	public String getShippingCompany() {
+		return shippingCompany;
+	}
+
+	public void setShippingCompany(String shippingCompany) {
+		this.shippingCompany = shippingCompany;
 	}
 
 	/*******Getter and Setter product*********/
