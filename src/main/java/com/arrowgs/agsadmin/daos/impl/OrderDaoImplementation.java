@@ -715,7 +715,7 @@ public class OrderDaoImplementation implements OrderDao{
 
 	@Override
 	public List<OrderDetail> getSalesProduct(Order order) {
-		StringBuilder sql = new StringBuilder("SELECT DISTINCT(od.id), od.orden, od.id_producto_sku, od.cantidad, od.precio_individual FROM orden_detalles od LEFT JOIN ordenes o on od.orden = o.id LEFT JOIN productos_sku ps ON od.id_producto_sku = ps.id LEFT JOIN orden_historico oh ON oh.orden = o.id");
+		StringBuilder sql = new StringBuilder("SELECT DISTINCT(od.id), od.orden, od.id_producto_sku, od.cantidad, od.precio_individual, od.numero_guia, od.compania_envio FROM orden_detalles od LEFT JOIN ordenes o on od.orden = o.id LEFT JOIN productos_sku ps ON od.id_producto_sku = ps.id LEFT JOIN orden_historico oh ON oh.orden = o.id");
 		StringBuilder aux = new StringBuilder("");
 		Map<String,Object> paramMap = new HashMap<>();
 		if(order.getSizeProduct()!=null && order.getSizeProduct().intValue()>0){

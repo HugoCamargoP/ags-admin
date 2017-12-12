@@ -488,7 +488,7 @@ public class ProductServiceImplementation implements ProductService {
 						skuId = actual.getIdProductSku().intValue();
 					}
 					else{
-						lastOne =  productDao.getProductById(productDao.getSkuProductById(skuId).getProduct());
+						lastOne =  productDao.getProductByIdWhithoutFilter(productDao.getSkuProductById(skuId).getProduct());
 					}
 					if(product.getId().intValue()!=productId){						
 						List<OrderDetail> realOrder = new ArrayList<>();
@@ -499,6 +499,7 @@ public class ProductServiceImplementation implements ProductService {
 						}
 						
 						lastOne.setOrdersDetails(realOrder);
+						lastOne.setDescription(lastOne.getDescriptionEn());
 						products.add(lastOne);
 						productId = product.getId().intValue();
 						orderDetails.clear();

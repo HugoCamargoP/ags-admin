@@ -19,6 +19,7 @@ public class Product {
 	private List<OrderDetail>	ordersDetails;
 	private String				departmentText;
 	private String				userText;
+	private String 				description;
 	
 	//Filter Data
 	private String	sku;
@@ -177,6 +178,14 @@ public class Product {
 
 	public void setUserText(String userText) {
 		this.userText = userText;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Date getSince() {

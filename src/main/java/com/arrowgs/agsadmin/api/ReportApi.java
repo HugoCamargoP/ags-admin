@@ -10,6 +10,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,6 +53,8 @@ public class ReportApi {
 	
 	@Autowired
 	JasperService jasperService;
+	
+	private static Logger logger = LoggerFactory.getLogger(ReportApi.class);
 	
 	@RequestMapping(path = ApiMappings.ReportSchema, method = RequestMethod.GET)
 	public List<Report> getReports(){
@@ -202,7 +206,7 @@ public class ReportApi {
 		}catch(Exception e){
 			ordersDetail = null;
 			status = ResponseStatus.ExternalError;
-			System.out.println(e);
+			logger.error("ReportApi : getProductSalesReport :"+e.toString());
 		}
 		Map<String,Object> response = new HashMap<>();
 		response.put("productos", products);
