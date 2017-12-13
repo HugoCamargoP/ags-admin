@@ -3,19 +3,13 @@ package com.arrowgs.agsadmin.api;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
-import javax.imageio.ImageWriteParam;
-import javax.imageio.ImageWriter;
-import javax.imageio.stream.ImageOutputStream;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -440,9 +434,17 @@ public class ProductApi {
 		ResponseStatus status;
 		Map<String,Object> params = PathHelper.fromPathToMap(path);
 		Product product = ClassHelper.fromStringMap(Product.class, params);
-		if(product.getDescription()!=null)
+		if(product.getDescriptionEs()!=null)
 		{
-			product.setDescription(PathHelper.sqlLike(product.getDescription()));
+			product.setDescriptionEs(PathHelper.sqlLike(product.getDescriptionEs()));
+		}
+		if(product.getDescriptionEn()!=null)
+		{
+			product.setDescriptionEn(PathHelper.sqlLike(product.getDescriptionEn()));
+		}
+		if(product.getDescriptionFr()!=null)
+		{
+			product.setDescriptionFr(PathHelper.sqlLike(product.getDescriptionFr()));
 		}
 		if(product.getSku()!=null){
 			product.setSku(PathHelper.sqlLike(product.getSku()));
@@ -467,10 +469,18 @@ public class ProductApi {
 		Map<String,Object> countingMap = new HashMap<>();
 		countingMap = PathHelper.fromPathToMap(path);
 		Product product = ClassHelper.fromStringMap(Product.class, countingMap);
-		if(product.getDescription()!=null)
+		if(product.getDescriptionEs()!=null)
 		{
-			product.setDescription(PathHelper.sqlLike(product.getDescription()));
+			product.setDescriptionEs(PathHelper.sqlLike(product.getDescriptionEs()));
 		}
+		if(product.getDescriptionEn()!=null)
+		{
+			product.setDescriptionEn(PathHelper.sqlLike(product.getDescriptionEn()));
+		}
+		if(product.getDescriptionFr()!=null)
+		{
+			product.setDescriptionFr(PathHelper.sqlLike(product.getDescriptionFr()));
+		}		
 		countingMap.clear();
 		try{
 			Integer count = productService.getProductsCountyFilter(product);

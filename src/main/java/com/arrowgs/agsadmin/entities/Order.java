@@ -11,6 +11,7 @@ public class Order {
 	private Integer state;
 	private Date creation;
 	private String comment;
+	private Integer	enable;
 
 	private Double totalAmount;
 	
@@ -118,6 +119,14 @@ public class Order {
 	public String getComment() {
 		return comment;
 	}
+	
+	public Integer getEnable() {
+		return enable;
+	}
+
+	public void setEnable(Integer status) {
+		this.enable = status;
+	}	
 	/***********Getter and Setter totalAmount**********/
 	
 	public Double getTotalAmount() {

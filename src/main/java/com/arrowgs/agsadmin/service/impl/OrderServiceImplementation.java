@@ -301,9 +301,18 @@ public class OrderServiceImplementation implements OrderService {
 			orderDao.modifyOrderProduct(orderDetail);
 			result = true;
 		}catch(Exception e){
-			logger.error("OrderService : modifyOrderProduct : " + e.toString());
+			logger.error("OrderService : modifyOrderProduct(OrderDetail) : " + e.toString());
 		}
 		return result;
+	}
+	
+	@Override
+	public void modifyOrderProduct(List<OrderDetail> orderDetails) {
+		try{
+			orderDao.modifyOrderProduct(orderDetails);
+		}catch(Exception e){
+			logger.error("OrderService : modifyOrderProduct(List<OrderDetail>) : " + e.toString());	
+		}
 	}
 
 	@Override
@@ -443,7 +452,7 @@ public class OrderServiceImplementation implements OrderService {
 					order.setId(actual.getId());
 					actual.setOrderDetail(orderDao.getOrderDetailByFilter(order));
 					
-					if(actual.getOrderDetail()!=null)
+					if(actual.getOrderDetail()!=null && actual.getOrderDetail().size()>0)
 					{
 						Iterator<OrderDetail> orderDetail = actual.getOrderDetail().iterator();
 						while(orderDetail.hasNext()){
@@ -543,6 +552,7 @@ public class OrderServiceImplementation implements OrderService {
 		}
 		return users;
 	}
+
 
 	
 }

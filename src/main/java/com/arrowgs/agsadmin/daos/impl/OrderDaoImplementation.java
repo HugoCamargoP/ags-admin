@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -64,10 +65,11 @@ public class OrderDaoImplementation implements OrderDao{
 			orden.setState(rs.getInt(4));
 			orden.setCreation(rs.getDate(5));	
 			orden.setComment(rs.getString(6));
+			orden.setEnable(rs.getInt(7));
 			
 			if(expandible){
-				orden.setUserText(rs.getString(7));
-				orden.setStatusText(rs.getString(8));
+				orden.setUserText(rs.getString(8));
+				orden.setStatusText(rs.getString(9));
 			}
 			
 			return orden;
@@ -103,6 +105,8 @@ public class OrderDaoImplementation implements OrderDao{
 			detalle.setIdProductSku(rs.getInt(3));
 			detalle.setQuantity(rs.getInt(4));
 			detalle.setIndividualPrice(rs.getDouble(5));
+			detalle.setGuideNumber(rs.getString(6));
+			detalle.setShippingCompany(rs.getString(7));
 			return detalle;
 		}
 		
@@ -498,19 +502,41 @@ public class OrderDaoImplementation implements OrderDao{
 		mapOrderDetail.put("orden", orderDetail.getIdOrder());
 		mapOrderDetail.put("id_producto_sku", orderDetail.getIdProductSku());
 		mapOrderDetail.put("cantidad", orderDetail.getQuantity());
+		mapOrderDetail.put("precio_individual", orderDetail.getIndividualPrice());
+		mapOrderDetail.put("numero_guia", orderDetail.getGuideNumber());
+		mapOrderDetail.put("compania_envio", orderDetail.getShippingCompany());
 		Number idDetail = orderDetailInsertActor.executeAndReturnKey(mapOrderDetail);
 		orderDetail.setIdDetail(idDetail.intValue());
 	}
 
 	@Override
 	public void modifyOrderProduct(OrderDetail orderDetail) {		
-		String sql = "update orden_detalles set orden = :orden, id_producto_sku = :producto, cantidad = :cantidad where id = :id";
+		String sql = "update orden_detalles set orden = :orden, id_producto_sku = :producto, cantidad = :cantidad, numero_guia = :guia, compania_envio = :envio where id = :id";
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("orden", orderDetail.getIdOrder());
 		paramMap.put("id_producto_sku", orderDetail.getIdProductSku());
 		paramMap.put("cantidad", orderDetail.getQuantity());
 		paramMap.put("id", orderDetail.getIdDetail());
+		paramMap.put("guia", orderDetail.getGuideNumber());
+		paramMap.put("envio", orderDetail.getShippingCompany());
 		jdbcTemplate.update(sql, paramMap);
+	}
+	
+	@Override
+	public void modifyOrderProduct(List<OrderDetail> orderDetails) {
+		TransactionStatus transactionStatus =
+				transactionManager.getTransaction(new DefaultTransactionDefinition());
+		try{
+			Iterator<OrderDetail> iterator = orderDetails.iterator();
+			while(iterator.hasNext()){
+				modifyOrderProduct(iterator.next());
+			}
+			transactionManager.commit(transactionStatus);
+		}catch(Exception e){
+			transactionManager.rollback(transactionStatus);
+			throw e;
+		}
+		
 	}
 
 	@Override
@@ -675,11 +701,11 @@ public class OrderDaoImplementation implements OrderDao{
 		StringBuilder aux = new StringBuilder("");
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("orden", order.getId());
-		if(order.getSizeProduct()!=null){
+		if(order.getSizeProduct()!=null && order.getSizeProduct().intValue()>0){
 			aux.append(" AND ps.talla = :talla");
 			paramMap.put("talla", order.getSizeProduct());
 		}
-		if(order.getSku()!=null){
+		if(order.getSku()!=null && order.getSku().length() > 0){
 			aux.append(" AND ps.sku = :sku");
 			paramMap.put("sku", order.getSku());
 		}
@@ -689,7 +715,7 @@ public class OrderDaoImplementation implements OrderDao{
 
 	@Override
 	public List<OrderDetail> getSalesProduct(Order order) {
-		StringBuilder sql = new StringBuilder("SELECT DISTINCT(od.id), od.orden, od.id_producto_sku, od.cantidad, od.precio_individual FROM orden_detalles od LEFT JOIN ordenes o on od.orden = o.id LEFT JOIN productos_sku ps ON od.id_producto_sku = ps.id LEFT JOIN orden_historico oh ON oh.orden = o.id");
+		StringBuilder sql = new StringBuilder("SELECT DISTINCT(od.id), od.orden, od.id_producto_sku, od.cantidad, od.precio_individual, od.numero_guia, od.compania_envio FROM orden_detalles od LEFT JOIN ordenes o on od.orden = o.id LEFT JOIN productos_sku ps ON od.id_producto_sku = ps.id LEFT JOIN orden_historico oh ON oh.orden = o.id");
 		StringBuilder aux = new StringBuilder("");
 		Map<String,Object> paramMap = new HashMap<>();
 		if(order.getSizeProduct()!=null && order.getSizeProduct().intValue()>0){

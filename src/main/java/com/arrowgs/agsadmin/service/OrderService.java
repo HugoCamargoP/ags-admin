@@ -43,7 +43,8 @@ public interface OrderService {
 	void removeOrderDetail(Integer id);
 	boolean removeOneOrderDetail(Integer idDetail);
 	boolean insertOrderDetail(OrderDetail orderDetail);
-	boolean modifyOrderProdudct(OrderDetail orderDetail);	
+	boolean modifyOrderProdudct(OrderDetail orderDetail);
+	void modifyOrderProduct(List<OrderDetail> orderDetails);
 	boolean increaseProduct(Integer idDetail);
 	boolean decreaseProduct(Integer idDetail);	
 	
