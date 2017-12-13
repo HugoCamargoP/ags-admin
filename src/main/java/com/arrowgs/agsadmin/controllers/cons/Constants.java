@@ -60,5 +60,6 @@ public interface Constants {
 		
 		//Order
 		static final String UpdateState		  	   = ServiceContext + "/update_status";
+		static final String	OrdersByFilter		   = ServiceContext + "/orders-filter";
 	}
 }

@@ -109,6 +109,7 @@ public class ProductServiceImplementation implements ProductService {
 						status = ProductStatus.SizeAlreadyExist;
 						break;
 					}
+					exist = null;
 					exist = productDao.getSkuProductBySku(actual.getSku());
 					if(!(exist==null || exist.getId().intValue() == actual.getId().intValue())){
 						status = ProductStatus.SKUAlreadyExist;

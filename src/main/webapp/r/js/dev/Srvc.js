@@ -30,15 +30,16 @@ function Service(http, url)
     }   
    
     //Trae las ordenes que correspondan a los campos no nulos del objeto order
-        //Parámetros necesarios: Order order, Integer page, Integer inPage (inPage = cuantos por página)
+        //Parámetros necesarios: Order order, Integer page (numero de página), Integer inPage (inPage = cuantos por página)
     this.getOrdersByFilter = function(order, page, inPage){
         var path = "";
         path = path + "creation=" + order.creation + "&state=" + order.state + "&user=" + order.user;
         return http({
             'method': 'GET',
-            'url': url + '/get_order/filter' +path + ' ' + page + ' ' + inPage
+            'url': url + '/orders-filter/' +path + '/' + page + '/' + inPage
         })
     }
+    
    
     //Trae el status, total de ordenes, el número de páginas que correspondan a los campos no nulos del objeto order
         //Parámetros necesarios: Order order, Integer inPage (inPage = cuantos por página)

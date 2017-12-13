@@ -244,8 +244,8 @@ public class Order {
 	public void setLastBoundQuery(Integer lastBoundQuery) {
 		this.lastBoundQuery = lastBoundQuery;
 	}
-
 	
+
 	/***********Getter and Setter StatusDate**********/
 	public Date getStatusDate() {
 		return statusDate;
