@@ -143,6 +143,80 @@
 			</div>
 		</c:if>
 		
+		
+		<%-- Todas las ordenes cliente --%>
+		
+		<c:if test="${not empty param.idReport and param.idReport == 3 }">
+		${ requestScope.response.data.ordenes }
+			<div class="pull-left">
+				<ul class="list-inline">
+					<li>
+						Cliente :
+					</li>
+					<li>
+						<h4>${ requestScope.response.data.ordenes[0].userText }</h4>
+					</li>
+				</ul> 
+			</div>
+			<div class="pull-right">
+				<script>
+				var urln = document.URL;
+				urln = urln.replace("sales", "rest/sales");
+				
+				function getpdf(t)
+				{
+					window.location = urln;
+				}
+				</script>
+				<a target="_self" href="javascript:getpdf(this);" class="btn-primary btn">PDF</a>
+			</div>
+			<div class="clearfix"></div>
+			<div class="table-responsive">
+				<table class="table table-bordered a">
+					<tr class="info">
+						<td>
+						</td>
+						<td><s:message code="reports.order"/></td>
+						<td><s:message code="reports.statusText"/></td>
+						<td><s:message code="reports.statusCreation"/></td>
+					</tr>
+					<c:forEach var="a" items="${ requestScope.response.data.ordenes }">
+						<tr>
+							<td>
+								<button  data-toggle="collapse" data-target="#order_${ a.id }">open</button>
+							</td>
+							<td>
+								${ a.id }
+							</td>
+							<td>
+								${ a.statusText }
+							</td>
+							<td>
+								${ a.creation }
+							</td>
+						</tr>
+						<tr id="order_${ a.id }" class="collapse">
+							<td colspan="4">
+								
+								<c:forEach var="q" items="${ a.orderDetail }">
+									${ q }
+								</c:forEach>
+								
+								<c:forEach var="w" items="${ a.orderRecord }">
+									${ w.update } <br />
+									${ w.stateText }
+								</c:forEach>
+
+								<c:forEach var="e" items="${ a.orderAmount }">
+									${ e }
+								</c:forEach>
+							</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+		</c:if>
+		
 		<c:if test="${not empty requestScope.response.data.productos }">
 			Productos
 			<div class="table-responsive">
