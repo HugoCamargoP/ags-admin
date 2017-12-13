@@ -92,6 +92,16 @@
 		<put-attribute name="content"  value="/WEB-INF/admin_content/sales.jsp" />
 	</definition>
 	
+	<!-- Page  Orders -->
+	<definition name="orders" extends="admin_mainTemplate">
+		<put-attribute name="content"  value="/WEB-INF/admin_content/orders.jsp" />
+	</definition>
+	
+	<!-- Page  order -->
+	<definition name="order" extends="admin_mainTemplate">
+		<put-attribute name="content"  value="/WEB-INF/admin_content/order.jsp" />
+	</definition>
+	
 	<!-- Page  base -->
 	<definition name="base" extends="admin_mainTemplate">
 		<put-attribute name="content"  value="/WEB-INF/admin_content/base.jsp" />

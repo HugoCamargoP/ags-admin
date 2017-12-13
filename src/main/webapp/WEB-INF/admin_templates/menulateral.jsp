@@ -32,9 +32,9 @@
 							</li>  
 	                        <li class=""><a href="${ linkAdminReports }"><i class="fa fa-file-pdf-o"></i> <span><s:message code="admin.report"/></span></a>
 							</li>  
-	                        <li class="menu-list"><a href="#"><i class="fa fa-truck"></i> <span>Pedidos</span></a>
+	                        <li class="menu-list"><a href="${ linkAdminOrders }"><i class="fa fa-truck"></i> <span>Pedidos</span></a>
 								<ul class="sub-menu-list">
-									<li><a href="${ linkEmpty }">Historial</a> </li>
+									<li><a href="${ linkAdminOrders }">Historial</a> </li>
 								</ul>
 							</li>   
 							<li>

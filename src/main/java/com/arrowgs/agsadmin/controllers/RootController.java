@@ -18,7 +18,9 @@ public class RootController {
 	                      Mappings.adminUsers,
 	                      Mappings.adminItems,
 	                      Mappings.adminReports,
-	                      Mappings.adminModifyU})
+	                      Mappings.adminModifyU,
+	                      Mappings.orders,
+	                      Mappings.order})
 	public void show(){
 		
 	}
