@@ -10,7 +10,7 @@ public class ControllerHelper {
 	private final static String Error  = "error"; 
 	
 	public static enum ResponseStatus{
-		OK, ExternalError
+		OK, ExternalError, Warning
 	}
 	
 	public static Map<String, Object> mapResponse(Object status, Object data){
