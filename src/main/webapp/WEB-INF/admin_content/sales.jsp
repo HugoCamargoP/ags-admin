@@ -36,7 +36,7 @@
 			<c:forEach var="a" items="${ requestScope.response.data.productos }">
 				<div class="table-responsive">
 					<table class="table table-bordered a">
-						<tr class="info">
+						<tr class="btn-black">
 							<td><s:message code="reports.title"/></td>
 							<td><s:message code="reports.description"/></td>
 							<td><s:message code="reports.department"/></td>
@@ -49,7 +49,7 @@
 						<tr>
 							<td colspan="3">
 								<table class="table table-bordered a">
-									<tr class="danger">
+									<tr class="btn-black">
 										<td>SKU</td>
 										<td>Cantidad</td>
 										<td>Precio unitario</td>

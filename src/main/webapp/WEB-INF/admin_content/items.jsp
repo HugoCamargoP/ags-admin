@@ -108,8 +108,56 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 					 					<span class="fa fa-user" aria-hidden="true"></span>
 					 				</td>
 					 				<td colspan="4">
-					 					<div class="click hidden-xs" ng-hide="eachitem[p.id].description" ng-dblclick="eachitem[p.id].description = p.description;">{{p.description}}</div>
-					 					<div class="visible-xs">{{p.description}}</div>
+					 					<div class="click hidden-xs" ng-hide="eachitem[p.id].description" ng-dblclick="eachitem[p.id].description = p.description;">{{p.descriptionEs}}</div>
+					 					<div class="visible-xs">{{p.descriptionEs}}</div>
+					 					<div ng-show="eachitem[p.id].description">
+					 						<form action="" id="forms[p.id].description" name="forms[p.id].description" onsubmit="return false" ng-submit="updateProduct(productos[$index].indexado);eachitem[p.id].description = false;" >
+						 						<div class="col-xs-12 col-md-10">
+						 							<input ng-required="true" class="form-control form-control-min" type="text" ng-model="productos[p.indexado].description"/>
+						 						</div>
+						 						<div class="col-xs-6 col-md-1">
+						 							<button type="submit" class="btn btn-success"><span class="fa fa-floppy-o" aria-hidden="true"></span></button>
+						 						</div>
+						 						<div class="col-xs-6 col-md-1">
+						 							<a class="btn btn-danger" ng-click="p.description = eachitem[p.id].description;eachitem[p.id].description = false;">
+						 								<span class="fa fa-times-circle" aria-hidden="true"></span>
+						 							</a>
+						 						</div>
+					 						</form>
+					 					</div>
+					 				</td>
+					 			</tr>
+					 			<tr class="">
+					 				<td ng-class="{show: overs[p.id] || newsize[p.id]}" class="hidden-xs" style="display:none;color:rgba(255,255,255,0);">
+					 					<span class="fa fa-user" aria-hidden="true"></span>
+					 				</td>
+					 				<td colspan="4">
+					 					<div class="click hidden-xs" ng-hide="eachitem[p.id].description" ng-dblclick="eachitem[p.id].description = p.description;">{{p.descriptionEn}}</div>
+					 					<div class="visible-xs">{{p.descriptionEn}}</div>
+					 					<div ng-show="eachitem[p.id].description">
+					 						<form action="" id="forms[p.id].description" name="forms[p.id].description" onsubmit="return false" ng-submit="updateProduct(productos[$index].indexado);eachitem[p.id].description = false;" >
+						 						<div class="col-xs-12 col-md-10">
+						 							<input ng-required="true" class="form-control form-control-min" type="text" ng-model="productos[p.indexado].description"/>
+						 						</div>
+						 						<div class="col-xs-6 col-md-1">
+						 							<button type="submit" class="btn btn-success"><span class="fa fa-floppy-o" aria-hidden="true"></span></button>
+						 						</div>
+						 						<div class="col-xs-6 col-md-1">
+						 							<a class="btn btn-danger" ng-click="p.description = eachitem[p.id].description;eachitem[p.id].description = false;">
+						 								<span class="fa fa-times-circle" aria-hidden="true"></span>
+						 							</a>
+						 						</div>
+					 						</form>
+					 					</div>
+					 				</td>
+					 			</tr>
+					 			<tr class="">
+					 				<td ng-class="{show: overs[p.id] || newsize[p.id]}" class="hidden-xs" style="display:none;color:rgba(255,255,255,0);">
+					 					<span class="fa fa-user" aria-hidden="true"></span>
+					 				</td>
+					 				<td colspan="4">
+					 					<div class="click hidden-xs" ng-hide="eachitem[p.id].description" ng-dblclick="eachitem[p.id].description = p.description;">{{p.descriptionFr}}</div>
+					 					<div class="visible-xs">{{p.descriptionFr}}</div>
 					 					<div ng-show="eachitem[p.id].description">
 					 						<form action="" id="forms[p.id].description" name="forms[p.id].description" onsubmit="return false" ng-submit="updateProduct(productos[$index].indexado);eachitem[p.id].description = false;" >
 						 						<div class="col-xs-12 col-md-10">
