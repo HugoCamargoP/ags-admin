@@ -150,13 +150,18 @@ public class OrderServiceImplementation implements OrderService {
 			while(iterator.hasNext()){
 				Order actualOrder = iterator.next();
 				actualOrder.setOrderDetail(getOrderDetailByOrder(actualOrder.getId()));
-				Iterator<OrderDetail> iteratorDetail = order.getOrderDetail().iterator();
-				while(iteratorDetail.hasNext()){
-					OrderDetail orderDetail = iteratorDetail.next();
-					SkuProduct sku = productService.getSkuProductById(orderDetail.getIdProductSku());
-					orderDetail.setProduct(sku);
-					ProductDetail product = productService.oneProductDetail(sku.getProduct());
-					orderDetail.setUrl(product.getUrl());
+				if(actualOrder.getOrderDetail()!=null|| !actualOrder.getOrderDetail().isEmpty()){
+					Iterator<OrderDetail> iteratorDetail = actualOrder.getOrderDetail().iterator();
+					while(iteratorDetail.hasNext()){
+						OrderDetail orderDetail = iteratorDetail.next();
+						SkuProduct sku = productService.getSkuProductById(orderDetail.getIdProductSku());
+						orderDetail.setProduct(sku);
+						ProductDetail product = productService.oneProductDetail(sku.getProduct());
+						if(product!=null)
+						{
+							orderDetail.setUrl(product.getUrl());
+						}
+					}					
 				}
 				actualOrder.setOrderAmount(orderDao.getOrderAmountByOrder(actualOrder.getId()));
 			}
