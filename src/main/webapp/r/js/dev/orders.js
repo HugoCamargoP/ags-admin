@@ -135,13 +135,27 @@ function($scope , Service)
 				})		
 	}
 	$scope.order = 4; 
-	$scope.page = 10;
-	$scope.inPage = 1;
-	$scope.getOrdersByFilter = function (a,b,c)
+	$scope.page = 1;
+	$scope.inPage = 10;
+	$scope.otra = {};
+	$scope.cuanto = true;
+	$scope.getOrdersByFilter = function (a,b)
 	{
-		Service.getOrdersByFilter(a,$scope.page,c).then(
+		$scope.otra.state = a;
+		Service.getOrdersByFilter($scope.otra,b,$scope.inPage).then(
 				function successCallback(response){
-					$scope.ordernes = response.data.data;
+					
+					$scope.ordenes = response.data.data;
+					if($scope.ordenes.length > 0)
+					{
+						$scope.cuanto = true;
+					} 
+					else
+					{
+						$scope.cuanto = false;
+					}
+					
+					console.log($scope.cuanto);
 				},
 				function errorCallback(response){
 					

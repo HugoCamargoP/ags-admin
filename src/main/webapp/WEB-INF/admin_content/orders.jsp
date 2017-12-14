@@ -24,55 +24,50 @@
 		</div>
 	</div>
 	
-	<div class="container form-opacity videoenbebido" ng-controller="${ appname }orders" ng-init="getOrders();getOrdersByFilter(3,1,10);">
-		<div class="">    
+     <style>
+     	.liblack a
+     	{
+     		background-color: black !important;
+     		color:white !important;
+     	}
+     </style>
+		      
+	<div class="container form-opacity videoenbebido" ng-controller="${ appname }orders" ng-init="currentpage=1;getOrdersByFilter('',currentpage);">
+		
+		<ul class="nav nav-pills">
+		  <li class="active"><a data-toggle="pill" href="#Sometida" ng-click="estado = 'todas';currentpage=1;getOrdersByFilter('',currentpage);" >Todas</a></li>
+		  <li class=""><a data-toggle="pill" href="#Sometida" ng-click="estado = 'sometidas';currentpage=1;getOrdersByFilter(4,currentpage);" >Sometida</a></li>
+		  <li><a data-toggle="pill" href="#Aprobada" ng-click="estado = 'aprobadas';currentpage=1;getOrdersByFilter(5,currentpage);">Aprobada</a></li>
+		  <li><a data-toggle="pill" href="#curso" ng-click="estado = 'en curso';currentpage=1;getOrdersByFilter(6,currentpage);">En curso</a></li>
+		  <li><a data-toggle="pill" href="#Completa" ng-click="estado = 'Completadas';currentpage=1;getOrdersByFilter(7,currentpage);">Completa</a></li>
+		  <li><a data-toggle="pill" href="#Atencion" ng-click="estado = 'en atención';currentpage=1;getOrdersByFilter(8,currentpage);">Atención</a></li>
+		</ul>
+		<div class="clearfix"></div>
+		<br />
+		<div class="" ng-if="!cuanto">
+			<div class="alert alert-info">
+			  <strong>Sin informacion de ordenes {{estado}}</strong> 
+			</div>
+		</div>
+		<div class="" ng-if="cuanto">    
 			<div class="col-xs-12 form-opacity">
 			  <div class="margin15em"></div>
 		      <div class="table-responsive">
-		      	<table class="table table-bordered " onload="cargaTable();">
-			            <tr class="black a">
-			                <td></td>
+		      	<table class="table table-bordered ">
+			            <tr class="btn-black a">
 			                <td>Order</td>
 			                <td>Customer Name</td>
 			                <td>Status</td>
-			                <td>Order Date</td>
+			                <td>Creation</td>
 			            </tr>
-				      <c:forEach items="${ orders }" var="a" varStatus="theCount">
-				      		<tr class="center1 visible${theCount.count} hidden todas a">
-				      			<td>
-				      				<a href="${ linkUserOrder }${a.id}" style="color:black;">
-					      				<div>
-					      					<i class="fa fa-eye" aria-hidden="true"></i>
-					      				</div>
-				      				</a>
-				      			</td>
-				      			<td>
-				      				${ a.id }
-				      			</td>
-					         	<td>${ sessionScope.userSession.name }</td>
-					         	<td>
-					         	<%-- 
-						         	<c:forEach items="${a.orderRecord}" var="current" varStatus="loop">
-									    <c:if test="${loop.last}">${ current.stateText }</c:if>
-									</c:forEach>
-								--%>
-								${ a.statusTex }					         	
-					         	</td>
-					         	<td>${ a.creation }</td>
-				         	</tr>
-					      <script>
-					      	var theCount = ${theCount.count};
-					      </script>
-				      </c:forEach>
+			            <tr class="text-center" ng-repeat="(key, value) in ordenes">
+							<td>{{value.id}}</td>
+							<td>{{value.userText}}</td>
+							<td>{{value.statusText}}</td>
+							<td>{{value.creation}}</td>
+			            </tr>
 		      	</table>
 		      </div>
-		      <style>
-		      	.liblack a
-		      	{
-		      		background-color: black !important;
-		      		color:white !important;
-		      	}
-		      </style>
 		      
 		      <div class="clearfix"></div>
 		      <div style="" class="sintransitional center center1">
@@ -104,6 +99,7 @@
 		      </div>
 			</div>				
 		</div>
+		
 	<div class="clearfix"></div>
 	</div>
 </div>
