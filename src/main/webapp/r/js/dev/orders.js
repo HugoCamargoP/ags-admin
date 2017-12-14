@@ -133,6 +133,18 @@ function($scope, $timeout , yetiService)
 					
 				})		
 	}
-	
+	$scope.order = 4; 
+	$scope.page = 10;
+	$scope.inPage = 1;
+	$scope.getOrdersByFilter = function (a,b,c)
+	{
+		Service.getOrdersByFilter(a,$scope.page,c).then(
+				function successCallback(response){
+					$scope.ordernes = response.data.data;
+				},
+				function errorCallback(response){
+					
+				})		
+	}
 	
 }])

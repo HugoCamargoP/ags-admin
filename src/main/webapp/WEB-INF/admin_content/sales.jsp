@@ -147,7 +147,11 @@
 		<%-- Todas las ordenes cliente --%>
 		
 		<c:if test="${not empty param.idReport and param.idReport == 3 }">
-		${ requestScope.response.data.ordenes }
+		
+		<c:forEach var="a" items="${ requestScope.response.data.ordenes }">
+			${ a }
+		</c:forEach>
+		
 			<div class="pull-left">
 				<ul class="list-inline">
 					<li>

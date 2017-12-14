@@ -108,8 +108,8 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 					 					ES
 					 				</td>
 					 				<td colspan="4">
-					 					<div class="click hidden-xs" ng-hide="eachitem[p.id].descriptionEs" ng-dblclick="eachitem[p.id].descriptionEs = p.descriptionEs;">{{p.descriptionEs}}</div>
-					 					<div class="visible-xs">{{p.descriptionEs}}</div>
+					 					<div class="click hidden-xs" ng-hide="eachitem[p.id].descriptionEs" ng-dblclick="eachitem[p.id].descriptionEs = p.descriptionEs;"><div ng-if="p.descriptionEs == NULL"><div ng-init="p.descriptionEs = true;"></div></div>{{p.descriptionEs}} <a href="javascript:void(0);" ng-click="eachitem[p.id].descriptionEs = p.descriptionEs;" class="btn btn-black hidden">cambia</a></div>
+					 					<div class="visible-xs">&nbsp;{{p.descriptionEs}}</div>
 					 					<div ng-show="eachitem[p.id].descriptionEs">
 					 						<form action="" id="forms[p.id].descriptionEs" name="forms[p.id].descriptionEs" onsubmit="return false" ng-submit="updateProduct(productos[$index].indexado);eachitem[p.id].descriptionEs = false;" >
 						 						<div class="col-xs-12 col-md-10">
@@ -132,7 +132,7 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 					 					EN
 					 				</td>
 					 				<td colspan="4">
-					 					<div class="click hidden-xs" ng-hide="eachitem[p.id].descriptionEn" ng-dblclick="eachitem[p.id].descriptionEn = p.descriptionEn;">{{p.descriptionEn}}</div>
+					 					<div class="click hidden-xs" ng-hide="eachitem[p.id].descriptionEn" ng-dblclick="eachitem[p.id].descriptionEn = p.descriptionEn;"><div ng-if="p.descriptionEn == NULL"><div ng-init="p.descriptionEn = true;"></div></div>{{p.descriptionEn}}</div>
 					 					<div class="visible-xs">{{p.descriptionEn}}</div>
 					 					<div ng-show="eachitem[p.id].descriptionEn">
 					 						<form action="" id="forms[p.id].descriptionEn" name="forms[p.id].descriptionEn" onsubmit="return false" ng-submit="updateProduct(productos[$index].indexado);eachitem[p.id].descriptionEn = false;" >
@@ -156,7 +156,7 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 					 					FR
 					 				</td>
 					 				<td colspan="4">
-					 					<div class="click hidden-xs" ng-hide="eachitem[p.id].descriptionFr" ng-dblclick="eachitem[p.id].descriptionFr = p.descriptionFr;">{{p.descriptionFr}}</div>
+					 					<div class="click hidden-xs" ng-hide="eachitem[p.id].descriptionFr" ng-dblclick="eachitem[p.id].descriptionFr = p.descriptionFr;"><div ng-if="p.descriptionFr == NULL"><div ng-init="p.descriptionFr = true;"></div></div>{{p.descriptionFr}}</div>
 					 					<div class="visible-xs">{{p.descriptionFr}}</div>
 					 					<div ng-show="eachitem[p.id].descriptionFr">
 					 						<form action="" id="forms[p.id].descriptionFr" name="forms[p.id].descriptionFr" onsubmit="return false" ng-submit="updateProduct(productos[$index].indexado);eachitem[p.id].descriptionFr = false;" >
