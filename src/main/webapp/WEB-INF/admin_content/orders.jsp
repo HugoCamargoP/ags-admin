@@ -24,7 +24,7 @@
 		</div>
 	</div>
 	
-	<div class="container form-opacity videoenbebido" ng-controller="${ appname }orders" ng-init="getOrders();">
+	<div class="container form-opacity videoenbebido" ng-controller="${ appname }orders" ng-init="getOrders();getOrdersByFilter(3,1,10);">
 		<div class="">    
 			<div class="col-xs-12 form-opacity">
 			  <div class="margin15em"></div>

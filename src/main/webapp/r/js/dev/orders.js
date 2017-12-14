@@ -6,7 +6,7 @@ angular.module('YetiApp')
 angular.module(appname+'App')
 
 .controller(appname+'orders',['$scope', appname+'Service',
-function($scope, $timeout , yetiService)
+function($scope , Service)
 {	
 
 	$scope.msjTemp = 'vacio';
@@ -30,14 +30,15 @@ function($scope, $timeout , yetiService)
 	$scope.rowsByPage = 10;
 	$scope.paginasGlobals;
 	$scope.paginacion = 0
+	var theCount = 1;
 	
 	$scope.getOrders = function()
 	{
-		/*
+		
 		if(theCount == undefined)
 		{
 			theCount = 1;
-		}*/
+		}
 		$scope.ordersNew = theCount;
 		$scope.paginasGlobals = parseInt( $scope.ordersNew / $scope.rowsByPage );	
 		if($scope.paginasGlobals == 0)
@@ -62,8 +63,8 @@ function($scope, $timeout , yetiService)
 	
 	$scope.cambiaPage = function(a)
 	{
-		desseleccionar(a);
-		addHide('todas');
+		//desseleccionar(a);
+		//addHide('todas');
 		for (var i = ((a * $scope.rowsByPage)-9); i <= (a * $scope.rowsByPage);  i++) {
 			addremoveclass('hidden','visible'+i);
 		}
@@ -133,6 +134,18 @@ function($scope, $timeout , yetiService)
 					
 				})		
 	}
-	
+	$scope.order = 4; 
+	$scope.page = 10;
+	$scope.inPage = 1;
+	$scope.getOrdersByFilter = function (a,b,c)
+	{
+		Service.getOrdersByFilter(a,$scope.page,c).then(
+				function successCallback(response){
+					$scope.ordernes = response.data.data;
+				},
+				function errorCallback(response){
+					
+				})		
+	}
 	
 }])
