@@ -22,15 +22,14 @@
 							  <div class="col-xs-12">   
 								  <div class="form-group col-xs-12 col-sm-4" ng-repeat="p in r.parameters">
 								    <label ng-if="p.type != 5" for="pwd"><b> {{p.nameAux}} :</b></label> 
-									<input ng-if="p.type == 1 && r.name == 'Clientes'" class="form-control" ng-required="true" name="{{p.string}}" type="text"/>
-									<input ng-if="p.type == 1 && r.name != 'Clientes'" class="form-control" name="{{p.string}}" type="text"/>
-									<input ng-if="p.type == 3" class="form-control" name="{{p.string}}" type="text"/>
-									<select ng-if="p.type == 2" class="form-control" name="{{p.string}}" id="">
-										<option value="">1</option>
+									<input ng-if="p.type == 1" class="form-control" ng-required="p.required" name="{{p.string}}" type="text"/>
+									<input ng-if="p.type == 3" class="form-control" ng-required="p.required" name="{{p.string}}" type="text"/>
+									<select ng-if="p.type == 2" class="form-control" ng-required="p.required" name="{{p.string}}" id="">
+										<option value="">{{p.string}}</option>
 									</select>
-									<input ng-if="p.type == 4" ng-click="p.opened = true" class="form-control" type="text" name="{{p.string}}" ng-model="p.name" 
+									<input ng-if="p.type == 4" ng-click="p.opened = true" class="form-control"  ng-required="p.required" type="text" name="{{p.string}}" ng-model="p.name" 
 									 uib-datepicker-popup="dd-MM-yyyy" is-open="p.opened" datepicker-options="dateOptions" close-text="Close"  />
-									<input ng-if="p.type == 5" type="hidden" name="{{p.string}}" value="true" />
+									<input ng-if="p.type == 5" type="hidden"  ng-required="p.required" name="{{p.string}}" value="true" />
 								  </div>
 							  </div>
 								<button class="btn btn-black" ><s:message code="admin.reporteCreate" /></button>

@@ -28,13 +28,13 @@
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Talla" />
-						<property name="type" value="1" />
+						<property name="type" value="2" />
 						<property name="model" value="size" />
 						<property name="required" value="false"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Producto" />
-						<property name="type" value="1" />
+						<property name="type" value="2" />
 						<property name="model" value="product" />
 						<property name="required" value="false"/>
 					</bean>
@@ -61,7 +61,7 @@
 				<util:list value-type="com.arrowgs.agsadmin.entities.Report.Parameter">
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Cliente" />
-						<property name="type" value="1" />
+						<property name="type" value="2" />
 						<property name="model" value="client" />
 						<property name="required" value="true"/>
 					</bean>
@@ -79,13 +79,13 @@
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Talla" />
-						<property name="type" value="1" />
+						<property name="type" value="2" />
 						<property name="model" value="size" />
 						<property name="required" value="false"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Producto" />
-						<property name="type" value="1" />
+						<property name="type" value="2" />
 						<property name="model" value="product" />
 						<property name="required" value="false"/>
 					</bean>
@@ -112,7 +112,7 @@
 				<util:list value-type="com.arrowgs.agsadmin.entities.Report.Parameter">
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Cliente" />
-						<property name="type" value="1" />
+						<property name="type" value="2" />
 						<property name="model" value="client" />
 						<property name="required" value="false"/>
 					</bean>
@@ -130,19 +130,19 @@
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Talla" />
-						<property name="type" value="1" />
+						<property name="type" value="2" />
 						<property name="model" value="size" />
 						<property name="required" value="false"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Producto" />
-						<property name="type" value="1" />
+						<property name="type" value="2" />
 						<property name="model" value="product" />
 						<property name="required" value="false"/>
 					</bean>	
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Estado" />
-						<property name="type" value="1" />
+						<property name="type" value="2" />
 						<property name="model" value="status" />
 						<property name="required" value="false"/>
 					</bean>						
@@ -163,13 +163,13 @@
 				<util:list value-type="com.arrowgs.agsadmin.entities.Report.Parameter">
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Talla" />
-						<property name="type" value="1" />
+						<property name="type" value="2" />
 						<property name="model" value="size" />
 						<property name="required" value="false"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Producto" />
-						<property name="type" value="1" />
+						<property name="type" value="2" />
 						<property name="model" value="product" />
 						<property name="required" value="false"/>
 					</bean>							
