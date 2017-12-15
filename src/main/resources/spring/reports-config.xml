@@ -18,31 +18,37 @@
 						<property name="name" value="Fecha de Inicio" />
 						<property name="type" value="4" />
 						<property name="model" value="since" />
+						<property name="required" value="false"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Fecha Final" />
 						<property name="type" value="4" />
 						<property name="model" value="upTo" />
+						<property name="required" value="false"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Talla" />
 						<property name="type" value="1" />
 						<property name="model" value="size" />
+						<property name="required" value="false"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Producto" />
 						<property name="type" value="1" />
 						<property name="model" value="product" />
+						<property name="required" value="false"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="SKU" />
 						<property name="type" value="3" />
 						<property name="model" value="sku" />
+						<property name="required" value="false"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Flag" />
 						<property name="type" value="5" />
 						<property name="model" value="salesFlag" />
+						<property name="required" value="true"/>
 					</bean>					
 				</util:list>
 			</property>
@@ -57,36 +63,43 @@
 						<property name="name" value="Cliente" />
 						<property name="type" value="1" />
 						<property name="model" value="client" />
+						<property name="required" value="true"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Fecha de Inicio" />
 						<property name="type" value="4" />
 						<property name="model" value="since" />
+						<property name="required" value="false"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Fecha Final" />
 						<property name="type" value="4" />
 						<property name="model" value="upTo" />
+						<property name="required" value="false"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Talla" />
 						<property name="type" value="1" />
 						<property name="model" value="size" />
+						<property name="required" value="false"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Producto" />
 						<property name="type" value="1" />
 						<property name="model" value="product" />
+						<property name="required" value="false"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="SKU" />
 						<property name="type" value="3" />
 						<property name="model" value="sku" />
+						<property name="required" value="false"/>
 					</bean>	
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Flag" />
 						<property name="type" value="5" />
 						<property name="model" value="clientFlag" />
+						<property name="required" value="true"/>
 					</bean>										
 				</util:list>
 			</property>
@@ -101,36 +114,43 @@
 						<property name="name" value="Cliente" />
 						<property name="type" value="1" />
 						<property name="model" value="client" />
+						<property name="required" value="false"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Fecha de Inicio" />
 						<property name="type" value="4" />
 						<property name="model" value="since" />
+						<property name="required" value="false"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Fecha Final" />
 						<property name="type" value="4" />
 						<property name="model" value="upTo" />
+						<property name="required" value="false"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Talla" />
 						<property name="type" value="1" />
 						<property name="model" value="size" />
+						<property name="required" value="false"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Producto" />
 						<property name="type" value="1" />
 						<property name="model" value="product" />
+						<property name="required" value="false"/>
 					</bean>	
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Estado" />
 						<property name="type" value="1" />
 						<property name="model" value="status" />
+						<property name="required" value="false"/>
 					</bean>						
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Flag" />
 						<property name="type" value="5" />
 						<property name="model" value="ordersFlag" />
+						<property name="required" value="true"/>
 					</bean>										
 				</util:list>
 			</property>
@@ -145,16 +165,19 @@
 						<property name="name" value="Talla" />
 						<property name="type" value="1" />
 						<property name="model" value="size" />
+						<property name="required" value="false"/>
 					</bean>
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Producto" />
 						<property name="type" value="1" />
 						<property name="model" value="product" />
+						<property name="required" value="false"/>
 					</bean>							
 					<bean class="com.arrowgs.agsadmin.entities.Report.Parameter">
 						<property name="name" value="Flag" />
 						<property name="type" value="5" />
 						<property name="model" value="stocktakingFlag" />
+						<property name="required" value="true"/>
 					</bean>										
 				</util:list>
 			</property>
@@ -169,6 +192,7 @@
 						<property name="name" value="Flag" />
 						<property name="type" value="5" />
 						<property name="model" value="sizeFlag" />
+						<property name="required" value="true"/>
 					</bean>										
 				</util:list>
 			</property>
