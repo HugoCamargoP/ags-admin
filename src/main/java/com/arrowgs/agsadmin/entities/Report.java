@@ -9,6 +9,7 @@ public class Report {
 		private String name;
 		private int type;
 		private String model;
+		private boolean required;
 		
 		public Parameter() {
 			// TODO Auto-generated constructor stub
@@ -16,11 +17,12 @@ public class Report {
 		
 		
 		
-		public Parameter(String name, int type, String model) {
+		public Parameter(String name, int type, String model, boolean required) {
 			super();
 			this.name = name;
 			this.type = type;
 			this.model = model;
+			this.required = required;
 		}
 		
 		
@@ -43,6 +45,13 @@ public class Report {
 		public void setModel(String model) {
 			this.model = model;
 		}
+		public boolean isRequired() {
+			return required;
+		}
+		public void setRequired(boolean required) {
+			this.required = required;
+		}
+		
 	
 	}
 	

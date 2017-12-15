@@ -117,15 +117,25 @@ public class ProductApi {
 	}	
 	
 	@RequestMapping(path = ApiMappings.Product, method = RequestMethod.POST)
-	public Map<String,? extends Object> createProduct(@RequestBody Product product){
+	public Map<String,? extends Object> createProduct(@RequestBody Product product, Locale locale){
 		ResponseStatus status;
+		String error="";
 		try{
-			productService.addProduct(product);
-			status = ResponseStatus.OK;
+			ProductStatus statusPro;
+			statusPro = productService.addProduct(product);
+			if(statusPro == ProductStatus.OK)
+			{
+				status = ResponseStatus.OK;
+			}else{				
+				status = ResponseStatus.Warning;
+				if(statusPro == ProductStatus.SKUAlreadyExist){
+					error = messageSource.getMessage("err.skuAlreadyExist", null, "", locale);
+				}
+			}
 		}catch(Exception e){			
 			status = ResponseStatus.ExternalError;
 		}
-		return ControllerHelper.mapResponse(status, product);
+		return ControllerHelper.mapResponse(status, product, error);
 	}
 	
 	@RequestMapping(path = ApiMappings.Product, method = RequestMethod.PUT)

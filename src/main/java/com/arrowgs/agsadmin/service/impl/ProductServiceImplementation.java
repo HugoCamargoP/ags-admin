@@ -85,13 +85,29 @@ public class ProductServiceImplementation implements ProductService {
 	
 	@Override
 	public ProductStatus addProduct(Product product) {
-		try{
-			productDao.addProduct(product);
+		ProductStatus status;
+		try{			
+			status = ProductStatus.OK;
+			if(product.getSkuProduct()!=null && !product.getSkuProduct().isEmpty())
+			{
+				Iterator<SkuProduct> iterator = product.getSkuProduct().iterator();
+				while(iterator.hasNext()){
+					SkuProduct actual = iterator.next();
+					SkuProduct aux = getSkuProductBySku(actual.getSku());
+					if(aux!=null){
+						status = ProductStatus.SKUAlreadyExist;
+						break;
+					}
+				}
+			}
+			if(status==ProductStatus.OK){
+				productDao.addProduct(product);
+			}
 		}catch(Exception e){
 			logger.error("ProductService : addProduct : "+ e.toString());
 			throw e;
 		}
-		return null;
+		return status;
 	}
 		
 
