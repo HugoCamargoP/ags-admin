@@ -5,7 +5,7 @@
 	<property name="ireport.y" value="0"/>
 	<field name="sku" class="java.lang.String"/>
 	<field name="productTitle" class="java.lang.String"/>
-	<field name="productDescr" class="java.lang.String"/>
+	<field name="productDescrEn" class="java.lang.String"/>
 	<field name="sizeText" class="java.lang.String"/>
 	<field name="stock" class="java.lang.Integer"/>
 	<field name="price" class="java.lang.Double"/>
@@ -27,7 +27,7 @@
 			<textField>
 				<reportElement x="176" y="0" width="175" height="25" uuid="a1d07d94-ca48-48c9-85b6-dbbe41ee68a4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{productDescr}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{productDescrEn}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="351" y="0" width="59" height="25" uuid="bcd8a52d-086f-4a32-a256-6d1f891dd6d0"/>
