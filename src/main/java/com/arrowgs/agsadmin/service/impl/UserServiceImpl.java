@@ -96,5 +96,17 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 
+	@Override
+	public User getUserById(Integer id) {
+		try{
+			
+			return userDao.getUserById(id);
+		}
+		catch(Exception e){
+			logger.error("UserService: getUserById :",e);
+			throw e;
+		}	
+	}
+
 
 }

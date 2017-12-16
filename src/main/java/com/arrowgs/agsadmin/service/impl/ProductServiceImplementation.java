@@ -13,13 +13,18 @@ import org.springframework.stereotype.Service;
 import com.arrowgs.agsadmin.daos.ProductDao;
 import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.IdNumTable;
+import com.arrowgs.agsadmin.entities.MessageStock;
 import com.arrowgs.agsadmin.entities.OrderDetail;
 import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.entities.ProductDetail;
 import com.arrowgs.agsadmin.entities.SizeDescription;
 import com.arrowgs.agsadmin.entities.SkuProduct;
+import com.arrowgs.agsadmin.entities.User;
+import com.arrowgs.agsadmin.helpers.EmailPropertiesHelper;
 import com.arrowgs.agsadmin.helpers.ImagePropertiesHelper;
 import com.arrowgs.agsadmin.service.ProductService;
+import com.arrowgs.agsadmin.service.UserService;
+import com.arrowgs.agsadmin.service.YetiberaMailService;
 
 
 
@@ -28,6 +33,12 @@ public class ProductServiceImplementation implements ProductService {
 
 	@Autowired
 	ProductDao productDao;
+	
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	YetiberaMailService mailService;
 	
 	private static Logger logger = LoggerFactory.getLogger(ProductServiceImplementation.class);
 	
@@ -114,6 +125,7 @@ public class ProductServiceImplementation implements ProductService {
 	@Override
 	public ProductStatus modifyProduct(Product product) {
 		ProductStatus status;
+		List<SkuProduct> skuProduct = new ArrayList<>();
 		try{
 			status = ProductStatus.OK;
 			if(product.getSkuProduct()!=null){				
@@ -131,10 +143,23 @@ public class ProductServiceImplementation implements ProductService {
 						status = ProductStatus.SKUAlreadyExist;
 						break;
 					}
+					exist = null;
+					exist = getSkuProductById(actual.getId());
+					if(exist!=null){
+						skuProduct.add(exist);
+					}
 				}
 			}
 			if(status == ProductStatus.OK){
 				productDao.modifyProduct(product);
+				Iterator<SkuProduct> iteratorSku = skuProduct.iterator();
+				while(iteratorSku.hasNext()){
+					SkuProduct old = iteratorSku.next();
+					SkuProduct bd =  getSkuProductById(old.getId());
+					if(old.getStock().intValue() < bd.getStock().intValue()){
+						sendMessageStock(old.getId());
+					}
+				}
 			}
 		}catch(Exception e){
 			logger.error("ProductService : modifyProduct : "+ e.toString());
@@ -146,6 +171,14 @@ public class ProductServiceImplementation implements ProductService {
 	@Override
 	public void modifySkuProductList(List<SkuProduct> skuProducts) {
 		try{
+			Iterator<SkuProduct> iterator = skuProducts.iterator();
+			while(iterator.hasNext()){
+				SkuProduct actual = iterator.next();
+				SkuProduct bd = getSkuProductById(actual.getId());
+				if(bd.getStock().intValue()< actual.getStock().intValue()){
+					sendMessageStock(actual.getId());
+				}
+			}
 			productDao.modifyListSkuProduct(skuProducts);
 		}catch(Exception e){
 			logger.error("ProductService : modifySkuProductList : "+ e.toString());
@@ -344,7 +377,12 @@ public class ProductServiceImplementation implements ProductService {
 				exist = productDao.getSkuProductBySku(skuProduct.getSku());
 				if(exist==null || exist.getId().intValue() == skuProduct.getId().intValue())
 				{
+					exist = null;
+					exist = productDao.getSkuProductById(skuProduct.getId());					
 					productDao.updateSkuProducts(skuProduct);
+					if(exist.getStock().intValue()<skuProduct.getStock().intValue()){
+						sendMessageStock(skuProduct.getId());
+					}
 					status = ProductStatus.OK;
 				}else{
 					status = ProductStatus.SKUAlreadyExist;
@@ -537,6 +575,41 @@ public class ProductServiceImplementation implements ProductService {
 			throw e;
 		}
 		return products;
+	}
+
+	@Override
+	public List<MessageStock> getMessageStockBySkuProduct(Integer idSku) {
+		List<MessageStock> messageStock = null;
+		try{
+			messageStock = productDao.getMessageStockBySkuProduct(idSku);
+		}catch(Exception e){
+			logger.error("ProductService : getMessageStockBySkuProduct : " + e.toString());
+			throw e;
+		}
+		return messageStock;
+	}
+
+	@Override
+	public void sendMessageStock(Integer idSku) {
+		try{
+			List<MessageStock> all = getMessageStockBySkuProduct(idSku);
+			if(all!=null)
+			{
+				Iterator<MessageStock> iterator = all.iterator();
+				while(iterator.hasNext()){
+					MessageStock actual = iterator.next();
+					SkuProduct product = getSkuProductById(actual.getIdSkuProduct());
+					User user = userService.getUserById(actual.getIdUser());
+					String[] to = {user.getEmail()};
+					String msg = "PRODUCTO DISPONIBLE " + product.getSku();
+					mailService.sendMessage(to, EmailPropertiesHelper.getEmailFrom(), null, null, "Producto Deseado Disponible", msg);
+				}
+			}
+		}catch(Exception e){
+			logger.error("ProductService : sendMessageStock : " + e.toString());
+			throw e;
+		}
+		
 	}
 
 

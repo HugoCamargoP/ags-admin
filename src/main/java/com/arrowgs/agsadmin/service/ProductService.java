@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.IdNumTable;
+import com.arrowgs.agsadmin.entities.MessageStock;
 import com.arrowgs.agsadmin.entities.OrderDetail;
 import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.entities.ProductDetail;
@@ -63,4 +64,8 @@ public interface ProductService {
 	
 	//Departments
 	List<IdNameTable> getDepartments();
+	
+	//MessageStock
+	List<MessageStock> getMessageStockBySkuProduct(Integer idSku);
+	void sendMessageStock(Integer idSku);
 }

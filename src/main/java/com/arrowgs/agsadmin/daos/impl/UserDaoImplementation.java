@@ -104,6 +104,14 @@ public class UserDaoImplementation implements UserDao{
 		SqlParameterSource userMap = new MapSqlParameterSource("email",email);
 		return jdbcTemplate.query(query, userMap, new UserRowExtractor());
 	}
+	
+	@Override
+	public User getUserById(Integer id) {
+	
+		String query = "SELECT * FROM usuarios WHERE id = :id";
+		SqlParameterSource userMap = new MapSqlParameterSource("id",id);
+		return jdbcTemplate.query(query, userMap, new UserRowExtractor());
+	}
 
 	
 	

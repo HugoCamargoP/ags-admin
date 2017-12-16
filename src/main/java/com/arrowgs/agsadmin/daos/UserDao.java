@@ -12,6 +12,7 @@ public interface UserDao {
 	List<User> getUsers();
 	List<User> getUserByFilter(String email, Integer way);
 	User getUserByEmail(String email);
+	User getUserById(Integer id);
 	void removeUserByEmail(String email);
 	void modifyUser(User user);
 	void modifyUserRol(User user);

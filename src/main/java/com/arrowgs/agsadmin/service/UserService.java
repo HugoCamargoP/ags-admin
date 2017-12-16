@@ -22,6 +22,7 @@ public interface UserService {
 	
 	List<User> getUsers();
 	List<User> getUserByFilter(String email, Integer way);
+	User getUserById(Integer id);
 	User getUserByEmail(String email);	
 	String getEncodedPassByEmail(String email);
 	void updateUser(User user);
