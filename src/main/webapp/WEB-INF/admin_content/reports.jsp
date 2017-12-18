@@ -24,9 +24,11 @@
 							    <label ng-if="p.type != 5" for="pwd"><b> {{p.nameAux}} :</b></label> 
 								<input ng-if="p.type == 1" class="form-control" ng-required="p.required" name="{{p.string}}" type="text"/>
 								<input ng-if="p.type == 3" class="form-control" ng-required="p.required" name="{{p.string}}" type="text"/>
+								
 								<select ng-if="p.type == 2" class="form-control" ng-required="p.required" name="{{p.string}}" id="">
 									<option value="">{{p.string}}</option>
 								</select>
+								
 								<%--
 								<input type="text" ng-model="customPopupSelected" placeholder="Custom popup template" 
 								uib-typeahead="state as state.name for state in statesWithFlags | filter:{name:$viewValue}" 
@@ -99,7 +101,6 @@
 </script>
 
 <div class='container-fluid typeahead-demo'>
-
     <h4>Custom popup templates for typeahead's dropdown</h4>
     <pre>Model: {{customPopupSelected | json}}</pre>
     <input type="text" ng-model="customPopupSelected" placeholder="Custom popup template" uib-typeahead="state as state.name for state in statesWithFlags | filter:{name:$viewValue}" typeahead-popup-template-url="customPopupTemplate.html" class="form-control">
