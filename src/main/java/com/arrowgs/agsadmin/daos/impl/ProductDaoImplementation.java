@@ -25,6 +25,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import com.arrowgs.agsadmin.daos.ProductDao;
 import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.IdNumTable;
+import com.arrowgs.agsadmin.entities.MessageStock;
 import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.entities.ProductDetail;
 import com.arrowgs.agsadmin.entities.SizeDescription;
@@ -278,6 +279,21 @@ public class ProductDaoImplementation implements ProductDao {
 		public Product extractData(ResultSet rs) throws SQLException, DataAccessException {
 			
 			return rs.next() ? (new ProductRowMapper(false)).mapRow(rs, 0) : null;
+		}
+		
+	}
+	
+	class MessageStockRowMapper implements RowMapper<MessageStock>{
+
+		@Override
+		public MessageStock mapRow(ResultSet rs, int rowNum) throws SQLException {
+			MessageStock message = new MessageStock();
+			
+			message.setId(rs.getInt(1));
+			message.setIdSkuProduct(rs.getInt(2));
+			message.setIdUser(rs.getInt(3));
+			
+			return message;
 		}
 		
 	}
@@ -952,6 +968,20 @@ public class ProductDaoImplementation implements ProductDao {
 		String query = "select p.*, d.descripcion from productos p left join departamentos d on p.departamento=d.id where p.id = :id";
 		SqlParameterSource productMap = new MapSqlParameterSource("id",id);
 		return jdbcTemplate.query(query, productMap, new ProductRowExtractor(true));
+	}
+
+	@Override
+	public List<MessageStock> getMessageStockBySkuProduct(Integer idSku) {
+		String sql = "SELECT * FROM stock_message WHERE id_sku_producto = :id";
+		SqlParameterSource paramMap = new MapSqlParameterSource("id",idSku);
+		return jdbcTemplate.query(sql, paramMap, new MessageStockRowMapper());
+	}
+
+	@Override
+	public void deleteMessageStock(Integer id) {
+		String sql = "DELETE FROM stock_message WHERE id = :id";
+		SqlParameterSource paramMap = new MapSqlParameterSource("id",id);
+		jdbcTemplate.update(sql, paramMap);
 	}
 	
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.IdNumTable;
+import com.arrowgs.agsadmin.entities.MessageStock;
 import com.arrowgs.agsadmin.entities.Product;
 import com.arrowgs.agsadmin.entities.ProductDetail;
 import com.arrowgs.agsadmin.entities.SizeDescription;
@@ -76,5 +77,9 @@ public interface ProductDao {
 	
 	//Departments
 	List<IdNameTable> getDepartments();
+	
+	//MessageStock
+	List<MessageStock> getMessageStockBySkuProduct(Integer idSku);
+	void deleteMessageStock(Integer id);
 	
 }

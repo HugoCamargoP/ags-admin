@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="stocktaking" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e48356ae-3e72-404f-84dc-c2faef3637c1">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="48"/>
 	<parameter name="productDetails" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -10,7 +10,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<field name="title" class="java.lang.String"/>
-	<field name="description" class="java.lang.String"/>
+	<field name="descriptionEn" class="java.lang.String"/>
 	<field name="departmentText" class="java.lang.String"/>
 	<field name="productDetails" class="java.util.Collection"/>
 	<field name="skuProduct" class="java.util.Collection"/>
@@ -50,7 +50,7 @@
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="100" y="20" width="100" height="20" uuid="a2bb4ec3-67ee-477e-8f30-747f60cf4ac1"/>
-				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{descriptionEn}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" x="325" y="0" width="100" height="20" uuid="e11cd695-d17b-4ea9-84d0-ad43d6c22557"/>
