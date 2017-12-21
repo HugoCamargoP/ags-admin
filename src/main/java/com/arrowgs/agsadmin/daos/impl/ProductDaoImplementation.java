@@ -65,8 +65,9 @@ public class ProductDaoImplementation implements ProductDao {
 			producto.setDepartment(rs.getInt(5));
 			producto.setDescriptionEn(rs.getString(6));
 			producto.setDescriptionFr(rs.getString(7));
+			producto.setReleaseDate(rs.getDate(8));
 			if(expandible){
-				producto.setDepartmentText(rs.getString(6));
+				producto.setDepartmentText(rs.getString(9));
 			}
 			return producto;
 		}
@@ -356,6 +357,7 @@ public class ProductDaoImplementation implements ProductDao {
 			paramMap.put("descripcionEn", product.getDescriptionEn());
 			paramMap.put("descripcionFr", product.getDescriptionFr());
 			paramMap.put("title", product.getTitle());
+			paramMap.put("fecha_lanzamiento", product.getReleaseDate());
 			paramMap.put("id", product.getId());			
 			jdbcTemplate.update(sql, paramMap);
 			if(product.getSkuProduct()!=null)
@@ -428,6 +430,7 @@ public class ProductDaoImplementation implements ProductDao {
 			producto.put("descripcion_en", product.getDescriptionEn());
 			producto.put("descripcion_fr", product.getDescriptionFr());
 			producto.put("titulo", product.getTitle());
+			producto.put("fecha_lanzamiento", product.getReleaseDate());
 			producto.put("activo", Enable);
 			producto.put("departamento", product.getDepartment());
 			Number idProduct = productoInsertActor.executeAndReturnKey(producto);
@@ -519,7 +522,7 @@ public class ProductDaoImplementation implements ProductDao {
 	public List<Product> getProductsByFilter(Product product, Integer page, Integer inPage) {
 		 page = (page -1)*inPage;
 		 boolean where = false;
-		 StringBuilder sql = new StringBuilder("SELECT distinct(p.id), p.descripcion_es, p.activo, p.titulo, p.departamento, p.descripcion_en, p.descripcion_fr, d.descripcion FROM productos p LEFT JOIN productos_sku ps ON ps.producto = p.id JOIN departamentos d on p.departamento = d.id");
+		 StringBuilder sql = new StringBuilder("SELECT distinct(p.id), p.descripcion_es, p.activo, p.titulo, p.departamento, p.descripcion_en, p.descripcion_fr, p.fecha_lanzamiento, d.descripcion FROM productos p LEFT JOIN productos_sku ps ON ps.producto = p.id JOIN departamentos d on p.departamento = d.id");
 		 StringBuilder aux = new StringBuilder("");
 		 Map<String,Object> paramMap = new HashMap<>();		 
 		 if(product.getDescriptionEs()!=null && ! product.getDescriptionEs().equals("")){			 

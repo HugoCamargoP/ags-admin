@@ -11,6 +11,7 @@ public class Product {
 	private String 	descriptionFr;	
 	private String	title;
 	private Integer department;
+	private Date	releaseDate;
 	
 	//Extra Data
 	private List<ProductDetail> productDetails;
@@ -83,6 +84,14 @@ public class Product {
 
 	public void setDepartment(Integer department) {
 		this.department = department;
+	}
+
+	public Date getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(Date releaseDate) {
+		this.releaseDate = releaseDate;
 	}
 
 	/*******Getter and Setter productDetail*******/
