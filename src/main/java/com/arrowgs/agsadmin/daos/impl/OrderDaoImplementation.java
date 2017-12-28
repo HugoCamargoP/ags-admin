@@ -66,10 +66,10 @@ public class OrderDaoImplementation implements OrderDao{
 			orden.setCreation(rs.getDate(5));	
 			orden.setComment(rs.getString(6));
 			orden.setEnable(rs.getInt(7));
-			
+			orden.setFacturacion(rs.getInt(8));
 			if(expandible){
-				orden.setUserText(rs.getString(8));
-				orden.setStatusText(rs.getString(9));
+				orden.setUserText(rs.getString(9));
+				orden.setStatusText(rs.getString(10));
 			}
 			
 			return orden;
@@ -315,7 +315,7 @@ public class OrderDaoImplementation implements OrderDao{
 		orden.put("estado", order.getState());		
 		orden.put("creacion",order.getCreation());
 		orden.put("comentario", order.getComment());
-		
+		orden.put("facturacion", order.getFacturacion());
 		Number idOrder = orderInsertActor.executeAndReturnKey(orden);
 		order.setId(idOrder.intValue());
 	}
