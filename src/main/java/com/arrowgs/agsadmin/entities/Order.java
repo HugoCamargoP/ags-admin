@@ -12,6 +12,7 @@ public class Order {
 	private Date creation;
 	private String comment;
 	private Integer	enable;
+	private Integer facturacion;
 
 	private Double totalAmount;
 	
@@ -127,6 +128,14 @@ public class Order {
 	public void setEnable(Integer status) {
 		this.enable = status;
 	}	
+	public Integer getFacturacion() {
+		return facturacion;
+	}
+
+	public void setFacturacion(Integer facturacion) {
+		this.facturacion = facturacion;
+	}
+
 	/***********Getter and Setter totalAmount**********/
 	
 	public Double getTotalAmount() {
