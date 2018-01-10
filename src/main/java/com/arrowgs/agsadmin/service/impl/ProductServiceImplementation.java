@@ -58,6 +58,19 @@ public class ProductServiceImplementation implements ProductService {
 			throw e;	
 		}
 	}
+	
+	//Only the main information of the product
+	@Override
+	public List<Product> getOnlyProducts(){
+		List<Product> products = null;
+		try{
+			products = productDao.getProducts();
+		}catch(Exception e){
+			logger.error("ProductService : getOnlyProducts : "+ e.toString());
+			throw e;
+		}
+		return products;
+	}
 
 	@Override
 	public Product getProductById(Integer id) {

@@ -40,6 +40,7 @@ public interface Constants {
 		
 		//Products
 		static final String Product			  		= ServiceContext + "/product";
+		static final String ProductInfo				= ServiceContext + "/product-info";
 		static final String ProductSku				= ServiceContext + "/product_sku";
 		static final String ProductDetail	  		= ServiceContext + "/product_detail";	
 		static final String ProductByFilter	  		= ServiceContext + "/product_filter";

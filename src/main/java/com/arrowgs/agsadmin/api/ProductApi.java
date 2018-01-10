@@ -64,6 +64,20 @@ public class ProductApi {
 		return ControllerHelper.mapResponse(status, products);
 	}
 	
+	@RequestMapping(path = ApiMappings.ProductInfo, method = RequestMethod.GET)
+	public Map<String,? extends Object> getAllProductsMainInformation(){
+		ResponseStatus status;
+		List<Product> products;
+		try{
+			products = productService.getOnlyProducts();
+			status = ResponseStatus.OK;
+		}catch(Exception e){
+			products = null;
+			status = ResponseStatus.ExternalError;
+		}
+		return ControllerHelper.mapResponse(status, products);
+	}
+	
 	@RequestMapping(path = ApiMappings.ProductSku, method = RequestMethod.POST)
 	public Map<String,? extends Object> createSkuProduct(@RequestBody SkuProduct skuProduct, Locale locale){
 		ResponseStatus status;	

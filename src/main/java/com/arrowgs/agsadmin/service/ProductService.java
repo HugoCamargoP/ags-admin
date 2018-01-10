@@ -20,6 +20,7 @@ public interface ProductService {
 	
 	//Product
 	List<Product> getProducts();
+	List<Product> getOnlyProducts();
 	List<Product> getProductsByFilter(Product product, Integer page, Integer inPage);
 	Product getProductById(Integer id);
 	ProductStatus addProduct(Product product);

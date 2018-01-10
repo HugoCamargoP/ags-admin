@@ -298,6 +298,15 @@ function Service(http, url)
             'url': url + '/product'
         })
     }
+    
+    //Obtiene todos los productos sin detalles
+    	//Parámetros no necesitados
+	this.getOnlyProducts = function(){
+	    return http({
+	        'method': 'GET',
+	        'url': url + '/product-info'
+	    })
+	}
    
     //Obtiene el producto con el sku correspondiente y sus detalles
         //Parámetros necesitados: Integer sku   
