@@ -29,8 +29,12 @@
 		  	</div>
 		</div>
 		<div class="clearfix"></div>
+	      <c:set var = "string1" value = "${ requestScope['javax.servlet.forward.query_string'] }"/>
 		<br />
 		
+		<a href="${ linksalespdf }?${ string1 }" class="btn btn btn-danger a pull-right">Create report</a>
+		<div class="clearfix"></div>
+		<br />
 		<%-- Ventas generales --%>
 		<c:if test="${not empty param.idReport and param.idReport == 1 }">
 			<c:forEach var="a" items="${ requestScope.response.data.productos }">

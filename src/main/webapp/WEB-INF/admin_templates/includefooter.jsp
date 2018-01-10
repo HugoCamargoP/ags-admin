@@ -13,6 +13,7 @@
 <script type="text/javascript" src="${ContextPath}/r/js/jquery.flot.min.js"></script>
 <script type="text/javascript" src="${ContextPath}/r/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${ContextPath}/r/js/select2.min.js"></script>
+<script type="text/javascript" src="${ContextPath}/r/js/angular-select2.min.js" charset="utf-8"></script>
 
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -21,6 +22,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   
 <script type="text/javascript" src="${ContextPath}/r/js${DeployContext}/script.js" charset="utf-8"></script>
+
 <%--<script type="text/javascript" src="${ContextPath}/r/js/jquery.dataTables.min.js"></script> --%>
 
 <script type="text/javascript" src="${ContextPath}/r/js${DeployContext}/app.js" charset="utf-8"></script>
