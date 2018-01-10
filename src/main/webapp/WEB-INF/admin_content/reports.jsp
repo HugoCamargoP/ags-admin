@@ -44,11 +44,6 @@
 									<option value=""></option>
 									<option value="{{n.id}}" ng-repeat="n in status">{{n.name}}</option>
 								</select>
-								<%--
-								<input type="text" ng-model="customPopupSelected" placeholder="Custom popup template" 
-								uib-typeahead="state as state.name for state in statesWithFlags | filter:{name:$viewValue}" 
-								typeahead-popup-template-url="customPopupTemplate.html" class="form-control">
-								--%>
 								<input ng-if="p.type == 4" ng-click="p.opened = true" class="form-control"  ng-required="p.required" type="text" name="{{p.string}}" ng-model="p.name" 
 								 uib-datepicker-popup="dd-MM-yyyy" is-open="p.opened" datepicker-options="dateOptions" close-text="Close"  />
 								<input ng-if="p.type == 5" type="hidden"  ng-required="p.required" name="{{p.string}}" value="true" />
