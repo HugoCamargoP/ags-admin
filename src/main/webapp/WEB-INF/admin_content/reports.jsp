@@ -1,10 +1,6 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%--
-
---%>
-
 <div id="page-wrapper" ng-controller="${ appname }Report" 
 	 ng-init="getProductSizeDescription();getStatus();getUserByFilter();getOnlyProducts();getReportSchema();">
 	<div class="graphs">

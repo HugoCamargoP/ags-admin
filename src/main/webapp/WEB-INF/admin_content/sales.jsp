@@ -32,7 +32,7 @@
 	      <c:set var = "string1" value = "${ requestScope['javax.servlet.forward.query_string'] }"/>
 		<br />
 		
-		<a href="${ linksalespdf }?${ string1 }" class="btn btn btn-danger a pull-right">Create report</a>
+		<a href="${ linksalespdf }?${ string1 }" class="btn btn btn-danger a pull-right">PDF <i class="fa fa-file-pdf-o"></i></a>
 		<div class="clearfix"></div>
 		<br />
 		<%-- Ventas generales --%>
@@ -280,7 +280,153 @@
 				
 			</c:forEach>
 		</c:if>
-		<!-- 
+		
+		<%-- Todas Inventario  --%>
+		
+		<c:if test="${not empty param.idReport and param.idReport == 4 }">
+			<div class="table-responsive">
+				<c:forEach var="a" items="${ requestScope.response.data.inventario }">
+					<h2>
+						${ a.title }
+					</h2> 
+					<%--
+					<table class="table table-bordered a">					
+						<tr class="btn-black">
+							<td><s:message code="reports.title" /></td>
+							<td><s:message code="reports.department" /></td>
+						</tr>
+						<tr class="center">
+							<td>
+								${ a.title }
+							</td>
+							<td>
+								${ a.departmentText }
+							</td>
+						</tr>
+					</table>
+					--%>
+					<table class="table table-bordered a">
+						<tr class="btn-black center">
+							<td colspan="2"><s:message code="reports.description" /></td>
+						</tr>
+						<tr class="center">
+							<td>ES</td>
+							<td colspan="">${ a.descriptionEs }</td>
+						</tr>
+						<tr class="center">
+							<td>EN</td>
+							<td colspan="">${ a.descriptionEn }</td>
+						</tr>
+						<tr class="center">
+							<td>FR</td>
+							<td colspan="">${ a.descriptionFr }</td>
+						</tr>
+					</table>
+					<table class="table table-bordered a">
+						<tr class="btn-black">
+							<td>SKU</td>
+							<td><s:message code="admin.size" /></td>
+							<td><s:message code="reports.piece" /></td>
+							<td><s:message code="reports.price" /></td>
+						</tr>
+						<c:forEach var="b" items="${ a.skuProduct }">
+							<tr class="center">
+								<td>${ b.sku }</td>
+								<td>${ b.sizeText }</td>
+								<td>${ b.stock }</td>
+								<td>${ b.price }</td>
+							</tr>
+						</c:forEach>
+					</table>
+					<table class="table table-bordered a">
+						<tr class="">
+							<td>
+								<div class="container-img-muestras">
+									<ul class="list-inline galeriaq">
+										<c:forEach var="b" items="${ a.productDetails }">
+											<li class="col-xs-6 col-sm-4 col-md-3 col-lg-2 center">
+												<img class="img-thumbnail" src="${ b.url }" alt="" />
+											</li>
+										</c:forEach>
+									</ul>
+								</div>
+							</td>
+						</tr>
+					</table>	
+					<div class="clearfix"></div>
+					<br />
+					<br />
+					<br />
+				</c:forEach>
+			</div>
+			<div class="table-responsive">
+				<table class="table table-bordered a">
+					<tr class="btn-black">
+						<td><s:message code="reports.size" /></td>
+						<td><s:message code="reports.price" /></td>
+					</tr>
+					<c:forEach var="a" items="${ requestScope.response.data.inventario }">
+					<tr>
+						<td>${ a.title }</td>
+						<td>${ a.title }</td>
+						<td>${ a.title }</td>
+						<td>${ a.title }</td>
+					</tr>
+					<%--
+					<tr class="center">
+						<td>
+							${ a.name }
+						</td>
+						<td>
+							${ a.doubleAttribute }
+						</td>
+						<td>
+							${ a.num }
+						</td>
+						<td>
+							${ a.doubleAttribute }
+						</td>
+					</tr> 
+					--%>
+					</c:forEach>
+				</table>
+			</div>
+		</c:if>
+		<%-- Todas Inventario  --%>
+		
+		<%-- Todas TallasGeneral  --%>
+		
+		<c:if test="${not empty param.idReport and param.idReport == 5 }">
+		
+			<div class="table-responsive">
+				<table class="table table-bordered a">
+					<tr class="btn-black">
+						<td><s:message code="reports.size" /></td>
+						<td><s:message code="reports.price" /></td>
+						<td><s:message code="reports.pieceSales" /></td>
+						<td><s:message code="reports.totalSales" /></td>
+					</tr>
+					<c:forEach var="a" items="${ requestScope.response.data.tallaVentas }">
+					<tr class="center">
+						<td>
+							${ a.name }
+						</td>
+						<td>
+							${ a.doubleAttribute }
+						</td>
+						<td>
+							${ a.num }
+						</td>
+						<td>
+							${ a.doubleAttribute }
+						</td>
+					</tr>
+					</c:forEach>
+				</table>
+			</div>
+		</c:if>
+		
+		<%-- TallasGeneral --%>
 		<c:if test="${not empty requestScope.response.data.productos }">
 			Productos
 			<div class="table-responsive">
@@ -346,7 +492,7 @@
 				</table>
 			</div>
 		</c:if>  
-		-->
+		
 	</div>
 </div>
 
