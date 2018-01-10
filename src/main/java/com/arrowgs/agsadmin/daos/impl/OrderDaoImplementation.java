@@ -627,7 +627,7 @@ public class OrderDaoImplementation implements OrderDao{
 
 	@Override
 	public List<Order> getSalesByFilter(Order order) {
-		StringBuilder sql = new StringBuilder("SELECT DISTINCT(o.id),o.usuario,o.domicilio,o.estado,o.creacion,o.comentario,o.status, u.email,e.descripcion FROM ordenes o LEFT JOIN orden_detalles od ON o.id = od.orden LEFT JOIN productos_sku ps ON od.id_producto_sku = ps.id LEFT JOIN productos p on ps.producto = p.id LEFT JOIN usuarios u ON o.usuario = u.id LEFT JOIN orden_historico oh ON oh.orden = o.id LEFT JOIN estados e ON e.id = o.estado");
+		StringBuilder sql = new StringBuilder("SELECT DISTINCT(o.id),o.usuario,o.domicilio,o.estado,o.creacion,o.comentario,o.status, o.facturacion, u.email,e.descripcion FROM ordenes o LEFT JOIN orden_detalles od ON o.id = od.orden LEFT JOIN productos_sku ps ON od.id_producto_sku = ps.id LEFT JOIN productos p on ps.producto = p.id LEFT JOIN usuarios u ON o.usuario = u.id LEFT JOIN orden_historico oh ON oh.orden = o.id LEFT JOIN estados e ON e.id = o.estado");
 		StringBuilder aux = new StringBuilder("");
 		Map<String,Object> paramMap = new HashMap<>();
 		boolean where = false;
