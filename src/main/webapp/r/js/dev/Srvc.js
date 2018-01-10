@@ -20,6 +20,15 @@ function Service(http, url)
 	
     /************ORDERS**************/
    
+	//Trae todos los estados posibles para una orden
+		//Parámetros no necesarios
+	this.getStatus = function(){
+		return http({
+			'method':'GET',
+			'url':url+'/status'
+		})
+	}
+	
     //Trae la orden que corresponda al usuario y estado en que se encuentre (wishlist,shopping car, etc)
         //Parámetros necesarios: String user, Integer status
     this.getOrder = function(user, status){

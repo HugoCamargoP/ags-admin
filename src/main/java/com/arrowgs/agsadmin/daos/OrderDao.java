@@ -66,5 +66,8 @@ public interface OrderDao {
 	//Top User
 	List<User> topFiveCustomer();
 	
+	//Estados
+	List<IdNameTable> getStatus();
+	
 	
 }

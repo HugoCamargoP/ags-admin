@@ -63,4 +63,7 @@ public interface OrderService {
 	
 	/*TOP FIVE CUSTOMER*/
 	List<User> topFiveCustomer();
+	
+	/*Status*/
+	List<IdNameTable> getStatus();
 }

@@ -792,5 +792,11 @@ public class OrderDaoImplementation implements OrderDao{
 		return jdbcTemplate.query(sql, paramMap, new UserRowMapper());
 	}
 
+	@Override
+	public List<IdNameTable> getStatus() {
+		String sql = "SELECT * FROM estados";
+		return jdbcTemplate.query(sql, new IdNameTableRowMapper());
+	}
+
 
 }

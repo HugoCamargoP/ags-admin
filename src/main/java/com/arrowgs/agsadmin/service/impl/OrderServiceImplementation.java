@@ -558,6 +558,18 @@ public class OrderServiceImplementation implements OrderService {
 		return users;
 	}
 
+	@Override
+	public List<IdNameTable> getStatus() {
+		List<IdNameTable> status;
+		try{
+			status = orderDao.getStatus();
+		}catch(Exception e){
+			logger.error("OrderService : getStatus : " + e.toString());
+			throw e;
+		}
+		return status;
+	}
+
 
 	
 }
