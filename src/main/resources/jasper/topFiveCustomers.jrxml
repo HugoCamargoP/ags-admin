@@ -156,62 +156,6 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
 			</textField>
-			<componentElement>
-				<reportElement key="table" style="table" x="66" y="49" width="360" height="140" uuid="83a7a89c-aaea-4a6b-ac0d-a60084df5e80"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="New Dataset 1" uuid="700302d7-8089-43b9-b647-f8596ec33e08">
-						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource($P{users})]]></dataSourceExpression>
-					</datasetRun>
-					<jr:column width="90" uuid="33bad974-007d-442e-b28a-7955696a206d">
-						<jr:tableHeader style="table_TH" height="30">
-							<textField>
-								<reportElement x="0" y="0" width="90" height="30" uuid="2facf007-5693-4f3f-b3cb-2ec44e15ad71"/>
-								<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
-							</textField>
-						</jr:tableHeader>
-						<jr:tableFooter style="table_TH" height="30"/>
-						<jr:columnHeader style="table_CH" height="30"/>
-						<jr:columnFooter style="table_CH" height="30"/>
-						<jr:detailCell style="table_TD" height="20"/>
-					</jr:column>
-					<jr:column width="90" uuid="7b007426-d01f-40b3-8797-e7bb4efb9564">
-						<jr:tableHeader style="table_TH" height="30">
-							<textField>
-								<reportElement x="0" y="0" width="90" height="30" uuid="717d5b4f-ff71-485c-b722-6c738fef6fce"/>
-								<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
-							</textField>
-						</jr:tableHeader>
-						<jr:tableFooter style="table_TH" height="30"/>
-						<jr:columnHeader style="table_CH" height="30"/>
-						<jr:columnFooter style="table_CH" height="30"/>
-						<jr:detailCell style="table_TD" height="20"/>
-					</jr:column>
-					<jr:column width="90" uuid="e6a2446d-6b94-450d-8c7a-f73cddaece03">
-						<jr:tableHeader style="table_TH" height="30">
-							<textField>
-								<reportElement x="0" y="0" width="90" height="30" uuid="f358090d-373f-423e-b375-80d1dfa646cb"/>
-								<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
-							</textField>
-						</jr:tableHeader>
-						<jr:tableFooter style="table_TH" height="30"/>
-						<jr:columnHeader style="table_CH" height="30"/>
-						<jr:columnFooter style="table_CH" height="30"/>
-						<jr:detailCell style="table_TD" height="20"/>
-					</jr:column>
-					<jr:column width="90" uuid="c00c46a2-d5dd-479b-9359-605076d0e0a7">
-						<jr:tableHeader style="table_TH" height="30">
-							<textField>
-								<reportElement x="0" y="0" width="90" height="30" uuid="1255602d-1ceb-4ab8-91f4-686cde9e64a3"/>
-								<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
-							</textField>
-						</jr:tableHeader>
-						<jr:tableFooter style="table_TH" height="30"/>
-						<jr:columnHeader style="table_CH" height="30"/>
-						<jr:columnFooter style="table_CH" height="30"/>
-						<jr:detailCell style="table_TD" height="20"/>
-					</jr:column>
-				</jr:table>
-			</componentElement>
 		</band>
 	</detail>
 </jasperReport>
