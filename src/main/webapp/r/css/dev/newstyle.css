@@ -1,4 +1,8 @@
 /* Style general */
+.bgimg-2 {
+  padding-bottom: 1.5em;
+}
+
 #dragandrophandler {
   border: 2px dotted #787878;
   color: #92AAB0;

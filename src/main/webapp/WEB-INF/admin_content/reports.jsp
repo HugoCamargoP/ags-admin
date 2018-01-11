@@ -50,6 +50,25 @@
 				    </div>
 				  </div>
 				</div>
+				
+				<div class="clearfix"></div>
+				<br />
+				<div class="col-xs-12 center">
+					<div class="col-xs-12 col-md-3">
+						<a href="${ linkFive }?top=1" class="btn btn-black"><s:message code="reports.topFiveProducts" /></a>
+					</div>
+					<div class="col-xs-12 col-md-3">
+						<a href="${ linkFive }?top=3" class="btn btn-black"><s:message code="reports.topFiveOrders" /></a>
+					</div>
+					<div class="col-xs-12 col-md-3">
+						<a href="${ linkFive }?top=4" class="btn btn-black"><s:message code="reports.topFiveCountries" /></a>
+					</div>
+					<div class="col-xs-12 col-md-3">
+						<a href="${ linkFive }?top=2" class="btn btn-black"><s:message code="reports.topFiveOthers" /></a>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				
 			</div>
 		</div>
 	</div>	

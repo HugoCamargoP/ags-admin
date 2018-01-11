@@ -32,7 +32,7 @@
 	      <c:set var = "string1" value = "${ requestScope['javax.servlet.forward.query_string'] }"/>
 		<br />
 		
-		<a href="${ linksalespdf }?${ string1 }" class="btn btn btn-danger a pull-right">PDF <i class="fa fa-file-pdf-o"></i></a>
+		<a href="${ linkFive }?${ string1 }" class="btn btn btn-danger a pull-right">PDF <i class="fa fa-file-pdf-o"></i></a>
 		<div class="clearfix"></div>
 		<br />
 		<%-- Ventas generales --%>
@@ -686,7 +686,7 @@
 			<br />
 		</c:if>
 		
-		<%-- 
+		
 		<c:if test="${not empty requestScope.response.data.ordenes }">
 			Ordenes
 			<c:forEach var="a" items="${ requestScope.response.data.ordenes }">
@@ -732,7 +732,7 @@
 				</table>
 			</div>
 		</c:if>  
-		--%>
+		
 	</div>
 
 
