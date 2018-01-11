@@ -38,39 +38,48 @@
 		<%-- Ventas generales --%>
 		<c:if test="${not empty param.idReport and param.idReport == 1 }">
 			<c:forEach var="a" items="${ requestScope.response.data.productos }">
+				<h3>${ a.title }</h3>
 				<div class="table-responsive">
 					<table class="table table-bordered a">
 						<tr class="btn-black">
+							<%--
 							<td><s:message code="reports.title"/></td>
+							--%>
 							<td><s:message code="reports.description"/></td>
+							<%-- 
 							<td><s:message code="reports.department"/></td>
+							--%>
 						</tr>
-						<tr>
-							<td>${ a.title }</td>
-							<td>${ a.description }</td>
-							<td>${ a.departmentText }</td>
+						<tr class="center">
+							<td>${ a.descriptionEs }</td>
 						</tr>
-						<tr>
-							<td colspan="3">
-								<table class="table table-bordered a">
-									<tr class="btn-black">
-										<td>SKU</td>
-										<td>Cantidad</td>
-										<td>Precio unitario</td>
-										<td>Total</td>
-									</tr>
-									<c:forEach var="b" items="${ a.ordersDetails }">
-										<tr class="center">
-											<td>${ b.product.sku }</td>
-											<td>${ b.quantity }</td>
-											<td>${ b.individualPrice }</td>
-											<td>${ b.amount }</td>
-										</tr>
-									</c:forEach>
-								</table>
-							</td>
+						<tr class="center">
+							<td>${ a.descriptionEn }</td>
+						</tr>
+						<tr class="center">
+							<td>${ a.descriptionFr }</td>
 						</tr>
 					</table>
+					<table class="table table-bordered a">
+						<tr class="btn-black">
+							<td>SKU</td>
+							<td>Cantidad</td>
+							<td>Precio unitario</td>
+							<td>Total</td>
+						</tr>
+						<c:forEach var="b" items="${ a.ordersDetails }">
+							<tr class="center">
+								<td>${ b.product.sku }</td>
+								<td>${ b.quantity }</td>
+								<td>${ b.individualPrice }</td>
+								<td>${ b.amount }</td>
+							</tr>
+						</c:forEach>
+					</table>
+					<div class="clearfix"></div>
+					<br />
+					<br />
+					<br />
 				</c:forEach>
 			</div>
 		</c:if>
