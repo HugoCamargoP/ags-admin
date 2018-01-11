@@ -148,30 +148,30 @@ public class SalesController {
 	}
 	
 	@RequestMapping(path = Mappings.adminTopFive, method = RequestMethod.GET)
-	public Map<String,? extends Object> getTopFive(@RequestParam(name="top",required=true) Integer choose){
-		Map<String,Object> result = null;
+	public ModelAndView getTopFive(@RequestParam(name="top",required=true) Integer choose){
+		ModelAndView mav = new ModelAndView();
 		ResponseStatus status;
 		switch(choose){
 		case 1:
 			List<Product> products = productService.topProducts();
 			status = ResponseStatus.OK;
-			result = ControllerHelper.mapResponse(status, products);
+			mav.addObject("response",ControllerHelper.mapResponse(status, products));
 			break;
 		case 2:
 			break;
 		case 3:
 			List<Order> orders = orderService.topFiveOrders();
 			status = ResponseStatus.OK;
-			result = ControllerHelper.mapResponse(status, orders);
+			mav.addObject("response",ControllerHelper.mapResponse(status, orders));
 			break;
 		case 4:
 			List<IdNumTable> topCountries = addressService.getTopCountries();
 			status = ResponseStatus.OK;
-			result = ControllerHelper.mapResponse(status, topCountries);
+			mav.addObject("response",ControllerHelper.mapResponse(status, topCountries));
 			break;
 		default:
 		}
-		return result;
+		return mav;
 	}
 
 }
