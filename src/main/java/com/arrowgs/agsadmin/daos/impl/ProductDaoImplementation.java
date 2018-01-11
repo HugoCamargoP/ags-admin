@@ -268,7 +268,8 @@ public class ProductDaoImplementation implements ProductDao {
 			producto.setDepartment(rs.getInt(5));
 			producto.setDescriptionEn(rs.getString(6));
 			producto.setDescriptionFr(rs.getString(7));
-			producto.setSales(rs.getInt(8));
+			producto.setReleaseDate(rs.getDate(8));
+			producto.setSales(rs.getInt(9));
 			return producto;
 		}
 		

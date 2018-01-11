@@ -19,6 +19,7 @@ import com.arrowgs.agsadmin.entities.IdNumTable;
 import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderDetail;
 import com.arrowgs.agsadmin.entities.Product;
+import com.arrowgs.agsadmin.entities.User;
 import com.arrowgs.agsadmin.helpers.ControllerHelper;
 import com.arrowgs.agsadmin.helpers.SqlHelper;
 import com.arrowgs.agsadmin.helpers.ControllerHelper.ResponseStatus;
@@ -154,6 +155,7 @@ public class SalesController {
 		List<Product> products = null;
 		List<Order> orders = null;
 		List<IdNumTable> topCountries = null;
+		List<User> users = null;
 		ResponseStatus status= ResponseStatus.ExternalError;
 		switch(choose){
 		case 1:
@@ -161,6 +163,8 @@ public class SalesController {
 			status = ResponseStatus.OK;
 			break;
 		case 2:
+			users = orderService.topFiveCustomer();
+			status = ResponseStatus.OK;
 			break;
 		case 3:
 			orders = orderService.topFiveOrders();
@@ -171,10 +175,12 @@ public class SalesController {
 			status = ResponseStatus.OK;
 			break;
 		default:
+			status = ResponseStatus.ExternalError;
 		}
 		response.put("productos", products);
 		response.put("ordenes", orders);
 		response.put("paises", topCountries);
+		response.put("clientes", users);
 		mav.addObject("response", ControllerHelper.mapResponse(status, response));
 		return mav;
 	}
