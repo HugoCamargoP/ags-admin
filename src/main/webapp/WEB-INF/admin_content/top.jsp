@@ -31,10 +31,27 @@
 		<div class="clearfix"></div>
 	      <c:set var = "string1" value = "${ requestScope['javax.servlet.forward.query_string'] }"/>
 		<br />
-		
-		<a href="${ linkFive }?${ string1 }" class="btn btn btn-danger a pull-right">PDF <i class="fa fa-file-pdf-o"></i></a>
+		<a href="${ linkFivePDF }?${ string1 }" class="btn btn btn-danger a pull-right">PDF <i class="fa fa-file-pdf-o"></i></a>
 		<div class="clearfix"></div>
 		<br />
+		
+		<%-- --%>
+			${ requestScope.response }
+			<br />
+			${ requestScope.response.data.products }
+			<c:forEach var="a" items="${ requestScope.response.data.products }" varStatus="loop">
+				${ a }
+			</c:forEach>
+			${ requestScope.response.data.orders }
+			<c:forEach var="a" items="${ requestScope.response.data.orders }" varStatus="loop">
+				${ a }
+			</c:forEach>
+			${ requestScope.response.data.topCountries }
+			<c:forEach var="a" items="${ requestScope.response.data.topCountries }" varStatus="loop">
+				${ a }
+			</c:forEach>
+		<%-- --%>
+		
 		<%-- Ventas generales --%>
 		<c:if test="${not empty param.idReport and param.idReport == 1 }">
 			<c:forEach var="a" items="${ requestScope.response.data.productos }" varStatus="loop">

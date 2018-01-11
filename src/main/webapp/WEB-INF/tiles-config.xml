@@ -103,7 +103,7 @@
 	</definition>
 	
 	<!-- Page  topfive -->
-	<definition name="top-five" extends="admin_mainTemplate">
+	<definition name="sales/top-five" extends="admin_mainTemplate">
 		<put-attribute name="content"  value="/WEB-INF/admin_content/top.jsp" />
 	</definition>
 	

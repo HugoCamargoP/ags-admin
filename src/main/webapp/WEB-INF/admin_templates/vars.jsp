@@ -23,7 +23,7 @@
 <c:url var="linkAdminItems" value="/items" scope="application"/>
 <c:url var="linkSales" value="/sales" scope="application"/>
 <c:url var="linksalespdf" value="/rest/sales" scope="application"/>
-<c:url var="linkFive" value="/top-five" scope="application"/>
+<c:url var="linkFive" value="sales/top-five" scope="application"/>
 <c:url var="linkFivePDF" value="/rest/top-five" scope="application"/>
 
 
