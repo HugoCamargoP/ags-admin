@@ -6,6 +6,23 @@
  */
 function Service(http, url) 
 {
+	
+	/************Config**************/
+	
+	//Obtiene la configuración básica que tiene el sistema
+		//Parámetros no necesarios
+	this.getConfigEntity = function(){
+		return http({
+			'method':'GET',
+			'url': url + '/basic-config'
+		})
+	}
+	
+	//Actualiza la configuración básica que tiene el sistema y si no existe una, la crea
+		//Parámetros necesarios: ConfigEntity config
+	this.updateConfigEntity = function(config){
+		return http.put(url+'/basic-config',config)
+	}
 
 	/************Messages**************/
 	
