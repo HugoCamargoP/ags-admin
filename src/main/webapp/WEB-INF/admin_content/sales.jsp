@@ -664,7 +664,7 @@
 			</div>
 		</c:if>
 		
-		<%-- TallasGeneral --%>
+		<%-- TallasGeneral --%
 		<c:if test="${not empty requestScope.response.data.productos }">
 			Productos
 			<div class="table-responsive">
