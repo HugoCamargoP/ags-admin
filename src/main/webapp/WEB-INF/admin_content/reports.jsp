@@ -1,10 +1,6 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%--
-
---%>
-
 <div id="page-wrapper" ng-controller="${ appname }Report" 
 	 ng-init="getProductSizeDescription();getStatus();getUserByFilter();getOnlyProducts();getReportSchema();">
 	<div class="graphs">
@@ -44,11 +40,6 @@
 									<option value=""></option>
 									<option value="{{n.id}}" ng-repeat="n in status">{{n.name}}</option>
 								</select>
-								<%--
-								<input type="text" ng-model="customPopupSelected" placeholder="Custom popup template" 
-								uib-typeahead="state as state.name for state in statesWithFlags | filter:{name:$viewValue}" 
-								typeahead-popup-template-url="customPopupTemplate.html" class="form-control">
-								--%>
 								<input ng-if="p.type == 4" ng-click="p.opened = true" class="form-control"  ng-required="p.required" type="text" name="{{p.string}}" ng-model="p.name" 
 								 uib-datepicker-popup="dd-MM-yyyy" is-open="p.opened" datepicker-options="dateOptions" close-text="Close"  />
 								<input ng-if="p.type == 5" type="hidden"  ng-required="p.required" name="{{p.string}}" value="true" />
@@ -59,6 +50,27 @@
 				    </div>
 				  </div>
 				</div>
+				
+				<div class="clearfix"></div>
+				<br />
+				<div class="col-xs-12 center">
+					<div class="col-xs-12 col-md-3">
+						<a href="${ linkFive }?top=1" class="btn btn-black"><s:message code="reports.topFiveProducts" /></a>
+					</div>
+					<div class="col-xs-12 col-md-3">
+						<a href="${ linkFive }?top=3" class="btn btn-black"><s:message code="reports.topFiveOrders" /></a>
+					</div>
+					<div class="col-xs-12 col-md-3">
+						<a href="${ linkFive }?top=4" class="btn btn-black"><s:message code="reports.topFiveCountries" /></a>
+					</div>
+					<div class="col-xs-12 col-md-3">
+						<a href="${ linkFive }?top=2" class="btn btn-black"><s:message code="reports.topFiveOthers" /></a>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<br />
+				<br />
+				<br />
 			</div>
 		</div>
 	</div>	

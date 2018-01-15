@@ -14,8 +14,8 @@
 										  <ul class="list-inline">
 										  	<li>
 											  	<div class="form-group">
-												    <label for="email"><i class="fa fa-user"></i>&nbsp;<b> <s:message code="admin.word"/>:</b></label>
-											   	 	<input type="text" style="width:100%;" class="form-control" value="" name="email" id="email" ng-model="email"/>
+												    <label for="email"><i class="fa fa-user"></i>&nbsp;<b> <s:message code="app.loginUser"/>:</b></label>
+											   	 	<input type="text" style="width:100%;" class="form-control" value="" name="email" id="email" ng-model="email" ng-change="name = email;"/>
 												</div>
 										  	</li>
 										  	<li>

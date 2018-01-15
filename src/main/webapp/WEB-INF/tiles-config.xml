@@ -102,6 +102,11 @@
 		<put-attribute name="content"  value="/WEB-INF/admin_content/order.jsp" />
 	</definition>
 	
+	<!-- Page  topfive -->
+	<definition name="sales/top-five" extends="admin_mainTemplate">
+		<put-attribute name="content"  value="/WEB-INF/admin_content/top.jsp" />
+	</definition>
+	
 	<!-- Page  base -->
 	<definition name="base" extends="admin_mainTemplate">
 		<put-attribute name="content"  value="/WEB-INF/admin_content/base.jsp" />
