@@ -63,5 +63,8 @@ public interface Constants {
 		static final String UpdateState		  	   = ServiceContext + "/update_status";
 		static final String	OrdersByFilter		   = ServiceContext + "/orders-filter";
 		static final String StatusOrder			   = ServiceContext + "/status";
+		
+		//Config
+		static final String Config				   = ServiceContext + "/basic-config";
 	}
 }
