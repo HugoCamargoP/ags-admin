@@ -152,9 +152,8 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 						 				<td colspan="3">
 						 					<input ng-required="true" class="form-control form-control-min" type="text" ng-model="p.title"/>
 						 				</td>
-						 				<td colspan="1" ng-init="p.opened = false">
-						 					{{p.releaseDate}}
-						 					<input class="form-control" ng-required="true" type="text" ng-model="p.releaseDate" ng-click="p.opened = true;" 
+						 				<td colspan="1">
+						 					<input class="form-control" ng-required="true" type="text" ng-model="pdate" ng-click="p.opened = true;"
 								 			uib-datepicker-popup="dd-MM-yyyy" is-open="p.opened" datepicker-options="dateOptions" close-text="Close"  />
 						 				</td>
 						 			</tr>					 			

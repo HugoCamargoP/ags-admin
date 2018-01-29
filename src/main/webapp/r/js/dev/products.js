@@ -9,22 +9,27 @@ function($scope,$sce, Service)
 	$scope.p = {};
 	$scope.modificaFlag = false;
 	$scope.listaFlag = true;
+	$scope.pdate = new Date();
 
 	$scope.dateOptions = {
 	    formatYear: 'yyyy',
 	    //maxDate: new Date(2020, 5, 22),
 	    //minDate: new Date(),
-	    //startingDay: 1,
+	    startingDay: 1,
 	    showWeeks: false
 	};
+	
+	 $scope.setDate = function(a) {
+		 	var aux = a.split('-');
+		    $scope.pdate = new Date(aux[0], aux[1], aux[2]);
+	 };
 
 	$scope.activaModItem =  function(p)
 	{
 		$scope.modifyItem = p;
 		$scope.p = p;
-		var dateAux = $scope.p.releaseDate;
-		$scope.p.releaseDate = new Date();
-		$scope.p.releaseDate = dateAux;
+		//$scope.p.opened = true;
+		$scope.setDate($scope.p.releaseDate);
 		$scope.modificaFlag = true;
 		$scope.listaFlag = false;
 		console.log($scope.p);
