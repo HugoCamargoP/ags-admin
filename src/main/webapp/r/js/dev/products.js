@@ -5,6 +5,31 @@ app.controller(appname+'Prod',['$scope','$sce', appname+'Service',
 
 function($scope,$sce, Service)
 {	
+	$scope.modifyItem = {};
+	$scope.p = {};
+	$scope.modificaFlag = false;
+	$scope.listaFlag = true;
+
+	$scope.dateOptions = {
+	    formatYear: 'yyyy',
+	    //maxDate: new Date(2020, 5, 22),
+	    //minDate: new Date(),
+	    //startingDay: 1,
+	    showWeeks: false
+	};
+
+	$scope.activaModItem =  function(p)
+	{
+		$scope.modifyItem = p;
+		$scope.p = p;
+		var dateAux = $scope.p.releaseDate;
+		$scope.p.releaseDate = new Date();
+		$scope.p.releaseDate = dateAux;
+		$scope.modificaFlag = true;
+		$scope.listaFlag = false;
+		console.log($scope.p);
+	}
+	
 /*Address*/
 	$scope.getCountries = function ()
 	{

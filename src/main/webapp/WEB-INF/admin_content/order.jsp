@@ -52,14 +52,14 @@
 				  		<img class="" id="" src="${ContextPath}/r/img/logos/lnegro.png" alt="" />
 				  	</a>
 				  	<div class="" style="float: right;">
-					  	<h3>Id Pedido: ${ order.id }<br />
-					  	Fecha: ${ order.creation } </h3>
+					  	<h3><s:message code="order.idOrder" />: ${ order.id }<br />
+					  	<s:message code="order.date" />: ${ order.creation } </h3>
 				  	</div>
 				  </div>
 				  <div class="clearfix"></div>
 			  	  <div class="margin15em"></div>
 				  <div class="col-xs-12 col-md-6">
-				  	<h3>Cliente: ${ sessionScope.userSession.name }</h3>
+				  	<h3><s:message code="order.client" />: ${ sessionScope.userSession.name }</h3>
 				  </div>
 				  <div class="clearfix"></div>
 				  <div ng-if="address">
@@ -136,9 +136,11 @@
 				  					<td class="vertical-aling-middel">
 				  						<s:message code="buy.price" />
 				  					</td>
-				  					<td class="vertical-aling-middel">
+				  					<%-- 
+				  					<td class="vertical-aling-middel hidden">
 				  						<s:message code="buy.taxes" />
 				  					</td>
+				  					--%>
 				  					<td class="vertical-aling-middel">
 				  						<s:message code="buy.quantity" />
 				  					</td>
@@ -153,17 +155,21 @@
 					  					</td>
 					  					<td class="vertical-aling-middel hidden">${ a.product }</td>
 					  					<td class="vertical-aling-middel">${ a.individualPrice }</td>
-					  					<td class="vertical-aling-middel">${ a.taxesAmount }</td>
+					  					<%-- 
+					  					<td class="vertical-aling-middel hidden">${ a.taxesAmount }</td>
+					  					--%>
 					  					<td class="vertical-aling-middel">${ a.amount }</td>
-					  					<td class="vertical-aling-middel" ng-init="price = price + ${ ((a.individualPrice + a.taxesAmount) * a.amount) };">${ ((a.individualPrice + a.taxesAmount) * a.amount) }</td>
+					  					<td class="vertical-aling-middel" ng-init="price = price + ${ ((a.individualPrice) * a.amount) };">${ ((a.individualPrice) * a.amount) }</td>
 					  				</tr>
 						       </c:forEach>
 						       <tr class="center center1 a">
 						       		<td></td>
 						       		<td></td>
-						       		<td></td>
+						       		<%-- 
+						       		<td class="hidden"></td>
+						       		--%>
 						       		<td>Total</td>
-						       		<td>${ order.orderAmount[0].variety }{{ price | currency:"USD$ " }}</td>
+						       		<td>{{ price | currency:"USD$ " }}</td>
 						       </tr>
 				  			</table>
 				  		</div>
@@ -171,14 +177,14 @@
 			        	<c:if test="${ order.state == 4  }">
 					    	<div class="col-xs-12 col-md-6 pull-left">
 					    		<button class="btn-lg btn btn-success col-xs-12 col-md-6" type="submit" ng-click="cancelRequestedOrder(${ order.id });">
-					    			<i class="fa fa-pencil"></i>&nbsp;Edit Order
+					    			<i class="fa fa-pencil"></i>&nbsp;<s:message code="order.edit" />
 					    		</button>
 						    </div>
 						</c:if>
 			        	<c:if test="${ order.state == 3 }">
 					    	<div class="col-xs-12 col-md-6 pull-left">
 					    		<button class="btn-lg btn btn-success col-xs-12 col-md-6" type="submit" onclick="window.location = '${ linkPayment}'">
-					    			<i class="fa fa-pencil"></i>&nbsp;Edit Order
+					    			<i class="fa fa-pencil"></i>&nbsp;<s:message code="order.edit" />
 					    		</button>
 						    </div>
 						</c:if>
