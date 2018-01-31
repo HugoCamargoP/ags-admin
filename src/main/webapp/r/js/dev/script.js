@@ -2,18 +2,33 @@
 var rowCount=0;
 var fd = new FormData();
 
+function closeModal(a)
+{
+	$('.'+a).modal('hide');
+}
+
 function clearDiv(a)
 {
 	$(a).html('');
 }
+
 function masfiles()
-	{
-		var obj = $("#dragandrophandler");
-	     $(this).css('border', '2px dotted');
-	     var files =  document.getElementById('fileqwer[]').files;
-	     document.getElementById('fileqwer[]').values="";
-	     handleFileUpload(files,obj);
-	}
+{
+	var obj = $(".dragandrophandler");
+     $(this).css('border', '2px dotted');
+     var files =  document.getElementById('fileqwer[]').files;
+     document.getElementById('fileqwer[]').values="";
+     handleFileUpload(files,obj);
+}
+
+function masfiles1()
+{
+	var obj = $(".dragandrophandler");
+     $(this).css('border', '2px dotted');
+     var files =  document.getElementById('fileqwer1[]').files;
+     document.getElementById('fileqwer1[]').values="";
+     handleFileUpload(files,obj);
+}
 
 var allfilestemp = [];
 
@@ -36,6 +51,8 @@ function handleFileUpload(files,obj)
 		   else{ nombretemp = files[i].name; }
 		   $('#statusId').append('<div class="col-xs-12 col-sm-6 status'+rowCount+'" id="">'+
 				   '<b title="'+files[i].name+'"><span class=" fa fa-minus-square click" onclick="quitar('+rowCount+');" aria-hidden="true"></span>&nbsp;'+nombretemp+'</b></div>');
+		   $('.statusId').append('<div class="col-xs-12 col-sm-6 status'+rowCount+'" id="">'+
+				   '<b title="'+files[i].name+'"><span class=" fa fa-minus-square click" onclick="quitar('+rowCount+');" aria-hidden="true"></span>&nbsp;'+nombretemp+'</b></div>');
 		   rowCount++;
 	   }
    }
@@ -53,7 +70,7 @@ function setCookie(cname, cvalue, exdays) {
 
 $(document).ready(function()
 {
-var obj = $("#dragandrophandler");
+var obj = $(".dragandrophandler");
 obj.on('dragenter', function (e) 
 {
     e.stopPropagation();

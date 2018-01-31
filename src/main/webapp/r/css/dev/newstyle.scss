@@ -11,13 +11,27 @@ $margin1em : 1em;
 $radio : 1px;
 $opc-menu-hover : rgb(48,48,48);
 
+.front
+{
+	border:1px solid green !important;
+}
+
+.back
+{	
+	border:1px solid blue !important;
+}
+
+textarea.ng-invalid-maxlength.ng-touched , input.ng-invalid-required.ng-touched , textarea.ng-invalid-required.ng-touched
+{
+	border: 1px red solid !important;
+}
 
 .bgimg-2
 {
 	padding-bottom: 1.5em;
 }
-
-#dragandrophandler
+            
+.dragandrophandler
 {
 	border:2px dotted $grey;
 	color:#92AAB0;

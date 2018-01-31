@@ -7,12 +7,16 @@ function($scope,$sce, Service)
 {	
 	$scope.modifyItem = {};
 	$scope.p = {};
+	
 	$scope.pdate = new Date();
+	$scope.addpro = {};
+	$scope.addpro.releaseDate =  new Date();
 	
 	$scope.showFlag = false;
 	$scope.listaFlag = true;
 	$scope.editaFlag = false;
 	$scope.whoIsSelected = "";
+	
 
 	$scope.dateOptions = {
 	    formatYear: 'yyyy',
@@ -541,6 +545,51 @@ $scope.pago = function ()
 		function errorCallback(response){	
 		});
 	}
+	
+	$scope.subeVariasImages = function()
+	{
+		fd = new FormData();
+		var hayimgtoupload = false;
+		for ( var a in allfilestemp) 
+		{
+			hayimgtoupload = true;
+		    fd.append("file", allfilestemp[a]);
+		}
+		
+		if(hayimgtoupload)
+		{
+			Service.addProductDetailList(fd,$scope.p.id).then(
+			function successCallback(response)
+			{
+				$scope.addpro =  {};
+				$scope.addpro.skuProduct = [];
+				$scope.sizes = [];
+				$scope.getProductSizes();
+				$scope.getProductsByFilter();
+				allfilestemp = [];
+				clearDiv('.statusId');
+				msjexito('Product added');
+				if(response.data.error != "")
+				{
+					var errorTemp = response.data.error.split('||');
+					var mensajeerrror = ''; 
+					for ( var v in errorTemp) {
+						 mensajeerrror += errorTemp[v]+'<br />';
+					}
+					msjerror(mensajeerrror);
+					closeModal('newProducto');
+				}
+			}, 
+			function errorCallback(response){	
+				msjerror(response.data.error);
+			});	
+		}
+		else
+		{
+			msjerror('Please select images');
+		}
+	}
+	
 	$scope.createProduct = function()
 	{
 		objetcauz = []
@@ -573,28 +622,34 @@ $scope.pago = function ()
 						if(hayimgtoupload)
 						{
 							Service.addProductDetailList(fd,response.data.data.id).then(
-									function successCallback(response)
-									{
-										$scope.addpro =  {};
-										$scope.addpro.skuProduct = [];
-										$scope.sizes = [];
-										$scope.getProductSizes();
-										$scope.getProductsByFilter();
-										allfilestemp = [];
-										clearDiv('#statusId');
-										msjexito('Producto agregado');
-										if(response.data.error != "")
-										{
-											var errorTemp = response.data.error.split('||');
-											var mensajeerrror = ''; 
-											for ( var v in errorTemp) {
-												 mensajeerrror += errorTemp[v]+'<br />';
-											}
-											msjerror(mensajeerrror);
-										}
-									}, 
-									function errorCallback(response){	
-									});	
+							function successCallback(response)
+							{
+								$scope.addpro =  {};
+								$scope.addpro.skuProduct = [];
+								$scope.sizes = [];
+								$scope.getProductSizes();
+								$scope.getProductsByFilter();
+								allfilestemp = [];
+								clearDiv('.statusId');
+								msjexito('Product added');
+								if(response.data.error != "")
+								{
+									var errorTemp = response.data.error.split('||');
+									var mensajeerrror = ''; 
+									for ( var v in errorTemp) {
+										 mensajeerrror += errorTemp[v]+'<br />';
+									}
+									msjerror(mensajeerrror);
+									closeModal('newProducto');
+								}
+							}, 
+							function errorCallback(response){	
+								msjerror(response.data.error);
+							});	
+						}
+						else
+						{
+							closeModal('newProducto');	
 						}
 					}
 				}, 

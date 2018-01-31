@@ -215,7 +215,7 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							 					ES
 							 				</td>
 							 				<td colspan="4">
-							 					<textarea name="" id="" rows="3" ng-required="true" ng-model="p.descriptionEs" class="form-control"></textarea>
+							 					<textarea name="" id="" rows="3" ng-required="true" ng-maxlength="255" ng-model="p.descriptionEs" class="form-control"></textarea>
 							 				</td>
 							 			</tr>
 							 			<tr class="">
@@ -223,7 +223,7 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							 					EN
 							 				</td>
 							 				<td colspan="4">
-							 					<textarea name="" id="" rows="3" ng-required="true" ng-model="p.descriptionEn" class="form-control"></textarea>
+							 					<textarea name="" id="" rows="3" ng-required="true" ng-maxlength="255" ng-model="p.descriptionEn" class="form-control"></textarea>
 							 				</td>
 							 			</tr>
 							 			<tr class="">
@@ -231,7 +231,7 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							 					FR
 							 				</td>
 							 				<td colspan="4">
-							 					<textarea name="" id="" rows="3" ng-required="true" ng-model="p.descriptionFr" class="form-control"></textarea>
+							 					<textarea name="" id="" rows="3" ng-required="true" ng-maxlength="255" ng-model="p.descriptionFr" class="form-control"></textarea>
 							 				</td>
 								 		</tr>
 							 			<tr>
@@ -278,6 +278,8 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							 		<br />
 					 				<ul class="galeriaq list-inline" >
 										<li class="col-xs-6 col-sm-4 col-md-3 col-lg-2 center" ng-repeat="a in p.productDetails">
+											<img src="{{a.url}}?s=https://www.yetibera.com/media/ags/frenteAgs-min.png" ng-class="{ 'front' : a.side == 1 , 'front' : a.side == '1' }" style="max-width: 50px" alt="" class="click img-responsive img-thumbnail" />
+											<img src="{{a.url}}?s=https://www.yetibera.com/media/ags/espaldaAgs-min.png" ng-class="{ 'back' : a.side == 2 , 'back' : a.side == '2' }" style="max-width: 50px" alt="" class="click img-responsive img-thumbnail" />
 											<div class="img-info">
 												<button class="btn btn-black btn-delete hidden-xs" ng-click="deleteimg(p.indexado,$index,a.id);" ><i class="fa fa-times"></i></button>
 												<a href="{{a.url}}" target="_blank" class="btn btn-edit btn-black"><i class="fa fa-eye"></i></a>
@@ -384,7 +386,7 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 	
 	
 	<!-- Modal -->
-	<div id="newProducto" class="modal fade" role="dialog">
+	<div id="newProducto" class="newProducto modal fade" role="dialog">
 	  <div class="modal-dialog modal-lg">
 	
 	    <!-- Modal content-->
@@ -398,9 +400,19 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 				
 				<input type="hidden" value="{{size}}" id="siss" />
 				
-				<div class="form-group col-xs-12">
+				<div class="form-group col-xs-12 col-md-8">
 				    <label for="pwd"><i class="fa fa-file-text"></i><b>&nbsp;<s:message code="admin.title" />:</b></label> 
 				    <input ng-required="true" ng-model="addpro.title" class="form-control form-control-min" type="text" />
+				</div>
+				
+				<div class="form-group col-xs-12 col-md-4">
+				    <label for="pwd"><i class="fa fa-calendar"></i><b>&nbsp;<s:message code="admin.releaseDate" />:</b></label> 
+				    <%-- 
+				    <input ng-required="true" ng-model="addpro.releaseDate" class="form-control form-control-min" type="text" />
+				    --%>
+				    <input class="text-center form-control" ng-required="true" type="text" ng-model="addpro.releaseDate" ng-click="p.opened = true;"
+						   uib-datepicker-popup="yyyy-MM-dd" is-open="p.opened" datepicker-options="dateOptions" close-text="Close"  />
+							 				
 				</div>
 				
 				<div class="form-group col-xs-12">
@@ -421,13 +433,13 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 				</div>
 				<div class="clearfix"></div>
 
+				<%-- 
 			  	<ul class="nav nav-pills text-center" id="menusmodal">
 				  	<li class="btn-black col-xs-12 col-md-3 text-center" style="margin-left: 0px;color:white !important;" 
 				  		ng-class="{active: $index == 0}" ng-repeat="z in sizes">
 				  		<a data-toggle="pill" href="#h{{z.id}}" style="color:white !important;">{{z.name}}</a>
 				  	</li>
 				</ul>
-				
 				<div class="tab-content text-center"> 
 					<div id="h{{z.id}}" ng-repeat="z in sizes" class="tab-pane" ng-class="{active: $index == 0}">
 					    <div class="col-xs-12">
@@ -461,6 +473,7 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 					  </div>
 				  </div>
 				</div>
+				--%>
 				
 				<div class="clearfix" style="margin-bottom:10px;"></div>
 	
@@ -468,13 +481,13 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 					<label for="pwd"><i class="fa fa-file-image-o"></i><b>&nbsp;<s:message code="admin.Imagen" /></b></label>
 				</div>
 				<div class="clearfix"></div>
-				<div id="dragandrophandler">
+				<div class="dragandrophandler">
 					<label class="click" for="fileqwer[]">
 						<s:message code="admin.dragdropfiles" />
 						<input onchange="masfiles();" id="fileqwer[]" name="fileqwer[]" type="file" class="hidden" multiple />
 					</label>
 				</div>
-				<div id="statusId"></div>
+				<div class="statusId"></div>
 	
 				<div class="clearfix"></div>	
 				<br />
@@ -507,14 +520,38 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 	        <h4 class="modal-title"><s:message code="admin.tittleNewIMG"/></h4>
 	      </div>
 	      <div class="modal-body">
+			<%-- 
 			<form action="" enctype="multipart/form-data"  id="formsnewsizeimg" name="formsnewsizeimg" ng-model="formsnewsizeimg" onsubmit="return false" ng-submit="addProductDetail();">
 				  <div class="form-group col-xs-12">
 				    <label for="pwd"><i class="fa fa-file-image-o"></i><b><s:message code="admin.Imagen" /></b></label> 
 				    <input id="img" file-model="imagenp" ng-required="true" class="form-control form-control-min" type="file" />
-				    <%--<input type="file" name="file" class="form-control form-control-min" onchange="angular.element(this).scope().uploadFile(this.files)"/> --%>
+				    <%--<input type="file" name="file" class="form-control form-control-min" onchange="angular.element(this).scope().uploadFile(this.files)"/> --%
 				  </div>
-				  <buton class="btn btn-black" ng-click="addProductDetail();" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+				  <button class="btn btn-black" ng-click="addProductDetail();" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 			</form>
+			<div class="clearfix"></div>
+			<br />
+			--%>
+			<form action="" onsubmit="return false" ng-submit="subeVariasImages();">
+				<div class="col-xs-12">
+					<label for="pwd"><i class="fa fa-file-image-o"></i><b>&nbsp;<s:message code="admin.Imagen" /></b></label>
+				</div>
+				<div class="clearfix"></div>
+				<div class="dragandrophandler">
+					<label class="click" for="fileqwer1[]">
+						<s:message code="admin.dragdropfiles" />
+						<input onchange="masfiles1();" id="fileqwer1[]" name="fileqwer1[]" type="file" class="hidden" multiple />
+					</label>
+				</div>
+				<div class="statusId"></div>
+	
+				<div class="clearfix"></div>	
+				<br />
+				<div>
+			  		<button class="btn btn-black" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+				</div>
+			</form>
+			
 			<div class="clearfix"></div>
 	      </div>
 	      <div class="modal-footer">
