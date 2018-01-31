@@ -522,8 +522,12 @@ public class ProductDaoImplementation implements ProductDao {
 	@Override
 	public List<Product> getProductsByFilter(Product product, Integer page, Integer inPage) {
 		 page = (page -1)*inPage;
-		 boolean where = false;
-		 StringBuilder sql = new StringBuilder("SELECT distinct(p.id), p.descripcion_es, p.activo, p.titulo, p.departamento, p.descripcion_en, p.descripcion_fr, p.fecha_lanzamiento, d.descripcion FROM productos p LEFT JOIN productos_sku ps ON ps.producto = p.id JOIN departamentos d on p.departamento = d.id");
+		 boolean where = false,join=false;
+		 StringBuilder sql = new StringBuilder("SELECT distinct(p.id), p.descripcion_es, p.activo, p.titulo, p.departamento, p.descripcion_en, p.descripcion_fr, p.fecha_lanzamiento, d.descripcion FROM productos p JOIN departamentos d on p.departamento = d.id");
+		 if((product.getSku()!=null && ! product.getSku().equals(""))||(product.getTalla()!=null && product.getTalla().intValue()>0) ||(product.getLessThan()!=null && product.getLessThan().doubleValue() > 0.0) || (product.getGreaterThan()!=null && product.getGreaterThan().doubleValue() > 0.0)){
+			 sql.append(" LEFT JOIN productos_sku ps ON ps.producto = p.id ");
+			 join=true;
+		 }
 		 StringBuilder aux = new StringBuilder("");
 		 Map<String,Object> paramMap = new HashMap<>();		 
 		 if(product.getDescriptionEs()!=null && ! product.getDescriptionEs().equals("")){			 
@@ -590,10 +594,16 @@ public class ProductDaoImplementation implements ProductDao {
 		 if(where){
 			 sql.append(" WHERE");
 			 sql.append(aux);
-			 sql.append(" AND p.activo = :enable AND ps.activo = :enable");			 
+			 sql.append(" AND p.activo = :enable");
+			 if(join){
+				 sql.append(" AND ps.activo = :enable");
+			 }
 		 }
 		 else{
-			 sql.append(" WHERE p.activo = :enable AND ps.activo = :enable");
+			 sql.append(" WHERE p.activo = :enable ");
+			 if(join){
+				 sql.append("AND ps.activo = :enable ");
+			 }
 		 }
 		 paramMap.put("enable",Enable);
 		 sql.append(" ORDER BY p.id DESC LIMIT :page , :inPage");
@@ -606,7 +616,10 @@ public class ProductDaoImplementation implements ProductDao {
 	public Integer getCountProductsByFilter(Product product) {
 		
 		 boolean where = false;
-		 StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM productos p LEFT JOIN productos_sku ps ON ps.producto = p.id");
+		 StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM productos p ");
+		 if((product.getSku()!=null && ! product.getSku().equals(""))||(product.getTalla()!=null && product.getTalla().intValue()>0)){
+			 sql.append("LEFT JOIN productos_sku ps ON ps.producto = p.id ");
+		 }
 		 StringBuilder aux = new StringBuilder("");
 		 Map<String,Object> paramMap = new HashMap<>();		 
 		 if(product.getDescriptionEs()!=null && ! product.getDescriptionEs().equals("")){			 
