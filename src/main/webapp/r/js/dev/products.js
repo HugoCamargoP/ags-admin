@@ -7,32 +7,83 @@ function($scope,$sce, Service)
 {	
 	$scope.modifyItem = {};
 	$scope.p = {};
-	$scope.modificaFlag = false;
-	$scope.listaFlag = true;
 	$scope.pdate = new Date();
+	
+	$scope.showFlag = false;
+	$scope.listaFlag = true;
+	$scope.editaFlag = false;
+	$scope.whoIsSelected = "";
 
 	$scope.dateOptions = {
 	    formatYear: 'yyyy',
 	    //maxDate: new Date(2020, 5, 22),
 	    //minDate: new Date(),
 	    startingDay: 1,
-	    showWeeks: false
+	    showWeeks: false,
+	    timezone: 'utc'
 	};
-	
-	 $scope.setDate = function(a) {
-		 	var aux = a.split('-');
-		    $scope.pdate = new Date(aux[0], aux[1], aux[2]);
-	 };
 
-	$scope.activaModItem =  function(p)
+	$scope.updateProductNew = function(a)
 	{
+		Service.updateProduct(a).then(
+		function successCallback(response){
+			if(response.data.status == 'OK')
+			{
+				$scope.getProductsByFilter();
+				console.log($scope.p);
+				msjexito('Success');
+			}
+			else
+			{
+				msjerror('Error');
+			}
+		},
+		function errorCallback(){
+		})
+	}
+	
+	$scope.setDate = function(a) {
+	 	console.log(a);
+	 	var aux = a.split('-');
+	    $scope.pdate = new Date(aux[0], aux[1], aux[2]);
+	    console.log($scope.pdate);
+	};
+
+	$scope.activaEditMode = function(p,l)
+	{
+		$scope.whoIsSelected = l;
+		$scope.showFlag = false;
+		$scope.listaFlag = false;
+		$scope.editaFlag = true;
+		
 		$scope.modifyItem = p;
 		$scope.p = p;
-		//$scope.p.opened = true;
 		$scope.setDate($scope.p.releaseDate);
-		$scope.modificaFlag = true;
-		$scope.listaFlag = false;
 		console.log($scope.p);
+		console.log(" edita flag activaEditaMode");
+	}
+
+	$scope.showList = function()
+	{
+		$scope.getProductsByFilter();
+		$scope.showFlag = false;
+		$scope.listaFlag = true;
+		$scope.editaFlag = false;
+		console.log('showList');
+	}
+		 
+	$scope.showItem =  function(p,l)
+	{
+		$scope.whoIsSelected = l;
+		$scope.showFlag = true;
+		$scope.listaFlag = false;
+		$scope.editaFlag = false;
+		
+		$scope.modifyItem = p;
+		$scope.p = p;
+		$scope.setDate($scope.p.releaseDate);
+		console.log($scope.p);
+		console.log(" edita flag showItem");
 	}
 	
 /*Address*/
@@ -105,45 +156,6 @@ function($scope,$sce, Service)
 $scope.pago = function ()
 {
 	todoalazador= $scope.carProduct.total;
-	 /*paypal.Button.render({
-
-        env: 'sandbox', // sandbox | production
-
-        // PayPal Client IDs - replace with your own
-        // Create a PayPal app: https://developer.paypal.com/developer/applications/create
-        client: {
-            //sandbox:    'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
-            sandbox:	'AUXQHyLkVRKv_XKtaly04VlR3hwWxAN9AmnTpn9F5QfNVN2MU_dYTYgMD0OsS6ARVnHq4p80Avrual57',
-            production: '<insert production client id>'
-        },
-
-        // Show the buyer a 'Pay Now' button in the checkout flow
-        commit: true,
-
-        // payment() is called when the button is clicked
-        payment: function(data, actions) {
-
-            // Make a call to the REST api to create the payment
-            return actions.payment.create({
-                transactions: [
-                    {
-                        amount: { total: todoalazador, currency: 'MXN' }
-                    	//amount: { total: '0.01', currency: 'USD' }
-                    }
-                ]
-            });
-        },
-
-        // onAuthorize() is called when the buyer approves the payment
-        onAuthorize: function(data, actions) {
-
-            // Make a call to the REST api to execute the payment
-            return actions.payment.execute().then(function() {
-                window.alert('Payment Complete!');
-            });
-        }
-
-    }, '#paypal-button-container');*/
 }
 
 /*Pagar paypal*/
@@ -383,7 +395,7 @@ $scope.pago = function ()
 	
 	$scope.createSkuProduct = function(a)
 	{
-		console.log($scope.formsnewsize);
+		//console.log($scope.formsnewsize);
 		if($scope.formsnewsize.$valid)
 		{
 			$scope.newformssize.department = 1;
@@ -391,12 +403,12 @@ $scope.pago = function ()
 			function successCallback(response){
 				if(response.data.status == 'OK')
 				{
-					$scope.getProductsByFilter();
 					var aux = $scope.newformssize.product;
 					$scope.newformssize = {}
 					$scope.newformssize.product = aux;
 					$scope.productos = response.data.data;
-					msjexito('Exito');
+					msjexito(response.data.error);
+					$scope.getProductsByFilter();
 				}
 				else
 				{
@@ -423,7 +435,7 @@ $scope.pago = function ()
 					{
 						$scope.getProductsByFilter();
 						document.getElementById("img").value='';
-						msjexito('Exito');
+						msjexito('Success');
 					}
 					else
 					{
@@ -453,7 +465,7 @@ $scope.pago = function ()
 					{
 						$scope.getProductsByFilter();
 						document.getElementById("img").value='';
-						msjexito('Exito');
+						msjexito('Success');
 					}
 					else
 					{
@@ -466,14 +478,14 @@ $scope.pago = function ()
 			}
 			else
 			{
-				msjerror('Subir solo imagenes');
+				msjerror('Error: Upload images');
 				document.getElementById("img").value='';
 				return false;
 			}
 		}
 		else
 		{
-			msjerror('Selecciona una imagen');
+			msjerror('Select image');
 		}
 	}
 	
@@ -520,14 +532,14 @@ $scope.pago = function ()
 	$scope.getAllProducts = function()
 	{
 		Service.getAllProducts().then(
-				function successCallback(response){
-					if(response.data.data.length > 0 )
-					{
-							$scope.productos = response.data.data;
-					}
-				}, 
-				function errorCallback(response){	
-				});
+		function successCallback(response){
+			if(response.data.data.length > 0 )
+			{
+				$scope.productos = response.data.data;
+			}
+		}, 
+		function errorCallback(response){	
+		});
 	}
 	$scope.createProduct = function()
 	{
@@ -594,14 +606,20 @@ $scope.pago = function ()
 	{
 		var b = 1, c = 10000;
 		Service.getProductsByFilter($scope.searchprodruct,b,c).then(
-				function successCallback(response){
-					if(response.data.data.length > 0 || response.data.status == "OK")
-					{
-							$scope.productos = response.data.data;
-					}
-				}, 
-				function errorCallback(response){	
-				});
+		function successCallback(response){
+			if(response.data.data.length > 0 || response.data.status == "OK")
+			{
+				$scope.productos = response.data.data;
+				console.log($scope.whoIsSelected+' $scope.whoIsSelected');
+				if($scope.whoIsSelected != "")
+				{
+					$scope.modifyItem = $scope.productos[$scope.whoIsSelected];
+					$scope.p = $scope.productos[$scope.whoIsSelected];	
+				}
+			}
+		}, 
+		function errorCallback(response){	
+		});
 	}
 
 	$scope.getProductSizes = function()
@@ -621,7 +639,7 @@ $scope.pago = function ()
 	
 	$scope.removeProduct = function(a)
 	{
-		if(confirm('¿Eliminar producto?'))
+		if(confirm('¿Delete producto?'))
 		{
 			Service.removeProduct(a).then(
 					function successCallback(response){
@@ -635,14 +653,16 @@ $scope.pago = function ()
 		}
 	}
 	
-	$scope.removeSkuProduct = function(a)
+	$scope.removeSkuProduct = function(a,b)
 	{
-		if(confirm('¿Eliminar este SKU?'))
+		if(confirm('¿Delete this SKU?'))
 		{
 			Service.removeSkuProduct(a).then(
 					function successCallback(response){
 						if(response.data.status == 'OK' )
 						{
+							console.log('delete sku '+$scope.whoIsSelected);
+							//$scope.p.skuProduct[b].borrado = true; 
 							$scope.getProductsByFilter();
 						}
 					}, 
