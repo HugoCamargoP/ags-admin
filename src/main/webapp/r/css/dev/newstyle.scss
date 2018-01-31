@@ -11,14 +11,21 @@ $margin1em : 1em;
 $radio : 1px;
 $opc-menu-hover : rgb(48,48,48);
 
+.image-select
+{
+	max-width: 70px;
+}
+
 .front
 {
 	border:1px solid green !important;
+	background-color: rgba(0,255,0,.3);
 }
 
 .back
 {	
 	border:1px solid blue !important;
+	background-color: rgba(0,0,255,.2);
 }
 
 textarea.ng-invalid-maxlength.ng-touched , input.ng-invalid-required.ng-touched , textarea.ng-invalid-required.ng-touched
