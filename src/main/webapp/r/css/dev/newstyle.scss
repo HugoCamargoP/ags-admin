@@ -28,7 +28,8 @@ $opc-menu-hover : rgb(48,48,48);
 	background-color: rgba(0,0,255,.2);
 }
 
-textarea.ng-invalid-maxlength.ng-touched , input.ng-invalid-required.ng-touched , textarea.ng-invalid-required.ng-touched
+textarea.ng-invalid-maxlength.ng-touched , input.ng-invalid-required.ng-touched , textarea.ng-invalid-required.ng-touched,
+input.ng-invalid-pattern.ng-touched
 {
 	border: 1px red solid !important;
 }
