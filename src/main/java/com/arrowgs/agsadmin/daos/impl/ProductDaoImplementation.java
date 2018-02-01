@@ -365,6 +365,13 @@ public class ProductDaoImplementation implements ProductDao {
 			{
 				modifyListSkuProduct(product.getSkuProduct());
 			}
+			if(product.getProductDetails()!=null && !product.getProductDetails().isEmpty()){
+				Iterator<ProductDetail> iterator = product.getProductDetails().iterator();
+				while(iterator.hasNext()){
+					ProductDetail actual = iterator.next();
+					modifyProductDetail(actual);
+				}
+			}
 	
 			transactionManager.commit(transactionStatus);
 		}catch(Exception e){
