@@ -68,6 +68,8 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							<div class="marginem"></div>
 					 		<div class="clearfix"></div>
 					 		<div class="pull-right">
+								<button class="btn btn-danger"  ng-click="removeProduct(p.id);showList();"><s:message code="admin.delete" /></button>
+								&nbsp;&nbsp;&nbsp;&nbsp;
 								<a href="javascript:void(0);" ng-click="showList();" class="btn btn-black" ><s:message code="admin.cancel" /></a>
 								&nbsp;&nbsp;&nbsp;&nbsp;
 								<a href="javascript:void(0);" ng-click="activaEditMode( modifyItem , whoIsSelected );" class="btn btn-primary" ><s:message code="admin.modify" /></a>
@@ -154,7 +156,7 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 						 		<br />
 				 				<ul class="galeriaq list-inline" >
 									<li class="col-xs-6 col-sm-4 col-md-3 col-lg-2 center" ng-repeat="a in p.productDetails">
-										<div class="img-info">
+										<div class="">
 											<a href="{{a.url}}" target="_blank" class="btn btn-edit btn-black"><i class="fa fa-eye"></i></a>
 											<button class="btn btn-black btn-edit hidden"><i class="fa fa-pencil"></i></button>
 										</div>
@@ -175,11 +177,14 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							<div class="clearfix"></div>
 						 	<h3> <s:message code="admin.product" /> {{p.id}} </h3>
 							<div class="marginem"></div>
-							<form action="" onsubmit="return false;" ng-submit="updateProductNew(p);">
+							<form action="" onsubmit="return false;" id="updateproductn" 
+								  name="updateproductn" ng-model="updateproductn" ng-submit="updateProductNew(p);">
 								<div class="pull-right">
+									<button class="btn btn-danger"  ng-click="removeProduct(p.id);showList();"><s:message code="admin.delete" /></button>
+									&nbsp;&nbsp;&nbsp;&nbsp;
 									<a href="javascript:void(0);" ng-click="showList();" class="btn btn-black" ><s:message code="admin.cancel" /> </a>
 									&nbsp;&nbsp;&nbsp;&nbsp;
-									<button class="btn btn-success" ><s:message code="admin.save" /></button>
+									<button class="btn btn-success" id="mandamodificado" ><s:message code="admin.save" /></button>
 								</div>
 								<div class="clearfix"></div>
 								<br />
@@ -198,8 +203,10 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							 					<input ng-required="true" class="text-center form-control" type="text" ng-model="p.title"/>
 							 				</td>
 							 				<td colspan="1">
-							 					<input class="text-center form-control" ng-required="true" type="text" ng-model="pdate" ng-click="p.opened = true;"
-									 			uib-datepicker-popup="yyyy-MM-dd" is-open="p.opened" datepicker-options="dateOptions" close-text="Close"  />
+							 					<input class="text-center form-control" <%-- ng-change="checkFechirri();" --%> ng-blur="checkFechirri();" 
+							 					ng-required="true" type="text" ng-model="p.releaseDate" ng-click="p.opened = true;"
+									 			uib-datepicker-popup="yyyy-MM-dd" is-open="p.opened" datepicker-options="dateOptions" close-text="Close"  
+									 			 />
 							 				</td>
 							 			</tr>					 			
 							 			<tr class="tabletitulos">
@@ -256,7 +263,16 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							 					<input ng-required="true" class="text-center form-control form-control-min" type="text" ng-model="a.sku"/>
 							 				</td>
 									 		<td>
+									 			<%--
 							 					<input ng-required="true" class="text-center form-control form-control-min" type="text" ng-model="a.sizeText"/>
+							 					--%>
+							 					<select ng-required="true" class="text-center form-control form-control-min" 
+							 							ng-options="a.id as a.name for a in sizes" name="" id="" ng-model="a.size">
+													<%-- 
+													<option value="{{a.id}}"  ng-repeat="a in sizes">{{a.name}}</option>
+													--%>
+													<option value=""></option>
+												</select>
 									 		</td>
 									 		<td>
 							 					<input ng-required="true" class="text-center form-control form-control-min" type="text" ng-model="a.price"/>
@@ -278,8 +294,8 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							 		<br />
 					 				<ul class="galeriaq list-inline" >
 										<li class="col-xs-6 col-sm-4 col-md-3 col-lg-2 center" ng-repeat="a in p.productDetails">
-											<img src="{{a.url}}?s=https://www.yetibera.com/media/ags/frenteAgs-min.png" ng-class="{ 'front' : a.side == 1 , 'front' : a.side == '1' }" style="max-width: 50px" alt="" class="click img-responsive img-thumbnail" />
-											<img src="{{a.url}}?s=https://www.yetibera.com/media/ags/espaldaAgs-min.png" ng-class="{ 'back' : a.side == 2 , 'back' : a.side == '2' }" style="max-width: 50px" alt="" class="click img-responsive img-thumbnail" />
+											<img src="http://yetibera.com/media/ags/frenteAgs-min.png"  ng-click="selectFrontBack(1,$index,p);" ng-class="{ 'front' : a.side == 1 , 'front' : a.side == '1' }" alt="" class="click image-select img-responsive img-thumbnail" />
+											<img src="http://yetibera.com/media/ags/espaldaAgs-min.png" ng-click="selectFrontBack(2,$index,p);" ng-class="{ 'back' : a.side == 2 , 'back' : a.side == '2' }" alt="" class="click image-select img-responsive img-thumbnail" />
 											<div class="img-info">
 												<button class="btn btn-black btn-delete hidden-xs" ng-click="deleteimg(p.indexado,$index,a.id);" ><i class="fa fa-times"></i></button>
 												<a href="{{a.url}}" target="_blank" class="btn btn-edit btn-black"><i class="fa fa-eye"></i></a>
@@ -313,16 +329,10 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							</tbody>
 							<tbody ng-repeat="productoIndividual in productos" class="text-center">
 								<tr ng-init="productoIndividual.show = false;">
-									<td class="click"><i class="fa fa-times"></i></td>
+									<td class="click" ng-click="removeProduct(productoIndividual.id);" ><i class="fa fa-times"></i></td>
 									<td class="click" ng-click="activaEditMode(productoIndividual, $index);"><i class="fa fa-pencil"></i></td>
 									<td class="click" ng-click="showItem(productoIndividual, $index);"><i class="fa fa-eye"></i></td>
 									<td>{{productoIndividual.title}}</td>
-								</tr>
-								<tr ng-show="productoIndividual.show">
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
 								</tr>
 							</tbody>
 						</table>
@@ -410,9 +420,9 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 				    <%-- 
 				    <input ng-required="true" ng-model="addpro.releaseDate" class="form-control form-control-min" type="text" />
 				    --%>
-				    <input class="text-center form-control" ng-required="true" type="text" ng-model="addpro.releaseDate" ng-click="p.opened = true;"
-						   uib-datepicker-popup="yyyy-MM-dd" is-open="p.opened" datepicker-options="dateOptions" close-text="Close"  />
-							 				
+				    <input class="text-center form-control" ng-required="true" type="text" ng-model="addpro.releaseDate" 
+				    	   ng-click="p.opened = true;" ng-focus="p.opened = true;" is-open="p.opened"
+						   uib-datepicker-popup="yyyy-MM-dd" datepicker-options="dateOptions" close-text="Close" />
 				</div>
 				
 				<div class="form-group col-xs-12">

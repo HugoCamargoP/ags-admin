@@ -17,7 +17,8 @@ function($scope,$sce, Service)
 	$scope.editaFlag = false;
 	$scope.whoIsSelected = "";
 	
-
+	//^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$
+	
 	$scope.dateOptions = {
 	    formatYear: 'yyyy',
 	    //maxDate: new Date(2020, 5, 22),
@@ -26,31 +27,97 @@ function($scope,$sce, Service)
 	    showWeeks: false,
 	    timezone: 'utc'
 	};
+	
+	$scope.selectFrontBack = function(a,b,c)
+	{
+		if(a == 1)
+		{	
+			for ( var q in c.productDetails ) 
+			{
+				if(c.productDetails[q].side != 2)
+				{
+					c.productDetails[q].side = 3;
+				}
+			}
+			c.productDetails[b].side = a;
+		}
+		else if(a == 2)
+		{	
+			for ( var q in c.productDetails ) 
+			{
+				if(c.productDetails[q].side != 1)
+				{
+					c.productDetails[q].side = 3;
+				}
+			}
+			c.productDetails[b].side = a;
+		}
+		$scope.updateProductNew(c);
+	}
+	
+	$scope.checkFechirri = function()
+	{
+		if($scope.p.releaseDate == undefined || $scope.p.releaseDate == '')
+		{
+			$scope.p.releaseDate = '';
+			msjerror('Please complete the form');
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
 
 	$scope.updateProductNew = function(a)
 	{
-		Service.updateProduct(a).then(
-		function successCallback(response){
-			if(response.data.status == 'OK')
-			{
-				$scope.getProductsByFilter();
-				console.log($scope.p);
-				msjexito('Success');
-			}
-			else
-			{
-				msjerror('Error');
-			}
-		},
-		function errorCallback(){
-		})
+		console.log($scope.checkFechirri()+' and '+$scope.updateproductn.$valid);
+		if($scope.checkFechirri() && $scope.updateproductn.$valid)
+		{
+			Service.updateProduct(a).then(
+			function successCallback(response){
+				if(response.data.status == 'OK')
+				{
+					$scope.getProductsByFilter();
+					console.log($scope.p);
+					msjexito('Success');
+				}
+				else
+				{
+					msjerror('Error');
+				}
+			},
+			function errorCallback(){
+			})
+		}
+		else
+		{
+			msjerror('PLease complete the form');
+		}
+	}
+	
+	$scope.checkDates = function(a)
+	{
+		//console.log('lo que viene del checkDates '+a);
+		var str = "^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$";
+		var patt = new RegExp(a);
+		var res = patt.test(str);
+		//console.log(str);
+		//console.log(patt);
+		//console.log('checkDates '+res);
+		return res;
 	}
 	
 	$scope.setDate = function(a) {
-	 	console.log(a);
-	 	var aux = a.split('-');
-	    $scope.pdate = new Date(aux[0], aux[1], aux[2]);
-	    console.log($scope.pdate);
+		//console.log('set date '+a);
+	 	/*
+		var aux = a.split('-');
+	 	console.log('Aux '+aux);
+	 	*/
+	 	$scope.p.releaseDate = new Date(a+'T12:00:00-06:00');
+	 	//$scope.p.releaseDate = new Date(aux[0], aux[1], aux[2]);
+	 	//$scope.p.releaseDate = moment(aux[2]+"/"+aux[1]+"/"+aux[0], "YYYY-MM-DD").format();
+	    console.log('ReleaseDate '+$scope.p.releaseDate);
 	};
 
 	$scope.activaEditMode = function(p,l)
@@ -59,12 +126,11 @@ function($scope,$sce, Service)
 		$scope.showFlag = false;
 		$scope.listaFlag = false;
 		$scope.editaFlag = true;
-		
 		$scope.modifyItem = p;
 		$scope.p = p;
 		$scope.setDate($scope.p.releaseDate);
-		console.log($scope.p);
-		console.log(" edita flag activaEditaMode");
+		//console.log($scope.p);
+		//console.log(" edita flag activaEditaMode");
 	}
 
 	$scope.showList = function()
@@ -73,7 +139,7 @@ function($scope,$sce, Service)
 		$scope.showFlag = false;
 		$scope.listaFlag = true;
 		$scope.editaFlag = false;
-		console.log('showList');
+		//console.log('showList');
 	}
 		 
 	$scope.showItem =  function(p,l)
@@ -82,12 +148,11 @@ function($scope,$sce, Service)
 		$scope.showFlag = true;
 		$scope.listaFlag = false;
 		$scope.editaFlag = false;
-		
 		$scope.modifyItem = p;
 		$scope.p = p;
-		$scope.setDate($scope.p.releaseDate);
-		console.log($scope.p);
-		console.log(" edita flag showItem");
+		//$scope.setDate($scope.p.releaseDate);
+		//console.log($scope.p);
+		//console.log(" edita flag showItem");
 	}
 	
 /*Address*/
@@ -399,7 +464,7 @@ $scope.pago = function ()
 	
 	$scope.createSkuProduct = function(a)
 	{
-		//console.log($scope.formsnewsize);
+		console.log($scope.formsnewsize);
 		if($scope.formsnewsize.$valid)
 		{
 			$scope.newformssize.department = 1;
@@ -592,69 +657,78 @@ $scope.pago = function ()
 	
 	$scope.createProduct = function()
 	{
-		objetcauz = []
-		var inter = 0 ;
-		for ( var a in $scope.addpro.skuProduct) {
-			if($scope.addpro.skuProduct[a].sku != undefined && $scope.addpro.skuProduct[a].price != undefined && $scope.addpro.skuProduct[a].stock != undefined )
-			{
-				objetcauz[inter] = $scope.addpro.skuProduct[a];
-				inter++;
+		console.log($scope.addpro.releaseDate);
+		if($scope.addpro.releaseDate != undefined)
+		{
+			objetcauz = []
+			var inter = 0 ;
+			for ( var a in $scope.addpro.skuProduct) {
+				if($scope.addpro.skuProduct[a].sku != undefined && $scope.addpro.skuProduct[a].price != undefined && $scope.addpro.skuProduct[a].stock != undefined )
+				{
+					objetcauz[inter] = $scope.addpro.skuProduct[a];
+					inter++;
+				}
 			}
-		}
-		$scope.addpro.skuProduct = objetcauz;
-		console.log(allfilestemp.length);
-		$scope.getProductSizes();
-		
-
-		$scope.addpro.department = 1;
-		Service.createProduct($scope.addpro).then(
-				function successCallback(response){
-					if(response.data.status == "OK" && response.data.data.id != "")
+			$scope.addpro.skuProduct = objetcauz;
+			console.log(allfilestemp.length);
+			$scope.getProductSizes();
+			
+	
+			$scope.addpro.department = 1;
+			Service.createProduct($scope.addpro).then(
+			function successCallback(response){
+				if(response.data.status == "OK" && response.data.data.id != "")
+				{
+					fd = new FormData();
+					var hayimgtoupload = false;
+					for ( var a in allfilestemp) 
 					{
-						fd = new FormData();
-						var hayimgtoupload = false;
-						for ( var a in allfilestemp) 
-						{
-							hayimgtoupload = true;
-						    fd.append("file", allfilestemp[a]);
-						}
-						
-						if(hayimgtoupload)
-						{
-							Service.addProductDetailList(fd,response.data.data.id).then(
-							function successCallback(response)
-							{
-								$scope.addpro =  {};
-								$scope.addpro.skuProduct = [];
-								$scope.sizes = [];
-								$scope.getProductSizes();
-								$scope.getProductsByFilter();
-								allfilestemp = [];
-								clearDiv('.statusId');
-								msjexito('Product added');
-								if(response.data.error != "")
-								{
-									var errorTemp = response.data.error.split('||');
-									var mensajeerrror = ''; 
-									for ( var v in errorTemp) {
-										 mensajeerrror += errorTemp[v]+'<br />';
-									}
-									msjerror(mensajeerrror);
-									closeModal('newProducto');
-								}
-							}, 
-							function errorCallback(response){	
-								msjerror(response.data.error);
-							});	
-						}
-						else
-						{
-							closeModal('newProducto');	
-						}
+						hayimgtoupload = true;
+					    fd.append("file", allfilestemp[a]);
 					}
-				}, 
-				function errorCallback(response){	
-				});
+					
+					if(hayimgtoupload)
+					{
+						Service.addProductDetailList(fd,response.data.data.id).then(
+						function successCallback(response)
+						{
+							$scope.addpro =  {};
+							$scope.addpro.skuProduct = [];
+							$scope.sizes = [];
+							$scope.getProductSizes();
+							$scope.getProductsByFilter();
+							allfilestemp = [];
+							clearDiv('.statusId');
+							msjexito('Product added');
+							if(response.data.error != "")
+							{
+								var errorTemp = response.data.error.split('||');
+								var mensajeerrror = ''; 
+								for ( var v in errorTemp) {
+									 mensajeerrror += errorTemp[v]+'<br />';
+								}
+								msjerror(mensajeerrror);
+								closeModal('newProducto');
+							}
+						}, 
+						function errorCallback(response){	
+							msjerror(response.data.error);
+						});	
+					}
+					else
+					{
+						closeModal('newProducto');	
+					}
+				}
+			}, 
+			function errorCallback(response){	
+			});
+		}
+		else
+		{
+			msjerror('Incorret date format');
+			$scope.addpro.releaseDate = '';
+		}
 	}	
 	
 	$scope.getProductsByFilter = function()
@@ -680,21 +754,21 @@ $scope.pago = function ()
 	$scope.getProductSizes = function()
 	{
 		Service.getProductSizes().then(
-				function successCallback(response){
-					if(response.data.data.length > 0 )
-					{
-							$scope.sizes = response.data.data;
-							tallasperronas = response.data.data;
-					}
-				}, 
-				function errorCallback(response){	
-				});
+		function successCallback(response){
+			if(response.data.data.length > 0 )
+			{
+					$scope.sizes = response.data.data;
+					tallasperronas = response.data.data;
+			}
+		}, 
+		function errorCallback(response){	
+		});
 	}
 	
 	
 	$scope.removeProduct = function(a)
 	{
-		if(confirm('¿Delete producto?'))
+		if(confirm('¿Delete product?'))
 		{
 			Service.removeProduct(a).then(
 					function successCallback(response){

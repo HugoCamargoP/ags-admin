@@ -1,13 +1,19 @@
 /* Style general */
+.image-select {
+  max-width: 70px;
+}
+
 .front {
   border: 1px solid green !important;
+  background-color: rgba(0, 255, 0, 0.3);
 }
 
 .back {
   border: 1px solid blue !important;
+  background-color: rgba(0, 0, 255, 0.2);
 }
 
-textarea.ng-invalid-maxlength.ng-touched, input.ng-invalid-required.ng-touched, textarea.ng-invalid-required.ng-touched {
+textarea.ng-invalid-maxlength.ng-touched, input.ng-invalid-required.ng-touched, textarea.ng-invalid-required.ng-touched, input.ng-invalid-pattern.ng-touched {
   border: 1px red solid !important;
 }
 
