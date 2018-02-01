@@ -203,10 +203,13 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							 					<input ng-required="true" class="text-center form-control" type="text" ng-model="p.title"/>
 							 				</td>
 							 				<td colspan="1">
-							 					<input class="text-center form-control" <%-- ng-change="checkFechirri();" --%> ng-blur="checkFechirri();" 
+							 					<input class="text-center form-control datepicker relaseDatemod" required="true" type="text" />
+							 					<%--
+							 					<input class="text-center form-control" 
 							 					ng-required="true" type="text" ng-model="p.releaseDate" ng-click="p.opened = true;"
 									 			uib-datepicker-popup="yyyy-MM-dd" is-open="p.opened" datepicker-options="dateOptions" close-text="Close"  
 									 			 />
+									 			--%>
 							 				</td>
 							 			</tr>					 			
 							 			<tr class="tabletitulos">
@@ -242,9 +245,10 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							 				</td>
 								 		</tr>
 							 			<tr>
-							 				<td colspan="5">
-							 					<a href="javascript:void(0);" ng-click="newformssize.product = p.id;" class="btn btn-black col-xs-12" data-toggle="modal" data-target="#newYetibera">
-							 						<s:message code="admin.newSKU" />
+							 				<td colspan="5" class="text-left">
+							 					<a href="javascript:void(0);" ng-click="newformssize.product = p.id;" class="btn btn-black" data-toggle="modal" data-target="#newYetibera">
+							 						<s:message code="admin.newSKU" /> 
+							 						<i class="fa fa-plus"></i>
 							 					</a>
 							 				</td>
 							 			</tr>
@@ -270,8 +274,8 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							 							ng-options="a.id as a.name for a in sizes" name="" id="" ng-model="a.size">
 													<%-- 
 													<option value="{{a.id}}"  ng-repeat="a in sizes">{{a.name}}</option>
-													--%>
 													<option value=""></option>
+													--%>
 												</select>
 									 		</td>
 									 		<td>
@@ -284,7 +288,10 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							 		</table>
 							 	</div>
 							 	<div class="marginem">
-							 		<a href="#newYetiberaImg" data-toggle="modal" target="_blank" ng-click="newformssizeimg.id = p.id;" class="btn btn-black"><s:message code="admin.addPicture" /> <i class="fa fa-plus"></i></a>
+							 		<a href="#newYetiberaImg" data-toggle="modal" target="_blank" ng-click="newformssizeimg.id = p.id;" class="btn btn-black">
+							 			<s:message code="admin.addPicture" /> 
+							 			<i class="fa fa-plus"></i>
+							 		</a>
 							 	</div>
 							 	<div class="">
 							 		<div class="col-xs-12 text-center tabletitulos">
@@ -347,7 +354,7 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 		
 		
 	<!-- Modal -->
-	<div id="newYetibera" class="modal fade" role="dialog">
+	<div id="newYetibera" class="newYetibera modal fade" role="dialog">
 	  <div class="modal-dialog ">
 	
 	    <!-- Modal content-->
@@ -362,11 +369,10 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 				    <label for="pwd"><i class="fa fa-barcode"></i><b>SKU:</b></label> 
 				    <input ng-required="true" ng-model="newformssize.sku" class="form-control form-control-min" type="text" />
 				  </div>
-				  
 				  <div class="col-xs-12">
 					  <div class="form-group col-xs-12 col-sm-4">
 					    <label for="pwd"><i class="fa fa-object-group"></i><b> <s:message code="admin.size"/>:</b></label> 
-					    <select name="" id="" ng-model="newformssize.size" class="form-control form-control-min" ng-required="true">
+					    <select name="" id="" ng-model="newformssize.size" ng-change="checkIfExist(newformssize.size);" class="form-control form-control-min" ng-required="true">
 			 				<option value="{{a.id}}"  ng-repeat="a in sizes">{{a.name}}</option>
 			 			</select>
 					  </div>
@@ -381,7 +387,10 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 			 			<input type="number"  ng-required="true" ng-model="newformssize.stock" class="form-control form-control-min" type="text" />
 					  </div>
 				  
-				  	<button class="btn btn-black" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+				    <div class="col-xs-12 alert alert-danger text-center" ng-if="haytallaExistente">
+				  		This size already exists for this product
+				    </div>
+				  	<button ng-if="!haytallaExistente" class="btn btn-black" type="submit"><s:message code="admin.save" /> <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 				  </div>
 			</form>
 			<div class="clearfix"></div>
@@ -417,12 +426,14 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 				
 				<div class="form-group col-xs-12 col-md-4">
 				    <label for="pwd"><i class="fa fa-calendar"></i><b>&nbsp;<s:message code="admin.releaseDate" />:</b></label> 
+				    <input class="text-center form-control datepicker relaseDatemod1" required="true" type="text" />
 				    <%-- 
 				    <input ng-required="true" ng-model="addpro.releaseDate" class="form-control form-control-min" type="text" />
-				    --%>
+				    
 				    <input class="text-center form-control" ng-required="true" type="text" ng-model="addpro.releaseDate" 
 				    	   ng-click="p.opened = true;" ng-focus="p.opened = true;" is-open="p.opened"
 						   uib-datepicker-popup="yyyy-MM-dd" datepicker-options="dateOptions" close-text="Close" />
+					--%>
 				</div>
 				
 				<div class="form-group col-xs-12">
@@ -520,7 +531,7 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 	
 			
 	<!-- Modal -->
-	<div id="newYetiberaImg" class="modal fade" role="dialog">
+	<div id="newYetiberaImg" class="newYetiberaImg modal fade" role="dialog">
 	  <div class="modal-dialog">
 	
 	    <!-- Modal content-->

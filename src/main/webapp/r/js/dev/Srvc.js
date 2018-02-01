@@ -401,7 +401,7 @@ function Service(http, url)
             'url': url + '/product_sku/' + idSkuProduct
         })
     }
-   
+
     //Obtiene todos los detalles de productos
         //Parámetros no necesitados
     this.getAllProductDetails = function(){
@@ -410,6 +410,15 @@ function Service(http, url)
             'url': url + '/product_detail'
         })
     }
+    
+    //Obtiene todos los detalles de productos
+    //Parámetros no necesitados
+	this.getProductById = function(a){
+	    return http({
+	        'method': 'GET',
+	        'url': url + '/product/'+a
+	    })
+	}
    
     //Obtiene los detalles de un producto specifico
         //Parámetros necesitados: Integer sku   

@@ -206,13 +206,24 @@ function muestra(ob)
 		}
 }
 
+var relaseDatemod, relaseDatemod1;
+
 $(document).ready(function () {
 	
 	setCookie('lang', 'en', 360);
 	
 	
-    $( ".datepicker" ).datepicker();
+    $( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
 
+    $(".relaseDatemod").change(function() {
+    	relaseDatemod= $(this).val();
+        console.log(relaseDatemod);
+    });
+    $(".relaseDatemod1").change(function() {
+    	relaseDatemod1= $(this).val();
+        console.log(relaseDatemod1);
+    });
+    
 	  $("body").popover({ selector: '[data-toggle="popover"]' });
 	  $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 	

@@ -74,11 +74,19 @@ function($scope,$sce, Service)
 		console.log($scope.checkFechirri()+' and '+$scope.updateproductn.$valid);
 		if($scope.checkFechirri() && $scope.updateproductn.$valid)
 		{
+			
+			var str = String($scope.p.releaseDate);
+			console.log(str);
+			var res = str.substring(0, 9);
+			console.log(res);
+			//$scope.p.releaseDate = res;
+			
 			Service.updateProduct(a).then(
 			function successCallback(response){
 				if(response.data.status == 'OK')
 				{
 					$scope.getProductsByFilter();
+					$scope.getProductById($scope.p.id);
 					console.log($scope.p);
 					msjexito('Success');
 				}
@@ -96,28 +104,76 @@ function($scope,$sce, Service)
 		}
 	}
 	
+	$scope.getProductById = function(a)
+	{
+		console.log('getProductById '+a);
+		Service.getProductById(a).then(
+		function successCallback(response){
+			if(response.data.status == 'OK')
+			{
+				$scope.p = response.data.data;
+				$scope.setDate($scope.p.releaseDate);
+			}
+			else
+			{
+				msjerror('Error');
+			}
+		},
+		function errorCallback(){
+		})
+	}
+	
+	$scope.haytallaExistente = false;
+	
+	$scope.checkIfExist = function(a)
+	{
+		$scope.haytallaExistente = false;
+		for ( var q in $scope.p.skuProduct) 
+		{
+			console.log($scope.p.skuProduct[q].size+' a b '+a);
+			if($scope.p.skuProduct[q].size == a)
+			{
+				$scope.haytallaExistente = true;
+			}
+		}
+		console.log($scope.haytallaExistente+' haytalla');
+	}
+	
 	$scope.checkDates = function(a)
 	{
-		//console.log('lo que viene del checkDates '+a);
+		console.log('lo que viene del checkDates '+a);
 		var str = "^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$";
-		var patt = new RegExp(a);
-		var res = patt.test(str);
+		var patt = new RegExp(str);
+		var res = patt.test(a);
 		//console.log(str);
 		//console.log(patt);
-		//console.log('checkDates '+res);
+		console.log('checkDates '+res);
+		
+		var string = "sample1";
+		var re = new RegExp("^([a-z0-9]{5,})$");
+		if (re.test(string)) {
+		    console.log("Valid");
+		} else {
+		    console.log("Invalid");
+		}
+		
 		return res;
 	}
 	
 	$scope.setDate = function(a) {
 		//console.log('set date '+a);
-	 	/*
+		/*
+	    console.log('ReleaseDate nuevo '+a);
 		var aux = a.split('-');
 	 	console.log('Aux '+aux);
-	 	*/
-	 	$scope.p.releaseDate = new Date(a+'T12:00:00-06:00');
+	 	
+	    var d = new Date();
+	    $scope.p.releaseDate = d.setUTCFullYear(aux[0], aux[1], aux[2]);
+	    */
+	 	//$scope.p.releaseDate = new Date(a+'T12:00:00-06:00');
+	 	//$scope.p.releaseDate = new Date(a).setHours(0,0,0,0);
 	 	//$scope.p.releaseDate = new Date(aux[0], aux[1], aux[2]);
 	 	//$scope.p.releaseDate = moment(aux[2]+"/"+aux[1]+"/"+aux[0], "YYYY-MM-DD").format();
-	    console.log('ReleaseDate '+$scope.p.releaseDate);
 	};
 
 	$scope.activaEditMode = function(p,l)
@@ -478,10 +534,12 @@ $scope.pago = function ()
 					$scope.productos = response.data.data;
 					msjexito(response.data.error);
 					$scope.getProductsByFilter();
+					$scope.getProductById($scope.p.id);
+					closeModal('newYetibera');
 				}
 				else
 				{
-					msjerror('Error');
+					msjerror(response.data.error);
 				}
 			},
 			function errorCallback(){
@@ -657,8 +715,9 @@ $scope.pago = function ()
 	
 	$scope.createProduct = function()
 	{
-		console.log($scope.addpro.releaseDate);
-		if($scope.addpro.releaseDate != undefined)
+		console.log($scope.checkDates(relaseDatemod1));
+		/*
+		if(relaseDatemod1 != undefined)
 		{
 			objetcauz = []
 			var inter = 0 ;
@@ -710,10 +769,13 @@ $scope.pago = function ()
 								msjerror(mensajeerrror);
 								closeModal('newProducto');
 							}
+							closeModal('newProducto');
 						}, 
 						function errorCallback(response){	
 							msjerror(response.data.error);
 						});	
+
+						closeModal('newProducto');
 					}
 					else
 					{
@@ -729,6 +791,7 @@ $scope.pago = function ()
 			msjerror('Incorret date format');
 			$scope.addpro.releaseDate = '';
 		}
+		*/
 	}	
 	
 	$scope.getProductsByFilter = function()
@@ -793,6 +856,7 @@ $scope.pago = function ()
 							console.log('delete sku '+$scope.whoIsSelected);
 							//$scope.p.skuProduct[b].borrado = true; 
 							$scope.getProductsByFilter();
+							$scope.getProductById($scope.p.id);
 						}
 					}, 
 					function errorCallback(response){	
