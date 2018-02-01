@@ -1,7 +1,10 @@
 package com.arrowgs.agsadmin.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Product {
 
@@ -12,7 +15,8 @@ public class Product {
 	private String	title;
 	private Integer department;
 	private Date	releaseDate;
-	
+	private String 	strReleaseDate;
+
 	//Extra Data
 	private List<ProductDetail> productDetails;
 	private List<SkuProduct> 	skuProduct;
@@ -86,10 +90,12 @@ public class Product {
 		this.department = department;
 	}
 
+	@JsonIgnore
 	public Date getReleaseDate() {
 		return releaseDate;
 	}
 
+	@JsonIgnore
 	public void setReleaseDate(Date releaseDate) {
 		this.releaseDate = releaseDate;
 	}
@@ -211,6 +217,28 @@ public class Product {
 
 	public void setUpTo(Date upTo) {
 		this.upTo = upTo;
+	}
+	
+	
+	public String getStrReleaseDate() {
+		String date = null;
+		if(releaseDate!=null){
+			SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+			date = format.format(releaseDate);
+		}
+		return date;
+	}
+
+	public void setStrReleaseDate(String strReleaseDate) {
+		this.strReleaseDate = strReleaseDate;
+		if(this.strReleaseDate!=null){
+			SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+			try{
+				releaseDate = format.parse(this.strReleaseDate);
+			}catch(Exception e){
+				
+			}
+		}
 	}
 
 	
