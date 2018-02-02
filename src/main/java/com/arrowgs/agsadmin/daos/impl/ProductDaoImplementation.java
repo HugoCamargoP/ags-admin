@@ -352,7 +352,7 @@ public class ProductDaoImplementation implements ProductDao {
 		TransactionStatus transactionStatus =
 				transactionManager.getTransaction(new DefaultTransactionDefinition());
 		try{				
-			String sql = "UPDATE productos set descripcion_es = :descripcionEs, descripcion_en = :descripcionEn, descripcion_fr = :descripcionFr, titulo = :title WHERE id = :id";			
+			String sql = "UPDATE productos set descripcion_es = :descripcionEs, descripcion_en = :descripcionEn, descripcion_fr = :descripcionFr, titulo = :title, fecha_lanzamiento = :fecha_lanzamiento WHERE id = :id";			
 			Map<String,Object> paramMap = new HashMap<>();
 			paramMap.put("descripcionEs", product.getDescriptionEs());
 			paramMap.put("descripcionEn", product.getDescriptionEn());

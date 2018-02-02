@@ -1,5 +1,6 @@
 package com.arrowgs.agsadmin.entities;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -223,7 +224,7 @@ public class Product {
 	public String getStrReleaseDate() {
 		String date = null;
 		if(releaseDate!=null){
-			SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			date = format.format(releaseDate);
 		}
 		return date;
@@ -232,7 +233,7 @@ public class Product {
 	public void setStrReleaseDate(String strReleaseDate) {
 		this.strReleaseDate = strReleaseDate;
 		if(this.strReleaseDate!=null){
-			SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			try{
 				releaseDate = format.parse(this.strReleaseDate);
 			}catch(Exception e){
