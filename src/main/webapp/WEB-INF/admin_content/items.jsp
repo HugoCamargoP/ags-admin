@@ -332,6 +332,7 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 									<td><s:message code="admin.modify" /></td>
 									<td><s:message code="admin.show" /></td>
 									<td><s:message code="admin.product" /></td>
+									<td><s:message code="admin.releaseDate" /></td>
 								</tr>
 							</tbody>
 							<tbody ng-repeat="productoIndividual in productos" class="text-center">
@@ -340,6 +341,7 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 									<td class="click" ng-click="activaEditMode(productoIndividual, $index);"><i class="fa fa-pencil"></i></td>
 									<td class="click" ng-click="showItem(productoIndividual, $index);"><i class="fa fa-eye"></i></td>
 									<td>{{productoIndividual.title}}</td>
+									<td>{{productoIndividual.strReleaseDate}}</td>
 								</tr>
 							</tbody>
 						</table>
