@@ -74,13 +74,7 @@ function($scope,$sce, Service)
 		console.log(checkDates(relaseDatemod));
 		if(checkDates(relaseDatemod) && $scope.updateproductn.$valid)
 		{
-			
-			var str = String($scope.p.releaseDate);
-			console.log(str);
-			var res = str.substring(0, 9);
-			console.log(res);
-			//$scope.p.releaseDate = res;
-			
+			a.strReleaseDate = relaseDatemod;
 			Service.updateProduct(a).then(
 			function successCallback(response){
 				if(response.data.status == 'OK')
@@ -704,6 +698,7 @@ $scope.pago = function ()
 					msjerror(mensajeerrror);
 					closeModal('newProducto');
 				}
+				$scope.getProductById($scope.p.id);
 			}, 
 			function errorCallback(response){	
 				msjerror(response.data.error);
@@ -715,11 +710,14 @@ $scope.pago = function ()
 		}
 	}
 	
+	$scope.quienEnSeCreo = '';
+	$scope.seCreoNewProduct = false;
 	$scope.createProduct = function()
 	{
 		console.log(checkDates(relaseDatemod1));
 		if(checkDates(relaseDatemod1))
 		{
+			$scope.addpro.strReleaseDate = relaseDatemod1;
 			objetcauz = []
 			var inter = 0 ;
 			for ( var a in $scope.addpro.skuProduct) {
@@ -746,7 +744,9 @@ $scope.pago = function ()
 						hayimgtoupload = true;
 					    fd.append("file", allfilestemp[a]);
 					}
-					
+
+					$scope.seCreoNewProduct = true;
+					$scope.quienEnSeCreo = response.data.data.id;
 					if(hayimgtoupload)
 					{
 						Service.addProductDetailList(fd,response.data.data.id).then(
@@ -780,6 +780,12 @@ $scope.pago = function ()
 					}
 					else
 					{
+						$scope.addpro =  {};
+						$scope.addpro.skuProduct = [];
+						$scope.sizes = [];
+						$scope.getProductSizes();
+						$scope.getProductsByFilter();
+						allfilestemp = [];
 						closeModal('newProducto');	
 					}
 				}
@@ -803,6 +809,22 @@ $scope.pago = function ()
 			if(response.data.data.length > 0 || response.data.status == "OK")
 			{
 				$scope.productos = response.data.data;
+
+				if($scope.seCreoNewProduct)
+				{
+					for ( var a in $scope.productos) {
+						console.log(a+' secreonewproductos');
+						if( $scope.productos[a].id == $scope.quienEnSeCreo)
+						{
+							console.log('secreonewproductos');
+							$scope.whoIsSelected = a;
+							$scope.activaEditMode($scope.productos[a],a);
+						}
+					}
+					$scope.quienEnSeCreo = '';
+					$scope.seCreoNewProduct = false;
+				}
+				
 				console.log($scope.whoIsSelected+' $scope.whoIsSelected');
 				if($scope.whoIsSelected != "")
 				{

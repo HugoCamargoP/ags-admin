@@ -91,7 +91,7 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 						 					{{p.title}}
 						 				</td>
 						 				<td colspan="1">
-						 					{{p.releaseDate}}
+						 					{{p.strReleaseDate}}
 						 				</td>
 						 			</tr>					 			
 						 			<tr class="tabletitulos">
