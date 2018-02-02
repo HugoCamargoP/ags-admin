@@ -206,6 +206,15 @@ function muestra(ob)
 		}
 }
 
+function checkDates(campo) {
+    var RegExPattern = /^\d{4}-\d{2}-\d{2}$/;
+    if ((campo.match(RegExPattern)) && (campo!='')) {
+          return true;
+    } else {
+          return false;
+    }
+}
+
 var relaseDatemod, relaseDatemod1;
 
 $(document).ready(function () {

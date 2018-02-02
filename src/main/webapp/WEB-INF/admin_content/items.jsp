@@ -180,7 +180,7 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							<form action="" onsubmit="return false;" id="updateproductn" 
 								  name="updateproductn" ng-model="updateproductn" ng-submit="updateProductNew(p);">
 								<div class="pull-right">
-									<button class="btn btn-danger"  ng-click="removeProduct(p.id);showList();"><s:message code="admin.delete" /></button>
+									<a class="btn btn-danger"  ng-click="removeProduct(p.id);"><s:message code="admin.delete" /></a>
 									&nbsp;&nbsp;&nbsp;&nbsp;
 									<a href="javascript:void(0);" ng-click="showList();" class="btn btn-black" ><s:message code="admin.cancel" /> </a>
 									&nbsp;&nbsp;&nbsp;&nbsp;
@@ -203,7 +203,7 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							 					<input ng-required="true" class="text-center form-control" type="text" ng-model="p.title"/>
 							 				</td>
 							 				<td colspan="1">
-							 					<input class="text-center form-control datepicker relaseDatemod" required="true" type="text" />
+							 					<input class="text-center form-control datepicker relaseDatemod" ng-model="p.strReleaseDate" required="true" type="text" />
 							 					<%--
 							 					<input class="text-center form-control" 
 							 					ng-required="true" type="text" ng-model="p.releaseDate" ng-click="p.opened = true;"
@@ -279,10 +279,10 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 												</select>
 									 		</td>
 									 		<td>
-							 					<input ng-required="true" class="text-center form-control form-control-min" type="text" ng-model="a.price"/>
+							 					<input ng-required="true" ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/" class="text-center form-control form-control-min" type="text" ng-model="a.price"/>
 									 		</td>
 									 		<td>
-							 					<input ng-required="true" class="text-center form-control form-control-min" type="text" ng-model="a.stock"/>
+							 					<input ng-required="true" ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/" class="text-center form-control form-control-min" type="text" ng-model="a.stock"/>
 									 		</td>
 							 			</tr>
 							 		</table>

@@ -71,8 +71,8 @@ function($scope,$sce, Service)
 
 	$scope.updateProductNew = function(a)
 	{
-		console.log($scope.checkFechirri()+' and '+$scope.updateproductn.$valid);
-		if($scope.checkFechirri() && $scope.updateproductn.$valid)
+		console.log(checkDates(relaseDatemod));
+		if(checkDates(relaseDatemod) && $scope.updateproductn.$valid)
 		{
 			
 			var str = String($scope.p.releaseDate);
@@ -138,7 +138,7 @@ function($scope,$sce, Service)
 		}
 		console.log($scope.haytallaExistente+' haytalla');
 	}
-	
+	/*
 	$scope.checkDates = function(a)
 	{
 		console.log('lo que viene del checkDates '+a);
@@ -159,6 +159,7 @@ function($scope,$sce, Service)
 		
 		return res;
 	}
+	*/
 	
 	$scope.setDate = function(a) {
 		//console.log('set date '+a);
@@ -184,6 +185,7 @@ function($scope,$sce, Service)
 		$scope.editaFlag = true;
 		$scope.modifyItem = p;
 		$scope.p = p;
+		relaseDatemod = $scope.p.strReleaseDate;
 		$scope.setDate($scope.p.releaseDate);
 		//console.log($scope.p);
 		//console.log(" edita flag activaEditaMode");
@@ -715,9 +717,8 @@ $scope.pago = function ()
 	
 	$scope.createProduct = function()
 	{
-		console.log($scope.checkDates(relaseDatemod1));
-		/*
-		if(relaseDatemod1 != undefined)
+		console.log(checkDates(relaseDatemod1));
+		if(checkDates(relaseDatemod1))
 		{
 			objetcauz = []
 			var inter = 0 ;
@@ -791,7 +792,7 @@ $scope.pago = function ()
 			msjerror('Incorret date format');
 			$scope.addpro.releaseDate = '';
 		}
-		*/
+		
 	}	
 	
 	$scope.getProductsByFilter = function()
@@ -831,17 +832,20 @@ $scope.pago = function ()
 	
 	$scope.removeProduct = function(a)
 	{
-		if(confirm('¿Delete product?'))
+		var confirmacion = confirm('¿Delete product?');
+		console.log(confirmacion);
+		if(confirmacion)
 		{
 			Service.removeProduct(a).then(
-					function successCallback(response){
-						if(response.data.status == 'OK' )
-						{
-							$scope.getProductsByFilter();
-						}
-					}, 
-					function errorCallback(response){	
-					});
+			function successCallback(response){
+				if(response.data.status == 'OK' )
+				{
+					$scope.getProductsByFilter();
+					showList();
+				}
+			}, 
+			function errorCallback(response){	
+			});
 		}
 	}
 	
