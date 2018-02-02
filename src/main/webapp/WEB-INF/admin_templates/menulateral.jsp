@@ -26,6 +26,8 @@
 									<li><a href="${ linkEmpty }">Pagos</a></li>
 								</ul>
 	                        </li> 
+	                        <li class=""><a href="${linkConfig}"><i class="fa fa-cogs"></i> <span><s:message code="admin.config"/></span></a>
+							</li>    
 	                        <li class=""><a href="${linkAdminUser}"><i class="fa fa-user"></i> <span><s:message code="admin.users"/></span></a>
 							</li>    
 	                        <li class=""><a href="${ linkAdminItems }"><i class="fa fa-barcode"></i> <span><s:message code="admin.items"/></span></a>

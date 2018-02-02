@@ -20,7 +20,8 @@ public class RootController {
 	                      Mappings.adminReports,
 	                      Mappings.adminModifyU,
 	                      Mappings.orders,
-	                      Mappings.order})
+	                      Mappings.order,
+	                      Mappings.config})
 	public void show(){
 		
 	}

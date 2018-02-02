@@ -122,6 +122,31 @@ function($scope,$sce, Service)
 		}
 	}
 	
+	$scope.getConfigEntity = function()
+	{
+		Service.getConfigEntity().then(
+		function successCallback(response){
+			if(response.data.status == 'OK')
+			{
+				$scope.conf = response.data.data;
+			}
+			else
+			{
+				msjerror('Error');
+			}
+		},
+		function errorCallback(){
+		})
+	}
+	
+	$scope.updateConfigEntity = function()
+	{
+		Service.updateConfigEntity($scope.conf).then(
+		function successCallback(response){msjexito('Change done');},
+		function errorCallback(){})
+	}
+	
+	
 	$scope.getProductById = function(a)
 	{
 		console.log('getProductById '+a);

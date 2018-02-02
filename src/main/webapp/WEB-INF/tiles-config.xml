@@ -107,6 +107,11 @@
 		<put-attribute name="content"  value="/WEB-INF/admin_content/top.jsp" />
 	</definition>
 	
+	<!-- Page  config -->
+	<definition name="config" extends="admin_mainTemplate">
+		<put-attribute name="content"  value="/WEB-INF/admin_content/config.jsp" />
+	</definition>
+	
 	<!-- Page  base -->
 	<definition name="base" extends="admin_mainTemplate">
 		<put-attribute name="content"  value="/WEB-INF/admin_content/base.jsp" />
