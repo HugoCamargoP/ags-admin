@@ -227,7 +227,9 @@ $(document).ready(function () {
     $(".relaseDatemod").change(function() {
     	relaseDatemod= $(this).val();
         console.log(relaseDatemod);
+        angular.element(document.querySelector('#hasesto')).scope().updateProductSetDate();
     });
+    
     $(".relaseDatemod1").change(function() {
     	relaseDatemod1= $(this).val();
         console.log(relaseDatemod1);

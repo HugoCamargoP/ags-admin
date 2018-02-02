@@ -203,7 +203,9 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							 					<input ng-required="true" class="text-center form-control" type="text" ng-model="p.title"/>
 							 				</td>
 							 				<td colspan="1">
-							 					<input class="text-center form-control datepicker relaseDatemod" ng-model="p.strReleaseDate" required="true" type="text" />
+							 					<div id="hasesto"></div>
+							 					<input type="hidden" value="{{p.strReleaseDate}}"/>
+							 					<input class="text-center form-control datepicker relaseDatemod" value="{{p.strReleaseDate}}" required="required" type="text" />
 							 					<%--
 							 					<input class="text-center form-control" 
 							 					ng-required="true" type="text" ng-model="p.releaseDate" ng-click="p.opened = true;"

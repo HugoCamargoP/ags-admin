@@ -68,9 +68,26 @@ function($scope,$sce, Service)
 			return true;
 		}
 	}
-
+	
+	$scope.updateProductSetDate = function()
+	{
+		console.log($scope.p);
+		$scope.p.strReleaseDate = relaseDatemod+' fechirri';
+		console.log($scope.p);
+	}
+	
 	$scope.updateProductNew = function(a)
 	{
+		/*
+		console.log(relaseDatemod+'antes');
+		$scope.p.strReleaseDate = relaseDatemod;
+		console.log(relaseDatemod+' despues');
+		console.log($scope.p);
+		*/
+		console.log($scope.p);
+		$scope.p.strReleaseDate = relaseDatemod+' fechirri';
+		console.log($scope.p);
+		
 		console.log(checkDates(relaseDatemod));
 		if(checkDates(relaseDatemod) && $scope.updateproductn.$valid)
 		{
@@ -94,7 +111,14 @@ function($scope,$sce, Service)
 		}
 		else
 		{
-			msjerror('PLease complete the form');
+			if(!checkDates(relaseDatemod))
+			{	
+				msjerror('Please check field Release Date');
+			}
+			else{
+				msjerror('Please complete the form');
+			}
+			a.strReleaseDate = '';
 		}
 	}
 	
@@ -714,10 +738,11 @@ $scope.pago = function ()
 	$scope.seCreoNewProduct = false;
 	$scope.createProduct = function()
 	{
+		console.log(relaseDatemod1);
+		$scope.addpro.strReleaseDate = relaseDatemod1;
 		console.log(checkDates(relaseDatemod1));
 		if(checkDates(relaseDatemod1))
 		{
-			$scope.addpro.strReleaseDate = relaseDatemod1;
 			objetcauz = []
 			var inter = 0 ;
 			for ( var a in $scope.addpro.skuProduct) {
@@ -795,7 +820,13 @@ $scope.pago = function ()
 		}
 		else
 		{
-			msjerror('Incorret date format');
+			if(!checkDates(relaseDatemod1))
+			{	
+				msjerror('Please check field Release Date');
+			}
+			else{
+				msjerror('Please complete the form');
+			}
 			$scope.addpro.releaseDate = '';
 		}
 		
