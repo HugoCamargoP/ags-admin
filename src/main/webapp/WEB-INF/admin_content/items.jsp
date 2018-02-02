@@ -247,6 +247,17 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							 				</td>
 								 		</tr>
 							 			<tr>
+							 				<td colspan="5" class="text-center">
+												<button class="btn btn-success btn-lg" id="mandamodificado" ><s:message code="admin.save" /></button>
+							 				</td>
+							 			</tr>
+							 			<tr>
+							 				<td colspan="5" class="text-center">
+												<div class="clearfix"></div>
+												<br />
+							 				</td>
+							 			</tr>
+							 			<tr>
 							 				<td colspan="5" class="text-left">
 							 					<a href="javascript:void(0);" ng-click="newformssize.product = p.id;" class="btn btn-black" data-toggle="modal" data-target="#newYetibera">
 							 						<s:message code="admin.newSKU" /> 
