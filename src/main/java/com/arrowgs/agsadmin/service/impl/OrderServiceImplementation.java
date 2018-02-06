@@ -215,6 +215,7 @@ public class OrderServiceImplementation implements OrderService {
 			orderRecord.setOrder(order.getId());
 			orderRecord.setState(order.getState());
 			orderRecord.setUpdate(new Date());
+			orderRecord.setObservations(order.getObservations());
 			orderDao.updateStatus(order, orderRecord); 
 		}catch(Exception e){
 			logger.error("OrderService : updateStateOrder : " + e.toString());
