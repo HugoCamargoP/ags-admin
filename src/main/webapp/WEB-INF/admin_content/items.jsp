@@ -298,6 +298,11 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							 					<input ng-required="true" ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/" class="text-center form-control form-control-min" type="text" ng-model="a.stock"/>
 									 		</td>
 							 			</tr>
+							 			<tr>
+							 				<td colspan="5" class="text-center">
+												<button class="btn btn-success btn-lg" id="mandamodificado" ><s:message code="admin.save" /></button>
+							 				</td>
+							 			</tr>
 							 		</table>
 							 	</div>
 							 	<div class="marginem">
@@ -335,7 +340,13 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 				lista flag: {{listaFlag}} 
 				--%>
 				<div class="clearfix"></div>
-		
+				<div class="text-right hidden">
+					<select name="" id="" ng-model="cuantoPage" class="form-control">
+						<option value="10">10</option>
+						<option value="100">100</option>
+						<option value="1000">1000</option>
+					</select>
+				</div>
 				<div class="marginem" ng-show="listaFlag">
 					<div class="table-responsive">
 						<table class="table table-bordered">
@@ -359,6 +370,21 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							</tbody>
 						</table>
 					</div>
+					
+					<%-- Paginacion $scope.antes --%>
+					<div class="center">
+						<ul class="pagination">
+						  <li ng-if="currentpage > 1" ng-click="asignadas( currentpage = currentpage - 1);"><a href="javascript:void(0);"><i class="fa fa-angle-left"></i></a></li>
+						  <li ng-repeat="pag in antes" ng-class="{'active': currentpage == pag}" class="" ng-click="asignadas( pag );">
+						  	<a href="javascript:void(0);">
+						  		{{pag}}
+						  	</a>
+						  </li>
+						  <li ng-if="currentpage < ultimo" ng-click="asignadas( currentpage = currentpage + 1);"><a href="javascript:void(0);"><i class="fa fa-angle-right"></i></a></li>
+						</ul>
+					</div>
+					<%-- Paginacion $scope.antes --%>
+					
 				</div>
 				<%-- Fin tabla de items o articulos --%>
 				

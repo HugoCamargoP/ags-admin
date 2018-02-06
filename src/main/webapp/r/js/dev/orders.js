@@ -136,13 +136,19 @@ function($scope , Service)
 	}
 	$scope.order = 4; 
 	$scope.page = 1;
-	$scope.inPage = 10;
+	$scope.inPage = String(10);
 	$scope.otra = {};
 	$scope.cuanto = true;
 	$scope.getOrdersByFilter = function (a,b)
 	{
 		$scope.otra.state = a;
-		Service.getOrdersByFilter($scope.otra,b,$scope.inPage).then(
+		Service.getOrdersCountByFilter($scope.otra , $scope.inPage).then(
+		function successCallback(response){
+			console.log(response);
+			$scope.ultimo = response.data.pages;
+			$scope.paginacion();
+
+			Service.getOrdersByFilter($scope.otra,currentpage,$scope.inPage).then(
 				function successCallback(response){
 					
 					$scope.ordenes = response.data.data;
@@ -160,6 +166,42 @@ function($scope , Service)
 				function errorCallback(response){
 					
 				})		
+		},
+		function errorCallback(response){
+			
+		})	
 	}
+
+	$scope.asignadas = function (a)
+	{
+		$scope.currentpage = a;
+		$scope.getProductsByFilter();
+	}
+
+	$scope.asignadas1 = function (a)
+	{
+		$scope.currentpage = a;
+	}
+	
+	$scope.paginacion = function ()
+	{
+		$scope.antes ={};
+		if($scope.ultimo <= menos)
+		{
+			menos = $scope.ultimo;
+		}
+		var antes = $scope.currentpage-menos,hasta = $scope.currentpage+menos;
+		if (antes < 1) {
+			 antes = 1;
+		}
+		if(hasta > $scope.ultimo)
+		{
+			hasta = $scope.ultimo;
+		}
+		for ( antes ; antes <= hasta; antes++) {
+			$scope.antes [antes] = antes;
+		}
+	}
+	
 	
 }])

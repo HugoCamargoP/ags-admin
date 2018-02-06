@@ -1,5 +1,6 @@
 /* drag and drop uploadfiles */
 var rowCount=0;
+var menos = 2;
 var fd = new FormData();
 
 function closeModal(a)

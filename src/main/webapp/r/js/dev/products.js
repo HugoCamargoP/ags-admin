@@ -19,6 +19,34 @@ function($scope,$sce, Service)
 	
 	//^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$
 	
+
+	//var b = 1, c = 10;
+	//getProductsByFilter($scope.searchprodruct,b,c)
+	//getProductsByFilter = function(product, page, inPage){
+	$scope.currentpage = 1;
+	$scope.cuantoPage = String(10);
+	var menos = 2;
+	$scope.paginacion = function ()
+	{
+		console.log($scope.ultimo+' ultimo');
+		$scope.antes ={};
+		if($scope.ultimo <= menos)
+		{
+			menos = $scope.ultimo;
+		}
+		var antes = $scope.currentpage-menos,hasta = $scope.currentpage+menos;
+		if (antes < 1) {
+			 antes = 1;
+		}
+		if(hasta > $scope.ultimo)
+		{
+			hasta = $scope.ultimo;
+		}
+		for ( ; antes <= hasta; antes++) {
+			$scope.antes [antes] = antes;
+		}
+	}
+	
 	$scope.dateOptions = {
 	    formatYear: 'yyyy',
 	    //maxDate: new Date(2020, 5, 22),
@@ -681,6 +709,7 @@ $scope.pago = function ()
 	}
 	
 	$scope.prodpage = 10000;
+	
 	$scope.getProductsCountByFilter = function ()
 	{
 		Service.getProductsCountByFilter($scope.product,$scope.prodpage).then(
@@ -858,39 +887,52 @@ $scope.pago = function ()
 	}	
 	
 	$scope.getProductsByFilter = function()
-	{
-		var b = 1, c = 10000;
-		Service.getProductsByFilter($scope.searchprodruct,b,c).then(
-		function successCallback(response){
-			if(response.data.data.length > 0 || response.data.status == "OK")
-			{
-				$scope.productos = response.data.data;
+	{  
+		console.log($scope.currentpage + ' currentpagecurrentpage');
+		Service.getProductsCountByFilter($scope.searchprodruct , $scope.cuantoPage).then(
+			function successCallback(response){
+				console.log(response);
+				$scope.ultimo = response.data.pages;
+				$scope.paginacion();
+				
+				//console.log($scope.searchprodruct);
+				console.log($scope.currentpage);
+				console.log($scope.cuantoPage);
+				
+				Service.getProductsByFilter($scope.searchprodruct,$scope.currentpage, $scope.cuantoPage).then(
+				function successCallback(response){
+					if(response.data.data.length > 0 || response.data.status == "OK")
+					{
+						$scope.productos = response.data.data;
 
-				if($scope.seCreoNewProduct)
-				{
-					for ( var a in $scope.productos) {
-						console.log(a+' secreonewproductos');
-						if( $scope.productos[a].id == $scope.quienEnSeCreo)
+						if($scope.seCreoNewProduct)
 						{
-							console.log('secreonewproductos');
-							$scope.whoIsSelected = a;
-							$scope.activaEditMode($scope.productos[a],a);
+							for ( var a in $scope.productos) {
+								console.log(a+' secreonewproductos');
+								if( $scope.productos[a].id == $scope.quienEnSeCreo)
+								{
+									console.log('secreonewproductos');
+									$scope.whoIsSelected = a;
+									$scope.activaEditMode($scope.productos[a],a);
+								}
+							}
+							$scope.quienEnSeCreo = '';
+							$scope.seCreoNewProduct = false;
+						}
+						
+						console.log($scope.whoIsSelected+' $scope.whoIsSelected');
+						if($scope.whoIsSelected != "")
+						{
+							$scope.modifyItem = $scope.productos[$scope.whoIsSelected];
+							$scope.p = $scope.productos[$scope.whoIsSelected];	
 						}
 					}
-					$scope.quienEnSeCreo = '';
-					$scope.seCreoNewProduct = false;
-				}
-				
-				console.log($scope.whoIsSelected+' $scope.whoIsSelected');
-				if($scope.whoIsSelected != "")
-				{
-					$scope.modifyItem = $scope.productos[$scope.whoIsSelected];
-					$scope.p = $scope.productos[$scope.whoIsSelected];	
-				}
-			}
-		}, 
-		function errorCallback(response){	
-		});
+				}, 
+				function errorCallback(response){	
+				});
+			}, 
+			function errorCallback(response){	
+			});
 	}
 
 	$scope.getProductSizes = function()

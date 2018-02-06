@@ -35,18 +35,18 @@
 	<div class="container form-opacity videoenbebido" ng-controller="${ appname }orders" ng-init="currentpage=1;getOrdersByFilter('',currentpage);">
 		
 		<ul class="nav nav-pills">
-		  <li class="active"><a data-toggle="pill" href="#Sometida" ng-click="estado = 'todas';currentpage=1;getOrdersByFilter('',currentpage);" >Todas</a></li>
-		  <li class=""><a data-toggle="pill" href="#Sometida" ng-click="estado = 'sometidas';currentpage=1;getOrdersByFilter(4,currentpage);" >Sometida</a></li>
-		  <li><a data-toggle="pill" href="#Aprobada" ng-click="estado = 'aprobadas';currentpage=1;getOrdersByFilter(5,currentpage);">Aprobada</a></li>
-		  <li><a data-toggle="pill" href="#curso" ng-click="estado = 'en curso';currentpage=1;getOrdersByFilter(6,currentpage);">En curso</a></li>
-		  <li><a data-toggle="pill" href="#Completa" ng-click="estado = 'Completadas';currentpage=1;getOrdersByFilter(7,currentpage);">Completa</a></li>
-		  <li><a data-toggle="pill" href="#Atencion" ng-click="estado = 'en atención';currentpage=1;getOrdersByFilter(8,currentpage);">Atención</a></li>
+		  <li class="active"><a data-toggle="pill" href="#Sometida" ng-click="estado = 'todas';currentpage=1;getOrdersByFilter('',currentpage);" >All</a></li>
+		  <li class=""><a data-toggle="pill" href="#Sometida" ng-click="estado = 'sometidas';currentpage=1;getOrdersByFilter(4,currentpage);" >Submited</a></li>
+		  <li><a data-toggle="pill" href="#Aprobada" ng-click="estado = 'aprobadas';currentpage=1;getOrdersByFilter(5,currentpage);">Success</a></li>
+		  <li><a data-toggle="pill" href="#curso" ng-click="estado = 'en curso';currentpage=1;getOrdersByFilter(6,currentpage);">In process</a></li>
+		  <li><a data-toggle="pill" href="#Completa" ng-click="estado = 'Completadas';currentpage=1;getOrdersByFilter(7,currentpage);">Complete</a></li>
+		  <li><a data-toggle="pill" href="#Atencion" ng-click="estado = 'en atención';currentpage=1;getOrdersByFilter(8,currentpage);">Atention</a></li>
 		</ul>
 		<div class="clearfix"></div>
 		<br />
 		<div class="" ng-if="!cuanto">
 			<div class="alert alert-info">
-			  <strong>Sin informacion de ordenes {{estado}}</strong> 
+			  <strong>Without information {{estado}}</strong> 
 			</div>
 		</div>
 		<div class="" ng-if="cuanto">    
@@ -97,7 +97,21 @@
 		      	 	</li>
 				 </ul>
 		      </div>
-			</div>				
+			</div>
+			
+			<%-- Paginacion $scope.antes --%>
+			<div class="center">
+				<ul class="pagination">
+				  <li ng-if="currentpage > 1" ng-click="asignadas( currentpage = currentpage - 1);"><a href="javascript:void(0);"><i class="fa fa-angle-left"></i></a></li>
+				  <li ng-repeat="pag in antes" ng-class="{'active': currentpage == pag}" class="" ng-click="asignadas( pag );">
+				  	<a href="javascript:void(0);">
+				  		{{pag}}
+				  	</a>
+				  </li>
+				  <li ng-if="currentpage < ultimo" ng-click="asignadas( currentpage = currentpage + 1);"><a href="javascript:void(0);"><i class="fa fa-angle-right"></i></a></li>
+				</ul>
+			</div>
+			<%-- Paginacion $scope.antes --%>				
 		</div>
 		
 	<div class="clearfix"></div>
