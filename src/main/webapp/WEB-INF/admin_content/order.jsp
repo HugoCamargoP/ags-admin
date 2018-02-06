@@ -6,7 +6,7 @@
 		//window.location = "${ linkHome }";
 	</script>
 </c:if>
-<input type="hidden" id="ordenes" value="${ requestScope.idOrders }" />
+<input type="hidden" id="ordenes" value="${ requestScope.orders }" />
 <div class="backgroundPalmeras ">
 	<div class="bgimg-2">
 		<div style="">
@@ -21,9 +21,10 @@
 		border:1px solid #e3e3e3;
 	}
 	</style>
-	<div class="container form-opacity videoenbebido" ng-controller="${ appname }orders" ng-init="getOrderById( ${ requestScope.idOrders } );">
-	{{ orderComplete }}
-	<%-- 
+	<div class="container form-opacity videoenbebido" ng-controller="${ appname }orders" ng-init="getCountries();">
+	n
+	${ requestScope.order }
+	m
 		<input type="hidden" value="${ linkHistory }" id="historial" />
 		<input type="hidden" value="${ linkPayment }" id="paymentLink" />
 		<div class="margin14em"></div>
@@ -106,7 +107,11 @@
 				  	<div class="col-xs-12 col-md-6 border">
 				  		<h2>
 				  		${ order.statusTex }
-				  		
+				  		<%--
+						<c:forEach items="${ order.orderRecord }" var="a" varStatus="theCount">
+							<c:if test="${ theCount.last }">${ a.stateText }</c:if>
+						</c:forEach> 
+						--%>
 						</h2>
 				  	</div>
 				  </div>
@@ -139,7 +144,6 @@
 				  						<s:message code="buy.taxes" />
 				  					</td>
 				  					--%>
-	<%--
 				  					<td class="vertical-aling-middel">
 				  						<s:message code="buy.quantity" />
 				  					</td>
@@ -156,7 +160,7 @@
 					  					<td class="vertical-aling-middel">${ a.individualPrice }</td>
 					  					<%-- 
 					  					<td class="vertical-aling-middel hidden">${ a.taxesAmount }</td>
-					  					--%
+					  					--%>
 					  					<td class="vertical-aling-middel">${ a.amount }</td>
 					  					<td class="vertical-aling-middel" ng-init="price = price + ${ ((a.individualPrice) * a.amount) };">${ ((a.individualPrice) * a.amount) }</td>
 					  				</tr>
@@ -164,7 +168,9 @@
 						       <tr class="center center1 a">
 						       		<td></td>
 						       		<td></td>
-						       		
+						       		<%-- 
+						       		<td class="hidden"></td>
+						       		--%>
 						       		<td>Total</td>
 						       		<td>{{ price | currency:"USD$ " }}</td>
 						       </tr>
@@ -217,7 +223,6 @@
 			  </div>
 			  <div class="clearfix"></div>
 			  <div class="margin15em"></div>
-	--%>
 		      <%-- 
 		      <div class="table-responsive hidden">
 		      	<table class="table table-bordered " onload="cargaTable();">
@@ -255,7 +260,6 @@
 		      	</table>
 		      </div>
 		      --%>
-	<%-- 
 		      <style>
 		      	.liblack a
 		      	{
@@ -295,7 +299,6 @@
 			</div>				
 		</div>
 	<div class="clearfix"></div>
-	--%>
 	</div>
 </div>
 

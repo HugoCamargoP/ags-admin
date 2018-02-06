@@ -59,9 +59,9 @@
 			                <td>Customer Name</td>
 			                <td>Status</td>
 			                <td>Creation</td>
-			            </tr>
+			            </tr>       
 			            <tr class="text-center" ng-repeat="(key, value) in ordenes">
-			            	<td><a href="${ linkOrder }?idOrders={{value.id}}"><i class="fas fa-eye"></i></a></td>
+			            	<td><a href="${ linkOrder }?order={{value.id}}"><div><i class="fa fa-eye"></i></div></a></td>
 							<td>{{value.id}}</td>
 							<td>{{value.userText}}</td>
 							<td>{{value.statusText}}</td>
