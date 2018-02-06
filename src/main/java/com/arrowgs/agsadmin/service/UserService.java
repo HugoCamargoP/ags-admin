@@ -21,7 +21,8 @@ public interface UserService {
 	};	
 	
 	List<User> getUsers();
-	List<User> getUserByFilter(String email, Integer way);
+	List<User> getUserByFilter(String email, Integer way, Integer page, Integer usersInPage);
+	Integer	getUserByFilterCount(String email, Integer way);
 	User getUserById(Integer id);
 	User getUserByEmail(String email);	
 	String getEncodedPassByEmail(String email);

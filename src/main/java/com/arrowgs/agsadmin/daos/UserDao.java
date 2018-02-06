@@ -10,7 +10,8 @@ public interface UserDao {
 	static final String UsersTable = "usuarios";	
 	
 	List<User> getUsers();
-	List<User> getUserByFilter(String email, Integer way);
+	List<User> getUserByFilter(String email, Integer way, Integer page, Integer usersInPage);
+	Integer	getUserByFilterCount(String email, Integer way);
 	User getUserByEmail(String email);
 	User getUserById(Integer id);
 	void removeUserByEmail(String email);

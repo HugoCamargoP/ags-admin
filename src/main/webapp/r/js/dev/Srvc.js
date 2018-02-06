@@ -204,12 +204,23 @@ function Service(http, url)
     }
    
     //Regresa una lista de usuarios basados en el filtro deseado y el correo base
-        //Parámetros necesarios: email (String), filter (Integer)
+        //Parámetros necesarios: email (String), filter (Integer), page (Integer), usersInPage(Integer)
+    		//["page" indica el número de la página y "usersInPage" indica la cantidad de usuarios que se desea por página] 
         //Filter: 1=exactamente, 2= contiene, 3=comienza con, 4= termina con
-    this.getUserByFilter = function(email,filter){
+    this.getUserByFilter = function(email,filter,page,usersInPage){
         return http({
             'method':'GET',
-            'url': url + '/users/filter?email='+email+'&filter='+filter
+            'url': url + '/users/filter?email='+email+'&filter='+filter+'&page='+page+'&usersInPage='+usersInPage
+        })
+    }
+    
+    //Regresa el total de usuarios basados en el filtro deseado y el correo base
+    	//Parámetros necesarios: email (String), filter (Integer)
+    	//Filter: 1=exactamente, 2= contiene, 3=comienza con, 4= termina con
+    this.getUserByFilterCount = function(email,filter){
+        return http({
+            'method':'GET',
+            'url': url + '/users/filter-count?email='+email+'&filter='+filter
         })
     }
     
