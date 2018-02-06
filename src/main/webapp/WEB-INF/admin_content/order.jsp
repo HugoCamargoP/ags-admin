@@ -21,9 +21,9 @@
 		border:1px solid #e3e3e3;
 	}
 	</style>
-	<div class="container form-opacity videoenbebido" ng-controller="${ appname }orders" ng-init="getCountries();">
+	<div class="container form-opacity videoenbebido" ng-controller="${ appname }orders"> <%-- ng-init="getCountries();">  --%>
 	n
-	${ requestScope.order }
+	${ order }
 	m
 		<input type="hidden" value="${ linkHistory }" id="historial" />
 		<input type="hidden" value="${ linkPayment }" id="paymentLink" />
@@ -35,7 +35,8 @@
 		<div class="margin15em"></div>
 		<div class="">    
 			<div class="col-xs-12 form-opacity">
-		       <c:if test="${ order.state < 4 or order.state > 7  }">
+				<%-- 
+		        <c:if test="${ order.state < 4 or order.state > 7  }">
 					<div class="clearfix"></div>
 					<div class="margin15em"></div>
 					<button ng-click="removeOrder(${ param.order })" class="btn btn-danger col-xs-12 a">
@@ -44,6 +45,7 @@
 					<div class="clearfix"></div>
 					<div class="margin15em"></div>
 				</c:if>
+				--%>
 				
 			  <div class="margin15em"></div>
 			  <div>
@@ -106,8 +108,9 @@
 				  	</div>
 				  	<div class="col-xs-12 col-md-6 border">
 				  		<h2>
-				  		${ order.statusTex }
 				  		<%--
+				  		${ order.statusTex }
+				  		
 						<c:forEach items="${ order.orderRecord }" var="a" varStatus="theCount">
 							<c:if test="${ theCount.last }">${ a.stateText }</c:if>
 						</c:forEach> 
