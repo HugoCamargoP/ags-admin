@@ -37,6 +37,7 @@ public interface Constants {
 		
 		//User
 		static final String UsersFilter		  = ServiceContext + "/users/filter";
+		static final String UsersFilterCount  = ServiceContext + "/users/filter-count";
 		static final String UsersRol	  	  = ServiceContext + "/users/rol";
 		
 		//Products

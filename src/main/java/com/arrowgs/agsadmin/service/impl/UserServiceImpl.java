@@ -37,15 +37,27 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<User> getUserByFilter(String email, Integer way) {
+	public List<User> getUserByFilter(String email, Integer way, Integer page, Integer usersInPage) {
 		List<User> users;
 		try{
-			users = userDao.getUserByFilter(email, way);
+			users = userDao.getUserByFilter(email, way,page,usersInPage);
 		}catch(Exception e){
 			logger.error("UserService : getUsersByFilter : "+e.toString());
 			throw e;
 		}
 		return users;
+	}
+	
+	@Override
+	public Integer getUserByFilterCount(String email, Integer way) {
+		Integer count;
+		try{
+			count = userDao.getUserByFilterCount(email, way);
+		}catch(Exception e){
+			logger.error("UserService : getUserByFilterCount :" + e.toString());
+			throw e;
+		}
+		return count;
 	}
 
 	@Override

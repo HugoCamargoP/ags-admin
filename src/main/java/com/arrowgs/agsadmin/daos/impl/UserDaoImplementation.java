@@ -73,8 +73,36 @@ public class UserDaoImplementation implements UserDao{
 	}	
 
 	@Override
-	public List<User> getUserByFilter(String email, Integer way) {
-		String sql = "SELECT u.email, u.rol, u.nombre, null, u.id FROM usuarios u WHERE email";
+	public List<User> getUserByFilter(String email, Integer way, Integer page, Integer usersInPage) {
+		page = (page-1)*usersInPage;
+		String sql = "SELECT u.email, u.rol, u.nombre, null, u.id FROM usuarios u WHERE email LIMIT :page , :end";
+		if(way.intValue()==1){
+			sql = sql + " = :email";
+		}else{
+			sql = sql + " LIKE :email";
+			switch(way){
+			case 3:
+				email = email + "%";				
+				break;
+				
+			case 4:
+				email = "%" + email;
+				break;
+				
+			default:
+				email = "%" + email + "%";
+			}
+		}
+		MapSqlParameterSource paramMap = new MapSqlParameterSource("email",email);
+		paramMap.addValue("page", page);
+		paramMap.addValue("end", usersInPage);
+		return jdbcTemplate.query(sql, paramMap, new UserRowMapper());
+	}
+	
+
+	@Override
+	public Integer getUserByFilterCount(String email, Integer way) {
+		String sql = "SELECT count(*) FROM usuarios u WHERE email";
 		if(way.intValue()==1){
 			sql = sql + " = :email";
 		}else{
@@ -93,8 +121,17 @@ public class UserDaoImplementation implements UserDao{
 			}
 		}
 		SqlParameterSource paramMap = new MapSqlParameterSource("email",email);
-		return jdbcTemplate.query(sql, paramMap, new UserRowMapper());
+		List<Integer> result = jdbcTemplate.query(sql, paramMap, new RowMapper<Integer>() {
+
+			@Override
+			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+				
+				return rs.getInt(1);
+			}
+		});
+		return result !=null ? result.get(0) : null;
 	}
+
 
 	
 	@Override
@@ -150,6 +187,5 @@ public class UserDaoImplementation implements UserDao{
 		jdbcTemplate.update(sql, paramMap);
 		
 	}
-
 
 }

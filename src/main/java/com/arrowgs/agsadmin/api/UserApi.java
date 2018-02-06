@@ -26,11 +26,28 @@ public class UserApi {
 	UserService userService;
 	
 	@RequestMapping(path = ApiMappings.UsersFilter, method = RequestMethod.GET)
-	public @ResponseBody Map<String,? extends Object> getUserByFilter(@RequestParam(value="email") String email, @RequestParam(value="filter") Integer way){
+	public @ResponseBody Map<String,? extends Object> getUserByFilter(@RequestParam(value="email") String email, 
+			@RequestParam(value="filter") Integer way,
+			@RequestParam("page") Integer page, 
+			@RequestParam("usersInPage") Integer usersInPage)	{
 		ResponseStatus status;
 		List<User> users;
 		try{
-			users = userService.getUserByFilter(email, way);
+			users = userService.getUserByFilter(email, way,page,usersInPage);
+			status = ResponseStatus.OK;
+		}catch(Exception e){
+			users = null;
+			status = ResponseStatus.ExternalError;
+		}
+		return ControllerHelper.mapResponse(status, users);
+	}
+	
+	@RequestMapping(path = ApiMappings.UsersFilterCount, method = RequestMethod.GET)
+	public @ResponseBody Map<String,? extends Object> getUserByFilterCount(@RequestParam(value="email") String email, @RequestParam(value="filter") Integer way)	{
+		ResponseStatus status;
+		Integer users;
+		try{
+			users = userService.getUserByFilterCount(email, way);
 			status = ResponseStatus.OK;
 		}catch(Exception e){
 			users = null;
