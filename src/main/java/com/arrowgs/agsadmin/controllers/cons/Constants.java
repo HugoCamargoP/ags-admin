@@ -69,5 +69,11 @@ public interface Constants {
 		
 		//Config
 		static final String Config				   = ServiceContext + "/basic-config";
+		
+		//Address Maping
+		static final String Address 		  = ServiceContext + "/address";
+		static final String AllAddress		  = ServiceContext + "/address/user/all";
+		static final String UserAddress		  = ServiceContext + "/address/user";
+		static final String Countries		  = ServiceContext + "/country";
 	}
 }
