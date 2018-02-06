@@ -21,14 +21,11 @@
 		border:1px solid #e3e3e3;
 	}
 	</style>
-	<div class="container form-opacity videoenbebido" ng-controller="${ appname }orders"> <%-- ng-init="getCountries();">  --%>
-	n
-	${ order }
-	m
-		<input type="hidden" value="${ linkHistory }" id="historial" />
+	<div class="container form-opacity videoenbebido" ng-controller="${ appname }orders" ng-init="getCountries();">
+		<input type="hidden" value="${ linkAdminOrders }" id="historial" />
 		<input type="hidden" value="${ linkPayment }" id="paymentLink" />
 		<div class="margin14em"></div>
-		<a href="${ linkHistory }" class="pull-left">
+		<a href="${ linkAdminOrders }" class="pull-left">
 			<i style="color: black;font-size: 2em;" class="fa fa-x2 fa-arrow-circle-o-left"></i>
 		</a>
 		<div class="clearfix"></div>
@@ -64,36 +61,40 @@
 				  <div class="clearfix"></div>
 			  	  <div class="margin15em"></div>
 				  <div class="col-xs-12 col-md-6">
-				  	<h3><s:message code="order.client" />: ${ sessionScope.userSession.name }</h3>
+				  	<h3 class="black center1"><s:message code="order.client" />: 
+				  		${ order.userText }
+				  		${ order.user }
+				  		${ order.statusDate }
+				  	</h3>
 				  </div>
 				  <div class="clearfix"></div>
 				  <div ng-if="address">
-				  		<div class="">
-				  			<h3 class="black center1"><s:message code="buy.address" /></h3>
+				  		<div class="btn-black a text-center">
+				  			<h3 style="margin:0px;" class="btn-black a"><s:message code="buy.address" /></h3>
 				  		</div>
 				  		<ul class="list-inline center1">
 				  			<li class="col-xs-6 col-md-4 border">
-				  				<h2><s:message code="address.country" /></h2>
+				  				<h2 class="btn-black a"><s:message code="address.country" /></h2>
 				  				<span class="a" ng-repeat="a in paises | filter:address.country ">{{a.name}}</span>
 				  			</li>
 				  			<li class="col-xs-6 col-md-4 border">
-				  				<h2><s:message code="address.state" /></h2>
+				  				<h2 class="btn-black a"><s:message code="address.state" /></h2>
 				  				<span class="a">{{address.state}}</span>
 				  			</li>
 				  			<li class="col-xs-12 col-md-4 border">
-				  				<h2><s:message code="address.city" /></h2>
+				  				<h2 class="btn-black a"><s:message code="address.city" /></h2>
 				  				<span class="a">{{address.city}}</span>
 				  			</li>
 				  			<li class="col-xs-12 col-md-12 border">
-				  				<h2><s:message code="address.street" /></h2>
+				  				<h2 class="btn-black a"><s:message code="address.street" /></h2>
 				  				<span class="a">{{address.detail1}}</span>
 				  			</li>
 				  			<li class="col-xs-4 border">
-				  				<h2><s:message code="address.zip" /></h2>
+				  				<h2 class="btn-black a"><s:message code="address.zip" /></h2>
 				  				<span class="a">{{address.zip}}</span>
 				  			</li>
 				  			<li class="col-xs-8 border">
-				  				<h2><s:message code="address.phone" /></h2>
+				  				<h2 class="btn-black a"><s:message code="address.phone" /></h2>
 				  				<span class="a">{{address.phone}}</span>
 				  			</li>
 				  		</ul>
@@ -103,11 +104,13 @@
 				  <div class="margin15em"></div>
 				  
 				  <div class="center1 a">
-				  	<div class="col-xs-12 col-md-6 black border">
-				  		<h2><s:message code="buy.status" />:</h2>
+				  	<div class="btn-black a col-xs-12 col-md-6 black border">
+				  		<h2 class=""><s:message code="buy.status" />:</h2>
 				  	</div>
 				  	<div class="col-xs-12 col-md-6 border">
 				  		<h2>
+				  		
+				  		${ order.statusText }
 				  		<%--
 				  		${ order.statusTex }
 				  		
@@ -180,6 +183,7 @@
 				  			</table>
 				  		</div>
 				  		
+						<%--
 			        	<c:if test="${ order.state == 4  }">
 					    	<div class="col-xs-12 col-md-6 pull-left">
 					    		<button class="btn-lg btn btn-success col-xs-12 col-md-6" type="submit" ng-click="cancelRequestedOrder(${ order.id });">
@@ -207,6 +211,7 @@
 					    		</form>
 						    </div>
 						</c:if>
+						 --%>
 				  		<div class="clearfix"></div>
 				  		<div class="margin15em"></div>
 				  		

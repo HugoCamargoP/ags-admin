@@ -27,6 +27,8 @@
 <c:url var="linkFivePDF" value="/rest/top-five" scope="application"/>
 <c:url var="linkConfig" value="/config" scope="application"/>
 <c:url var="linkOrder" value="/order" scope="application"/>
+<c:url var="linkHistory" value="/orders" scope="application"/>
+
 
 
 <c:url var="linkAdmin" value="/" scope="application"/>
