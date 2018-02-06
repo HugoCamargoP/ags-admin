@@ -50,7 +50,19 @@ public class OrderServiceImplementation implements OrderService {
 	@Override
 	public Order getOrderById(Integer id) {
 		try{			
-			Order userOrder = orderDao.getOrderById(id);			
+			Order userOrder = orderDao.getOrderById(id);
+			if(userOrder!=null)
+			{
+				userOrder.setOrderDetail(getOrderDetailByOrder(userOrder.getId()));
+				Iterator<OrderDetail> iterator = userOrder.getOrderDetail().iterator();
+				while(iterator.hasNext()){
+					OrderDetail orderDetail = iterator.next();
+					SkuProduct sku = productService.getSkuProductById(orderDetail.getIdProductSku());
+					orderDetail.setProduct(sku);
+					ProductDetail product = productService.oneProductDetail(sku.getProduct());
+					orderDetail.setUrl(product.getUrl());				
+				}
+			}
 			userOrder.setOrderDetail(getOrderDetailByOrder(userOrder.getId()));
 			userOrder.setOrderAmount(orderDao.getOrderAmountByOrder(id));
 			userOrder.setOrderRecord(orderDao.getOrderRecordByOrder(id));
