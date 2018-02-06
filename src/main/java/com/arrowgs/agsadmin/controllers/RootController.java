@@ -47,10 +47,7 @@ public class RootController {
 		ModelAndView mav = new ModelAndView();
 		Order order = null;
 		try{
-			User user = (User) session.getAttribute("userSession");
-			if(user!=null){
-				order = orderService.getOrderById(idOrder);
-			}
+			order = orderService.getOrderById(idOrder);
 
 		}catch(Exception e){
 			
