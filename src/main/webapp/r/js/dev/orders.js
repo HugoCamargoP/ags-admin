@@ -82,6 +82,17 @@ function($scope , Service)
 			$scope.getMessage('err.error',1);			
 		});	
 	}
+	
+	$scope.getOrderById = function(a)
+	{
+		Service.getOrderById(a).then(
+		function successCallback(response){
+			$scope.orderComplete = response.data.data;
+		},
+		function errorCallback(response){
+			$scope.getMessage('err.error',1);			
+		});	
+	}
 
 	$scope.removeOrder = function (a)
 	{
