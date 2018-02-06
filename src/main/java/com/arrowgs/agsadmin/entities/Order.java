@@ -23,6 +23,7 @@ public class Order {
 	private String 	userText;
 	private String 	statusText;
 	private Date	statusDate;
+	private String 	observations;
 	
 	/***************Filter Data****************/
 	private String	sku;
@@ -262,6 +263,14 @@ public class Order {
 
 	public void setStatusDate(Date statusDate) {
 		this.statusDate = statusDate;
+	}
+
+	public String getObservations() {
+		return observations;
+	}
+
+	public void setObservations(String observations) {
+		this.observations = observations;
 	}
 	
 	

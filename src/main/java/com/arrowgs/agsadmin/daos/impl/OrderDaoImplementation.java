@@ -138,9 +138,10 @@ public class OrderDaoImplementation implements OrderDao{
 			orderRecord.setOrder(rs.getInt(2));
 			orderRecord.setState(rs.getInt(3));
 			orderRecord.setUpdate(rs.getDate(4));
+			orderRecord.setObservations(rs.getString(5));
 			if(expandible)
 			{
-				orderRecord.setStateText(rs.getString(5));
+				orderRecord.setStateText(rs.getString(6));
 			}
 			return orderRecord;
 		}
@@ -585,6 +586,7 @@ public class OrderDaoImplementation implements OrderDao{
 		paramMap.put("orden", orderRecord.getOrder());
 		paramMap.put("estado",orderRecord.getState());
 		paramMap.put("actualizacion", orderRecord.getUpdate());
+		paramMap.put("observaciones", orderRecord.getObservations());
 		orderRecordInsertActor.execute(paramMap);
 	}
 

@@ -8,6 +8,7 @@ public class OrderRecord {
 	private Integer order;
 	private Integer state;
 	private Date	update;
+	private String	observations;
 	
 	//Extra Data
 	private String	stateText;
@@ -48,6 +49,14 @@ public class OrderRecord {
 		this.update = update;
 	}
 	
+	public String getObservations() {
+		return observations;
+	}
+
+	public void setObservations(String observations) {
+		this.observations = observations;
+	}
+
 	/************** Getter and Setter stateText **************/
 	public String getStateText() {
 		return stateText;
