@@ -3,7 +3,7 @@
 
 <div id="page-wrapper" ng-controller="${ appname }userAdmin" ng-init="busqueda = false; user = {};">
 	<div class="graphs">
-		<h3 class="blank1">Creación de usuario</h3>
+		<h3 class="blank1">Create User</h3>
 			<div class="tab-content">
 			
 			<div class="jumbotron">
@@ -32,7 +32,7 @@
 					 	<div class="panel-body panel-body-inputin">
 							<form ng-hide="busqueda" role="form" name="formregister" id="formregister" class="form-horizontal" ng-model="formregister" onsubmit="return false" ng-submit="createUser();">
 								<div class="form-group">
-									<label class="col-md-2 control-label">Tipo:</label>
+									<label class="col-md-2 control-label">Type:</label>
 									<div class="col-md-8">
 										<div class="input-group in-grp1">							
 											<span class="input-group-addon">
@@ -40,15 +40,15 @@
 											</span>
 											<select name="" id="" class="form-control1" ng-required="true" ng-model="user.role" />
 												<option value=""></option>
-												<option value="ROLE_ADMIN">Administrador</option>
-												<option value="ROLE_USER">Colono</option>
+												<option value="ROLE_ADMIN">Administrator</option>
+												<option value="ROLE_USER">User</option>
 											</select>
 										</div>
 									</div>
 									<div class="clearfix"> </div>
 								</div>
 								<div class="form-group">
-									<label class="col-md-2 control-label">Usuario:</label>
+									<label class="col-md-2 control-label">User:</label>
 									<div class="col-md-8">
 										<div class="input-group in-grp1">							
 											<span class="input-group-addon">
@@ -61,7 +61,7 @@
 								</div>
 					            
 								<div class="form-group">
-									<label class="col-md-2 control-label">Nombre completo:</label>
+									<label class="col-md-2 control-label">Complete Name:</label>
 									<div class="col-md-8">
 										<div class="input-group in-grp1">							
 											<span class="input-group-addon">
@@ -73,7 +73,7 @@
 									<div class="clearfix"> </div>
 								</div>
 								<div class="form-group">
-									<label class="col-md-2 control-label">Contraseña:</label>
+									<label class="col-md-2 control-label">Password:</label>
 									<div class="col-md-8">
 										<div class="input-group input-icon right in-grp1">
 											<span class="input-group-addon">
@@ -85,7 +85,7 @@
 									<div class="clearfix"> </div>
 								</div>            
 								<div class="form-group">
-									<label class="col-md-2 control-label">Repite Contraseña:</label>
+									<label class="col-md-2 control-label">Repeat password:</label>
 									<div class="col-md-8">
 										<div class="input-group in-grp1">
 											<span class="input-group-addon">
@@ -98,7 +98,7 @@
 								</div>
 								<div class="row centerText">
 									<div class="">
-										<button class="btn-success btn">Registrar</button>
+										<button class="btn-success btn">Register</button>
 									</div>
 								</div>
 							</form>

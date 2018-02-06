@@ -33,7 +33,6 @@
      </style>
 		      
 	<div class="container form-opacity videoenbebido" ng-controller="${ appname }orders" ng-init="currentpage=1;getOrdersByFilter('',currentpage);">
-		
 		<ul class="nav nav-pills">
 		  <li class="active"><a data-toggle="pill" href="#Sometida" ng-click="estado = 'todas';currentpage=1;getOrdersByFilter('',currentpage);" >All</a></li>
 		  <li class=""><a data-toggle="pill" href="#Sometida" ng-click="estado = 'sometidas';currentpage=1;getOrdersByFilter(4,currentpage);" >Submited</a></li>
@@ -55,12 +54,14 @@
 		      <div class="table-responsive">
 		      	<table class="table table-bordered ">
 			            <tr class="btn-black a">
+			                <td>Open</td>
 			                <td>Order</td>
 			                <td>Customer Name</td>
 			                <td>Status</td>
 			                <td>Creation</td>
-			            </tr>
+			            </tr>       
 			            <tr class="text-center" ng-repeat="(key, value) in ordenes">
+			            	<td><a href="${ linkOrder }?order={{value.id}}"><div><i class="fa fa-eye"></i></div></a></td>
 							<td>{{value.id}}</td>
 							<td>{{value.userText}}</td>
 							<td>{{value.statusText}}</td>

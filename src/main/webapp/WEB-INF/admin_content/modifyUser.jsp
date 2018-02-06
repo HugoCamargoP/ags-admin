@@ -3,7 +3,7 @@
 
 <div id="page-wrapper" ng-controller="${ appname }userAdmin" ng-init="busqueda = true; user = {};">
 	<div class="graphs">
-		<h3 class="blank1">Modificación de usuario</h3>
+		<h3 class="blank1">Modify user</h3>
 			<div class="tab-content">
 			
 			<div class="jumbotron">
@@ -32,7 +32,7 @@
 					 	<div class="panel-body panel-body-inputin">
 					 		<form ng-show="user.id" role="form" name="formupdate" id="formupdate" class="form-horizontal" ng-model="formupdate" onsubmit="return false" ng-submit="createUpdate();">
 								<div class="form-group">
-									<label class="col-md-2 control-label">Tipo:</label>
+									<label class="col-md-2 control-label">Type:</label>
 									<div class="col-md-8">
 										<div class="input-group in-grp1">							
 											<span class="input-group-addon">
@@ -47,7 +47,7 @@
 									<div class="clearfix"> </div>
 								</div>
 								<div class="form-group">
-									<label class="col-md-2 control-label">Usuario:</label>
+									<label class="col-md-2 control-label">User:</label>
 									<div class="col-md-8">
 										<div class="input-group in-grp1">							
 											<span class="input-group-addon">
@@ -60,7 +60,7 @@
 								</div>
 					            
 								<div class="form-group">
-									<label class="col-md-2 control-label">Nombre completo:</label>
+									<label class="col-md-2 control-label">Complete name:</label>
 									<div class="col-md-8">
 										<div class="input-group in-grp1">							
 											<span class="input-group-addon">
