@@ -7,6 +7,75 @@
 function Service(http, url) 
 {
 	
+	/**************Address*************/
+	
+	//Obtiene todas las direcciones
+		//Parámetros no necesarios
+	this.getAllAddresses = function(){
+		return http({
+			'method': 'GET',
+			'url': url + '/address'
+		})
+	}
+	
+	//Obtiene todas las direcciones del usuario
+		//Parámetros necesarios: Integer user
+	this.getAddressByUser = function(user){
+		return http({
+			'method': 'GET',
+			'url': url + '/address/user/' + user
+		})
+	}
+	
+	//Obtiene la dirección correspondiente a id
+		//Parámetros necesarios: Integer id
+	this.getAddressById = function(id){
+		return http({
+			'method': 'GET',
+			'url': url + '/address/' + id
+		})
+	}
+	
+	//Obtiene la dirección correspondiente a id
+		//Parámetros necesarios: Integer id
+	this.getAllAddressById = function(id){
+		return http({
+			'method': 'GET',
+			'url': url + '/address/user/all/' + id
+		})
+	}
+	
+	//Agrega una nueva direccion a un usuario
+		//Parámetros necesarios: Address address
+	this.newAddress = function(address){
+		console.log(address);
+		return http.post(url + '/address', address)
+	}
+	
+	//Actualiza una dirección
+		//Parámetros necesarios: Address address
+	this.updateAddress = function(address){
+		return http.put(url + '/address', address)
+	}
+	
+	//Elimina una dirección
+		//Parámetros necesarios: Integer idAddress
+	this.removeAddress = function(idAddress){
+		return http({
+			'method':'DELETE',
+			'url':url + '/address/' + idAddress
+		})
+	}
+	
+	//Trae todos los paises disponibles en la base de datos (regresa un IdNameTable)
+		//Parámetros no necesarios
+	this.getCountries = function(){
+		return http({
+			'method': 'GET',
+			'url':url + '/country'
+		})
+	}
+	
 	/************Config**************/
 	
 	//Obtiene la configuración básica que tiene el sistema

@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.arrowgs.agsadmin.controllers.cons.Constants.Mappings;
 import com.arrowgs.agsadmin.controllers.cons.Constants.Views;
 import com.arrowgs.agsadmin.entities.Order;
-import com.arrowgs.agsadmin.entities.User;
 import com.arrowgs.agsadmin.service.OrderService;
 
 @Controller
