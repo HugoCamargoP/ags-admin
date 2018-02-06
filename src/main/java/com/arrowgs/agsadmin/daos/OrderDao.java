@@ -17,6 +17,8 @@ public interface OrderDao {
 	static final String OrderRecordTable	= "orden_historico";
 	static final String OrderAmountTable	= "orden_costos";
 	
+	static public final Integer	Enable	=	1;
+	static public final Integer	Disable	=	0;
 	
 	List<Order> getOrders();
 	Order getOrderById(Integer id);

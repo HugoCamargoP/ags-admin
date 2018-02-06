@@ -286,9 +286,10 @@ public class OrderDaoImplementation implements OrderDao{
 
 	@Override
 	public Order getOrderById(Integer id) {
-		String query = "select * from ordenes where id = :id";
-		SqlParameterSource mapOrder = new MapSqlParameterSource("id",id);
-		return  jdbcTemplate.query(query, mapOrder, new OrderRowExtractor(false));
+		String query = "select o.*,null, e.descripcion from ordenes o left join estados e on o.estado = e.id where o.id = :id and o.status = :enable";
+		MapSqlParameterSource mapOrder = new MapSqlParameterSource("id",id);
+		mapOrder.addValue("enable", Enable);
+		return  jdbcTemplate.query(query, mapOrder, new OrderRowExtractor(true));
 	}
 
 	@Override
