@@ -139,6 +139,7 @@ function($scope , Service)
 	$scope.inPage = String(10);
 	$scope.otra = {};
 	$scope.cuanto = true;
+	$scope.currentpage  = 1;
 	$scope.getOrdersByFilter = function (a,b)
 	{
 		$scope.otra.state = a;
@@ -148,7 +149,7 @@ function($scope , Service)
 			$scope.ultimo = response.data.pages;
 			$scope.paginacion();
 
-			Service.getOrdersByFilter($scope.otra,currentpage,$scope.inPage).then(
+			Service.getOrdersByFilter($scope.otra, $scope.currentpage ,$scope.inPage).then(
 				function successCallback(response){
 					
 					$scope.ordenes = response.data.data;
@@ -171,11 +172,11 @@ function($scope , Service)
 			
 		})	
 	}
-
+	
 	$scope.asignadas = function (a)
 	{
 		$scope.currentpage = a;
-		$scope.getProductsByFilter();
+		$scope.getOrdersByFilter($scope.otra.state , $scope.currentpage);
 	}
 
 	$scope.asignadas1 = function (a)
