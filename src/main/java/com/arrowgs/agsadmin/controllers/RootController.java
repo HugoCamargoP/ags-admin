@@ -1,7 +1,5 @@
 package com.arrowgs.agsadmin.controllers;
 
-import java.util.Locale;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +38,7 @@ public class RootController {
 	
 	@RequestMapping(path = Mappings.order, method = RequestMethod.GET)
 	public ModelAndView historyControllerOrder(@RequestParam(name="order",required=true) Integer idOrder, 
-				HttpSession session,
-				Locale locale){
+				HttpSession session){
 		
 		ModelAndView mav = new ModelAndView();
 		Order order = null;
