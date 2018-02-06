@@ -74,7 +74,7 @@ function Service(http, url)
         path = path + "creation=" + order.creation + "&state=" + order.state + "&user=" + order.user;
         return http({
             'method': 'GET',
-            'url': url + '/get_count_order/filter' +path + ' ' + inPage
+            'url': url + '/get_count_order/filter/' +path + ' ' + inPage
         })
     }   
 

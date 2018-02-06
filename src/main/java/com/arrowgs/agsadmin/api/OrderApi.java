@@ -16,8 +16,8 @@ import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.helpers.ClassHelper;
 import com.arrowgs.agsadmin.helpers.ControllerHelper;
-import com.arrowgs.agsadmin.helpers.PathHelper;
 import com.arrowgs.agsadmin.helpers.ControllerHelper.ResponseStatus;
+import com.arrowgs.agsadmin.helpers.PathHelper;
 import com.arrowgs.agsadmin.service.OrderService;
 
 
@@ -60,6 +60,32 @@ public class OrderApi {
 		}
 		return response;
 	}
+	
+	@RequestMapping(path = ApiMappings.GetOrderCountByFilter +"/{path} {inPage}", method = RequestMethod.GET)
+	public @ResponseBody Map<String,? extends Object> getCountOrderByFilter(@PathVariable String path,@PathVariable Integer inPage){
+		ResponseStatus status;
+		Map<String,Object> params = PathHelper.fromPathToMap(path);
+		Order order = ClassHelper.fromStringMap(Order.class, params);
+		order.setUserText(PathHelper.sqlLike(order.getUserText()));
+		Integer result; 
+		params.clear();
+		try{
+			result = orderService.getCountByFilter(order);
+			params.put("total", result);
+			if(result%inPage!=0){
+				result = result/inPage +1;
+			}
+			else{
+				result /= inPage;
+			}
+			params.put("pages", result);
+			status = ResponseStatus.OK;
+		}catch(Exception e){
+			status = ResponseStatus.ExternalError;
+			result = null;
+		}
+		return ControllerHelper.mapResponse(status, params);
+	}	
 	
 	@RequestMapping(path=ApiMappings.StatusOrder, method=RequestMethod.GET)
 	public @ResponseBody Map<String,? extends Object> getStatus(){
