@@ -50,9 +50,6 @@ public class RootController {
 			User user = (User) session.getAttribute("userSession");
 			if(user!=null){
 				order = orderService.getOrderById(idOrder);
-				if(order.getUser().intValue() != user.getId().intValue()){
-					order = null;
-				}
 			}
 
 		}catch(Exception e){
