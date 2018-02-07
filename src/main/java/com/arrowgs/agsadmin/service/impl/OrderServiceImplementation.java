@@ -63,7 +63,6 @@ public class OrderServiceImplementation implements OrderService {
 					orderDetail.setUrl(product.getUrl());				
 				}
 			}
-			userOrder.setOrderDetail(getOrderDetailByOrder(userOrder.getId()));
 			userOrder.setOrderAmount(orderDao.getOrderAmountByOrder(id));
 			userOrder.setOrderRecord(orderDao.getOrderRecordByOrder(id));
 			return userOrder;
