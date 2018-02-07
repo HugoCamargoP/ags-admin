@@ -60,19 +60,82 @@ function($scope, Service)
 		}
 	}
 	
-	$scope.getUserByFilterCount = function()
+	$scope.currentpage = 1;
+	$scope.asignadas = function (a)
 	{
-		
+		$scope.currentpage = a;
+		$scope.getUserByFilter();
+	}
+
+	$scope.asignadas1 = function (a)
+	{
+		$scope.currentpage = a;
 	}
 	
+	$scope.paginacion = function ()
+	{
+		var menos = 2;
+		$scope.antes ={};
+		if($scope.ultimo <= menos)
+		{
+			menos = $scope.ultimo;
+		}
+		var antes = $scope.currentpage-menos,hasta = $scope.currentpage+menos;
+		if (antes < 1) {
+			 antes = 1;
+		}
+		console.log(hasta +' '+ $scope.ultimo);
+		if(hasta > $scope.ultimo)
+		{
+			hasta = $scope.ultimo;
+		}
+		for ( antes ; antes <= hasta; antes++) {
+			$scope.antes [antes] = antes;
+		}
+	}
+	
+	
+	$scope.usuariosPerPage = 10;
 	$scope.getUserByFilter = function ()
 	{
-		getUserByFilterCount 
-		Service.getUserByFilter($scope.email,$scope.filter).then(
-			function successCallback(response){
-
+		 
+		Service.getUserByFilterCount($scope.email,$scope.filter).then(
+		function successCallback(response)
+		{
+			console.log(response);
 			$scope.cheksboxes = {};
 			$scope.filter = document.getElementById('filter').value;
+			$scope.usuariosPerPage;
+			if((response.data.data%$scope.usuariosPerPage) == 0)
+			{
+				$scope.ultimo = response.data.data / $scope.usuariosPerPage;
+			}
+			else
+			{
+				$scope.ultimo = response.data.data / $scope.usuariosPerPage;
+				$scope.ultimo = $scope.ultimo+1;
+			}
+			$scope.paginacion();
+			Service.getUserByFilter($scope.email,$scope.filter,$scope.currentpage,$scope.usuariosPerPage).then(
+			function successCallback(response){
+				console.log(response.data.data);
+					if(response.data.data.length > 0 )
+					{
+						$scope.usuarios = response.data.data;
+						cheksboxes = [];
+						usuarios1 = [];
+						$scope.check = [];
+						msjexito('Datos cargados');
+					}
+					else
+					{
+						msjerror('Sin resultados');
+					}
+				},
+				function errorCallback(){
+					msjerror('Sin resultados');
+				})
+			/*
 			Service.getUserByFilter($scope.email,$scope.filter).then(function successCallback(response){
 				if(response.data.data.length > 0 )
 				{
@@ -89,7 +152,7 @@ function($scope, Service)
 			},
 			function errorCallback(){
 				msjerror('Sin resultados');
-			})
+			})*/
 		},
 		function errorCallback(){
 			msjerror('Sin resultados');

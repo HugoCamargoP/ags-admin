@@ -68,6 +68,22 @@
 							</table>
 						</div>
 						<div class="clearfix"></div>
+						
+						<%-- Paginacion $scope.antes --%>
+						<div class="center">
+							<ul class="pagination">
+							  <li ng-if="currentpage > 1" ng-click="asignadas( currentpage = currentpage - 1);"><a href="javascript:void(0);"><i class="fa fa-angle-left"></i></a></li>
+							  <li ng-repeat="pag in antes" ng-class="{'active': currentpage == pag}" class="" ng-click="asignadas( pag );">
+							  	<a href="javascript:void(0);">
+							  		{{pag}}
+							  	</a>
+							  </li>
+							  <li ng-if="currentpage < ultimo" ng-click="asignadas( currentpage = currentpage + 1);"><a href="javascript:void(0);"><i class="fa fa-angle-right"></i></a></li>
+							</ul>
+						</div>
+						<%-- Paginacion $scope.antes --%>
+							
+						<div class="clearfix"></div>
 						<br />
 						<div  ng-if='usuarios'>
 							<div class="hidden-xs">
