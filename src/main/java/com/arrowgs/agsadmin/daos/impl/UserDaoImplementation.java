@@ -75,7 +75,7 @@ public class UserDaoImplementation implements UserDao{
 	@Override
 	public List<User> getUserByFilter(String email, Integer way, Integer page, Integer usersInPage) {
 		page = (page-1)*usersInPage;
-		String sql = "SELECT u.email, u.rol, u.nombre, null, u.id FROM usuarios u WHERE email LIMIT :page , :end";
+		String sql = "SELECT u.email, u.rol, u.nombre, null, u.id FROM usuarios u WHERE email ";
 		if(way.intValue()==1){
 			sql = sql + " = :email";
 		}else{
@@ -93,6 +93,7 @@ public class UserDaoImplementation implements UserDao{
 				email = "%" + email + "%";
 			}
 		}
+		sql = sql + " LIMIT :page , :end";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource("email",email);
 		paramMap.addValue("page", page);
 		paramMap.addValue("end", usersInPage);
