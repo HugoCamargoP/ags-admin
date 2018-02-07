@@ -128,7 +128,7 @@ function Service(http, url)
         //Parámetros necesarios: Order order, Integer page (numero de página), Integer inPage (inPage = cuantos por página)
     this.getOrdersByFilter = function(order, page, inPage){
         var path = "";
-        path = path + "creation=" + order.creation + "&state=" + order.state + "&user=" + order.user;
+        path = path + "creation=" + order.creation + "&state=" + order.state + "&id="+ order.id + "&user=" + order.user;
         return http({
             'method': 'GET',
             'url': url + '/orders-filter/' +path + '/' + page + '/' + inPage
