@@ -409,6 +409,14 @@ public class OrderDaoImplementation implements OrderDao{
 			paramMap.put("usuario", order.getUserText());
 			where= true;
 		}
+		if(order.getId()!=null){
+			if(where){
+				aux.append(" AND");
+			}
+			aux.append(" o.id = :id");
+			paramMap.put("usuario", order.getId());
+			where= true;
+		}
 		if(where){
 			sql.append(" WHERE");
 			sql.append(aux);
