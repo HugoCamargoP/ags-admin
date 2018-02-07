@@ -414,7 +414,7 @@ public class OrderDaoImplementation implements OrderDao{
 				aux.append(" AND");
 			}
 			aux.append(" o.id = :id");
-			paramMap.put("usuario", order.getId());
+			paramMap.put("id", order.getId());
 			where= true;
 		}
 		if(where){
@@ -453,6 +453,14 @@ public class OrderDaoImplementation implements OrderDao{
 			}
 			aux.append(" u.email like :usuario");
 			paramMap.put("usuario", order.getUserText());
+			where= true;
+		}
+		if(order.getId()!=null){
+			if(where){
+				aux.append(" AND");
+			}
+			aux.append(" o.id = :id");
+			paramMap.put("id", order.getId());
 			where= true;
 		}
 		if(where){

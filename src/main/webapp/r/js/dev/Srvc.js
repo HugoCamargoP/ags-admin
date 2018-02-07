@@ -140,7 +140,7 @@ function Service(http, url)
         //Parámetros necesarios: Order order, Integer inPage (inPage = cuantos por página)
     this.getOrdersCountByFilter = function(order, inPage){
         var path = "";
-        path = path + "creation=" + order.creation + "&state=" + order.state + "&user=" + order.user;
+        path = path + "creation=" + order.creation + "&state=" + order.state + "&id="+ order.id + "&user=" + order.user;
         return http({
             'method': 'GET',
             'url': url + '/get_count_order/filter/' +path + ' ' + inPage
