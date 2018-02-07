@@ -413,7 +413,7 @@ public class OrderDaoImplementation implements OrderDao{
 			sql.append(" WHERE");
 			sql.append(aux);
 		}
-		sql.append(" LIMIT :begin , :end");
+		sql.append(" ORDER BY o.id DESC LIMIT :begin , :end");
 		paramMap.put("begin", page);
 		paramMap.put("end",numOrder);
 		return jdbcTemplate.query(sql.toString(), paramMap, new OrderRowMapper(true));
@@ -575,7 +575,7 @@ public class OrderDaoImplementation implements OrderDao{
 	/*OrderRecord*/
 	@Override
 	public List<OrderRecord> getOrderRecordByOrder(Integer idOrder) {
-		String sql = "SELECT oh.*, e.descripcion FROM orden_historico oh LEFT JOIN estados e ON oh.estado = e.id WHERE orden = :id";
+		String sql = "SELECT oh.*, e.descripcion FROM orden_historico oh LEFT JOIN estados e ON oh.estado = e.id WHERE orden = :id ORDER BY oh.id DESC";
 		SqlParameterSource paramMap = new MapSqlParameterSource("id",idOrder);
 		return jdbcTemplate.query(sql, paramMap, new OrderRecordRowMapper(true));
 	}
