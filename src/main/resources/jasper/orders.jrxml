@@ -126,7 +126,7 @@
 				<subreportExpression><![CDATA[$P{orderRecordSub}]]></subreportExpression>
 			</subreport>
 			<staticText>
-				<reportElement positionType="Float" x="1" y="176" width="123" height="20" uuid="3ea5cd0a-e8b4-4236-b8d9-91ae0fd35419"/>
+				<reportElement positionType="Float" x="3" y="176" width="126" height="20" uuid="3ea5cd0a-e8b4-4236-b8d9-91ae0fd35419"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -138,7 +138,7 @@
 				<text><![CDATA[Estado]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="124" y="176" width="160" height="20" uuid="23d34093-b33f-489f-b4fc-f1884cf3e35c"/>
+				<reportElement positionType="Float" x="129" y="176" width="154" height="20" uuid="23d34093-b33f-489f-b4fc-f1884cf3e35c"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
