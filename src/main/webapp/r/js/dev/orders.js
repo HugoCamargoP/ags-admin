@@ -69,7 +69,33 @@ function($scope , Service)
 			addremoveclass('hidden','visible'+i);
 		}
 	}
+
+	$scope.status = {};
+	$scope.getStatus = function()
+	{
+		Service.getStatus().then(
+		function successCallback(response){
+			$scope.status = response.data.data;
+		},
+		function errorCallback(response){
+			$scope.getMessage('err.error',1);			
+		});	
+	}
 	
+	$scope.ord = {};
+	$scope.updateOrderStatus = function()
+	{
+		console.log($scope.ord);
+		Service.updateOrderStatus($scope.ord).then(
+		function successCallback(response){
+			$scope.ord = {};
+			$scope.getMessage('err.error',1);	
+			location.reload();
+		},
+		function errorCallback(response){
+			$scope.getMessage('err.error',1);			
+		});	
+	}
 
 	$scope.getAddressById = function(a)
 	{

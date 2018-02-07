@@ -21,7 +21,56 @@
 		border:1px solid #e3e3e3;
 	}
 	</style>
-	<div class="container form-opacity videoenbebido" ng-controller="${ appname }orders" ng-init="getCountries();">
+	<div class="container form-opacity videoenbebido" ng-controller="${ appname }orders" ng-init="getCountries();getStatus();">
+	<!-- Trigger the modal with a button -->
+	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+	
+	<!-- Modal -->
+	<div id="myModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title"><s:message code="buy.chageState" /></h4>
+	      </div>
+	      <div class="modal-body">
+	      	  <form action="" onsubmit="return false;" ng-submit="updateOrderStatus();">
+		      	<div>
+		      	  <div class="form-group">
+		      	  {{ status }}
+				    <label for="email"><s:message code="buy.selectState" />:</label>
+				    <select name="" id="" class="form-control" ng-modal="ord.state" ng-required="true">
+				     		<%--
+				     			ng-options="provincia.id as provincia.nombre for provincia in status">
+				     		 --%>
+				    		<option value="{{provincia.id}}" ng-repeat="provincia in status">{{provincia.name}}</option>
+				    		<option value=""></option>
+				    	<%-- 
+				    	<option value="{{s.id}}" ng-repeat="s in status">{{s.name}}</option>
+				    	--%>
+				    </select>
+				  </div>
+		      	  <div class="form-group">
+				    <label for="email"><s:message code="buy.observations" />:</label>
+				    <textarea class="form-control" name="" id="" cols="30" rows="4"  ng-model="ord.observations" ></textarea>
+				    <input type="hidden" class="form-control" id="" ng-model="ord.id" ng-init="ord.id = ${ order.id };">
+				  </div>
+				</div>
+				<div class="text-center">
+					<button class="btn btn-black"><s:message code="app.loginSend" /></button>
+				</div>
+		    </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>
+		
 		<input type="hidden" value="${ linkAdminOrders }" id="historial" />
 		<input type="hidden" value="${ linkPayment }" id="paymentLink" />
 		<div class="margin14em"></div>
@@ -29,22 +78,22 @@
 			<i style="color: black;font-size: 2em;" class="fa fa-x2 fa-arrow-circle-o-left"></i>
 		</a>
 		<div class="clearfix"></div>
-		<div class="margin15em"></div>
+		<br />
 		<div class="">    
 			<div class="col-xs-12 form-opacity">
 				<%-- 
 		        <c:if test="${ order.state < 4 or order.state > 7  }">
 					<div class="clearfix"></div>
-					<div class="margin15em"></div>
+					<br />
 					<button ng-click="removeOrder(${ param.order })" class="btn btn-danger col-xs-12 a">
 						<s:message code="buy.deleteOrder" />
 					</button>
 					<div class="clearfix"></div>
-					<div class="margin15em"></div>
+					<br />
 				</c:if>
 				--%>
 				
-			  <div class="margin15em"></div>
+			  <br />
 			  <div>
 				  <div class="col-xs-12">
 				  	<a href="" class=" center center1 visible-xs visile-sm">
@@ -59,12 +108,10 @@
 				  	</div>
 				  </div>
 				  <div class="clearfix"></div>
-			  	  <div class="margin15em"></div>
+				  <br />
 				  <div class="col-xs-12 col-md-6">
 				  	<h3 class="black center1"><s:message code="order.client" />: 
 				  		${ order.userText }
-				  		${ order.user }
-				  		${ order.statusDate }
 				  	</h3>
 				  </div>
 				  <div class="clearfix"></div>
@@ -101,7 +148,7 @@
 				  </div>
 				  
 				  <div class="clearfix"></div>
-				  <div class="margin15em"></div>
+				  <br />
 				  
 				  <div class="center1 a">
 				  	<div class="btn-black a col-xs-12 col-md-6 black border">
@@ -123,7 +170,7 @@
 				  </div>
 				  
 				  <div class="clearfix"></div>
-				  <div class="margin15em"></div>
+				  <br />
 				  
 				  <style>
 				  	.vertical-aling-middel
@@ -131,18 +178,18 @@
 				  		vertical-align: middle !important;
 				  	}
 				  </style>
-				  		<div class="">
-				  			<h3 class="black center1"><s:message code="buy.details" /></h3>
-				  		</div>
+			  		<div class="btn-black a text-center">
+			  			<h3 style="margin:0px;" class="btn-black a"><s:message code="buy.details" /></h3>
+			  		</div>
 				  		<div class="table-responsive">
 				  			<table class="table table-bordered a">
 				  				<tr class="black a" ng-init="price = 0">
-				  					<td class="vertical-aling-middel">
+				  					<td class="vertical-aling-middel btn-black a">
 				  					</td>
 				  					<td class="vertical-aling-middel hidden">
 				  						<s:message code="buy.title" />
 				  					</td>
-				  					<td class="vertical-aling-middel">
+				  					<td class="vertical-aling-middel btn-black a">
 				  						<s:message code="buy.price" />
 				  					</td>
 				  					<%-- 
@@ -150,10 +197,10 @@
 				  						<s:message code="buy.taxes" />
 				  					</td>
 				  					--%>
-				  					<td class="vertical-aling-middel">
+				  					<td class="vertical-aling-middel btn-black a">
 				  						<s:message code="buy.quantity" />
 				  					</td>
-				  					<td class="vertical-aling-middel">
+				  					<td class="vertical-aling-middel btn-black a">
 				  						TOTAL
 				  					</td>
 				  				</tr>
@@ -167,8 +214,8 @@
 					  					<%-- 
 					  					<td class="vertical-aling-middel hidden">${ a.taxesAmount }</td>
 					  					--%>
-					  					<td class="vertical-aling-middel">${ a.amount }</td>
-					  					<td class="vertical-aling-middel" ng-init="price = price + ${ ((a.individualPrice) * a.amount) };">${ ((a.individualPrice) * a.amount) }</td>
+					  					<td class="vertical-aling-middel">${ a.quantity }</td>
+					  					<td class="vertical-aling-middel" ng-init="price = price + ${ ((a.individualPrice) * a.quantity) };">${ ((a.individualPrice) * a.quantity) }</td>
 					  				</tr>
 						       </c:forEach>
 						       <tr class="center center1 a">
@@ -177,7 +224,7 @@
 						       		<%-- 
 						       		<td class="hidden"></td>
 						       		--%>
-						       		<td>Total</td>
+						       		<td class="btn-black a">Total</td>
 						       		<td>{{ price | currency:"USD$ " }}</td>
 						       </tr>
 				  			</table>
@@ -213,15 +260,18 @@
 						</c:if>
 						 --%>
 				  		<div class="clearfix"></div>
-				  		<div class="margin15em"></div>
+				  		<br />
 				  		
-				  		<div class="hidden">
-				  			<h3 class="black center1"><s:message code="buy.status" /></h3>
+				  		<div class="btn-black a text-center">
+				  			<h3 style="margin:0px;" class="btn-black a"><s:message code="buy.status" /></h3>
 				  		</div>
-				  		<ul class="list-inline center1 hidden">
+				  		<ul class="list-inline center1 ">
 						<c:forEach items="${ order.orderRecord }" var="a" varStatus="theCount">
-							<li class="col-xs-12 col-md-3 border">
+							<li class="col-xs-12 border">
 				  				<h2>${ a.stateText }</h2>
+				  				 
+				  				<p>${ a.observations }</p>
+				  				
 				  				<span class="a"> ${ a.update }</span>
 					  		</li>
 						</c:forEach>
@@ -230,7 +280,7 @@
 				  </div>
 			  </div>
 			  <div class="clearfix"></div>
-			  <div class="margin15em"></div>
+			  <br />
 		      <%-- 
 		      <div class="table-responsive hidden">
 		      	<table class="table table-bordered " onload="cargaTable();">
@@ -307,6 +357,11 @@
 			</div>				
 		</div>
 	<div class="clearfix"></div>
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
 	</div>
 </div>
 
