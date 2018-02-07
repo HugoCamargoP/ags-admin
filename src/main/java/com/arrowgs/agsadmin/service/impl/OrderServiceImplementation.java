@@ -60,7 +60,10 @@ public class OrderServiceImplementation implements OrderService {
 					SkuProduct sku = productService.getSkuProductById(orderDetail.getIdProductSku());
 					orderDetail.setProduct(sku);
 					ProductDetail product = productService.oneProductDetail(sku.getProduct());
-					orderDetail.setUrl(product.getUrl());				
+					if(product!=null)
+					{
+						orderDetail.setUrl(product.getUrl());				
+					}
 				}
 			}
 			userOrder.setOrderAmount(orderDao.getOrderAmountByOrder(id));
