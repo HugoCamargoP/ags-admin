@@ -289,7 +289,7 @@ function Service(http, url)
 	this.getUserByFilterCount = function(email,filter){
 	    return http({
 	        'method':'GET',
-	        'url': url + '/users/filter?email='+email+'&filter='+filter
+	        'url': url + '/users/filter-count?email='+email+'&filter='+filter
 	    })
 	}
     
