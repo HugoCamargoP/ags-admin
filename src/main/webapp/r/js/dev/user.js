@@ -60,28 +60,40 @@ function($scope, Service)
 		}
 	}
 	
+	$scope.getUserByFilterCount = function()
+	{
+		
+	}
 	
 	$scope.getUserByFilter = function ()
 	{
-		$scope.cheksboxes = {};
-		$scope.filter = document.getElementById('filter').value;
-		Service.getUserByFilter($scope.email,$scope.filter).then(function successCallback(response){
-			if(response.data.data.length > 0 )
-			{
-				$scope.usuarios = response.data.data;
-				cheksboxes = [];
-				usuarios1 = [];
-				$scope.check = [];
-				msjexito('Datos cargados');
-			}
-			else
-			{
+		getUserByFilterCount 
+		Service.getUserByFilter($scope.email,$scope.filter).then(
+			function successCallback(response){
+
+			$scope.cheksboxes = {};
+			$scope.filter = document.getElementById('filter').value;
+			Service.getUserByFilter($scope.email,$scope.filter).then(function successCallback(response){
+				if(response.data.data.length > 0 )
+				{
+					$scope.usuarios = response.data.data;
+					cheksboxes = [];
+					usuarios1 = [];
+					$scope.check = [];
+					msjexito('Datos cargados');
+				}
+				else
+				{
+					msjerror('Sin resultados');
+				}
+			},
+			function errorCallback(){
 				msjerror('Sin resultados');
-			}
+			})
 		},
 		function errorCallback(){
 			msjerror('Sin resultados');
-		})
+		})		
 	}
 	
 	$scope.userUpdateRol = function ()

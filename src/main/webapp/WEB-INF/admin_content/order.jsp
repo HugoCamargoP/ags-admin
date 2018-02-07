@@ -183,7 +183,6 @@
 				  			<table class="table table-bordered a">
 				  				<tr class="black a" ng-init="price = 0">
 				  					<td class=" vertical-aling-middel btn-black a">
-				  						SKU
 				  					</td>
 				  					<td class="vertical-aling-middel hidden">
 				  						<s:message code="buy.title" />
@@ -206,7 +205,6 @@
 						       <c:forEach items="${ order.orderDetail }" var="a" varStatus="theCount">
 					  				<tr class="center center1 a">
 					  					<td class="vertical-aling-middel">
-					  						${ a.product }
 					  						<img src="${ a.url }" class="img-responsive center center1" alt="" style="max-width:70px;" />
 					  					</td>
 					  					<td class="vertical-aling-middel hidden">${ a.product }</td>
