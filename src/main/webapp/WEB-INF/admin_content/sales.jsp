@@ -86,22 +86,22 @@
 					<br />
 					<br />
 					<br />
-				</c:forEach>
-			</div>
+				</div>
+			</c:forEach>
 		</c:if>
 		
 		<%-- Ordenes por cliente --%>
 		
 		<c:if test="${not empty param.idReport and param.idReport == 2 and empty requestScope.response.data.ordenes[0].userText }">
-			<div class="alert alert-info">
-			  <strong>Sin información de cliente</strong> 
+			<div class="alert alert-info text-center">
+			  <strong><s:message code="buy.withoutInformation" /> </strong> 
 			</div>
 		</c:if>
 		<c:if test="${not empty param.idReport and param.idReport == 2 and not empty requestScope.response.data.ordenes[0].userText }">
 			<div class="pull-left">
 				<ul class="list-inline">
 					<li>
-						Cliente :
+						<s:message code="order.client" />
 					</li>
 					<li>
 						<h4>${ requestScope.response.data.ordenes[0].userText }</h4>
@@ -508,7 +508,10 @@
 		<c:if test="${not empty param.idReport and param.idReport == 4 }">
 			<div class="table-responsive">
 				<c:forEach var="a" items="${ requestScope.response.data.inventario }">
-					<h2>
+					<span class="pull-right">
+						<img class="img-thumbnail" style="max-width:50px;" src="${ a.productDetails[0].url }" alt="" />
+					</span>
+					<h2 class="pull-left">
 						${ a.title }
 					</h2> 
 					<%--
@@ -526,7 +529,6 @@
 							</td>
 						</tr>
 					</table>
-					--%>
 					<table class="table table-bordered a">
 						<tr class="btn-black center">
 							<td colspan="2"><s:message code="reports.description" /></td>
@@ -544,6 +546,7 @@
 							<td colspan="">${ a.descriptionFr }</td>
 						</tr>
 					</table>
+					--%>
 					<table class="table table-bordered a">
 						<tr class="btn-black">
 							<td>SKU</td>
@@ -560,6 +563,7 @@
 							</tr>
 						</c:forEach>
 					</table>
+					<%-- 
 					<table class="table table-bordered a">
 						<tr class="">
 							<td>
@@ -574,14 +578,15 @@
 								</div>
 							</td>
 						</tr>
-					</table>	
+					</table>
+					--%>	
 					<div class="clearfix"></div>
 					<br />
 					<br />
 					<br />
 				</c:forEach>
 			</div>
-			<div class="table-responsive">
+			<div class="table-responsive hidden">
 				<table class="table table-bordered a">
 					<tr class="btn-black">
 						<td><s:message code="reports.size" /></td>
@@ -686,7 +691,7 @@
 			<br />
 		</c:if>
 		
-		<%-- 
+		<%--       
 		<c:if test="${not empty requestScope.response.data.ordenes }">
 			Ordenes
 			<c:forEach var="a" items="${ requestScope.response.data.ordenes }">

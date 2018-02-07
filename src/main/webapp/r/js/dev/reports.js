@@ -25,7 +25,7 @@ function($scope,$sce, Service)
 	$scope.getUserByFilter = function()
 	{
 		console.log('getUserByFilter');
-		Service.getUserByFilter('',2).then(
+		Service.getUserByFilter('',2,1,999999).then(
 		function successCallback(response)
 		{
 			$scope.users = response.data.data;

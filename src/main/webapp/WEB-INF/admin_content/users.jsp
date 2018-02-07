@@ -1,7 +1,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div id="page-wrapper" ng-controller="${ appname }user" ng-init="filter = 2;">
+<div id="page-wrapper" ng-controller="${ appname }user" ng-init="filter = 2;getUserByFilter();">
 	<div class="graphs">
 		<h3 class="blank1 center"><s:message code="admin.users"/></h3>
 			<div class="tab-content">

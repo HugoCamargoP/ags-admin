@@ -9,7 +9,7 @@
 					<!-- h1><a href="#">100% <span>Admin</span></a></h1>
                     <img class="img-responsive" src="${ContextPath}/r/images/text4070-1-0.png" alt="" /
 					<a href="${ linkMain }">WARD <i class="fa fa-home"></i> </a>-->
-					<h1><a href="${ linkAdminHome }"><img src="${ContextPath}/r/img/logos/mailmax.jpg" class="" style="max-height: 40px;"><span></span></a></h1>
+					<h1><a href="${ linkAdminHome }"><img src="${ContextPath}/r/img/logos/yclara.png" class="" style="max-height: 40px;"><span></span></a></h1>
 				</div>
 				<div class="logo-icon text-center">
 					<a href="${ linkAdminHome }"><i class="fa fa-home"></i> </a>
