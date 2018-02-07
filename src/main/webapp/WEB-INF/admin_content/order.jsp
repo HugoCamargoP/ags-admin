@@ -22,8 +22,6 @@
 	}
 	</style>
 	<div class="container form-opacity videoenbebido" ng-controller="${ appname }orders" ng-init="getCountries();getStatus();">
-	<!-- Trigger the modal with a button -->
-	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
 	
 	<!-- Modal -->
 	<div id="myModal" class="modal fade" role="dialog">
@@ -39,9 +37,8 @@
 	      	  <form action="" onsubmit="return false;" ng-submit="updateOrderStatus();">
 		      	<div>
 		      	  <div class="form-group">
-		      	  {{ status }}
 				    <label for="email"><s:message code="buy.selectState" />:</label>
-				    <select name="" id="" class="form-control" ng-modal="ord.state" ng-required="true">
+				    <select name="" id="" class="form-control" ng-model="ord.state" ng-required="true">
 				     		<%--
 				     			ng-options="provincia.id as provincia.nombre for provincia in status">
 				     		 --%>
@@ -64,7 +61,7 @@
 		    </form>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal"><s:message code="reports.close" /></button>
 	      </div>
 	    </div>
 	
@@ -165,6 +162,7 @@
 							<c:if test="${ theCount.last }">${ a.stateText }</c:if>
 						</c:forEach> 
 						--%>
+						<span class="click fa fa-pencil pull-right"  data-toggle="modal" data-target="#myModal"></span>
 						</h2>
 				  	</div>
 				  </div>
@@ -184,7 +182,8 @@
 				  		<div class="table-responsive">
 				  			<table class="table table-bordered a">
 				  				<tr class="black a" ng-init="price = 0">
-				  					<td class="vertical-aling-middel btn-black a">
+				  					<td class=" vertical-aling-middel btn-black a">
+				  						SKU
 				  					</td>
 				  					<td class="vertical-aling-middel hidden">
 				  						<s:message code="buy.title" />
@@ -207,6 +206,7 @@
 						       <c:forEach items="${ order.orderDetail }" var="a" varStatus="theCount">
 					  				<tr class="center center1 a">
 					  					<td class="vertical-aling-middel">
+					  						${ a.product }
 					  						<img src="${ a.url }" class="img-responsive center center1" alt="" style="max-width:70px;" />
 					  					</td>
 					  					<td class="vertical-aling-middel hidden">${ a.product }</td>
@@ -268,11 +268,12 @@
 				  		<ul class="list-inline center1 ">
 						<c:forEach items="${ order.orderRecord }" var="a" varStatus="theCount">
 							<li class="col-xs-12 border">
-				  				<h2>${ a.stateText }</h2>
-				  				 
+				  				<h2 class="pull-left">${ a.stateText }</h2>
+				  				<span class="a pull-right"> <s:message code="reports.lastUpdate" />: ${ a.update }</span>
+				  				<div class="clearfix"></div>
 				  				<p>${ a.observations }</p>
-				  				
-				  				<span class="a"> ${ a.update }</span>
+				  				<div class="clearfix"></div>
+				  				<br />
 					  		</li>
 						</c:forEach>
 				  		</ul>

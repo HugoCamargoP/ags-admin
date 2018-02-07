@@ -33,6 +33,16 @@
      </style>
 		      
 	<div class="container form-opacity videoenbebido" ng-controller="${ appname }orders" ng-init="currentpage=1;getOrdersByFilter('',currentpage);">
+		<div class="clearfix"></div>
+		<br />
+		<form class="form-inline  pull-right" action="" onsubmit="return false" ng-submit="getOrdersByFilter(otra.state,currentpage);">
+		  <div class="form-group">
+		    <label for="pwd">No Order</label>
+		    <input type="text" class="form-control" id="" ng-model="otra.id" placeholder="<s:message code="buy.search"/>">
+		  </div>
+		  <button type="submit" class="btn btn-default"><s:message code="buy.search"/></button>
+		</form>
+		<div class="clearfix"></div>
 		<ul class="nav nav-pills">
 		  <li class="active"><a data-toggle="pill" href="#Sometida" ng-click="estado = 'todas';currentpage=1;getOrdersByFilter('',currentpage);" >All</a></li>
 		  <li class=""><a data-toggle="pill" href="#Sometida" ng-click="estado = 'sometidas';currentpage=1;getOrdersByFilter(4,currentpage);" >Submited</a></li>

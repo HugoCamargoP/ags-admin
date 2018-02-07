@@ -25,9 +25,10 @@ function($scope,$sce, Service)
 	//getProductsByFilter = function(product, page, inPage){
 	$scope.currentpage = 1;
 	$scope.cuantoPage = String(10);
-	var menos = 2;
+	$scope.ultimo = 0;
 	$scope.paginacion = function ()
 	{
+		var menos = 2;
 		console.log($scope.ultimo+' ultimo');
 		$scope.antes ={};
 		if($scope.ultimo <= menos)
@@ -38,6 +39,7 @@ function($scope,$sce, Service)
 		if (antes < 1) {
 			 antes = 1;
 		}
+		console.log(hasta +' '+ $scope.ultimo);
 		if(hasta > $scope.ultimo)
 		{
 			hasta = $scope.ultimo;
@@ -532,26 +534,6 @@ $scope.pago = function ()
 		$scope.currentpage = a;
 	}
 	
-	$scope.paginacion = function ()
-	{
-		$scope.antes ={};
-		if($scope.ultimo <= menos)
-		{
-			menos = $scope.ultimo;
-		}
-		var antes = $scope.currentpage-menos,hasta = $scope.currentpage+menos;
-		if (antes < 1) {
-			 antes = 1;
-		}
-		if(hasta > $scope.ultimo)
-		{
-			hasta = $scope.ultimo;
-		}
-		for ( antes ; antes <= hasta; antes++) {
-			$scope.antes [antes] = antes;
-		}
-	}
-	
 	$scope.product = {};
 	//$scope.prodpage = productosporpagina;
 	
@@ -714,6 +696,7 @@ $scope.pago = function ()
 	{
 		Service.getProductsCountByFilter($scope.product,$scope.prodpage).then(
 				function successCallback(response){
+					console.log(response.data.data + ' lo que viene del response en get product');
 					$scope.ultimo = response.data.data.pages;
 					$scope.paginacion();
 					if(response.data.data.total > 0 )
@@ -892,7 +875,7 @@ $scope.pago = function ()
 		Service.getProductsCountByFilter($scope.searchprodruct , $scope.cuantoPage).then(
 			function successCallback(response){
 				console.log(response);
-				$scope.ultimo = response.data.pages;
+				$scope.ultimo = response.data.data.pages;
 				$scope.paginacion();
 				
 				//console.log($scope.searchprodruct);

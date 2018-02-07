@@ -89,7 +89,7 @@ function($scope , Service)
 		Service.updateOrderStatus($scope.ord).then(
 		function successCallback(response){
 			$scope.ord = {};
-			$scope.getMessage('err.error',1);	
+			msjexito('Status updated');
 			location.reload();
 		},
 		function errorCallback(response){
@@ -177,13 +177,14 @@ function($scope , Service)
 	$scope.otra = {};
 	$scope.cuanto = true;
 	$scope.currentpage  = 1;
+	$scope.ultimo = 0;
 	$scope.getOrdersByFilter = function (a,b)
 	{
 		$scope.otra.state = a;
 		Service.getOrdersCountByFilter($scope.otra , $scope.inPage).then(
 		function successCallback(response){
 			console.log(response);
-			$scope.ultimo = response.data.pages;
+			$scope.ultimo = response.data.data.pages;
 			$scope.paginacion();
 
 			Service.getOrdersByFilter($scope.otra, $scope.currentpage ,$scope.inPage).then(
@@ -223,6 +224,7 @@ function($scope , Service)
 	
 	$scope.paginacion = function ()
 	{
+		var menos = 2;
 		$scope.antes ={};
 		if($scope.ultimo <= menos)
 		{
@@ -232,6 +234,7 @@ function($scope , Service)
 		if (antes < 1) {
 			 antes = 1;
 		}
+		console.log(hasta +' '+ $scope.ultimo);
 		if(hasta > $scope.ultimo)
 		{
 			hasta = $scope.ultimo;
