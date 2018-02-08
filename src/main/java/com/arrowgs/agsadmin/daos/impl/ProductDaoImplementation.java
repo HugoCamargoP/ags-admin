@@ -536,28 +536,34 @@ public class ProductDaoImplementation implements ProductDao {
 			 join=true;
 		 }
 		 StringBuilder aux = new StringBuilder("");
-		 Map<String,Object> paramMap = new HashMap<>();		 
-		 if(product.getDescriptionEs()!=null && ! product.getDescriptionEs().equals("")){			 
-			 aux.append(" p.descripcion_es like :descripcionEs");
-			 paramMap.put("descripcionEs", product.getDescriptionEs());
+		 Map<String,Object> paramMap = new HashMap<>();	
+		 //Esta condición es temporal, hasta que se decida si en el front se buscará por idiomas o será en general
+		 if(product.getDescription()!=null && ! product.getDescription().equals("")){
+			 aux.append(" p.descripcion_es like :descripcion or p.descripcion_en like :descripcion or p.descripcion_fr like :descripcion");
+			 paramMap.put("descripcion", product.getDescription());
 			 where = true;
 		 }
-		 if(product.getDescriptionEn()!=null && ! product.getDescriptionEn().equals("")){	
-			 if(where){
-				 aux.append(" and");
-			 }
-			 aux.append(" p.descripcion_en like :descripcionEn");
-			 paramMap.put("descripcionEn", product.getDescriptionEs());
-			 where = true;
-		 }
-		 if(product.getDescriptionFr()!=null && ! product.getDescriptionFr().equals("")){
-			 if(where){
-				 aux.append(" and");
-			 }
-			 aux.append(" p.descripcion_fr like :descripcionFr");
-			 paramMap.put("descripcionFr", product.getDescriptionEs());
-			 where = true;
-		 }
+//		 if(product.getDescriptionEs()!=null && ! product.getDescriptionEs().equals("")){			 
+//			 aux.append(" p.descripcion_es like :descripcionEs");
+//			 paramMap.put("descripcionEs", product.getDescriptionEs());
+//			 where = true;
+//		 }
+//		 if(product.getDescriptionEn()!=null && ! product.getDescriptionEn().equals("")){	
+//			 if(where){
+//				 aux.append(" and");
+//			 }
+//			 aux.append(" p.descripcion_en like :descripcionEn");
+//			 paramMap.put("descripcionEn", product.getDescriptionEs());
+//			 where = true;
+//		 }
+//		 if(product.getDescriptionFr()!=null && ! product.getDescriptionFr().equals("")){
+//			 if(where){
+//				 aux.append(" and");
+//			 }
+//			 aux.append(" p.descripcion_fr like :descripcionFr");
+//			 paramMap.put("descripcionFr", product.getDescriptionEs());
+//			 where = true;
+//		 }
 		 if(product.getTitle()!=null && ! product.getTitle().equals("")){
 			 if(where){
 				 aux.append(" and");
