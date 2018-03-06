@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.arrowgs.agsadmin.controllers.cons.Constants.ApiMappings;
 import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.Order;
+import com.arrowgs.agsadmin.entities.OrderDetail;
 import com.arrowgs.agsadmin.helpers.ClassHelper;
 import com.arrowgs.agsadmin.helpers.ControllerHelper;
 import com.arrowgs.agsadmin.helpers.ControllerHelper.ResponseStatus;
@@ -99,6 +100,21 @@ public class OrderApi {
 		}
 		
 		return ControllerHelper.mapResponse(status, response);
+	}
+	
+	@RequestMapping(path = ApiMappings.OrderDetail, method = RequestMethod.PUT)
+	public @ResponseBody Map<String,? extends Object> updateOrderDetail(@RequestBody OrderDetail orderDetail){
+		ResponseStatus status;
+		try{
+			if(orderService.modifyOrderProdudct(orderDetail)){
+				status = ResponseStatus.OK;
+			}else{
+				status = ResponseStatus.ExternalError;
+			}
+		}catch(Exception e){
+			status = ResponseStatus.ExternalError;
+		}
+		return ControllerHelper.mapResponse(status, orderDetail);
 	}
 
 }

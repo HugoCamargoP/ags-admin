@@ -66,6 +66,7 @@ public interface Constants {
 		static final String	OrdersByFilter		   = ServiceContext + "/orders-filter";
 		static final String GetOrderCountByFilter  = ServiceContext + "/get_count_order/filter";
 		static final String StatusOrder			   = ServiceContext + "/status";
+		static final String OrderDetail			   = ServiceContext + "/order-detail";
 		
 		//Config
 		static final String Config				   = ServiceContext + "/basic-config";

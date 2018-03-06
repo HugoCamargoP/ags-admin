@@ -198,6 +198,13 @@ function Service(http, url)
     this.updateOrderStatus = function(order){
         return http.put(url + '/update_status',order)
     }
+    
+    //Actualiza el orderDetail que se manda
+	    //Parámetros necesarios: OrderDetail orderDetail
+	this.updateOrderStatus = function(orderDetail){
+	    return http.put(url + '/order-detail',orderDetail)
+	}
+
    
     //Actualiza el estado individual de un orderDetail para llevarlo de wishList a ShoppingCar
         //Parámetros necesarios: OrderDetail orderDetail
