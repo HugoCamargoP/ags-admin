@@ -40,6 +40,7 @@ public class ConfigDaoImpl implements ConfigDao{
 			config.setMediumBox(rs.getDouble(4));
 			config.setBigBox(rs.getDouble(5));
 			config.setShipmentCost(rs.getDouble(6));
+			config.setDollarCost(rs.getDouble(7));
 			
 			return config;
 		}
@@ -74,7 +75,7 @@ public class ConfigDaoImpl implements ConfigDao{
 
 	@Override
 	public ConfigEntity updateConfigEntity(ConfigEntity config) {
-		String sql = "UPDATE basic_config SET iva = :iva, caja_pequena = :cp, caja_mediana = :cm, caja_grande = :cg, costo_envio = :ce WHERE id = :id";
+		String sql = "UPDATE basic_config SET iva = :iva, caja_pequena = :cp, caja_mediana = :cm, caja_grande = :cg, costo_envio = :ce, costo_dolar = :usd WHERE id = :id";
 		
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("iva", config.getIva());
@@ -83,6 +84,7 @@ public class ConfigDaoImpl implements ConfigDao{
 		paramMap.put("cg", config.getBigBox());
 		paramMap.put("ce", config.getShipmentCost());
 		paramMap.put("id", config.getId());
+		paramMap.put("usd", config.getDollarCost());
 		
 		jdbcTemplate.update(sql, paramMap);
 		
@@ -98,6 +100,7 @@ public class ConfigDaoImpl implements ConfigDao{
 		args.put("caja_mediana", config.getMediumBox());
 		args.put("caja_grande", config.getBigBox());
 		args.put("costo_envio", config.getShipmentCost());
+		args.put("costo_dolar", config.getDollarCost());
 		
 		Number id = configInsertActor.executeAndReturnKey(args);
 		

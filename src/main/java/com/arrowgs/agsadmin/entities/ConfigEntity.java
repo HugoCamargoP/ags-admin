@@ -8,6 +8,7 @@ public class ConfigEntity {
 	private Double	mediumBox;
 	private Double	bigBox;
 	private Double	shipmentCost;
+	private Double	dollarCost;
 	
 	public Integer getId() {
 		return id;
@@ -44,6 +45,12 @@ public class ConfigEntity {
 	}
 	public void setShipmentCost(Double shipmentCost) {
 		this.shipmentCost = shipmentCost;
+	}
+	public Double getDollarCost() {
+		return dollarCost;
+	}
+	public void setDollarCost(Double dollarCost) {
+		this.dollarCost = dollarCost;
 	}
 	
 	
