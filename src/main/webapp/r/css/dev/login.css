@@ -53,13 +53,13 @@ html {
     background-size: cover;
 }
 .item:nth-child(1) {
-    background: url(http://189.211.186.79:8081/ags-admin/media/prueba/01l.jpg) no-repeat center center fixed;
+    background: url(http://www.yetibera.com/media/prueba/01l.jpg) no-repeat center center fixed;
 }
 .item:nth-child(2) {
-    background: url(http://189.211.186.79:8081/ags-admin/media/prueba/03l.jpg) no-repeat center center fixed;
+    background: url(http://www.yetibera.com/media/prueba/03l.jpg) no-repeat center center fixed;
 }
 .item:nth-child(3) {
-    background: url(http://189.211.186.79:8081/ags-admin/media/prueba/04l.jpg) no-repeat center center fixed;
+    background: url(http://www.yetibera.com/media/prueba/04l.jpg) no-repeat center center fixed;
 }
 .carousel {
     z-index: -99;
