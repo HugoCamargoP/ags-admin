@@ -223,7 +223,11 @@ $(document).ready(function () {
 	setCookie('lang', 'en', 360);
 	
 	
-    $( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+    $( ".datepicker" ).datepicker({
+		dateFormat: 'yy-mm-dd',
+		changeMonth: true,
+		yearRange: "-50:+50",
+	    changeYear: true});
 
     $(".relaseDatemod").change(function() {
     	relaseDatemod= $(this).val();

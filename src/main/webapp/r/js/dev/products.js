@@ -1067,6 +1067,12 @@ $scope.pago = function ()
 					});	
 		}		
 	}
+
+	$scope.nuevo1 = function()
+	{
+		//$scope.registro.measure[0].strBirthday = born;
+		//console.log($scope.registro);
+	}
 	
 	$scope.addProduct = function (us,sta,sku)
 	{

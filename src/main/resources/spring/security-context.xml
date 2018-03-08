@@ -18,8 +18,8 @@
 			
 			<security:jdbc-user-service 
 				data-source-ref="dataSource"  
-				users-by-username-query="select email as username, password, TRUE as enabled from yetibera_schema_test.usuarios where email = ?" 
-				authorities-by-username-query="select email as username, rol as authority from yetibera_schema_test.usuarios where email = ?" />
+				users-by-username-query="select email as username, password, TRUE as enabled from yetibera_schema.usuarios where email = ?" 
+				authorities-by-username-query="select email as username, rol as authority from yetibera_schema.usuarios where email = ?" />
 		</security:authentication-provider>
 	</security:authentication-manager>
 	
