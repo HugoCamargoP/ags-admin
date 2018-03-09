@@ -27,7 +27,7 @@
 		<tiles:insertTemplate template="/WEB-INF/admin_templates/menulateral.jsp" />
 		<div class="main-content">
 			<tiles:insertTemplate template="/WEB-INF/admin_templates/header.jsp" />
-			<div id="page-wrapper" ng-controller="${ appname }Prod" ng-init="getConfigEntity();">
+			<div>
 				
 				<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				
