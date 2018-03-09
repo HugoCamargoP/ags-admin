@@ -28,7 +28,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler{
 			logger.warn("User:v" + auth.getName() + " attempted to access the protected URL: " + request.getRequestURI());
 		}
 		
-		response.sendRedirect(request.getContextPath() + "/login?acces=denied");
+		response.sendRedirect(request.getContextPath() + "/login?access=denied");
 	}
 
 }
