@@ -76,6 +76,13 @@
 	</div>
 </div>
 
+<c:if test="${not empty param.access and param.access == 'denied'  }">
+	<script>
+		msjerror('<s:message code="error403" />');
+	</script>
+</c:if>
+
+
 <script>
 	$(document).ready(function (){
 		$('.carousel').carousel();
