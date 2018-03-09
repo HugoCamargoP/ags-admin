@@ -31,6 +31,10 @@
 						    <label for="email"><i class="fa fa-barcode"></i>&nbsp;<b> <s:message code="admin.shipmentCost" /> </b></label>
 					   	 	<input type="text" style="width:100%;" class="form-control" value="" name="" id="" ng-required="true" ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/" ng-model="conf.shipmentCost"/>
 						</div>
+					  	<div class="form-group col-xs-12 col-md-4" >
+						    <label for="email"><i class="fa fa-barcode"></i>&nbsp;<b> <s:message code="admin.dollarCost" /> </b></label>
+					   	 	<input type="text" style="width:100%;" class="form-control" value="" name="" id="" ng-required="true" ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/" ng-model="conf.dollarCost"/>
+						</div>
 						
 					</div>
 					<div class="col-xs-12 text-center">
