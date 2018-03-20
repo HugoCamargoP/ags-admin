@@ -24,7 +24,8 @@ public interface ProductService {
 	List<Product> getProductsByFilter(Product product, Integer page, Integer inPage);
 	Product getProductById(Integer id);
 	ProductStatus addProduct(Product product);
-	ProductStatus modifyProduct(Product product);		
+	ProductStatus modifyProduct(Product product);
+	List<Integer> getUsersIdShoppingAndWishByProduct(Integer product);
 	void removeProductById(Integer id);	
 	Integer getProductsCountyFilter(Product product);
 	List<Product> makeProductListByOrderedOrderDetail(List<OrderDetail> orderDetail);

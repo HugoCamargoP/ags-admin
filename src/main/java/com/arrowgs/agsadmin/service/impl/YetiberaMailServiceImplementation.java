@@ -1,5 +1,8 @@
 package com.arrowgs.agsadmin.service.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -8,6 +11,7 @@ import org.springframework.core.io.AbstractResource;
 import org.springframework.stereotype.Service;
 
 import com.arrowgs.agsadmin.entities.User;
+import com.arrowgs.agsadmin.helpers.EmailPropertiesHelper;
 import com.arrowgs.agsadmin.service.UserService;
 import com.arrowgs.agsadmin.service.YetiberaMailService;
 
@@ -68,6 +72,31 @@ public class YetiberaMailServiceImplementation extends BasicMailServiceImplement
 	@Override
 	public void resetPassword(User user) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sendWishAndShoppingProductRemoveMessage(String product, List<Integer> users) {
+		List<String> usersEmail = null;
+		if(users!=null && !users.isEmpty()){
+			usersEmail = new ArrayList<>();
+			Iterator<Integer> iterator = users.iterator();
+			while(iterator.hasNext()){
+				Integer actual = iterator.next();
+				User user = userService.getUserById(actual);
+				usersEmail.add(user.getEmail());
+			}
+		}
+		if(usersEmail!=null){
+			StringBuilder msg= new StringBuilder("");
+			msg.append("<p>Hola</p>");
+			msg.append("<p>Hay productos en su perfil que ya no se encuentran disponibles y debido a ello nos hemos visto obligados a eliminarlos</p>");
+			msg.append("<p>El producto eliminado ha sido: ").append(product).append("</p>");
+			msg.append("<p>Lamentamos las molestias y gracias por su comprensi&oacute;n</p>");
+			String[] emails = new String[usersEmail.size()];
+			emails =  usersEmail.toArray(emails);
+			sendMessage(emails, EmailPropertiesHelper.getEmailContact(), null, null, "Estimado Usuario", msg.toString());
+		}	
 		
 	}
 

@@ -122,6 +122,7 @@ public class ReportApi {
 		List<Product> products = null;
 		List<IdNumTable> salesBySizeTable = null;
 		Integer reportType=0;
+		Map<String,Object> response = new HashMap<>();
 		try{
 			
 			if(ordersFlag){				
@@ -206,9 +207,10 @@ public class ReportApi {
 		}catch(Exception e){
 			ordersDetail = null;
 			status = ResponseStatus.ExternalError;
+			response.put("CATCH:", e);
 			logger.error("ReportApi : getProductSalesReport :"+e.toString());
 		}
-		Map<String,Object> response = new HashMap<>();
+
 		response.put("productos", products);
 		response.put("ordenes", orders);
 		if(stocktakingFlag)

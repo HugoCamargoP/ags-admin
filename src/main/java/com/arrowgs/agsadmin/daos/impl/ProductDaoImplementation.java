@@ -425,6 +425,18 @@ public class ProductDaoImplementation implements ProductDao {
 			throw e;
 		}
 	}
+	
+	@Override
+	public void removeProductOnShoppingAndWish(Integer product) {
+		String sql = "DELETE od FROM orden_detalles od LEFT JOIN productos_sku ps ON od.id_producto_sku = ps.id LEFT JOIN ordenes o ON od.orden = o.id WHERE ps.producto = :product and (o.estado= :wish or o.estado = :shopping)";
+		
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("wish", OrderService.statusWishList);
+		paramMap.put("shopping", OrderService.statusShoppingCar);
+		paramMap.put("product", product);
+		
+		jdbcTemplate.update(sql, paramMap);
+	}
 
 
 	@Override
@@ -1013,6 +1025,26 @@ public class ProductDaoImplementation implements ProductDao {
 		SqlParameterSource paramMap = new MapSqlParameterSource("id",id);
 		jdbcTemplate.update(sql, paramMap);
 	}
+
+	@Override
+	public List<Integer> getUsersIdShoppingAndWishByProduct(Integer product) {
+		String sql = "SELECT DISTINCT(o.usuario) FROM orden_detalles od LEFT JOIN productos_sku ps ON od.id_producto_sku = ps.id LEFT JOIN ordenes o ON od.orden = o.id WHERE ps.producto = :product and (o.estado= :wish or o.estado = :shopping)";
+		
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("wish", OrderService.statusWishList);
+		paramMap.put("shopping", OrderService.statusShoppingCar);
+		paramMap.put("product", product);
+		
+		return jdbcTemplate.query(sql, paramMap, new RowMapper<Integer>() {
+
+			@Override
+			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+				
+				return rs.getInt(1);
+			}
+		});
+	}
+
 	
 
 }
