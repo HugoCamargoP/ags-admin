@@ -2,6 +2,7 @@ package com.arrowgs.agsadmin.service.impl;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -141,6 +142,12 @@ public class ProductServiceImplementation implements ProductService {
 		List<SkuProduct> skuProduct = new ArrayList<>();
 		try{
 			status = ProductStatus.OK;
+			Product oldProduct = getProductById(product.getId());
+			if(product.getReleaseDate().after(oldProduct.getReleaseDate()) && (product.getReleaseDate().after(new Date()))){
+				List<Integer> users = productDao.getUsersIdShoppingAndWishByProduct(product.getId());
+				productDao.removeProductOnShoppingAndWish(product.getId());
+				mailService.sendWishAndShoppingProductRemoveMessage(oldProduct.getTitle(), users);
+			}
 			if(product.getSkuProduct()!=null){				
 				Iterator<SkuProduct> iterator = product.getSkuProduct().iterator();
 				while(iterator.hasNext()){
@@ -237,6 +244,7 @@ public class ProductServiceImplementation implements ProductService {
 			throw e;
 		}
 	}
+	
 
 	/********* ProductDetail *********/
 	
@@ -623,6 +631,17 @@ public class ProductServiceImplementation implements ProductService {
 			throw e;
 		}
 		
+	}
+
+	@Override
+	public List<Integer> getUsersIdShoppingAndWishByProduct(Integer product) {
+		List<Integer> list = null;
+		try{
+			list = productDao.getUsersIdShoppingAndWishByProduct(product);
+		}catch(Exception e){
+			logger.error("ProductService : getUsersIdShoppingAndWishByProduct : " + e.toString());
+		}
+		return list;
 	}
 
 

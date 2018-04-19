@@ -28,9 +28,11 @@ public interface ProductDao {
 	void addProduct(Product product);
 	Product getProductById(Integer id);
 	Product getProductByIdWhithoutFilter(Integer id);
+	List<Integer> getUsersIdShoppingAndWishByProduct(Integer product);
 	void modifyProduct(Product product);
 	void modifyProduct(Product product, Integer id);	
 	void removeProductById(Integer id);
+	void removeProductOnShoppingAndWish(Integer product);
 	Integer getCountProductsByFilter(Product product);
 		/*Top Product*/
 	List<Product> topProducts();
