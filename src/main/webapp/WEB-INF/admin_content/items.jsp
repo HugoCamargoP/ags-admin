@@ -227,7 +227,7 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							 					ES
 							 				</td>
 							 				<td colspan="4">
-							 					<textarea name="" id="" rows="3" ng-required="true" ng-maxlength="255" ng-model="p.descriptionEs" class="form-control"></textarea>
+							 					<textarea name="" id="" rows="3" ng-required="true" ng-maxlength="1499" ng-model="p.descriptionEs" class="form-control"></textarea>
 							 				</td>
 							 			</tr>
 							 			<tr class="">
@@ -235,7 +235,7 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							 					EN
 							 				</td>
 							 				<td colspan="4">
-							 					<textarea name="" id="" rows="3" ng-required="true" ng-maxlength="255" ng-model="p.descriptionEn" class="form-control"></textarea>
+							 					<textarea name="" id="" rows="3" ng-required="true" ng-maxlength="1499" ng-model="p.descriptionEn" class="form-control"></textarea>
 							 				</td>
 							 			</tr>
 							 			<tr class="">
@@ -243,7 +243,7 @@ ng-init="<%--getAllProducts();--%>getProductSizes();forms={};forms1={};overs= {}
 							 					FR
 							 				</td>
 							 				<td colspan="4">
-							 					<textarea name="" id="" rows="3" ng-required="true" ng-maxlength="255" ng-model="p.descriptionFr" class="form-control"></textarea>
+							 					<textarea name="" id="" rows="3" ng-required="true" ng-maxlength="1499" ng-model="p.descriptionFr" class="form-control"></textarea>
 							 				</td>
 								 		</tr>
 							 			<tr>
