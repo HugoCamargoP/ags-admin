@@ -117,4 +117,19 @@ public class OrderApi {
 		return ControllerHelper.mapResponse(status, orderDetail);
 	}
 
+	@RequestMapping(path=ApiMappings.OrderContact, method=RequestMethod.POST)
+	public @ResponseBody Map<String,? extends Object> orderContact(@RequestBody Map<String,String> params){
+		ResponseStatus status;
+		try{
+			String orderId, msg, subject;
+			orderId = params.get("orderId");
+			msg = params.get("message");
+			subject = params.get("subject");
+			orderService.contact(orderId, msg, subject);
+			status = ResponseStatus.OK;
+		}catch(Exception e){
+			status = ResponseStatus.ExternalError;
+		}
+		return ControllerHelper.mapResponse(status, null);
+	}
 }

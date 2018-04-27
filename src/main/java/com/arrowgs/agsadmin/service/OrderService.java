@@ -66,4 +66,7 @@ public interface OrderService {
 	
 	/*Status*/
 	List<IdNameTable> getStatus();
+	
+	/*Contact*/
+	void contact(String orderId, String msg, String subject);
 }
