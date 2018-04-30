@@ -21,6 +21,8 @@ import com.arrowgs.agsadmin.entities.SkuProduct;
 import com.arrowgs.agsadmin.entities.User;
 import com.arrowgs.agsadmin.service.OrderService;
 import com.arrowgs.agsadmin.service.ProductService;
+import com.arrowgs.agsadmin.service.UserService;
+import com.arrowgs.agsadmin.service.YetiberaMailService;
 
 @Service
 public class OrderServiceImplementation implements OrderService {
@@ -32,6 +34,12 @@ public class OrderServiceImplementation implements OrderService {
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	YetiberaMailService mailService;
 	
 	
 	@Override
@@ -583,6 +591,19 @@ public class OrderServiceImplementation implements OrderService {
 			throw e;
 		}
 		return status;
+	}
+
+	@Override
+	public void contact(String orderId, String msg, String subject) {
+		
+		try{
+			Order order = getOrderById(Integer.parseInt(orderId));
+			User user = userService.getUserById(order.getUser());
+			mailService.contact(user.getEmail(), msg, subject);
+		}catch(Exception e){
+			logger.error("OrderService : contact : " + e.toString());
+			throw e;
+		}
 	}
 
 

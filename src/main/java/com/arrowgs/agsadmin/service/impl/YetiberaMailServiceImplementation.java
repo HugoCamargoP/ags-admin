@@ -100,5 +100,14 @@ public class YetiberaMailServiceImplementation extends BasicMailServiceImplement
 		
 	}
 
+	@Override
+	public void contact(String userEmail, String msg, String subject) {
+		String[] to = {userEmail};
+		String from = EmailPropertiesHelper.getEmailFrom();
+		
+		sendMessage(to, from, null, null, subject, msg);
+		
+	}
+
 	
 }

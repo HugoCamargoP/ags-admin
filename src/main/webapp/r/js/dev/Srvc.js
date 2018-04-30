@@ -105,6 +105,13 @@ function Service(http, url)
 	}
 	
     /************ORDERS**************/
+	
+	
+	//Manda un email al usuario que es dueño de la orden
+		//Parámetros necesarios: un Map u objeto que tenga los atributos (key) String orderId, String message y String subject
+	this.orderContact = function(map){
+		return http.post(url+"/order-contact",map)
+	}
    
 	//Trae todos los estados posibles para una orden
 		//Parámetros no necesarios
