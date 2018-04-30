@@ -41,19 +41,19 @@ public class ConfigDaoImpl implements ConfigDao{
 			config.setBigBox(rs.getDouble(5));
 			config.setShipmentCost(rs.getDouble(6));
 			config.setDollarCost(rs.getDouble(7));
-			config.setBoxSmallHeight(rs.getDouble(8));
-			config.setBoxMediumHeight(rs.getDouble(9));
-			config.setBoxLargeHeight(rs.getDouble(10));
-			config.setBoxSmallDepth(rs.getDouble(11));
-			config.setBoxMediumDepth(rs.getDouble(12));
-			config.setBoxLargeDepth(rs.getDouble(13));
-			config.setBoxSmallWidth(rs.getDouble(14));
-			config.setBoxMediumWidth(rs.getDouble(15));
-			config.setBoxLargeWidth(rs.getDouble(16));
-			config.setBoxSmallWeight(rs.getDouble(17));
-			config.setBoxMediumWeight(rs.getDouble(18));
-			config.setBoxLargeWeight(rs.getDouble(19));
-			config.setShirtWeight(rs.getDouble(20));
+//			config.setBoxSmallHeight(rs.getDouble(8));
+//			config.setBoxMediumHeight(rs.getDouble(9));
+//			config.setBoxLargeHeight(rs.getDouble(10));
+//			config.setBoxSmallDepth(rs.getDouble(11));
+//			config.setBoxMediumDepth(rs.getDouble(12));
+//			config.setBoxLargeDepth(rs.getDouble(13));
+//			config.setBoxSmallWidth(rs.getDouble(14));
+//			config.setBoxMediumWidth(rs.getDouble(15));
+//			config.setBoxLargeWidth(rs.getDouble(16));
+//			config.setBoxSmallWeight(rs.getDouble(17));
+//			config.setBoxMediumWeight(rs.getDouble(18));
+//			config.setBoxLargeWeight(rs.getDouble(19));
+//			config.setShirtWeight(rs.getDouble(20));
 			return config;
 		}
 		
@@ -87,10 +87,12 @@ public class ConfigDaoImpl implements ConfigDao{
 
 	@Override
 	public ConfigEntity updateConfigEntity(ConfigEntity config) {
-		String sql = "UPDATE basic_config SET iva = :iva, caja_pequena = :cp, caja_mediana = :cm, caja_grande = :cg, costo_envio = :ce, costo_dolar = :usd, "
-				+ "caja_altura_s = :chs, caja_altura_m = :chm, caja_altura_l = :chl, caja_largo_s = :cls, caja_largo_m = :clm, caja_largo_l = :cll, "
-				+ "caja_ancho_s = :cas, caja_ancho_m = :cam, caja_ancho_l = :cal, caja_peso_s = :cps, caja_peso_m = :cpm, caja_peso_l = :cpl,  "
-				+ " guayabera_peso = :gp WHERE id = :id";
+//		String sql = "UPDATE basic_config SET iva = :iva, caja_pequena = :cp, caja_mediana = :cm, caja_grande = :cg, costo_envio = :ce, costo_dolar = :usd, "
+//				+ "caja_altura_s = :chs, caja_altura_m = :chm, caja_altura_l = :chl, caja_largo_s = :cls, caja_largo_m = :clm, caja_largo_l = :cll, "
+//				+ "caja_ancho_s = :cas, caja_ancho_m = :cam, caja_ancho_l = :cal, caja_peso_s = :cps, caja_peso_m = :cpm, caja_peso_l = :cpl,  "
+//				+ " guayabera_peso = :gp WHERE id = :id";
+		
+		String sql = "UPDATE basic_config SET iva = :iva, caja_pequena = :cp, caja_mediana = :cm, caja_grande = :cg, costo_envio = :ce, costo_dolar = :usd WHERE id = :id";
 		
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("iva", config.getIva());
@@ -100,19 +102,19 @@ public class ConfigDaoImpl implements ConfigDao{
 		paramMap.put("ce", config.getShipmentCost());
 		paramMap.put("id", config.getId());
 		paramMap.put("usd", config.getDollarCost());
-		paramMap.put("chs", config.getBoxSmallHeight());
-		paramMap.put("chm", config.getBoxMediumHeight());
-		paramMap.put("chl", config.getBoxLargeHeight());
-		paramMap.put("cls", config.getBoxSmallDepth());
-		paramMap.put("clm", config.getBoxMediumDepth());
-		paramMap.put("cll", config.getBoxLargeDepth());
-		paramMap.put("cas", config.getBoxSmallWidth());
-		paramMap.put("cam", config.getBoxMediumWidth());
-		paramMap.put("cal", config.getBoxLargeWidth());
-		paramMap.put("cps", config.getBoxSmallWeight());
-		paramMap.put("cpm", config.getBoxMediumWeight());
-		paramMap.put("cpl", config.getBoxLargeWeight());
-		paramMap.put("gp", config.getShirtWeight());
+//		paramMap.put("chs", config.getBoxSmallHeight());
+//		paramMap.put("chm", config.getBoxMediumHeight());
+//		paramMap.put("chl", config.getBoxLargeHeight());
+//		paramMap.put("cls", config.getBoxSmallDepth());
+//		paramMap.put("clm", config.getBoxMediumDepth());
+//		paramMap.put("cll", config.getBoxLargeDepth());
+//		paramMap.put("cas", config.getBoxSmallWidth());
+//		paramMap.put("cam", config.getBoxMediumWidth());
+//		paramMap.put("cal", config.getBoxLargeWidth());
+//		paramMap.put("cps", config.getBoxSmallWeight());
+//		paramMap.put("cpm", config.getBoxMediumWeight());
+//		paramMap.put("cpl", config.getBoxLargeWeight());
+//		paramMap.put("gp", config.getShirtWeight());
 		
 		jdbcTemplate.update(sql, paramMap);
 		
@@ -129,19 +131,19 @@ public class ConfigDaoImpl implements ConfigDao{
 		args.put("caja_grande", config.getBigBox());
 		args.put("costo_envio", config.getShipmentCost());
 		args.put("costo_dolar", config.getDollarCost());
-		args.put("caja_altura_s", config.getBoxSmallHeight() );
-		args.put("caja_altura_m", config.getBoxMediumHeight() );
-		args.put("caja_altura_l", config.getBoxLargeHeight() );
-		args.put("caja_largo_s", config.getBoxSmallDepth() );
-		args.put("caja_largo_m", config.getBoxMediumDepth() );
-		args.put("caja_largo_l", config.getBoxLargeDepth() );
-		args.put("caja_ancho_s", config.getBoxSmallWidth() );
-		args.put("caja_ancho_m", config.getBoxMediumWidth() );
-		args.put("caja_ancho_l", config.getBoxLargeWidth() );
-		args.put("caja_peso_s", config.getBoxSmallWeight() );
-		args.put("caja_peso_m", config.getBoxMediumWeight() );
-		args.put("caja_peso_l", config.getBoxLargeWeight() );
-		args.put("guayabera_peso", config.getShirtWeight() );
+//		args.put("caja_altura_s", config.getBoxSmallHeight() );
+//		args.put("caja_altura_m", config.getBoxMediumHeight() );
+//		args.put("caja_altura_l", config.getBoxLargeHeight() );
+//		args.put("caja_largo_s", config.getBoxSmallDepth() );
+//		args.put("caja_largo_m", config.getBoxMediumDepth() );
+//		args.put("caja_largo_l", config.getBoxLargeDepth() );
+//		args.put("caja_ancho_s", config.getBoxSmallWidth() );
+//		args.put("caja_ancho_m", config.getBoxMediumWidth() );
+//		args.put("caja_ancho_l", config.getBoxLargeWidth() );
+//		args.put("caja_peso_s", config.getBoxSmallWeight() );
+//		args.put("caja_peso_m", config.getBoxMediumWeight() );
+//		args.put("caja_peso_l", config.getBoxLargeWeight() );
+//		args.put("guayabera_peso", config.getShirtWeight() );
 		
 		Number id = configInsertActor.executeAndReturnKey(args);
 		
