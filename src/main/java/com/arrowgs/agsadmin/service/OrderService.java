@@ -2,6 +2,7 @@ package com.arrowgs.agsadmin.service;
 
 import java.util.List;
 
+import com.arrowgs.agsadmin.entities.GuideNumber;
 import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderAmount;
@@ -69,4 +70,12 @@ public interface OrderService {
 	
 	/*Contact*/
 	void contact(String orderId, String msg, String subject);
+	
+	/* GuideNumber*/
+	List<GuideNumber> getGuideNumbersByOrder(Integer orderId);
+	GuideNumber	getGuideNumberById(Integer id);
+	GuideNumber getGuideNumberByGuideNumber(String guideNumber);
+	void createGuideNumber(GuideNumber guide);
+	void updateGuideNumber(GuideNumber guide);
+	void deleteGuideNumber(Integer guideId);
 }

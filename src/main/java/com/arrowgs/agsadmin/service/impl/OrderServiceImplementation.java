@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.arrowgs.agsadmin.daos.OrderDao;
+import com.arrowgs.agsadmin.entities.GuideNumber;
 import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderAmount;
@@ -76,6 +77,7 @@ public class OrderServiceImplementation implements OrderService {
 			}
 			userOrder.setOrderAmount(orderDao.getOrderAmountByOrder(id));
 			userOrder.setOrderRecord(orderDao.getOrderRecordByOrder(id));
+			userOrder.setGuidesNumbers(getGuideNumbersByOrder(id));
 			return userOrder;
 		}
 		catch(Exception e){
@@ -92,6 +94,7 @@ public class OrderServiceImplementation implements OrderService {
 			while(myIterator.hasNext()){
 				Order actualOrder = myIterator.next();
 				actualOrder.setOrderDetail(getOrderDetailByOrder(actualOrder.getId()));
+				actualOrder.setGuidesNumbers(getGuideNumbersByOrder(actualOrder.getId()));
 				Iterator<OrderDetail> orderDetail = actualOrder.getOrderDetail().iterator();
 				while(orderDetail.hasNext()){
 					OrderDetail myActual = orderDetail.next();
@@ -172,6 +175,7 @@ public class OrderServiceImplementation implements OrderService {
 			while(iterator.hasNext()){
 				Order actualOrder = iterator.next();
 				actualOrder.setOrderDetail(getOrderDetailByOrder(actualOrder.getId()));
+				actualOrder.setGuidesNumbers(getGuideNumbersByOrder(actualOrder.getId()));
 				if(actualOrder.getOrderDetail()!=null|| !actualOrder.getOrderDetail().isEmpty()){
 					Iterator<OrderDetail> iteratorDetail = actualOrder.getOrderDetail().iterator();
 					while(iteratorDetail.hasNext()){
@@ -479,6 +483,7 @@ public class OrderServiceImplementation implements OrderService {
 					actual.setUpTo(order.getUpTo());
 					order.setId(actual.getId());
 					actual.setOrderDetail(orderDao.getOrderDetailByFilter(order));
+					actual.setGuidesNumbers(getGuideNumbersByOrder(actual.getId()));
 					
 					if(actual.getOrderDetail()!=null && actual.getOrderDetail().size()>0)
 					{
@@ -604,6 +609,72 @@ public class OrderServiceImplementation implements OrderService {
 			logger.error("OrderService : contact : " + e.toString());
 			throw e;
 		}
+	}
+
+	@Override
+	public List<GuideNumber> getGuideNumbersByOrder(Integer orderId) {
+		List<GuideNumber> guides;
+		try{
+			guides = orderDao.getGuideNumbersByOrder(orderId);
+		}catch(Exception e){
+			logger.error("OrderService : getGuideNumbersByOrder : " + e.toString());
+			throw e;
+		}
+		return guides;
+	}
+
+	@Override
+	public GuideNumber getGuideNumberById(Integer id) {
+		GuideNumber guide;
+		try{
+			guide = orderDao.getGuideNumberById(id);
+		}catch(Exception e){
+			logger.error("OrderService : getGuideNumbersById : " + e.toString());
+			throw e;
+		}
+		return guide;
+	}
+
+	@Override
+	public GuideNumber getGuideNumberByGuideNumber(String guideNumber) {
+		GuideNumber guide;
+		try{
+			guide = orderDao.getGuideNumberByGuideNumber(guideNumber);
+		}catch(Exception e){
+			logger.error("OrderService : getGuideNumbersByGuideNumber : " + e.toString());
+			throw e;
+		}
+		return guide;
+	}
+
+	@Override
+	public void createGuideNumber(GuideNumber guide) {
+		try{
+			orderDao.createGuideNumber(guide);
+		}catch(Exception e){
+			logger.error("OrderService : createGuideNUmber : " + e.toString());
+		}
+		
+	}
+
+	@Override
+	public void updateGuideNumber(GuideNumber guide) {
+		try{
+			orderDao.updateGuideNumber(guide);
+		}catch(Exception e){
+			logger.error("OrderService : createGuideNUmber : " + e.toString());
+		}
+		
+	}
+
+	@Override
+	public void deleteGuideNumber(Integer guideId) {
+		try{
+			orderDao.deleteGuideNumber(guideId);
+		}catch(Exception e){
+			logger.error("OrderService : deleteGuideNumber : " + e.toString());
+		}
+		
 	}
 
 

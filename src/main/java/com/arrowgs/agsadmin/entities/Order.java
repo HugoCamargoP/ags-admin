@@ -20,6 +20,7 @@ public class Order {
 	private List<OrderDetail> orderDetail;
 	private List<OrderRecord> orderRecord;
 	private List<OrderAmount> orderAmount;
+	private List<GuideNumber> guidesNumbers;
 	private String 	userText;
 	private String 	statusText;
 	private Date	statusDate;
@@ -100,6 +101,14 @@ public class Order {
 
 	public void setOrderAmount(List<OrderAmount> orderAmount) {
 		this.orderAmount = orderAmount;
+	}
+
+	public List<GuideNumber> getGuidesNumbers() {
+		return guidesNumbers;
+	}
+
+	public void setGuidesNumbers(List<GuideNumber> guidesNumbers) {
+		this.guidesNumbers = guidesNumbers;
 	}
 
 	/***********Getter and Setter Address**********/
