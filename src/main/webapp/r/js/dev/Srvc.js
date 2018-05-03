@@ -106,6 +106,38 @@ function Service(http, url)
 	
     /************ORDERS**************/
 	
+	//Crea y almacena un número de guía para una orden
+		//Parámetros necesarios: GuideNumber guide
+	this.createGuideNumber = function(guide){
+		return http.post(url+'/guides-number',guide)
+	}
+	
+	//Actualiza un número de guía para una orden
+		//Parámetros necesarios: GuideNumber guide
+	this.createGuideNumber = function(guide){
+		return http.put(url+'/guides-number',guide)
+	}
+	
+	//Elimina un número de guía
+		//Parámetros necesarios: Integer guideId
+	this.deleteGuideNumber = function(guideId){
+		return http({
+			'method':'DELETE',
+			'url':url+'/guides-number?id='+guideId
+		})
+		
+	}
+	
+	//Obtiene todas las guías de una orden
+		//Parámetros necesarios: Integer orderId
+	this.getGuidesNumbersByOrder = function(orderId){
+		return http({
+			'method':'DELETE',
+			'url':url+'/order-guides-number?order='+orderId
+		})
+		
+	}
+		
 	
 	//Manda un email al usuario que es dueño de la orden
 		//Parámetros necesarios: un Map u objeto que tenga los atributos (key) String orderId, String message y String subject

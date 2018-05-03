@@ -24,6 +24,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.arrowgs.agsadmin.daos.OrderDao;
+import com.arrowgs.agsadmin.entities.GuideNumber;
 import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderAmount;
@@ -44,6 +45,7 @@ public class OrderDaoImplementation implements OrderDao{
 	private SimpleJdbcInsert orderDetailInsertActor;
 	private SimpleJdbcInsert orderRecordInsertActor;
 	private SimpleJdbcInsert orderAmountInsertActor;
+	private SimpleJdbcInsert guideNumberInsertActor;
 	
 	
 	
@@ -246,6 +248,32 @@ public class OrderDaoImplementation implements OrderDao{
 		
 	}
 	
+	class GuideNumberRowMapper implements RowMapper<GuideNumber>{
+
+		@Override
+		public GuideNumber mapRow(ResultSet rs, int rowNum) throws SQLException {
+			GuideNumber guide = new GuideNumber();
+			
+			guide.setId(rs.getInt(1));
+			guide.setOrder(rs.getInt(2));
+			guide.setGuideNumber(rs.getString(3));
+			guide.setCarrier(rs.getString(4));
+			
+			return guide;
+		}
+		
+	}
+	
+	
+	class GuideNumberRowExtractor implements ResultSetExtractor<GuideNumber>{
+
+		@Override
+		public GuideNumber extractData(ResultSet rs) throws SQLException, DataAccessException {
+			return rs.next() ? (new GuideNumberRowMapper()).mapRow(rs, 0) : null;
+		}
+		
+	}	
+	
 	
 	@Autowired
 	public void setDataSource(DataSource dataSource){
@@ -265,6 +293,10 @@ public class OrderDaoImplementation implements OrderDao{
 		
 		orderAmountInsertActor = new SimpleJdbcInsert(dataSource)
 				.withTableName(OrderAmountTable)
+				.usingGeneratedKeyColumns("id");
+		
+		guideNumberInsertActor = new SimpleJdbcInsert(dataSource)
+				.withTableName(OrderGuidesTable)
 				.usingGeneratedKeyColumns("id");
 	}
 	
@@ -815,6 +847,59 @@ public class OrderDaoImplementation implements OrderDao{
 		String sql = "SELECT * FROM estados";
 		return jdbcTemplate.query(sql, new IdNameTableRowMapper());
 	}
+	
+	@Override
+	public List<GuideNumber> getGuideNumbersByOrder(Integer orderId) {
+		String sql = "SELECT * FROM ordenes_guias WHERE orden = :orden";
+		SqlParameterSource paramMap = new MapSqlParameterSource("orden", orderId);
+		return jdbcTemplate.query(sql, paramMap ,new GuideNumberRowMapper());
+	}
+
+	@Override
+	public GuideNumber getGuideNumberById(Integer id) {
+		String sql = "SELECT * FROM ordenes_guias WHERE id = :id";
+		SqlParameterSource paramMap = new MapSqlParameterSource("id", id);
+		return jdbcTemplate.query(sql, paramMap ,new GuideNumberRowExtractor());
+	}
+
+	@Override
+	public GuideNumber getGuideNumberByGuideNumber(String guideNumber) {
+		String sql = "SELECT * FROM ordenes_guias WHERE orden = :guia";
+		SqlParameterSource paramMap = new MapSqlParameterSource("guia", guideNumber);
+		return jdbcTemplate.query(sql, paramMap ,new GuideNumberRowExtractor());
+	}
+
+	@Override
+	public void createGuideNumber(GuideNumber guide) {
+		Map<String,Object> args = new HashMap<>();
+		
+		args.put("orden", guide.getOrder());
+		args.put("guia", guide.getGuideNumber());
+		args.put("transportista", guide.getCarrier());
+		
+		Number id = guideNumberInsertActor.executeAndReturnKey(args);
+		guide.setId(id.intValue());
+	}
+
+	@Override
+	public void updateGuideNumber(GuideNumber guide) {
+		String sql = "UPDATE ordenes_guias SET orden = :orden, guia = :guia, transportista = :transportista WHERE id = :id";
+		Map<String,Object> paramMap = new HashMap<>();		
+		paramMap.put("orden", guide.getOrder());
+		paramMap.put("guia", guide.getGuideNumber());
+		paramMap.put("transportista", guide.getCarrier());
+		paramMap.put("id", guide.getId());
+		
+		jdbcTemplate.update(sql, paramMap);
+	}
+
+	@Override
+	public void deleteGuideNumber(Integer guideId) {
+		String sql = "DELETE FROM ordenes_guias WHERE id = :id";
+		SqlParameterSource paramMap = new MapSqlParameterSource("id",guideId);
+		jdbcTemplate.update(sql, paramMap);
+		
+	}	
 
 
 }

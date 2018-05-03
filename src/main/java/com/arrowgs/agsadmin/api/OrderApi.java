@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.arrowgs.agsadmin.controllers.cons.Constants.ApiMappings;
+import com.arrowgs.agsadmin.entities.GuideNumber;
 import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderDetail;
@@ -126,6 +128,78 @@ public class OrderApi {
 			msg = params.get("message");
 			subject = params.get("subject");
 			orderService.contact(orderId, msg, subject);
+			status = ResponseStatus.OK;
+		}catch(Exception e){
+			status = ResponseStatus.ExternalError;
+		}
+		return ControllerHelper.mapResponse(status, null);
+	}
+	
+	
+	@RequestMapping(path=ApiMappings.GuidesNumber, method=RequestMethod.POST)
+	public @ResponseBody Map<String,? extends Object> createGuideNumber(@RequestBody GuideNumber guideNumber){
+		ResponseStatus status;
+		try{
+			orderService.createGuideNumber(guideNumber);
+			status = ResponseStatus.OK;
+		}catch(Exception e){
+			status = ResponseStatus.ExternalError;
+		}
+		return ControllerHelper.mapResponse(status, guideNumber);
+	}
+	
+	@RequestMapping(path=ApiMappings.GuidesNumber, method=RequestMethod.PUT)
+	public @ResponseBody Map<String,? extends Object> updateGuideNumber(@RequestBody GuideNumber guideNumber){
+		ResponseStatus status;
+		try{
+			orderService.updateGuideNumber(guideNumber);
+			status = ResponseStatus.OK;
+		}catch(Exception e){
+			status = ResponseStatus.ExternalError;
+		}
+		return ControllerHelper.mapResponse(status, guideNumber);
+	}
+	
+	@RequestMapping(path=ApiMappings.OrderGuidesNumber, method=RequestMethod.GET)
+	public @ResponseBody Map<String,? extends Object> getGuidesNumberByOrder(@RequestParam(name="order", required=true) Integer orderId){
+		List<GuideNumber> guides;
+		ResponseStatus status;
+		try{
+			guides = orderService.getGuideNumbersByOrder(orderId);
+			status = ResponseStatus.OK;
+		}catch(Exception e){
+			guides = null;
+			status = ResponseStatus.ExternalError;
+		}
+		return ControllerHelper.mapResponse(status, guides);
+	}
+	
+	@RequestMapping(path=ApiMappings.GuidesNumber, method=RequestMethod.GET)
+	public @ResponseBody Map<String,? extends Object> getGuidesNumberByIdOrGuide(
+			@RequestParam(name="id", required=false) Integer id,
+			@RequestParam(name="guide", required=false) String guideNumber){
+		GuideNumber guide;
+		ResponseStatus status;
+		try{
+			if(id!=null){
+				guide = orderService.getGuideNumberById(id);
+			}else{
+				guide = orderService.getGuideNumberByGuideNumber(guideNumber);
+			}
+			status = ResponseStatus.OK;
+		}catch(Exception e){
+			guide = null;
+			status = ResponseStatus.ExternalError;
+		}
+		return ControllerHelper.mapResponse(status, guide);
+	}
+	
+	
+	@RequestMapping(path=ApiMappings.GuidesNumber, method=RequestMethod.DELETE)
+	public @ResponseBody Map<String,? extends Object> deleteGuideNumber(@RequestParam(name="id", required=true) Integer guideId){
+		ResponseStatus status;
+		try{
+			orderService.deleteGuideNumber(guideId);
 			status = ResponseStatus.OK;
 		}catch(Exception e){
 			status = ResponseStatus.ExternalError;

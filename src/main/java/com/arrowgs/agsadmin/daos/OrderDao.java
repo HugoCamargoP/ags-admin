@@ -3,6 +3,7 @@ package com.arrowgs.agsadmin.daos;
 import java.util.Date;
 import java.util.List;
 
+import com.arrowgs.agsadmin.entities.GuideNumber;
 import com.arrowgs.agsadmin.entities.IdNameTable;
 import com.arrowgs.agsadmin.entities.Order;
 import com.arrowgs.agsadmin.entities.OrderAmount;
@@ -16,6 +17,7 @@ public interface OrderDao {
 	static final String OrderDetailTables   = "orden_detalles";
 	static final String OrderRecordTable	= "orden_historico";
 	static final String OrderAmountTable	= "orden_costos";
+	static final String OrderGuidesTable	= "ordenes_guias";
 	
 	static public final Integer	Enable	=	1;
 	static public final Integer	Disable	=	0;
@@ -70,6 +72,14 @@ public interface OrderDao {
 	
 	//Estados
 	List<IdNameTable> getStatus();
+	
+	//Order Guides
+	List<GuideNumber> getGuideNumbersByOrder(Integer orderId);
+	GuideNumber	getGuideNumberById(Integer id);
+	GuideNumber getGuideNumberByGuideNumber(String guideNumber);
+	void createGuideNumber(GuideNumber guide);
+	void updateGuideNumber(GuideNumber guide);
+	void deleteGuideNumber(Integer guideId);
 	
 	
 }
