@@ -31,6 +31,9 @@ public class ConfigEntity {
 	/*Shirt*/
 	private Double shirtWeight;
 	
+	/*Envelope*/
+	private Double envelopeWeight;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -150,6 +153,12 @@ public class ConfigEntity {
 	}
 	public void setShirtWeight(Double shirtWeight) {
 		this.shirtWeight = shirtWeight;
+	}
+	public Double getEnvelopeWeight() {
+		return envelopeWeight;
+	}
+	public void setEnvelopeWeight(Double envelopeWeight) {
+		this.envelopeWeight = envelopeWeight;
 	}
 	
 	
