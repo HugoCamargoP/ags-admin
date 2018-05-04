@@ -114,7 +114,7 @@ function Service(http, url)
 	
 	//Actualiza un número de guía para una orden
 		//Parámetros necesarios: GuideNumber guide
-	this.createGuideNumber = function(guide){
+	this.updateGuideNumber = function(guide){
 		return http.put(url+'/guides-number',guide)
 	}
 	
