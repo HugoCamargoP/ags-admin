@@ -69,9 +69,10 @@ public class OrderDaoImplementation implements OrderDao{
 			orden.setComment(rs.getString(6));
 			orden.setEnable(rs.getInt(7));
 			orden.setFacturacion(rs.getInt(8));
+			orden.setDollar(rs.getDouble(9));
 			if(expandible){
-				orden.setUserText(rs.getString(9));
-				orden.setStatusText(rs.getString(10));
+				orden.setUserText(rs.getString(10));
+				orden.setStatusText(rs.getString(11));
 			}
 			
 			return orden;

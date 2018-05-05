@@ -13,6 +13,7 @@ public class Order {
 	private String comment;
 	private Integer	enable;
 	private Integer facturacion;
+	private Double	dollar;	
 
 	private Double totalAmount;
 	
@@ -144,6 +145,14 @@ public class Order {
 
 	public void setFacturacion(Integer facturacion) {
 		this.facturacion = facturacion;
+	}
+
+	public Double getDollar() {
+		return dollar;
+	}
+
+	public void setDollar(Double dollar) {
+		this.dollar = dollar;
 	}
 
 	/***********Getter and Setter totalAmount**********/
