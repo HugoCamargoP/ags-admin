@@ -58,6 +58,46 @@
 			  <strong>Without information {{estado}}</strong> 
 			</div>
 		</div>
+		
+		<!-- Modal -->
+		<div id="myModal" class="modal fade myModal" role="dialog">
+		  <div class="modal-dialog">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">Email contact</h4>
+		      </div>
+		      <div class="modal-body">
+			      <form action="" onsubmit="return false;" ng-submit="orderContact();">
+				        <div class="form-group">
+					        <label for="">To:</label>
+					        <div class="form-control disabled" disabled="disabled" > {{ordercontactor.name}} </div>
+				        </div>
+				        <div class="form-group">
+					        <label for="">Subject:</label>
+					        <input class="form-control" type="text" ng-model="ordercontactor.subject" ng-required="true" />
+				        </div>
+				        <div class="form-group">
+					        <label for="">Message:</label>
+					        <textarea name="" id="" class="form-control" rows="5" ng-required="true" ng-model="ordercontactor.message"></textarea>
+					    </div>
+				      </div>
+				      <div class="text-center">
+				      	<button class="btn btn-primary" type="submit">Send</button>
+				      </div>
+				      <div class="clearfix"></div>
+				      <br /><br />
+			      </form>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		
+		  </div>
+		</div>
+		
 		<div class="" ng-if="cuanto">    
 			<div class="col-xs-12 form-opacity">
 			  <div class="margin15em"></div>
@@ -65,13 +105,17 @@
 		      	<table class="table table-bordered ">
 			            <tr class="btn-black a">
 			                <td>Open</td>
+			                <td>Send&nbsp;Email</td>
 			                <td>Order</td>
 			                <td>Customer Name</td>
 			                <td>Status</td>
 			                <td>Creation</td>
 			            </tr>       
 			            <tr class="text-center" ng-repeat="(key, value) in ordenes">
-			            	<td><a href="${ linkOrder }?order={{value.id}}"><div><i class="fa fa-eye"></i></div></a></td>
+			            	<td><a href="${ linkOrder }?order={{value.id}}"><i class="fa fa-eye"></i></a></td>
+			            	<td class="click" ng-click="ordercontactor.orderId=value.id; ordercontactor.name = value.userText; " data-toggle="modal" data-target="#myModal">
+			            		<a href="javascript:void();"><i class="fa fa-envelope-open-o"></i></a>
+			            	</td>
 							<td>{{value.id}}</td>
 							<td>{{value.userText}}</td>
 							<td>{{value.statusText}}</td>

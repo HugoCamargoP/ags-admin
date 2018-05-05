@@ -132,7 +132,7 @@ function Service(http, url)
 		//Parámetros necesarios: Integer orderId
 	this.getGuidesNumbersByOrder = function(orderId){
 		return http({
-			'method':'DELETE',
+			'method':'GET',
 			'url':url+'/order-guides-number?order='+orderId
 		})
 		

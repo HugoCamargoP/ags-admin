@@ -24,6 +24,69 @@ function($scope , Service)
 				});	
 	}
 	
+	$scope.allOrders = {};
+	$scope.numerodeidparaguias = '';
+	$scope.getGuidesNumbersByOrder = function(a)
+	{
+		$scope.numerodeidparaguias = a;
+		Service.getGuidesNumbersByOrder(a).then(
+		function successCallback(response){
+			$scope.allOrders = response.data.data;
+			//$scope.getMessage('done',0);
+		},
+		function errorCallback(response){
+			$scope.getMessage('err.error',1);			
+		});	
+	}
+	
+	$scope.creaguia = {};
+	$scope.createGuideNumber = function()
+	{
+		$scope.creaguia.order = $scope.numerodeidparaguias;
+		Service.createGuideNumber($scope.creaguia).then(
+		function successCallback(response){
+			$scope.getGuidesNumbersByOrder($scope.numerodeidparaguias);
+			$scope.getMessage('done',0);
+			closeModal('agregaguia');
+			$scope.creaguia = {};
+		},
+		function errorCallback(response){
+			$scope.getMessage('err.error',1);			
+		});	
+	}
+	
+	$scope.modificaGuia = {};
+	$scope.updateGuideNumber = function()
+	{
+		Service.updateGuideNumber($scope.modificaGuia).then(
+		function successCallback(response){
+			$scope.getGuidesNumbersByOrder($scope.numerodeidparaguias);
+			$scope.modificaGuia = {};
+			$scope.getMessage('done',0);
+			closeModal('modificaguia');
+		},
+		function errorCallback(response){
+			$scope.getMessage('err.error',1);			
+		});	
+	}
+	
+	$scope.paraModificar = function(a)
+	{
+		console.log($scope.modificaGuia = a);
+	}
+	
+	$scope.deleteGuideNumber = function(a)
+	{
+		Service.deleteGuideNumber(a).then(
+		function successCallback(response){
+			$scope.getGuidesNumbersByOrder($scope.numerodeidparaguias);
+			$scope.getMessage('done',0);
+		},
+		function errorCallback(response){
+			$scope.getMessage('err.error',1);			
+		});	
+	}
+	
 	$scope.ordersNew = {};
 	$scope.currectPage1 = 1;
 	$scope.currectPage = 1;
@@ -31,6 +94,39 @@ function($scope , Service)
 	$scope.paginasGlobals;
 	$scope.paginacion = 0
 	var theCount = 1;
+
+	$scope.updateOrderStatus = function()
+	{
+		console.log($scope.ord);
+		Service.updateOrderStatus($scope.ord).then(
+		function successCallback(response){
+			$scope.ord = {};
+			msjexito('Status updated');
+			location.reload();
+		},
+		function errorCallback(response){
+			$scope.getMessage('err.error',1);			
+		});	
+	}
+	
+	$scope.ordercontactor = {};
+	$scope.orderContact = function()
+	{
+		Service.orderContact($scope.ordercontactor).then(
+		function successCallback(response){
+			if( response.data.status == 'OK' )
+			{
+				closeModal('myModal');
+				//$scope.status = response.data.data;
+				$scope.ordercontactor =  {};
+				console.log(response);
+				$scope.getMessage('emailSend',0);
+			}
+		},
+		function errorCallback(response){
+			$scope.getMessage('err.error',1);			
+		});		
+	}
 	
 	$scope.getOrders = function()
 	{

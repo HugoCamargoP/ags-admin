@@ -1,5 +1,6 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:if test="${empty sessionScope.userSession.email}">
 	<script>
@@ -169,6 +170,95 @@
 				  
 				  <div class="clearfix"></div>
 				  <br />
+				  <button class="btn btn-primary" data-toggle="modal" data-target="#agregaguia"><s:message code="addGuideNumber" /></button>
+				  <div class="clearfix"></div>
+				  <div class="" ng-init="getGuidesNumbersByOrder(${ order.id });">
+				  	<div class="table-responsive">
+			  			<table class="table table-bordered a">
+			  				<tr class="black a" >
+			  					<td colspan="4" class=" vertical-aling-middel btn-black a">
+			  						<s:message code="titleGuideNumber" />
+			  					</td>
+			  				</tr>
+			  				<tr class="btn-black a">
+			  					<td><s:message code="delete" /></td>
+			  					<td><s:message code="admin.modify" /></td>
+			  					<td><s:message code="trakingNumber" /></td>
+			  					<td><s:message code="trakingCompany" /></td>
+			  				</tr>
+			  				<tr ng-repeat="a in allOrders" class="center text-center">
+			  					<td class="click" ng-click="deleteGuideNumber(a.id);"><i class="fa fa-times" aria-hidden="true"></i></td>
+			  					<td class="click" ng-click="paraModificar(a);"  data-toggle="modal" data-target="#modificaguia"><i class="fa fa-pencil" aria-hidden="true"></i></td>
+			  					<td>{{ a.guideNumber }}</td>
+			  					<td>{{ a.carrier }}</td>
+			  				</tr>
+			  			</table>
+				  	</div>
+				  </div>
+
+<!-- Modal -->
+<div id="modificaguia" class="modificaguia modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><s:message code="admin.modify" /> <s:message code="titleGuideNumber" /></h4>
+      </div>
+      <div class="modal-body">
+        <form action="" onsubmit="return false;" ng-submit="updateGuideNumber();">
+        	 <div class="form-group">
+			    <label for=""><s:message code="trakingNumber" /></label>
+			    <input type="text" class="form-control" ng-model="modificaGuia.guideNumber" ng-required="true">
+			  </div>
+			  <div class="form-group">
+			    <label for=""><s:message code="trakingCompany" /></label>
+			    <input type="text" ng-model="modificaGuia.carrier" class="form-control" ng-required="true">
+			  </div>
+			  <button class="btn btn-success"><s:message code="admin.save" /></button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><s:message code="reports.close" /></button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="agregaguia" class="agregaguia modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><s:message code="addGuideNumber" /></h4>
+      </div>
+      <div class="modal-body">
+        <form action="" onsubmit="return false;" ng-submit="createGuideNumber();">
+        	 <div class="form-group">
+			    <label for=""><s:message code="trakingNumber" /></label>
+			    <input type="text" class="form-control" ng-model="creaguia.guideNumber" ng-required="true">
+			  </div>
+			  <div class="form-group">
+			    <label for=""><s:message code="trakingCompany" /></label>
+			    <input type="text" ng-model="creaguia.carrier" class="form-control" ng-required="true">
+			  </div>
+			  <button class="btn btn-success"><s:message code="admin.save" /></button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><s:message code="reports.close" /></button>
+      </div>
+    </div>
+
+  </div>
+</div>
+				  <div class="clearfix"></div>
+				  <br />
 				  
 				  <style>
 				  	.vertical-aling-middel
@@ -183,6 +273,12 @@
 				  			<table class="table table-bordered a">
 				  				<tr class="black a" ng-init="price = 0">
 				  					<td class=" vertical-aling-middel btn-black a">
+				  					</td>
+				  					<td class=" vertical-aling-middel btn-black a">
+				  						SKU
+				  					</td>
+				  					<td class=" vertical-aling-middel btn-black a">
+				  						<s:message code="product.size" />
 				  					</td>
 				  					<td class="vertical-aling-middel hidden">
 				  						<s:message code="buy.title" />
@@ -207,23 +303,33 @@
 					  					<td class="vertical-aling-middel">
 					  						<img src="${ a.url }" class="img-responsive center center1" alt="" style="max-width:70px;" />
 					  					</td>
+					  					<td class="vertical-aling-middel">${ a.product.sku }</td>
+					  					<td class="vertical-aling-middel">${ a.product.sizeText }</td>
 					  					<td class="vertical-aling-middel hidden">${ a.product }</td>
-					  					<td class="vertical-aling-middel">${ a.individualPrice }</td>
+					  					<td class="vertical-aling-middel">
+								        	<span>USD $ </span>
+								        	<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${ a.individualPrice }"/>
+								        </td>
 					  					<%-- 
 					  					<td class="vertical-aling-middel hidden">${ a.taxesAmount }</td>
 					  					--%>
 					  					<td class="vertical-aling-middel">${ a.quantity }</td>
-					  					<td class="vertical-aling-middel" ng-init="price = price + ${ ((a.individualPrice) * a.quantity) };">${ ((a.individualPrice) * a.quantity) }</td>
+					  					<td class="vertical-aling-middel" ng-init="price = price + ${ ((a.individualPrice) * a.quantity) };">
+								        	<span>USD $ </span>
+								        	<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${ ((a.individualPrice) * a.quantity) }"/>
+					  					</td>
 					  				</tr>
 						       </c:forEach>
 						       <tr class="center center1 a">
+						       		<td></td>
+						       		<td></td>
 						       		<td></td>
 						       		<td></td>
 						       		<%-- 
 						       		<td class="hidden"></td>
 						       		--%>
 						       		<td class="btn-black a">Total</td>
-						       		<td>{{ price | currency:"USD$ " }}</td>
+						       		<td>{{ price | currency:"USD $ " }}</td>
 						       </tr>
 				  			</table>
 				  		</div>
